@@ -1,4 +1,12 @@
 #!/usr/bin/env python
+import os
+import sys
+
+BASE_PATH = os.path.dirname(__file__)
+NAYA_PATH = os.path.abspath(os.path.join(BASE_PATH, '../naya'))
+sys.path.insert(0, NAYA_PATH)
+
+
 from fabric.api import local
 from naya.script import make_shell
 from werkzeug.script import make_runserver, run
@@ -18,7 +26,7 @@ def action_clean(mask=''):
     local('\n'.join(command), capture=False)
 
 
-action_shell = make_shell({'app': app})
+action_shell = make_shell(lambda:{'app': app})
 action_runserver = make_runserver(
     lambda: app, use_reloader=True, use_debugger=True
 )
