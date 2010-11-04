@@ -1,2 +1,6 @@
-{{ app.root.import_name }}
-<a href="{{ app.url_for(':theme', path='index.html') }}">index</a>
+{% extends "base.html" %}
+{% block title %}Персональный сайт Гриши aka naspeh{% endblock %}
+{% from 'naspeh.html' import profile with context %}
+{% block content %}
+{{ profile() }}
+{% endblock %}

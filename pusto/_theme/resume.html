@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Резюме Костюк Гриши{% endblock %}
+
+{% block content %}{% filter markdown %}
+<img src="{{ app.url_for(':theme', path='/static/img/ava200.jpg') }}" style="float: right" />
+##Гриша Костюк
+ * **aka [naspeh](http://pusto.org/post/unikalniy-nick/)**
+ * email и jabber: **naspeh(at)gmail.com**
+ * тел: +380 63 6931716
+ * г. Днепродзержинск (Украина)
+ * дата рождения: **15 апреля 1983**
+
+
+**Цель:** творческая работа в сфере веб-разработки.
+
+**Образование:** законченное высшее. 2000 - 2005 Днепропетровский Национальный Университет, механико-математический факультет. Специалист. Квалификация: механик-исследователь-программист.
+
+**Английский:** средний уровень.
+
+###Опыт работы
+ * **с 12.2009 веб-разработчик на python в [42 Coffee Cups](http://42coffeecups.com/)**;
+ * 02.2009 - 09.2009 веб-разработчик на Java в [Ardas Group](http://www.ardas.dp.ua/ru);
+ * 03.2007 - 02.2009 веб-разработчик на PHP, Freelance;
+ * 11.2006 - 03.2007 веб-разработчик на PHP в ЧП «Зебра»;
+ * 04.2006 - 10.2006 аналитик в ЧП «Компьютерные технологии и системы»;
+ * 02.2005 - 04.2006 оператор 1С в ТК «Сальве».
+
+
+###Собственные проекты
+**[horosh.org][horosh]** - проект для публикации отчетов о путешествиях. Стартовал 25.11.2009.
+
+На нем опробован новый для меня [python][python] фреймворк [Pylons][pylons]. В качестве JavaScript фреймворка был использован [jQuery][jquery]. Приложение проектировал удобным, использовал AJAX, но старался не перегибать с последним. Оценить интерфейс редактирования можно по [демо событию](http://horosh.org/demo/). Код доступен на [bitbucket.org](https://bitbucket.org/naspeh/horosh/src).
+
+
+###Активно использую
+   * [python][python] с августа 2009 г; работал с [Django](http://www.djangoproject.com/), [Pylons][pylons];  интересуюсь [Werkzeug](http://werkzeug.pocoo.org), [Flask](http://flask.pocoo.org);
+   * AJAX/JavaScript работал с [jQuery][jquery], [Prototype](http://www.prototypejs.org/);
+   * (X)HTML/CSS; интересуюсь [семантической версткой](http://pepelsbey.net/2008/04/semantic-coding-1/);
+   * SQL (MySQL, SQLite); интересуюсь [MongoDB](http://www.mongodb.org/);
+   * [распределённые системы контроля версий (DVCS)](http://habrahabr.ru/blogs/development_tools/71115/): [mercurial](http://mercurial.selenic.com/), [git](http://git-scm.com/);
+   * пользователь GNU/Linux с июля 2008.
+
+Интересуюсь архитектурой приложений, [паттернами проектирования](http://ru.wikipedia.org/wiki/Шаблон_проектирования), [гибкими методиками разработки](http://ru.wikipedia.org/wiki/Гибкая_методология_разработки), [TDD](http://ru.wikipedia.org/wiki/Разработка_через_тестирование), [свободным ПО](http://ru.wikipedia.org/wiki/Свободное_программное_обеспечение), пользовательскими интерфейсами, [юзабилити](http://ru.wikipedia.org/wiki/Юзабилити). Слежу за новшествами в сфере веб-разработки.
+
+###Ранее использовал
+   * Java с февраля 2009 г (последний раз - сентябрь 2009 г);
+   * PHP с ноября 2006 г; работал с [Zend Framework](http://framework.zend.com/) (последний раз - март 2009 г).
+
+###Личные качества
+Стремление к знаниям и идеалам, увлеченный и общительный в общем кругу интересов, честный, спокойный.
+
+###Другие интересы и увлечения
+Созидание, развитие. Семья. Путешествия, велосипед. Играю на бильярде, в футбол, в настольный теннис.
+
+###Прочее
+Не курю, не пью, [женат](http://horosh.org/event-63-karpatyi-chernogorskij-hrebet).
+
+[pylons]: http://pylonshq.com/
+[python]: http://python.org/
+[horosh]: http://horosh.org/
+[jquery]: http://jquery.com/
+
+{% endfilter %}{% endblock %}

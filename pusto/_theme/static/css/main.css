@@ -1,0 +1,68 @@
+/* Base */
+body {
+    font-family: Verdana, sans-serif;
+    font-size: 1em;
+    line-height: 1.5em;
+    width: 50em;
+    margin: 0 auto;
+}
+
+a {
+    color: #008000;
+    text-decoration: none;
+}
+a:hover { color: #f63; }
+
+blockquote {
+    padding: 5px;
+    background: #eee;
+    border-left: 3px solid #f63;
+}
+
+pre {
+    padding: 5px;
+    font-family: monospace;
+    background: #eee;
+    border-top: 1px solid #008000;
+    border-bottom: 1px solid #008000;
+    overflow: auto;
+}
+
+/* Header */
+.header {
+    background: #f63;
+    height: 40px;
+    position: relative;
+    border-radius: 0 0 15px 15px;
+    -moz-border-radius: 0 0 15px 15px;
+    -webkit-border-radius: 0 0 15px 15px;
+}
+.header img {
+    border: none;
+}
+.header h1 {
+    position: absolute;
+    left: 220px;
+    top: 20px;
+    font-size: 1.5em;
+    color: #eff;
+}
+.header .logo-wrap {
+    background-color: #008000;
+    display: inline-block;
+    padding-left: 20px;
+    height: 40px;
+    border-radius: 0 0 0 15px;
+    -moz-border-radius: 0 0 0 15px;
+    -webkit-border-radius: 0 0 0 15px;
+}
+.header .logo {
+    display: inline-block;
+    height: 46px;
+    width: 198px;
+    background: #fff url('../img/logo-hands.png') no-repeat right center;
+}
+
+.content {
+    padding: 0 20px;
+}

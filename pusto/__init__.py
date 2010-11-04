@@ -1,6 +1,6 @@
 from naya import App
 
-from . import conf, views
+from . import conf
 
 
-app = App(views.root, conf.get_prefs)
+app = App(conf.get_prefs())
