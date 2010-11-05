@@ -6,16 +6,16 @@
     <meta name="author" content="{{ author }}" />
     <title>pusto.org: {% block title %}Гриша aka naspeh{% endblock %}</title>
 
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.2.0/build/cssreset/reset-min.css">
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.2.0/build/cssbase/base-min.css">
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.2.0/build/cssfonts/fonts-min.css">
-
     <link rel="stylesheet" href="{{ app.url_for(':theme', path='static/css/syntax.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ app.url_for(':theme', path='static/css/main.css') }}" type="text/css" />
 </head>
 <body>
     <div class="header">
         <div class="logo-wrap"><a href="/" class="logo"></a></div>
+        <div class="header-adds">
+            <div class="source"><a href="http://bitbucket.org/naspeh/pusto/src">source</a></div>
+            <div class="powered-by">powered by <a href="http://bitbucket.org/naspeh/naya/src">naya</a></div>
+        </div>
     </div>
     <div class="content">
         {% block content %}{% endblock %}

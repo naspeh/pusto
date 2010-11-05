@@ -1,9 +1,8 @@
+@import(base.css);
 /* Base */
 body {
     font-family: Verdana, sans-serif;
-    font-size: 1em;
-    line-height: 1.5em;
-    width: 50em;
+    width: 55em;
     margin: 0 auto;
 }
 
@@ -14,15 +13,14 @@ a {
 a:hover { color: #f63; }
 
 blockquote {
-    padding: 5px;
     background: #eee;
+    padding: 0 0 0 10px;
     border-left: 3px solid #f63;
 }
 
 pre {
-    padding: 5px;
-    font-family: monospace;
     background: #eee;
+    padding: 5px;
     border-top: 1px solid #008000;
     border-bottom: 1px solid #008000;
     overflow: auto;
@@ -62,7 +60,48 @@ pre {
     width: 198px;
     background: #fff url('../img/logo-hands.png') no-repeat right center;
 }
+.header-adds {
+    position: relative;
+    float: right;
+    white-space: nowrap;
+    margin: -4px 10px 0 0;
+    line-height: 1.2em;
+}
+.header .powered-by {
+    display: inline-block;
+    background-color: #008000;
+    font-size: small;
+    color: #fff;
+    padding-left: 10px;
+    border-radius: 0 0 10px 10px;
+    -moz-border-radius: 0 0 10px 10px;
+    -webkit-border-radius: 0 0 10px 10px;
+}
+.header .powered-by a {
+    display: inline-block;
+    font-weight: bold;
+    background: #fff;
+    padding: 0 10px;
+    border-radius: 0 0 10px 10px;
+    -moz-border-radius: 0 0 10px 10px;
+    -webkit-border-radius: 0 0 10px 10px;
+}
 
+.header .source {
+    display: inline-block;
+    background-color: #fff;
+    font-weight: bold;
+    font-size: small;
+    color: #fff;
+    padding: 0 10px;
+    margin-right: 5px;
+    border-radius: 0 0 10px 10px;
+    -moz-border-radius: 0 0 10px 10px;
+    -webkit-border-radius: 0 0 10px 10px;
+
+}
+
+/* Content */
 .content {
     padding: 0 20px;
 }
