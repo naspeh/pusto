@@ -1,31 +1,3 @@
-@import(base.css);
-/* Base */
-body {
-    font-family: Verdana, sans-serif;
-    width: 55em;
-    margin: 0 auto;
-}
-
-a {
-    color: #008000;
-    text-decoration: none;
-}
-a:hover { color: #f63; }
-
-blockquote {
-    background: #eee;
-    padding: 0 0 0 10px;
-    border-left: 3px solid #f63;
-}
-
-pre {
-    background: #eee;
-    padding: 5px;
-    border-top: 1px solid #008000;
-    border-bottom: 1px solid #008000;
-    overflow: auto;
-}
-
 /* Header */
 .header {
     background: #f63;

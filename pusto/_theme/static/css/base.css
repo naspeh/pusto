@@ -1,76 +1,174 @@
-/* -----------------------------------------------------------------------
- Blueprint CSS Framework 1.0
- http://blueprintcss.org
+/*
+   No Reset: A Base Stylesheet For Your Projects
+   Makes browser default styles more consistent, and provides a canvas that
+   you SHOULD modify to fit your needs.
+   http://covertprestige.info/css/base-stylesheet/
+*/
 
-   * Copyright (c) 2007-Present. See LICENSE for more info.
-   * See README for instructions on how to use Blueprint.
-   * For credits and origins, see AUTHORS.
-   * This is a compressed file. See the sources in the 'src' directory.
------------------------------------------------------------------------ */
+/* Page */
+html {
+  font-size: 100%; /* Avoids IE 5-7 bug with EM fonts */
+}
+body {
+  width: 55em;
+  padding: 0;
+  margin: 0 auto;
+  font-family: Verdana, "DejaVu Sans", Geneva, sans-serif;
+  font-size: .625; /* Adapt for your chosen type! Usual range: .625 to 1 */
+  line-height: 1.4; /* Adapt for your design and chosen type! 1.1-1.2 is good
+    for title text or narrow column text but you will want to increase that
+    to something in the 1.2-1.8 range for main content text. */
+  color: black;
+  background: white;
+}
 
-/* reset.css */
-html {margin:0;padding:0;border:0;}
-body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
-article, aside, dialog, figure, footer, header, hgroup, nav, section {display:block;}
-body {line-height:1.5;background:white;}
-table {border-collapse:separate;border-spacing:0;}
-caption, th, td {text-align:left;font-weight:normal;float:none !important;}
-table, th, td {vertical-align:middle;}
-blockquote:before, blockquote:after, q:before, q:after {content:'';}
-blockquote, q {quotes:"" "";}
-a img {border:none;}
-:focus {outline:0;}
+/* HTML5 defaults */
+article, aside, dialog, figcaption, figure, footer,
+header, hgroup, menu, nav, section {
+  display: block;
+}
 
-/* typography.css */
-html {font-size:100.01%;}
-body {font-size:75%;color:#222;background:#fff;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;}
-h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
-h1 {font-size:3em;line-height:1;margin-bottom:0.5em;}
-h2 {font-size:2em;margin-bottom:0.75em;}
-h3 {font-size:1.5em;line-height:1;margin-bottom:1em;}
-h4 {font-size:1.2em;line-height:1.25;margin-bottom:1.25em;}
-h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em;}
-h6 {font-size:1em;font-weight:bold;}
-h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {margin:0;}
-p {margin:0 0 1.5em;}
-.left {float:left !important;}
-p .left {margin:1.5em 1.5em 1.5em 0;padding:0;}
-.right {float:right !important;}
-p .right {margin:1.5em 0 1.5em 1.5em;padding:0;}
-a:focus, a:hover {color:#09f;}
-a {color:#06c;text-decoration:underline;}
-blockquote {margin:1.5em;color:#666;font-style:italic;}
-strong, dfn {font-weight:bold;}
-em, dfn {font-style:italic;}
-sup, sub {line-height:0;}
-abbr, acronym {border-bottom:1px dotted #666;}
-address {margin:0 0 1.5em;font-style:italic;}
-del {color:#666;}
-pre {margin:1.5em 0;white-space:pre;}
-pre, code, tt {font:1em 'andale mono', 'lucida console', monospace;line-height:1.5;}
-li ul, li ol {margin:0;}
-ul, ol {margin:0 1.5em 1.5em 0;padding-left:1.5em;}
-ul {list-style-type:disc;}
-ol {list-style-type:decimal;}
-dl {margin:0 0 1.5em 0;}
-dl dt {font-weight:bold;}
-dd {margin-left:1.5em;}
-table {margin-bottom:1.4em;width:100%;}
-th {font-weight:bold;}
-thead th {background:#c3d9ff;}
-th, td, caption {padding:4px 10px 4px 5px;}
-tbody tr:nth-child(even) td, tbody tr.even td {background:#e5ecf9;}
-tfoot {font-style:italic;}
-caption {background:#eee;}
-.small {font-size:.8em;margin-bottom:1.875em;line-height:1.875em;}
-.large {font-size:1.2em;line-height:2.5em;margin-bottom:1.25em;}
-.hide {display:none;}
-.quiet {color:#666;}
-.loud {color:#000;}
-.highlight {background:#ff0;}
-.added {background:#060;color:#fff;}
-.removed {background:#900;color:#fff;}
-.first {margin-left:0;padding-left:0;}
-.last {margin-right:0;padding-right:0;}
-.top {margin-top:0;padding-top:0;}
-.bottom {margin-bottom:0;padding-bottom:0;}
+/* Titles */
+h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 .5em 0; /* Titles should be close to the text they describe */
+  line-height: 1.2; /* Bigger text is often nicer with smaller line space */
+  font-weight: bold; /* Browser default. Use "normal" for less bulky titles */
+  font-style: normal;
+}
+h1 {
+  font-size: 1.75em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.25em;
+}
+h4 {
+  font-size: 1em;
+}
+
+/* Lists */
+ul, ol {
+  margin: .75em 0 .75em 32px;
+  padding: 0;
+}
+
+/* Paragraphs */
+p {
+  margin: .75em 0; /* Most browser defaults are "1em 0". */
+}
+address {
+  margin: .75em 0; /* You may want display:inline;margin:0; in HTML 5 */
+  font-style: normal; /* The annoying browser default is "italic". */
+}
+
+/* Links */
+a {
+  color: #008000;
+  text-decoration: none;
+}
+a:hover, a:focus, a:active {
+  color: #f63;
+}
+/* No dotted outline or halo around links when clicking them */
+a:active {
+  outline: none;
+}
+/* No border around images in links */
+a img {
+  border: none;
+}
+
+/* Misc inline elements */
+/* These are default styles in virtually any browser, but you may want to
+   change them for a specific project. */
+em {
+  font-style: italic;
+}
+strong {
+  font-weight: bold;
+}
+/* Stopping superscript and subscript from augmenting the line's leading */
+sup, sub {
+  line-height: 0;
+}
+
+/* Forms */
+form, fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+input, button, select {
+  vertical-align: middle; /* Not perfect,
+  but best compromise for most browsers */
+}
+
+
+/* --- ADDITIONAL BASIC STYLES --- */
+
+/* Make abbreviations more clearly visible */
+abbr[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+
+/* Make quotations more clearly visible */
+pre {
+    background: #efe;
+    padding: 5px;
+    border-top: 1px solid #008000;
+    border-bottom: 1px solid #008000;
+    line-height: 1.2em;
+    overflow: auto;
+}
+
+blockquote {
+  margin: .75em 0 .75em 20px;
+  padding: 0 0 0 10px;
+  background: #efe;
+  border-left: 3px solid #f63;
+}
+q, cite {
+  font-style: italic;
+}
+q cite, q q {
+  font-style: normal
+}
+
+/* Remove automatic quotation marks for inline quotations
+   ("quotes:none" not working in Safari/Chrome) */
+q:before, q:after {
+  content: "";
+}
+
+/* Bring paragraphs inside lists or quotations closer */
+blockquote p, li p {
+  margin: .5em 0;
+}
+
+/* Basic styles for definition lists */
+dl {
+  margin: .75em 0;
+}
+dt {
+  margin: .75em 0 0 0;
+  font-weight: bold;
+}
+dd {
+  margin: .25em 0 .25em 32px;
+}
+
+/* Simple styles for tables */
+table {
+  margin: 0;
+  border: 1px solid gray; /* Set to "none" to suppress the table border */
+  border-collapse: collapse; /* Default is "seperate" */
+  border-spacing: 0; /*! No IE 6-7 support */
+}
+table td, table th {
+  padding: 4px; /* Set to "0" for no white space around cell contents */
+  border: 1px solid #ccc; /* Set to "none" to suppress cell borders */
+  vertical-align: top; /* Default is "middle" */
+}
