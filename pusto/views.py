@@ -1,12 +1,22 @@
 from naya import Module
+from werkzeug import redirect, abort
 
 
 mod = Module(__name__)
 
 
-@mod.route(
-    '/blog/2008/09/25/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/',
-    redirect_to='post/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/'
+REDIRECTS = (
+    ('/post/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/',
+    'blog/2008/09/25/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework',
+    'r/zf-autoload'),
+    ('/post/unikalniy-nick/', 'r/nick')
 )
-def redirect(app):
-    pass
+
+
+@mod.route('/<path:path>')
+def redirector(app, path):
+    path = path.rstrip('/')
+    for paths in REDIRECTS:
+        if path in paths:
+            return redirect(paths[0])
+    abort(404)
