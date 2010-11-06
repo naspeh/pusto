@@ -18,7 +18,7 @@ def action_clean(mask=''):
     local('\n'.join(command), capture=False)
 
 
-action_shell = make_shell(lambda:{'app': app})
+action_shell = make_shell(lambda: {'app': app})
 action_runserver = make_runserver(
     lambda: app, use_reloader=True, use_debugger=True
 )
