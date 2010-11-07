@@ -26,22 +26,15 @@ def action_clean(mask=''):
 
 def action_deploy(host='yadro.org'):
     '''Deploy code on server.'''
-    if host:
-        sh(('pwd', 'hg push'))
-        sh((
-            '{activate}',
-            'cd {project_path}',
-            'hg pull', 'hg up',
-            './manage.py deploy ""'
-        ), host=host, params=SERVER_PARAMS)
-        return
-
+    sh(('pwd', 'hg push'))
     sh((
         '{activate}',
-        'cd {naya_path}', 'pwd', 'hg up', 'pip  install .',
-        'cd {project_path}', 'pwd', 'hg pull', 'hg up',
-    ), params=SERVER_PARAMS)
-    sh(('{project_path}/pusto.fcgi > /dev/null &'), params=SERVER_PARAMS)
+        'cd {project_path}',
+        'hg pull', 'hg up',
+    ), host=host, params=SERVER_PARAMS)
+    sh((
+        'nohup {project_path}/pusto.fcgi > /dev/null &'
+    ), host=host, params=SERVER_PARAMS)
 
 
 action_shell = make_shell(lambda: {'app': app})
