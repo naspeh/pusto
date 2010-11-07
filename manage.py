@@ -44,7 +44,7 @@ def action_deploy(host='yadro.org', killall=True):
         sh(('killall pusto.fcgi'))
 
     sh((
-        'screen -d -m {project_path}/pusto.fcgi > /dev/null',
+        'screen -d -m {project_path}/pusto.fcgi',
     ), params=SERVER_PARAMS)
 
 
