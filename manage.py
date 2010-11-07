@@ -30,9 +30,11 @@ def action_deploy(host='yadro.org'):
         sh(('pwd', 'hg push'))
         sh((
             '{activate}',
-            '{project_path}/manage.py deploy ""'
+            'cd {project_path}',
+            'hg pull', 'hg up',
+            './manage.py deploy ""'
         ), host=host, params=SERVER_PARAMS)
-    return
+        return
 
     sh((
         '{activate}',
