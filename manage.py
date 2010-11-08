@@ -8,7 +8,6 @@ from pusto import app
 SERVER_PARAMS = {
     'activate': 'source /root/.virtualenvs/pusto/bin/activate && which python',
     'project_path': '/var/www/nanaya',
-    'naya_path': '/root/repos/naya',
 }
 
 
@@ -24,9 +23,9 @@ def action_clean(mask=''):
     sh('\n'.join(command))
 
 
-def action_deploy(host='yadro.org', killall=True):
+def action_deploy(host='yadro.org', killall=True, on_server=('s', False)):
     '''Deploy code on server.'''
-    if host:
+    if host and not on_server:
         sh(('pwd', 'hg push'))
         sh((
             '{activate}',
@@ -39,7 +38,7 @@ def action_deploy(host='yadro.org', killall=True):
     sh((
         '{activate}',
         'cd {project_path}', 'pwd', 'hg pull', 'hg up',
-        'cd {naya_path}', 'hg up', 'pip install .',
+        'pip install -r requirements.txt',
     ), params=SERVER_PARAMS)
 
     if killall:
