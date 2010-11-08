@@ -1,8 +1,7 @@
 from naya import App
-from naya.ext.jinja import filters
 
 from . import views
-
+from .jinja import filters
 
 app = App(__name__, {
     'debug': True,
@@ -12,6 +11,6 @@ app = App(__name__, {
     'jinja': {
         'url_prefix': '/',
         'path_ends': ['.html', '/index.html'],
-        'filters': filters.all
+        'filters': filters.all_by_name
     }
 })
