@@ -37,6 +37,7 @@ def action_deploy(host='yadro.org', killall=True):
 
     sh((
         '{activate}',
+        'cd {naya_path}', 'hg up', 'pip install .',
         'cd {project_path}', 'pwd', 'hg pull', 'hg up',
     ), params=SERVER_PARAMS)
 
