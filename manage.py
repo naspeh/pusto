@@ -31,7 +31,7 @@ def action_deploy(host='yadro.org', killall=True, on_server=('s', False)):
             '{activate}',
             'cd {project_path}', 'pwd',
             'hg pull', 'hg up',
-            './manage.py deploy ""' + (not killall and ' --no-killall' or ''),
+            './manage.py deploy -s' + (not killall and ' --no-killall' or ''),
         ), host=host, params=SERVER_PARAMS)
         return
 
