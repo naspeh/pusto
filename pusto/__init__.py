@@ -10,7 +10,7 @@ app = App(__name__, {
     },
     'jinja': {
         'url_prefix': '/',
-        'path_ends': ['.html', '/index.html'],
+        'path_ends': ['/index.html', '.html'],
         'filters': filters.all_by_name
     }
 })
