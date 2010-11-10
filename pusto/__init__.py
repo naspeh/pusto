@@ -5,7 +5,7 @@ from .jinja import filters
 
 app = App(__name__, {
     'debug': True,
-    'submodules': {
+    'modules': {
         '': views.mod,
     },
     'jinja': {
