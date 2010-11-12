@@ -23,15 +23,15 @@ def action_clean(mask=''):
     sh('\n'.join(command))
 
 
-def action_deploy(host='yadro.org', killall=True, on_server=('s', False)):
+def action_deploy(host='yadro.org', kill=True, server=('s', False)):
     '''Deploy code on server.'''
-    if host and not on_server:
+    if host and not server:
         sh(('pwd', 'hg push'))
         sh((
             '{activate}',
             'cd {project_path}', 'pwd',
             'hg pull', 'hg up',
-            './manage.py deploy -s' + (not killall and ' --no-killall' or ''),
+            './manage.py deploy -s' + (not kill and ' --no-kill' or ''),
         ), host=host, params=SERVER_PARAMS)
         return
 
@@ -41,7 +41,7 @@ def action_deploy(host='yadro.org', killall=True, on_server=('s', False)):
         'pip install -r docs/pip.stage.txt',
     ), params=SERVER_PARAMS)
 
-    if killall:
+    if kill:
         sh(('killall pusto.fcgi'))
 
     sh((
