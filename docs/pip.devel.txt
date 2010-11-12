@@ -1,0 +1,10 @@
+-e git://github.com/mitsuhiko/werkzeug.git#egg=werkzeug
+-e git://github.com/mitsuhiko/jinja2.git#egg=jinja2
+markdown2
+pygments
+
+nose
+coverage
+
+pep8
+bpython

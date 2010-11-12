@@ -38,7 +38,7 @@ def action_deploy(host='yadro.org', killall=True, on_server=('s', False)):
     sh((
         '{activate}',
         'cd {project_path}', 'pwd', 'hg pull', 'hg up',
-        'pip install -r requirements.txt',
+        'pip install -r docs/pip.stage.txt',
     ), params=SERVER_PARAMS)
 
     if killall:
@@ -47,6 +47,29 @@ def action_deploy(host='yadro.org', killall=True, on_server=('s', False)):
     sh((
         'screen -d -m {project_path}/pusto.fcgi',
     ), params=SERVER_PARAMS)
+
+
+def action_test(target='', clean=False, failed=('f', False),
+                with_coverage=('c', False), cover_package=('p', 'pusto')):
+    '''Run tests.'''
+    if clean:
+        command = ['nosetests']
+    else:
+        command = ['nosetests -v']
+
+    if failed:
+        command.append('--failed')
+    if with_coverage:
+        command.append('--with-coverage --cover-tests')
+    if cover_package:
+        command.append('--cover-package={0}'.format(cover_package))
+
+    command.append('--with-id')
+
+    if target:
+        command.append(target)
+
+    sh(' '.join(command))
 
 
 action_shell = make_shell(lambda: {'app': app})

@@ -1,7 +1,0 @@
-werkzeug
-jinja2
-markdown2
-pygments
-
--e hg+ssh://yadro.org/repos/naya@tip#egg=naya
-#-e hg+ssh://bitbucket.org/naspeh/naya#egg=naya
