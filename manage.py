@@ -5,10 +5,10 @@ from werkzeug.script import make_runserver, run
 from pusto import app
 
 
-SERVER_PARAMS = {
+sh.defaults(params={
     'activate': 'source /root/.virtualenvs/pusto/bin/activate && which python',
     'project_path': '/var/www/nanaya',
-}
+})
 
 
 def action_pep8(target='.'):
@@ -32,21 +32,21 @@ def action_deploy(host='yadro.org', kill=True, server=('s', False)):
             'cd {project_path}', 'pwd',
             'hg pull', 'hg up',
             './manage.py deploy -s' + (not kill and ' --no-kill' or ''),
-        ), host=host, params=SERVER_PARAMS)
+        ), host=host)
         return
 
     sh((
         '{activate}',
         'cd {project_path}', 'pwd', 'hg pull', 'hg up',
         'pip install -r docs/pip.stage.txt',
-    ), params=SERVER_PARAMS)
+    ))
 
     if kill:
         sh(('killall pusto.fcgi'))
 
     sh((
         'screen -d -m {project_path}/pusto.fcgi',
-    ), params=SERVER_PARAMS)
+    ))
 
 
 def action_test(target='', clean=False, failed=('f', False),
