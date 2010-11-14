@@ -11,6 +11,7 @@ app = App(__name__, {
     'jinja': {
         'url_prefix': '/',
         'path_ends': ['/index.html', '.html'],
+        'path_allow': ['index.html', 'naspeh.html', 'resume.html', 'post/*'],
         'filters': filters.all_by_name
     }
 })
