@@ -26,7 +26,7 @@ def action_clean(mask=''):
 def action_deploy(host='yadro.org', kill=True, server=('s', False)):
     '''Deploy code on server.'''
     if host and not server:
-        sh(('pwd', 'hg push'))
+        sh(('pwd', 'hg push -r default'))
         sh((
             '{activate}',
             'cd {project_path}', 'pwd',
