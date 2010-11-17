@@ -10,6 +10,8 @@ def test_allow_and_redirects():
     check('/', '/index.html')
     check('/resume/', '/resume.html')
     check('/naspeh/', '/naspeh.html')
+    check('/googlee71e35f8e9cbd607/', '/googlee71e35f8e9cbd607.html')
+
     for item in REDIRECTS:
         check(*item)
 

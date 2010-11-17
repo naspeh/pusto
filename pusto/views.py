@@ -10,7 +10,6 @@ REDIRECTS = (
     'blog/2008/09/25/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework',
     'r/zf-autoload'),
     ('/post/unikalniy-nick/', 'r/nick'),
-    ('/s/googlee71e35f8e9cbd607.html', 'googlee71e35f8e9cbd607.html')
 )
 
 
