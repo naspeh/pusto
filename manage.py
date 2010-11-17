@@ -26,18 +26,18 @@ def action_clean(mask=''):
 def action_deploy(host='yadro.org', kill=True, server=('s', False)):
     '''Deploy code on server.'''
     if host and not server:
-        sh(('pwd', 'hg push -r default'))
+        sh(('pwd', 'git push origin master'))
         sh((
             '{activate}',
             'cd {project_path}', 'pwd',
-            'hg pull', 'hg up',
+            'git pull origin master',
             './manage.py deploy -s' + (not kill and ' --no-kill' or ''),
         ), host=host)
         return
 
     sh((
         '{activate}',
-        'cd {project_path}', 'pwd', 'hg pull', 'hg up',
+        'cd {project_path}', 'pwd', 'git pull origin master',
         'pip install -r docs/pip.stage.txt',
     ))
 
