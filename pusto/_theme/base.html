@@ -6,9 +6,11 @@
     <meta name="author" content="{{ author }}" />
     <title>pusto.org: {% block title %}Гриша aka naspeh{% endblock %}</title>
 
+    <link rel="icon" href="{{ app.url_for(':theme', path='favicon.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ app.url_for(':theme', path='static/css/base.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ app.url_for(':theme', path='static/css/main.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ app.url_for(':theme', path='static/css/syntax.css') }}" type="text/css" />
+    {% block extrahead %}{% endblock %}
 </head>
 <body>
     <div class="header">

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Edit for fun{% endblock %}
+{% block extrahead %}
+<style>
+    {% include 'editor.css' %}
+</style>
+{% endblock %}
+{% macro mock_text() -%}
+Итак, портрет. Ты — фанатик своей профессии, можешь сутки напролет над чем-то работать, забывая поесть и погулять, голова постоянно занята поиском решений каких-то проблем, в любой работе стараешься найти изящное решение, даже если на это уйдет больше времени. Если это так, то есть вероятность, что далее пойдет речь о твоей проблеме.
+{% endmacro %}
+{%- block content %}
+<div class="b-wrap">
+    <div class="b-viewer">
+        {% for i in range(10) -%}
+        <div name="bit-{{i}}" id="bit-{{i}}" class="bit">
+            <div class="info">#{{i}}</div>
+            {{ mock_text() }}
+        </div>
+        {%- endfor %}
+    </div>
+    <div class="b-editor">
+        <div class="toolbar">
+            <div class="actions">
+               <select>
+                    {% for i in range(10) -%}
+                        <option>#{{i}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Готово" />
+            </div>
+        </div>
+        <div class="textarea">
+            <textarea>{{ mock_text() }}</textarea>
+        </div>
+    </div>
+</div>
+{% endblock %}
