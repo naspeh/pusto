@@ -1,15 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="author" content="{{ author }}" />
     <title>pusto.org: {% block title %}Гриша aka naspeh{% endblock %}</title>
 
     <link rel="icon" href="{{ app.url_for(':theme', path='favicon.png') }}" type="image/png">
-    <link rel="stylesheet" href="{{ app.url_for(':theme', path='static/css/base.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ app.url_for(':theme', path='static/css/main.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ app.url_for(':theme', path='static/css/syntax.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/base.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/main.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/syntax.css') }}" type="text/css" />
+
+    <script src="{{ app.url_for(':theme', path='_scripts/jquery.js') }}" type="text/javascript"></script>
     {% block extrahead %}{% endblock %}
 </head>
 <body>

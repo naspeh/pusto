@@ -30,7 +30,7 @@
     display: inline-block;
     height: 46px;
     width: 198px;
-    background: #fff url('../img/logo-hands.png') no-repeat right center;
+    background: #fff url('../_images/logo-hands.png') no-repeat right center;
 }
 .header-adds {
     position: relative;
@@ -75,6 +75,6 @@
 
 /* Content */
 .content {
-    padding: 0 20px;
+    padding: 0 10px;
     margin-top: 10px;
 }

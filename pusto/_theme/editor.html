@@ -3,6 +3,7 @@
 {% block extrahead %}
 <style>
     {% include 'editor.css' %}
+    {% include 'editor.js' %}
 </style>
 {% endblock %}
 {% macro mock_text() -%}
@@ -27,6 +28,7 @@
                     {% endfor %}
                 </select>
                 <input type="submit" value="Готово" />
+                <input type="submit" value="Сброс" />
             </div>
         </div>
         <div class="textarea">
