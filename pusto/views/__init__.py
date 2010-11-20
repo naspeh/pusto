@@ -1,8 +1,12 @@
 from naya import Module
 from werkzeug import redirect, abort
 
+from . import editor
 
-mod = Module(__name__)
+
+mod = Module(__name__, {
+    'maps': [(editor.map, 'editor')]
+})
 
 
 REDIRECTS = (

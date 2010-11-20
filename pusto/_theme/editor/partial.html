@@ -1,0 +1,31 @@
+{% macro mock_text() -%}
+Итак, портрет. Ты — фанатик своей профессии, можешь сутки напролет над чем-то работать, забывая поесть и погулять, голова постоянно занята поиском решений каких-то проблем, в любой работе стараешься найти изящное решение, даже если на это уйдет больше времени. Если это так, то есть вероятность, что далее пойдет речь о твоей проблеме.
+{% endmacro %}
+
+{% macro viewer(text, last=None) -%}
+    {% for bit in text.bits -%}
+    <div name="bit-{{ loop.index }}" id="bit-{{ loop.index }}" class="bit{% if last == bit %} last{% endif %}">
+        <div class="info">#{{ loop.index }}</div>
+        {{ bit.body }}
+    </div>
+    {%- endfor %}
+{%- endmacro %}
+
+{% macro editor(text, app) -%}
+<form method="post" action="{{ app.url_for(':editor.bit') }}" id="editor-form">
+    <div class="toolbar">
+        <div class="actions">
+           <select>
+                {% for i in range(10) -%}
+                    <option>#{{i}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Готово" />
+            <input type="reset" value="Сброс" />
+        </div>
+    </div>
+    <div class="textarea">
+        <textarea name="body">{{ mock_text() }}</textarea>
+    </div>
+</form>
+{%- endmacro %}
