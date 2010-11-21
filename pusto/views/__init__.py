@@ -1,5 +1,4 @@
 from naya import Module
-from werkzeug import redirect, abort
 
 from . import editor
 
@@ -22,5 +21,5 @@ def redirector(app, path):
     path = path.rstrip('/')
     for paths in REDIRECTS:
         if path in paths:
-            return redirect(paths[0])
-    abort(404)
+            return app.redirect(paths[0])
+    app.abort(404)

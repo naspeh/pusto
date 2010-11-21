@@ -10,9 +10,9 @@
 <style>{% include 'editor/main.css' %}</style>
 {% endblock %}
 
+
 {%- block content %}
 <div class="b-wrap">
-    <div class="b-viewer">{{ partial.viewer(text) }}</div>
-    <div class="b-editor">{{ partial.editor(text, app) }}</div>
+    {{ partial.partial(text, active, app) }}
 </div>
 {% endblock %}

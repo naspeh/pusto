@@ -2,30 +2,36 @@
 Итак, портрет. Ты — фанатик своей профессии, можешь сутки напролет над чем-то работать, забывая поесть и погулять, голова постоянно занята поиском решений каких-то проблем, в любой работе стараешься найти изящное решение, даже если на это уйдет больше времени. Если это так, то есть вероятность, что далее пойдет речь о твоей проблеме.
 {% endmacro %}
 
-{% macro viewer(text, last=None) -%}
+{% macro partial(text, active=None, app) -%}
+<div class="b-viewer">
     {% for bit in text.bits -%}
-    <div name="bit-{{ loop.index }}" id="bit-{{ loop.index }}" class="bit{% if last == bit %} last{% endif %}">
-        <div class="info">#{{ loop.index }}</div>
+    {% set index = bit._id and loop.index or 'new' %}
+    <div id="bit-{{ index }}" name="bit-{{ index }}" class="bit">
+        <div class="info">#{{ bit._id and loop.index or 'new'}}</div>
         {{ bit.body }}
     </div>
     {%- endfor %}
-{%- endmacro %}
-
-{% macro editor(text, app) -%}
-<form method="post" action="{{ app.url_for(':editor.bit') }}" id="editor-form">
-    <div class="toolbar">
-        <div class="actions">
-           <select>
-                {% for i in range(10) -%}
-                    <option>#{{i}}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="Готово" />
-            <input type="reset" value="Сброс" />
+</div>
+<div class="b-editor">
+    <form method="post" id="editor-form" action="{{ app.url_for(':editor.bit') }}">
+        <div class="toolbar">
+            <div class="actions">
+               <select id="bit-choicer" name="bit">
+                    {% for bit in text.bits -%}
+                    {% set index = bit._id and loop.index or 'new' %}
+                    <option{% if active._id == bit._id %} selected="selected"{% endif %} value="{{ bit._id or 'new' }}">#{{ index }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" name="action" value="apply">Готово</button>
+                <button type="submit" name="action" value="delete">Удалить</button>
+                {#<input type="submit" name="apply" value="Готово" />
+                <input type="submit" name="delete" value="Удалить" />#}
+                <input type="reset" value="Сброс" />
+            </div>
         </div>
-    </div>
-    <div class="textarea">
-        <textarea name="body">{{ mock_text() }}</textarea>
-    </div>
-</form>
+        <div class="textarea">
+            <textarea name="body">{% if active %}{{ active.body }}{% else %}{{ mock_text() }}{% endif %}</textarea>
+        </div>
+    </form>
+</div>
 {%- endmacro %}

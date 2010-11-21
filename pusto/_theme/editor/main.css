@@ -12,6 +12,7 @@
     padding: 5px;
     border: 1px solid #cfc;
     background: #fff;
+    min-height: 30px;
 }
 .b-viewer .bit.active {
     border: 1px solid #fcc;
