@@ -19,7 +19,7 @@ def action_pep8(target='.'):
 def action_clean(mask=''):
     '''Clean useless files.'''
     masks = [mask] if mask else ['*.pyc', '*.pyo', '*~', '*.orig']
-    command = ('find . -name "%s" -exec rm -f {} +' % mask for mask in masks)
+    command = ('find . -name "%s" -exec rm -f {{}} +' % mask for mask in masks)
     sh('\n'.join(command))
 
 

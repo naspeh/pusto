@@ -8,9 +8,7 @@ map = UrlMap(__name__)
 
 @map.route('/')
 def main(app):
-    text = app.db.Text.fetch_one()
-    text = text and text or app.db.Text()
-    bit = get_bit('new', text, app)
+    text, bit = prepare('new', app)
     return app.to_template('editor/main.html', text=text, active=bit)
 
 
@@ -19,35 +17,39 @@ def bit(app):
     if not app.request.form:
         app.abort(403)
 
+    action = app.request.form['action']
     id = app.request.form['bit']
-    text = app.db.Text.fetch_one()
-    text = text and text or app.db.Text()
-    bit = get_bit(id, text, app)
-    if app.request.form['action'] == 'apply':
-        if '_id' in bit:
+    text, bit = prepare(id, app)
+    if action == 'apply':
+        if bit['_id'] is None:
             del bit['_id']
         bit['body'] = app.request.form['body']
         bit.save()
         text.save()
-    get_bit('new', text, app)
+        prepare_bit(text, app)
+    elif action == 'delete' and id != 'new':
+        bit.delete()
+        text['bits'].remove(bit)
+        text.save()
+        bit = prepare_bit(text, app)
+    elif action == 'reset':
+        return bit['body']
     return app.from_template('editor/partial.html', 'partial')(text, bit, app)
 
 
-@map.route('/bit/<id>/src')
-def bit_src(app, id):
+def prepare(id, app):
     text = app.db.Text.fetch_one()
-    bit = get_bit(id, text, app)
-    if id != 'new':
-        get_bit('new', text, app)
-    return app.from_template('editor/partial.html', 'partial')(text, bit, app)
-
-
-def get_bit(id, text, app):
+    text = text and text or app.db.Text()
     if id == 'new':
-        bit = app.db.TextBit()
-        bit['body'] = ''
-        bit['_id'] = None
-        text['bits'].append(bit)
+        bit = prepare_bit(text, app)
     else:
         bit = app.db.TextBit.find_one(ObjectId(id))
+    return text, bit
+
+
+def prepare_bit(text, app):
+    bit = app.db.TextBit()
+    bit['body'] = ''
+    bit['_id'] = None
+    text['bits'].append(bit)
     return bit

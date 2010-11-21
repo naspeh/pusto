@@ -1,17 +1,13 @@
-{% macro mock_text() -%}
-Итак, портрет. Ты — фанатик своей профессии, можешь сутки напролет над чем-то работать, забывая поесть и погулять, голова постоянно занята поиском решений каких-то проблем, в любой работе стараешься найти изящное решение, даже если на это уйдет больше времени. Если это так, то есть вероятность, что далее пойдет речь о твоей проблеме.
-{% endmacro %}
-
 {% macro partial(text, active=None, app) -%}
-<div class="b-viewer">
+<div class="b-viewer"><div class="wrap">
     {% for bit in text.bits -%}
     {% set index = bit._id and loop.index or 'new' %}
     <div id="bit-{{ index }}" name="bit-{{ index }}" class="bit">
-        <div class="info">#{{ bit._id and loop.index or 'new'}}</div>
-        {{ bit.body }}
+        <a href="#" class="info">#{{ index }}</a>
+        {% if bit.body %}{{ bit.body }}{% else %}<b>Нужно бы что-то написать...</b>{% endif %}
     </div>
     {%- endfor %}
-</div>
+</div></div>
 <div class="b-editor">
     <form method="post" id="editor-form" action="{{ app.url_for(':editor.bit') }}">
         <div class="toolbar">
@@ -22,15 +18,13 @@
                     <option{% if active._id == bit._id %} selected="selected"{% endif %} value="{{ bit._id or 'new' }}">#{{ index }}</option>
                     {% endfor %}
                 </select>
-                <button type="submit" name="action" value="apply">Готово</button>
-                <button type="submit" name="action" value="delete">Удалить</button>
-                {#<input type="submit" name="apply" value="Готово" />
-                <input type="submit" name="delete" value="Удалить" />#}
-                <input type="reset" value="Сброс" />
+                <button id="action-apply" type="submit" name="action" value="apply">Готово</button>
+                <button id="action-delete" type="submit" name="action" value="delete">Удалить</button>
+                <button id="action-reset" type="submit" value="reset">Сброс</button>
             </div>
         </div>
         <div class="textarea">
-            <textarea name="body">{% if active %}{{ active.body }}{% else %}{{ mock_text() }}{% endif %}</textarea>
+            <textarea name="body">{{ active.body }}</textarea>
         </div>
     </form>
 </div>

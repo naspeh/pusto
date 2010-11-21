@@ -4,28 +4,36 @@
 .b-viewer {
     border-top: 2px solid #ccc;
     border-bottom: 2px solid #ccc;
-    max-height: 446px;
+    padding: 2px 0;
+}
+.b-viewer .wrap {
+    max-height: 296px;
     overflow: auto;
 }
 .b-viewer .bit {
-    margin: 10px 0;
+    margin: 0 0 10px 0;
     padding: 5px;
-    border: 1px solid #cfc;
+    border-top: 1px solid #cfc;
     background: #fff;
     min-height: 30px;
 }
-.b-viewer .bit.active {
-    border: 1px solid #fcc;
-    background: #fff;
-}
-.b-viewer .info {
+.b-viewer .bit .info {
+    display: inline-block;
     float: right;
-    border: 1px solid #cfc;
     background: #cfc;
-    margin: -5px -5px 5px 5px;
+    font-size: small;
+    margin: -5px -4px 5px 5px;
     padding: 0 2px 5px 5px;
     -moz-border-radius: 0 0 0 25px;
 }
+.b-viewer .bit.active {
+    border-top: 1px solid #fcc;
+    background: #fff;
+}
+.b-viewer .bit.active .info {
+    background: #fcc;
+}
+
 .b-editor {
     height: 150px;
     background: #eee;
