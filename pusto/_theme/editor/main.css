@@ -1,18 +1,33 @@
 .b-wrap {
 }
-.b-viewer {
-    border-top: 2px solid #ccc;
+.b-toolbar {
+    text-align: right;
     border-bottom: 2px solid #ccc;
+    line-height: 1.1em;
+}
+.b-toolbar a {
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background: #eee;
+    padding: 0 5px;
+    -moz-border-radius: 10px 10px 0 0;
+}
+.b-toolbar a.fixsize {
+    display: none;
+}
+.b-viewer {
     padding: 2px 0;
 }
 .b-viewer .wrap {
     max-height: 296px;
     overflow: auto;
 }
+
 .b-viewer .bit {
     border-top: 1px solid #cfc;
     background: #fff;
     min-height: 30px;
+    overflow: hidden;
 }
 .b-viewer .bit .info {
     display: inline-block;
@@ -36,6 +51,7 @@
     position: relative;
 }
 .b-editor .toolbar {
+    border-top: 2px solid #ccc;
     height: 30px;
     line-height: 1.8em;
 }
@@ -47,7 +63,7 @@
     top: 0;
     right: 5px;
 }
-#bit-parent {
+.b-editor #bit-parent {
     display: none;
 }
 .b-editor .textarea {
@@ -58,4 +74,3 @@
     height: 99.4%;
     width: 99.4%;
 }
-

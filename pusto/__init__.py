@@ -1,7 +1,6 @@
 from naya import App as BaseApp
 
-from . import views
-from .jinja import filters
+from . import views, markup
 from .mongo import MongoMixin
 
 
@@ -18,11 +17,10 @@ app = App(__name__, {
         'url_prefix': '/',
         'path_ends': ['/index.html', '.html'],
         'path_allow': [
-            'index.html', 'naspeh.html', 'resume.html', 'post/*',
+            '', 'naspeh', 'resume', 'post/*',
             'googlee71e35f8e9cbd607.html',
             '_mockups/*',
-            #'*.*'
         ],
-        'filters': filters.all_by_name
+        'filters': {'rst': markup.rst, 'markdown': markup.markdown}
     }
 })

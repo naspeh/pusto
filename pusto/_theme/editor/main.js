@@ -9,7 +9,7 @@ $(document).ready(function() {
         var selected = choicer.find(':selected').html();
         var bit = editor.find('#bit-' + selected.replace('#', ''));
         bit.addClass('active')
-        window.location.hash = '#' + bit.attr('name');
+        window.location.hash = '#' + bit.attr('id');
 
         var insert = $('#bit-insert');
         insert.find('option[value=""]').attr('selected', 'selected');
@@ -19,10 +19,28 @@ $(document).ready(function() {
         return false;
     });
     reset.click();
-
     $('#bit-choicer').live('change', function() {
         reset.click();
     });
+
+    $('.b-toolbar a').live('click', function() {
+        var $this = $(this);
+        var toolbar = $this.parent();
+        var editor = $('.b-wrap');
+        if ($this.hasClass('fixsize')) {
+            editor.find('.b-preview').hide().html('');
+            editor.find('.b-viewer, .b-editor').show();
+            $this.hide();
+            toolbar.find('.fluidsize').show();
+        } else if ($this.hasClass('fluidsize')) {
+            var viewer = editor.find('.b-preview');
+            editor.find('.document').clone().appendTo(viewer);
+            viewer.show()
+            editor.find('.b-viewer, .b-editor').hide();
+            $this.hide();
+            toolbar.find('.fixsize').show();
+        }
+    })
 
     $('#action-apply, #action-delete, #action-reset').live('click', function() {
         var form = $('#editor-form');
@@ -53,8 +71,8 @@ $(document).ready(function() {
     $('.b-viewer .bit .info').live('click', function() {
         var choicer = $('#bit-choicer');
         var bit = $(this).parent();
-        bit = bit.attr('name').replace('bit-', '');
-        var choice = choicer.find('option:contains(#' + bit + ')');
+        bit = bit.attr('name');
+        var choice = choicer.find('option:[value="' + bit + '"]');
         choice.attr('selected', 'selected');
         reset.click();
         return false;
