@@ -45,6 +45,9 @@ $(document).ready(function() {
             editor.find('.b-viewer, .b-editor').hide();
             $this.hide();
             toolbar.find('.fixsize').show();
+        } else if ($this.hasClass('delete') && confirm('Точно хотите удалить?')) {
+            var href = $this.attr('href').replace('#', '');
+            $this.attr('href', href);
         }
     })
 

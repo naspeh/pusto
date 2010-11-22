@@ -1,19 +1,23 @@
 .b-wrap {
 }
 .b-toolbar {
-    text-align: right;
     border-bottom: 2px solid #ccc;
     line-height: 1.1em;
+    height: 1.1em;
 }
 .b-toolbar a {
     border: 1px solid #ccc;
-    border-bottom: none;
     background: #eee;
+    font-weight: bold;
     padding: 0 5px;
     -moz-border-radius: 10px 10px 0 0;
+    float: right;
 }
 .b-toolbar a.fixsize {
     display: none;
+}
+.b-toolbar a.delete {
+    float: left;
 }
 .b-viewer {
     padding: 2px 0;

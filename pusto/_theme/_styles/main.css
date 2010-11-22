@@ -1,5 +1,5 @@
 /* Header */
-.header {
+#header {
     background: #f63;
     height: 40px;
     position: relative;
@@ -7,17 +7,17 @@
     -moz-border-radius: 0 0 15px 15px;
     -webkit-border-radius: 0 0 15px 15px;
 }
-.header img {
+#header img {
     border: none;
 }
-.header h1 {
+#header h1 {
     position: absolute;
     left: 220px;
     top: 20px;
     font-size: 1.5em;
     color: #eff;
 }
-.header .logo-wrap {
+#header .logo-wrap {
     background-color: #008000;
     display: inline-block;
     padding-left: 20px;
@@ -26,20 +26,20 @@
     -moz-border-radius: 0 0 0 15px;
     -webkit-border-radius: 0 0 0 15px;
 }
-.header .logo {
+#header .logo {
     display: inline-block;
     height: 46px;
     width: 198px;
     background: #fff url('../_images/logo-hands.png') no-repeat right center;
 }
-.header-adds {
+#header .header-adds {
     position: relative;
     float: right;
     white-space: nowrap;
     margin: -4px 10px 0 0;
     line-height: 1.2em;
 }
-.header .powered-by {
+#header .powered-by {
     display: inline-block;
     background-color: #008000;
     font-size: small;
@@ -49,7 +49,7 @@
     -moz-border-radius: 0 0 10px 10px;
     -webkit-border-radius: 0 0 10px 10px;
 }
-.header .powered-by a {
+#header .powered-by a {
     display: inline-block;
     font-weight: bold;
     background: #fff;
@@ -59,7 +59,7 @@
     -webkit-border-radius: 0 0 10px 10px;
 }
 
-.header .source {
+#header .source {
     display: inline-block;
     background-color: #fff;
     font-weight: bold;
@@ -74,7 +74,16 @@
 }
 
 /* Content */
-.content {
+#content {
     padding: 0 10px;
     margin-top: 10px;
+}
+/* Blocks */
+.b-confirm, .b-notice {
+    padding: 20px 0;
+    text-align: center;
+}
+.b-notice {
+    color: #faa;
+    font-weight: bold;
 }
