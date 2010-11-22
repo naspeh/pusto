@@ -26,8 +26,11 @@ $(document).ready(function() {
 
     $('#action-apply, #action-delete, #action-reset').live('click', function() {
         var form = $('#editor-form');
-        var selected = form.find(':selected').val();
-        var action = $(this).attr('value'); 
+        var selected = form.find(':selected');
+        var action = $(this).attr('value');
+        if (action == 'delete' &&  !confirm('Точно хотите удалить ' + selected.html() + '?')) {
+            return false;
+        }
         form.ajaxSubmit({
             'data': {action: action},
             'beforeSubmit': function() {

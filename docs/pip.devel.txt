@@ -2,6 +2,7 @@
 -e git://github.com/mitsuhiko/jinja2.git#egg=jinja2
 -e git://github.com/namlook/mongokit.git#egg=mongokit
 
+docutils
 markdown2
 pygments
 
