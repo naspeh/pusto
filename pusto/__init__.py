@@ -20,6 +20,7 @@ app = App(__name__, {
         'path_allow': [
             'index.html', 'naspeh.html', 'resume.html', 'post/*',
             'googlee71e35f8e9cbd607.html',
+            '_mockups/*',
             #'*.*'
         ],
         'filters': filters.all_by_name

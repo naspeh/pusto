@@ -1,15 +1,29 @@
 $(document).ready(function() {
     var reset = $('#action-reset');
+
     reset.live('click', function() {
+        var choicer = $('#bit-choicer');
         var editor = $('.b-wrap');
         editor.find('.bit').removeClass('active');
-        var selected = $('#bit-choicer').find(':selected').html();
+
+        var selected = choicer.find(':selected').html();
         var bit = editor.find('#bit-' + selected.replace('#', ''));
         bit.addClass('active')
         window.location.hash = '#' + bit.attr('name');
-        $('#bit-choicer').focus();
+
+        var insert = $('#bit-insert');
+        insert.find('option[value=""]').attr('selected', 'selected');
+        insert.change();
+
+        choicer.focus();
         return false;
     });
+    reset.click();
+
+    $('#bit-choicer').live('change', function() {
+        reset.click();
+    });
+
     $('#action-apply, #action-delete, #action-reset').live('click', function() {
         var form = $('#editor-form');
         var selected = form.find(':selected').val();
@@ -33,16 +47,30 @@ $(document).ready(function() {
         });
         return false;
     });
-    $('#bit-choicer').live('change', function() {
-        reset.click();
-    });
     $('.b-viewer .bit .info').live('click', function() {
+        var choicer = $('#bit-choicer');
         var bit = $(this).parent();
         bit = bit.attr('name').replace('bit-', '');
-        var choice = $('#bit-choicer').find('option:contains(#' + bit + ')');
+        var choice = choicer.find('option:contains(#' + bit + ')');
         choice.attr('selected', 'selected');
         reset.click();
         return false;
     });
-    reset.click();
+    $('#bit-insert').live('change', function() {
+        var $this = $(this);
+        var choicer = $('#bit-choicer');
+        var parent = $('#bit-parent');
+        var selected = $this.find(':selected');
+        var bit_selected = choicer.find(':selected');
+        if (selected.val() == '') {
+            parent.hide();
+            return;
+        }
+
+        var options = choicer.find('option').clone();
+        parent.html(options);
+        parent.find('option[value="new"]').remove();
+        parent.find('option[value="' + bit_selected.val() + '"]').remove();
+        parent.show();
+    });
 });

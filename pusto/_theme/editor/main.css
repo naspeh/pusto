@@ -1,5 +1,4 @@
 .b-wrap {
-    height: 600px;
 }
 .b-viewer {
     border-top: 2px solid #ccc;
@@ -33,22 +32,29 @@
 .b-viewer .bit.active .info {
     background: #fcc;
 }
-
 .b-editor {
     height: 150px;
     background: #eee;
+    position: relative;
 }
 .b-editor .toolbar {
     height: 30px;
     line-height: 1.8em;
 }
+.b-editor .toolbar.choicer {
+    margin-left: 5px;
+}
+.b-editor .toolbar.actions {
+    position: absolute;
+    top: 0;
+    right: 5px;
+}
+#bit-parent {
+    display: none;
+}
 .b-editor .textarea {
     height: 120px;
     text-align: center;
-}
-.b-editor .actions {
-    float: right;
-    margin-right: 5px;
 }
 .b-editor textarea {
     height: 99.4%;

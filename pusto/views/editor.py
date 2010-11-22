@@ -23,6 +23,15 @@ def bit(app):
     if action == 'apply':
         if bit['_id'] is None:
             del bit['_id']
+        insert = app.request.form['insert']
+        if insert:
+            text['bits'].remove(bit)
+            parent = app.request.form['parent']
+            parent = app.db.TextBit.find_one(ObjectId(parent))
+            parent = text['bits'].index(parent)
+            parent = parent if insert == 'before' else parent + 1
+            text['bits'].insert(parent, bit)
+
         bit['body'] = app.request.form['body']
         bit.save()
         text.save()
