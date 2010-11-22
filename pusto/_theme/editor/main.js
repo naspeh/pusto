@@ -15,10 +15,16 @@ $(document).ready(function() {
         insert.find('option[value=""]').attr('selected', 'selected');
         insert.change();
 
+        if (selected=='#new') {
+            editor.find('#action-delete').hide();
+        } else {
+            editor.find('#action-delete').show();
+        }
+
         choicer.focus();
         return false;
     });
-    reset.click();
+
     $('#bit-choicer').live('change', function() {
         reset.click();
     });
@@ -52,18 +58,17 @@ $(document).ready(function() {
         form.ajaxSubmit({
             'data': {action: action},
             'beforeSubmit': function() {
-                $('.b-wrap').find('input, textarea, select').attr('disabled', 'disabled');
+                $('.b-wrap').find(':input').attr('disabled', 'disabled');
             },
             'success': function(data, status) {
                 var editor = $('.b-wrap');
                 if (action=='reset') {
                     editor.find('textarea').val(data);
-                    editor.find('input, textarea, select').attr('disabled', '');
                 } else {
                     editor.html(data);
-                    editor.find('input, textarea, select').attr('disabled', '');
                     reset.click();
                 }
+                editor.find(':input').attr('disabled', '');
            }
         });
         return false;
@@ -83,15 +88,22 @@ $(document).ready(function() {
         var parent = $('#bit-parent');
         var selected = $this.find(':selected');
         var bit_selected = choicer.find(':selected');
-        if (selected.val() == '') {
-            parent.hide();
-            return;
-        }
-
         var options = choicer.find('option').clone();
         parent.html(options);
         parent.find('option[value="new"]').remove();
         parent.find('option[value="' + bit_selected.val() + '"]').remove();
-        parent.show();
+        if (parent.find('option').length) {
+            parent.show();
+            $this.show();
+        } else {
+            parent.hide();
+            $this.hide();
+        }
+        if (selected.val() == '') {
+            parent.hide();
+        }
     });
+
+    // Initial page
+    reset.click();
 });

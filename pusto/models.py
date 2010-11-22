@@ -26,5 +26,4 @@ class Text(Timed):
     structure = {
         'bits': [TextBit]
     }
-    required_fields = ['bits']
     use_autorefs = True
