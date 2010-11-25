@@ -17,9 +17,9 @@ app = App(__name__, {
         'url_prefix': '/',
         'path_ends': ['/index.html', '.html'],
         'path_allow': [
-            '', 'naspeh', 'resume', 'post/*',
-            'googlee71e35f8e9cbd607.html',
-            '_mockups/*',
+            '^$', '^naspeh$', '^resume$', '^post/[-\w]*$',
+            '^googlee71e35f8e9cbd607\.html$',
+            '^_mockups\/',
         ],
         'filters': {'rst': markup.rst, 'markdown': markup.markdown}
     }
