@@ -6,19 +6,10 @@ from naya import UrlMap
 
 map = UrlMap(__name__)
 
-@map.route('/new', defaults={'id': 'new'})
+
+@map.route('/', defaults={'id': 'new'})
 @map.route('/<id>')
 def main(app, id):
-    if id == 'new':
-        if 'action' not in app.request.form:
-            return app.to_template(
-                'confirm.html', message=u'Создать новый текст'
-            )
-
-        text = app.db.Text()
-        text.save()
-        return app.redirect(app.url_for(':editor.main', id = text['_id']))
-
     text = prepare(id, app)
     bit = prepare_bit('new', text, app)
     return app.to_template('editor/main.html', text=text, active=bit)
@@ -69,10 +60,14 @@ def bit(app, id):
 
 
 def prepare(id, app):
-    text = app.db.Text.find_one(ObjectId(id))
+    if id == 'new':
+        text = app.db.Text()
+    else:
+        text = app.db.Text.find_one(ObjectId(id))
     if not text:
         return app.abort(404)
     return text
+
 
 def prepare_bit(id, text, app):
     if id == 'new':

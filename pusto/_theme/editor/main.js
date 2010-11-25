@@ -53,6 +53,7 @@ $(document).ready(function() {
 
     $('#action-apply, #action-delete, #action-reset').live('click', function() {
         var form = $('#editor-form');
+        var url = form.find('#text-url').val();
         var selected = form.find(':selected');
         var action = $(this).attr('value');
         if (action == 'delete' &&  !confirm('Точно хотите удалить ' + selected.html() + '?')) {
@@ -69,6 +70,10 @@ $(document).ready(function() {
                     editor.find('textarea').val(data);
                 } else {
                     editor.html(data);
+                    var new_url = editor.find('#text-url').val();
+                    if (url != new_url) {
+                        window.location = new_url;
+                    }
                     reset.click();
                 }
                 editor.find(':input').attr('disabled', '');
