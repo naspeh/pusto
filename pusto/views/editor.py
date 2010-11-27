@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from mongokit import ObjectId
-
 from naya import UrlMap
 
 
@@ -40,7 +38,7 @@ def bit(app, id):
         if insert:
             text['bits'].remove(bit)
             parent = app.request.form['parent']
-            parent = app.db.TextBit.find_one(ObjectId(parent))
+            parent = app.db.TextBit.find_one(app.object_id(parent))
             parent = text['bits'].index(parent)
             parent = parent if insert == 'before' else parent + 1
             text['bits'].insert(parent, bit)
@@ -63,7 +61,7 @@ def prepare(id, app):
     if id == 'new':
         text = app.db.Text()
     else:
-        text = app.db.Text.find_one(ObjectId(id))
+        text = app.db.Text.find_one(app.object_id(id))
     if not text:
         return app.abort(404)
     return text
@@ -76,7 +74,7 @@ def prepare_bit(id, text, app):
         bit['_id'] = None
         text['bits'].append(bit)
     else:
-        bit = app.db.TextBit.find_one(ObjectId(id))
+        bit = app.db.TextBit.find_one(app.object_id(id))
     if not bit:
         return app.abort(404)
     return bit

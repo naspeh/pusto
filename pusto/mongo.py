@@ -1,4 +1,4 @@
-from mongokit import Connection
+from mongokit import Connection, ObjectId
 
 from naya.helpers import marker
 
@@ -11,3 +11,6 @@ class MongoMixin(object):
         self.mongo = Connection()
         self.db = self.mongo.pusto
         self.mongo.register([Text, TextBit])
+
+    def object_id(self, id):
+        return ObjectId(id)
