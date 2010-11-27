@@ -19,7 +19,7 @@ def action_pep8(target='.'):
 def action_clean(mask=''):
     '''Clean useless files.'''
     masks = [mask] if mask else ['*.pyc', '*.pyo', '*~', '*.orig']
-    command = ('find . -name "%s" -exec rm -f {{}} +' % mask for mask in masks)
+    command = ('find . -name "%s" -exec rm -f {} +' % mask for mask in masks)
     sh('\n'.join(command))
 
 
@@ -28,16 +28,16 @@ def action_deploy(host='yadro.org', kill=True, server=('s', False)):
     if host and not server:
         sh(('pwd', 'git push origin master'))
         sh((
-            '{activate}',
-            'cd {project_path}', 'pwd',
+            '$activate',
+            'cd $project_path', 'pwd',
             'git pull origin master',
             './manage.py deploy -s' + (not kill and ' --no-kill' or ''),
         ), host=host)
         return
 
     sh((
-        '{activate}',
-        'cd {project_path}', 'pwd', 'git pull origin master',
+        '$activate',
+        'cd $project_path', 'pwd', 'git pull origin master',
         'pip install -r docs/pip.stage.txt',
     ))
 
@@ -45,7 +45,7 @@ def action_deploy(host='yadro.org', kill=True, server=('s', False)):
         sh(('killall pusto.fcgi'))
 
     sh((
-        'screen -d -m {project_path}/pusto.fcgi',
+        'screen -d -m $project_path/pusto.fcgi',
     ))
 
 
@@ -62,7 +62,7 @@ def action_test(target='', clean=False, failed=('f', False),
     if with_coverage:
         command.append('--with-coverage --cover-tests')
     if cover_package:
-        command.append('--cover-package={0}'.format(cover_package))
+        command.append('--cover-package=%s' % cover_package)
 
     command.append('--with-id')
 
