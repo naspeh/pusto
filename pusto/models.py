@@ -1,6 +1,8 @@
 from datetime import datetime
 
-from mongokit import Document
+from mongokit import Document, IS
+
+from . import markup
 
 
 class Timed(Document):
@@ -15,9 +17,15 @@ class TextBit(Timed):
     __collection__ = 'text_bits'
 
     structure = {
+        'markup': IS(u'rst', u'markdown'),
         'body': unicode
     }
-    required_fields = ['body']
+    required_fields = ['markup', 'body']
+    default_values = {'markup': u'rst'}
+
+    @property
+    def html(self):
+        return getattr(markup, self['markup'])(self['body'])
 
 
 class Text(Timed):

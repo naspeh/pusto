@@ -10,7 +10,7 @@
     {% set index = bit._id and loop.index or 'new' %}
     <div id="bit-{{ index }}" name="{{ bit._id }}" class="bit">
         <a href="#" class="info">#{{ index }}</a>
-        {% if bit.body %}{{ bit.body|rst }}{% else %}<div class="b-notice">Тут пусто...</div>{% endif %}
+        {% if bit.body %}{{ bit.html() }}{% else %}<div class="b-notice">Тут пусто...</div>{% endif %}
     </div>
     {%- endfor %}
 </div></div>
