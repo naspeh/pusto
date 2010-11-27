@@ -1,11 +1,11 @@
 {% macro partial(text, active=None, app) -%}
-<div class="b-toolbar">
-    <a href="#{{ app.url_for(':editor.delete', id=text._id) }}" class="delete">удалить</a>
+<div id="toolbar">
+    <a href="#{{ app.url_for(':text.delete', id=text._id) }}" class="delete">удалить</a>
     <a href="#" class="fluidsize">смотреть</a>
     <a href="#" class="fixsize">редактировать</a>
 </div>
-<div class="b-preview"></div>
-<div class="b-viewer"><div class="wrap">
+<div id="preview"></div>
+<div id="viewer"><div class="wrap">
     {% for bit in text.bits -%}
     {% set index = bit._id and loop.index or 'new' %}
     <div id="bit-{{ index }}" name="{{ bit._id }}" class="bit">
@@ -14,9 +14,9 @@
     </div>
     {%- endfor %}
 </div></div>
-<div class="b-editor">
-    <form method="post" id="editor-form" action="{{ app.url_for(':editor.bit', id=text._id or 'new') }}">
-        <input id="text-url" name="text-url" type="hidden" value="{{ app.url_for(':editor.main', id=text._id) }}" />
+<div id="editor">
+    <form method="post" id="editor-form" action="{{ app.url_for(':text.bit', id=text._id or 'new') }}">
+        <input id="text-url" name="text-url" type="hidden" value="{{ app.url_for(':text.edit', id=text._id) }}" />
         <div class="toolbar choicer">
             <select id="bit-choicer" name="bit">
                 {% for bit in text.bits -%}

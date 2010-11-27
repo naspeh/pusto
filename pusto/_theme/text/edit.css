@@ -1,11 +1,10 @@
-.b-wrap {
-}
-.b-toolbar {
+#text-edit {}
+#toolbar {
     border-bottom: 2px solid #ccc;
     line-height: 1.1em;
     height: 1.1em;
 }
-.b-toolbar a {
+#toolbar a {
     border: 1px solid #ccc;
     background: #eee;
     font-weight: bold;
@@ -13,26 +12,26 @@
     -moz-border-radius: 10px 10px 0 0;
     float: right;
 }
-.b-toolbar a.fixsize {
+#toolbar a.fixsize {
     display: none;
 }
-.b-toolbar a.delete {
+#toolbar a.delete {
     float: left;
 }
-.b-viewer {
+#viewer {
     padding: 2px 0;
 }
-.b-viewer .wrap {
+#viewer .wrap {
     height: 346px;
     overflow: auto;
 }
 
-.b-viewer .bit {
+#viewer .bit {
     border-top: 1px solid #cfc;
     background: #fff;
     min-height: 30px;
 }
-.b-viewer .bit .info {
+#viewer .bit .info {
     display: inline-block;
     float: right;
     background: #cfc;
@@ -41,39 +40,39 @@
     padding: 0 2px 5px 5px;
     -moz-border-radius: 0 0 0 25px;
 }
-.b-viewer .bit.active {
+#viewer .bit.active {
     border-top: 1px solid #fcc;
     background: #fff;
 }
-.b-viewer .bit.active .info {
+#viewer .bit.active .info {
     background: #fcc;
 }
-.b-editor {
+#editor {
     height: 200px;
     background: #eee;
     position: relative;
 }
-.b-editor .toolbar {
+#editor .toolbar {
     border-top: 2px solid #ccc;
     height: 30px;
     line-height: 1.8em;
 }
-.b-editor .toolbar.choicer {
+#editor .toolbar.choicer {
     margin-left: 5px;
 }
-.b-editor .toolbar.actions {
+#editor .toolbar.actions {
     position: absolute;
     top: 0;
     right: 5px;
 }
-.b-editor #bit-parent {
+#editor #bit-parent {
     display: none;
 }
-.b-editor .textarea {
+#editor .textarea {
     height: 170px;
     text-align: center;
 }
-.b-editor textarea {
+#editor textarea {
     height: 99.4%;
     width: 99.4%;
 }

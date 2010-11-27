@@ -1,10 +1,10 @@
 from naya import Module
 
-from . import editor
+from . import text
 
 
 mod = Module(__name__, {
-    'maps': [(editor.map, 'editor')]
+    'maps': [(text.map, 'text')]
 })
 
 

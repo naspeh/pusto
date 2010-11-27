@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     reset.live('click', function() {
         var choicer = $('#bit-choicer');
-        var editor = $('.b-wrap');
+        var editor = $('#text-edit');
         editor.find('.bit').removeClass('active');
 
         var selected = choicer.find(':selected').html();
@@ -29,20 +29,20 @@ $(document).ready(function() {
         reset.click();
     });
 
-    $('.b-toolbar a').live('click', function() {
+    $('#toolbar a').live('click', function() {
         var $this = $(this);
         var toolbar = $this.parent();
-        var editor = $('.b-wrap');
+        var editor = $('#text-edit');
         if ($this.hasClass('fixsize')) {
-            editor.find('.b-preview').hide().html('');
-            editor.find('.b-viewer, .b-editor').show();
+            editor.find('#preview').hide().html('');
+            editor.find('#viewer, #editor').show();
             $this.hide();
             toolbar.find('.fluidsize').show();
         } else if ($this.hasClass('fluidsize')) {
-            var viewer = editor.find('.b-preview');
+            var viewer = editor.find('#preview');
             editor.find('.document').clone().appendTo(viewer);
             viewer.show()
-            editor.find('.b-viewer, .b-editor').hide();
+            editor.find('#viewer, #editor').hide();
             $this.hide();
             toolbar.find('.fixsize').show();
         } else if ($this.hasClass('delete') && confirm('Точно хотите удалить?')) {
@@ -62,10 +62,10 @@ $(document).ready(function() {
         form.ajaxSubmit({
             'data': {action: action},
             'beforeSubmit': function() {
-                $('.b-wrap').find(':input').attr('disabled', 'disabled');
+                $('#text-edit').find(':input').attr('disabled', 'disabled');
             },
             'success': function(data, status) {
-                var editor = $('.b-wrap');
+                var editor = $('#text-edit');
                 if (action=='reset') {
                     editor.find('textarea').val(data);
                 } else {
@@ -81,7 +81,7 @@ $(document).ready(function() {
         });
         return false;
     });
-    $('.b-viewer .bit .info').live('click', function() {
+    $('#viewer .bit .info').live('click', function() {
         var choicer = $('#bit-choicer');
         var bit = $(this).parent();
         bit = bit.attr('name');

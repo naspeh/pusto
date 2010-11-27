@@ -5,12 +5,12 @@ from naya import UrlMap
 map = UrlMap(__name__)
 
 
-@map.route('/', defaults={'id': 'new'})
-@map.route('/<id>')
-def main(app, id):
+@map.route('/new', defaults={'id': 'new'})
+@map.route('/<id>/edit')
+def edit(app, id):
     text = prepare(id, app)
     bit = prepare_bit('new', text, app)
-    return app.to_template('editor/main.html', text=text, active=bit)
+    return app.to_template('text/edit.html', text=text, active=bit)
 
 
 @map.route('/<id>/delete')
@@ -19,7 +19,7 @@ def delete(app, id):
     for bit in text['bits']:
         bit.delete()
     text.delete()
-    return app.redirect(app.url_for(':editor.main'))
+    return app.redirect(app.url_for(':text.edit'))
 
 
 @map.route('/<id>/bit')
@@ -54,7 +54,9 @@ def bit(app, id):
         bit = prepare_bit('new', text, app)
     elif action == 'reset':
         return bit['body']
-    return app.from_template('editor/partial.html', 'partial')(text, bit, app)
+    return app.from_template(
+        'text/edit-partial.html', 'partial'
+    )(text, bit, app)
 
 
 def prepare(id, app):
