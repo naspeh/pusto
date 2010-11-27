@@ -20,8 +20,11 @@ $(document).ready(function() {
         } else {
             editor.find('#action-delete').show();
         }
-
-        choicer.focus();
+        if (choicer.find('option').length > 1) {
+            choicer.focus();
+        } else {
+            editor.find('textarea').focus();
+        }
         return false;
     });
 
