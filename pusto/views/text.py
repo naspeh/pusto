@@ -54,16 +54,15 @@ def bit(app, id):
         bit = prepare_bit('new', text, app)
     elif action == 'reset':
         return bit['body']
-    return app.from_template(
-        'text/edit-partial.html', 'partial'
-    )(text, bit, app)
+    return app.from_template('text/edit-partial.html', 'main')(text, bit, app)
 
 
 def prepare(id, app):
     if id == 'new':
         text = app.db.Text()
     else:
-        text = app.db.Text.find_one(app.object_id(id))
+        id = app.object_id(id)
+        text = app.db.Text.find_one(id) if id else None
     if not text:
         return app.abort(404)
     return text
@@ -76,7 +75,8 @@ def prepare_bit(id, text, app):
         bit['_id'] = None
         text['bits'].append(bit)
     else:
-        bit = app.db.TextBit.find_one(app.object_id(id))
+        id = app.object_id(id)
+        bit = app.db.TextBit.find_one(id) if id else None
     if not bit:
         return app.abort(404)
     return bit

@@ -11,6 +11,7 @@ class Timed(Document):
     }
     required_fields = ['created_at']
     default_values = {'created_at': datetime.utcnow}
+    #indexes = [{'fields':[('created_at', INDEX_DESCENDING)]}]
 
 
 class TextBit(Timed):

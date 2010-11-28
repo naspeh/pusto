@@ -1,4 +1,4 @@
-{% macro partial(text, active=None, app) -%}
+{% macro main(text, active=None, app) -%}
 <div id="toolbar">
     <a href="#{{ app.url_for(':text.delete', id=text._id) }}" class="delete">удалить</a>
     <a href="#" class="fluidsize">смотреть</a>
