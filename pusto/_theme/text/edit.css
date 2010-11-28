@@ -58,7 +58,7 @@
     line-height: 1.8em;
 }
 #editor .toolbar.choicer {
-    margin-left: 5px;
+    padding-left: 5px;
 }
 #editor .toolbar.actions {
     position: absolute;
