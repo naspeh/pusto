@@ -55,14 +55,14 @@ def action_test(target='', clean=False, failed=('f', False),
     if clean:
         command = ['nosetests']
     else:
-        command = ['nosetests -v']
+        command = ['nosetests -v --with-doctest']
 
     if failed:
         command.append('--failed')
     if with_coverage:
         command.append('--with-coverage --cover-tests')
-    if cover_package:
-        command.append('--cover-package=%s' % cover_package)
+        if cover_package:
+            command.append('--cover-package=%s' % cover_package)
 
     command.append('--with-id')
 
