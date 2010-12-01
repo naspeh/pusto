@@ -1,4 +1,4 @@
-from naya import App as BaseApp
+from naya.base import App as BaseApp
 
 from . import views, markup
 from .mongo import MongoMixin
