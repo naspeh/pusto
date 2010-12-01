@@ -1,5 +1,3 @@
 -e git://github.com/naspeh/naya.git#egg=naya
--e git://github.com/mitsuhiko/werkzeug.git#egg=werkzeug
--e git://github.com/mitsuhiko/jinja2.git#egg=jinja2
-markdown2
-pygments
+
+-r pip.common.txt

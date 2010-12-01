@@ -1,13 +1,6 @@
--e git://github.com/mitsuhiko/werkzeug.git#egg=werkzeug
--e git://github.com/mitsuhiko/jinja2.git#egg=jinja2
--e git://github.com/namlook/mongokit.git#egg=mongokit
-
-docutils
-markdown2
-pygments
+-r pip.common.txt
 
 nose
 coverage
-
 pep8
 bpython
