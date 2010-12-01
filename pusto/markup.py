@@ -11,4 +11,4 @@ def rst(text):
     parts = core.publish_parts(source=text, writer_name='html',
         settings_overrides={'footnote_references': 'superscript'}
     )
-    return parts
+    return parts['html_body']
