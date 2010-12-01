@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+
 def test():
     u'''
     NOTICE: Need Doctest
