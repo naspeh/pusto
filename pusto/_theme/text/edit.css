@@ -1,3 +1,5 @@
+{% from '_styles/macros.jinja' import border_radius %}
+
 #text-edit {}
 #toolbar {
     border-bottom: 2px solid #ccc;
@@ -9,8 +11,8 @@
     background: #eee;
     font-weight: bold;
     padding: 0 5px;
-    -moz-border-radius: 10px 10px 0 0;
     float: right;
+    {{ border_radius('10px 10px 0 0') }}
 }
 #toolbar a.fixsize {
     display: none;
@@ -38,7 +40,7 @@
     font-size: small;
     margin: 0 1px 5px 5px;
     padding: 0 2px 5px 5px;
-    -moz-border-radius: 0 0 0 25px;
+    {{ border_radius('0 0 0 25px') }}
 }
 #viewer .bit.active {
     border-top: 1px solid #fcc;

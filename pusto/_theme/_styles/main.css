@@ -1,11 +1,10 @@
+{% from '_styles/macros.jinja' import border_radius %}
 /* Header */
 #header {
     background: #f63;
     height: 40px;
     position: relative;
-    border-radius: 0 0 15px 15px;
-    -moz-border-radius: 0 0 15px 15px;
-    -webkit-border-radius: 0 0 15px 15px;
+    {{ border_radius('0 0 15px 15px') }}
 }
 #header img {
     border: none;
@@ -22,15 +21,13 @@
     display: inline-block;
     padding-left: 20px;
     height: 40px;
-    border-radius: 0 0 0 15px;
-    -moz-border-radius: 0 0 0 15px;
-    -webkit-border-radius: 0 0 0 15px;
+    {{ border_radius('0 0 0 15px') }}
 }
 #header .logo {
     display: inline-block;
     height: 46px;
     width: 198px;
-    background: #fff url('../_images/logo-hands.png') no-repeat right center;
+    background: #fff url("../_images/logo-hands.png") no-repeat right center;
 }
 #header .header-adds {
     position: relative;
@@ -45,18 +42,14 @@
     font-size: small;
     color: #fff;
     padding-left: 10px;
-    border-radius: 0 0 10px 10px;
-    -moz-border-radius: 0 0 10px 10px;
-    -webkit-border-radius: 0 0 10px 10px;
+    {{ border_radius('0 0 10px 10px') }}
 }
 #header .powered-by a {
     display: inline-block;
     font-weight: bold;
     background: #fff;
     padding: 0 10px;
-    border-radius: 0 0 10px 10px;
-    -moz-border-radius: 0 0 10px 10px;
-    -webkit-border-radius: 0 0 10px 10px;
+    {{ border_radius('0 0 10px 10px') }}
 }
 
 #header .source {
@@ -67,10 +60,7 @@
     color: #fff;
     padding: 0 10px;
     margin-right: 5px;
-    border-radius: 0 0 10px 10px;
-    -moz-border-radius: 0 0 10px 10px;
-    -webkit-border-radius: 0 0 10px 10px;
-
+    {{ border_radius('0 0 10px 10px') }}
 }
 
 /* Content */

@@ -6,8 +6,8 @@
 
     <link rel="icon" href="{{ app.url_for(':theme', path='favicon.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/base.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/main.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/syntax.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ app.url_for(':jinja', path='_styles/main.css') }}" type="text/css" />
 
     {% block extrahead %}{% endblock %}
 </head>
