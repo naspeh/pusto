@@ -43,7 +43,7 @@ def action_deploy(local=('l', False), kill=True, pip=True):
         sh((
             '$activate',
             'cd $project_path', 'pwd', 'git pull origin master',
-            'pip install -r docs/pip.stage.txt',
+            'pip install -Ur docs/pip.stage.txt',
         ))
 
     if kill:
