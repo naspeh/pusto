@@ -13,6 +13,9 @@ app = App(__name__, {
     'maps': [
         (views.mod, ''),
     ],
+    'theme': {
+        'url_prefix': '/',
+    },
     'jinja': {
         'url_prefix': '/',
         'path_ends': ['/index.html', '.html'],
@@ -20,7 +23,7 @@ app = App(__name__, {
             '^$', '^naspeh$', '^resume$', '^post/[-\w]*$',
             '^googlee71e35f8e9cbd607\.html$',
             '^_mockups\/',
-            '^_styles\/',
+            '^_styles\/main\.css$',
         ],
         'filters': {'rst': markup.rst, 'markdown': markup.markdown}
     }
