@@ -1,3 +1,3 @@
--e git://github.com/naspeh/naya.git#egg=naya
+-e git://github.com/naspeh/naya.git@master#egg=naya
 
 -r pip.common.txt
