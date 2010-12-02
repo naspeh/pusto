@@ -5,7 +5,7 @@ from werkzeug.script import make_runserver, run
 from pusto import app
 
 
-sh.defaults(params={
+sh.defaults(host='yadro.org', params={
     'activate': 'source /root/.virtualenvs/pusto/bin/activate && which python',
     'project_path': '/var/www/nanaya',
 })
@@ -23,23 +23,28 @@ def action_clean(mask=''):
     sh('\n'.join(command))
 
 
-def action_deploy(host='yadro.org', kill=True, server=('s', False)):
+def action_deploy(local=('l', False), kill=True, pip=True):
     '''Deploy code on server.'''
-    if host and not server:
+    if not local:
+        deploy = './manage.py deploy -l'
+        deploy += '' if kill else ' --no-kill'
+        deploy += '' if pip else ' --no-pip'
+
         sh(('pwd', 'git push origin master'))
         sh((
             '$activate',
             'cd $project_path', 'pwd',
             'git pull origin master',
-            './manage.py deploy -s' + (not kill and ' --no-kill' or ''),
-        ), host=host)
+            deploy,
+        ), remote=True)
         return
 
-    sh((
-        '$activate',
-        'cd $project_path', 'pwd', 'git pull origin master',
-        'pip install -r docs/pip.stage.txt',
-    ))
+    if pip:
+        sh((
+            '$activate',
+            'cd $project_path', 'pwd', 'git pull origin master',
+            'pip install -r docs/pip.stage.txt',
+        ))
 
     if kill:
         sh(('killall pusto.fcgi'))
