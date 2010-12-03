@@ -21,7 +21,6 @@ app = App(__name__, {
         'path_ends': ['/index.html', '.html'],
         'path_allow': [
             '^$', '^naspeh$', '^resume$', '^post/[-\w]*$',
-            '^googlee71e35f8e9cbd607\.html$',
             '^_mockups\/',
             '^_styles\/main\.css$',
         ],
