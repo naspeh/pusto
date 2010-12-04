@@ -1,14 +1,15 @@
-from naya.base import App as BaseApp
+from naya.base import App
 
 from . import views, markup
 from .mongo import MongoMixin
+from .openid import OpenidMixin
 
 
-class App(BaseApp, MongoMixin):
+class Pusto(App, MongoMixin, OpenidMixin):
     pass
 
 
-app = App(__name__, {
+app = Pusto(__name__, {
     'debug': True,
     'maps': [
         (views.mod, ''),

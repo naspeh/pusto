@@ -23,3 +23,14 @@ def redirector(app, path):
         if path in paths:
             return app.redirect(paths[0])
     app.abort(404)
+
+
+@mod.route('/login/')
+def login(app):
+    return app.with_login(lambda: app.redirect('/'))()
+
+
+@mod.route('/logout/')
+def logout(app):
+    app.with_logout()
+    return 'ok'
