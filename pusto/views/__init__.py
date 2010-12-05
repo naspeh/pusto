@@ -27,12 +27,13 @@ def redirector(app, path):
     app.abort(404)
 
 
+@marker.with_login()
 @marker.route('/login/')
 def login(app):
-    return app.with_login(lambda: app.redirect('/'))()
+    return app.redirect('/')
 
 
 @marker.route('/logout/')
 def logout(app):
-    app.with_logout()
+    app.logout()
     return 'ok'

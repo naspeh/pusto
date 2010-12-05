@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-    tipfy.ext.auth.openid
-    ~~~~~~~~~~~~~~~~~~~~~
-
     Implementation of OpenId authentication scheme.
 
     Ported from `tipfy.ext.auth.openid`_.
@@ -19,17 +15,10 @@ import urlparse
 from functools import wraps
 
 from naya.helpers import marker
-from werkzeug import url_encode
+from werkzeug import url_encode, Response, redirect
 
 
 class OpenidMixin(object):
-    """A :class:`tipfy.RequestHandler` mixin that implements OpenID
-    authentication with Attribute Exchange.
-    """
-    #: OpenId provider endpoint. For example,
-    #: 'https://www.google.com/accounts/o8/ud'
-    _OPENID_ENDPOINT = None
-
     @marker.defaults()
     def openid_defaults(self):
         return {'openid': {
@@ -37,9 +26,13 @@ class OpenidMixin(object):
             'ax_attrs': ['email'],
         }}
 
-    @marker.pre_request()
-    def openid_user_bind(self):
+    @marker.wrap_handler()
+    def openid_wrap_handler(self, handler):
+        for mark in marker.with_login.get(handler):
+            handler = self.with_login(handler)
+
         self.user = self.session.get('user', None)
+        return handler
 
     def with_login(self, func):
         @wraps(func)
@@ -47,93 +40,64 @@ class OpenidMixin(object):
             if 'user' in self.session:
                 return func(*args, **kwargs)
 
-            endpoint = self['openid:endpoint']
-            ax_attrs = self['openid:ax_attrs']
-
-            if self.request.args.get('openid.mode', None):
-                self.get_authenticated_user(
-                    self.openid_prepare_user, openid_endpoint=endpoint
-                )
-                self.openid_user_bind()
-                return func(*args, **kwargs)
-
-            return self.authenticate_redirect(
-                 openid_endpoint=endpoint, ax_attrs=ax_attrs
+            openid = Openid(
+                self.request, self['openid:endpoint'], self['openid:ax_attrs']
             )
+            if self.request.args.get('openid.mode', None):
+                openid.get_user(self.openid_complete)
+                return func(*args, **kwargs)
+            return openid.redirect()
         return decorated
 
-    def with_logout(self):
+    def logout(self):
         self.user = None
         if 'user' in self.session:
             del self.session['user']
 
-    def openid_prepare_user(self, user):
+    def openid_complete(self, user):
         if not user:
             self.abort(403)
         self.session['user'] = user
 
-    def authenticate_redirect(self, callback_uri=None, ax_attrs=None,
-        openid_endpoint=None):
+
+class Openid(object):
+    def __init__(self, request, openid_endpoint, ax_attrs=None):
+        self.request = request
+        self.openid_endpoint = openid_endpoint
+        self.ax_attrs = ax_attrs or ('name', 'email', 'language', 'username')
+
+    def redirect(self, callback_uri=None):
         """Returns the authentication URL for this service.
 
         After authentication, the service will redirect back to the given
         callback URI.
-
-        We request the given attributes for the authenticated user by
-        default (name, email, language, and username). If you don't need
-        all those attributes for your app, you can request fewer with
-        the ax_attrs keyword argument.
-
-        :param callback_uri:
-            The URL to redirect to after authentication.
-        :param ax_attrs:
-            List of Attribute Exchange attributes to be fetched.
-        :param openid_endpoint:
-            OpenId provider endpoint. If not set, uses the value set in
-            :attr:`_OPENID_ENDPOINT`.
-        :return:
-            ``None``.
         """
         callback_uri = callback_uri or self.request.path
-        ax_attrs = ax_attrs or ('name', 'email', 'language', 'username')
-        openid_endpoint = openid_endpoint or self._OPENID_ENDPOINT
-        args = self._openid_args(callback_uri, ax_attrs=ax_attrs)
-        return self.redirect(openid_endpoint + '?' + url_encode(args))
+        args = self.args(callback_uri)
+        return redirect(self.openid_endpoint + '?' + url_encode(args))
 
-    def get_authenticated_user(self, callback, openid_endpoint=None):
+    def get_user(self, callback):
         """Fetches the authenticated user data upon redirect.
-
-        This method should be called by the handler that receives the
-        redirect from the authenticate_redirect() or authorize_redirect()
-        methods.
 
         :param callback:
             A function that is called after the authentication attempt. It
             is called passing a dictionary with the requested user attributes
             or ``None`` if the authentication failed.
-        :param openid_endpoint:
-            OpenId provider endpoint. For example,
-            'https://www.google.com/accounts/o8/ud'.
         :return:
             The result from the callback function.
         """
-        # Verify the OpenID response via direct request to the OP
-        openid_endpoint = openid_endpoint or self._OPENID_ENDPOINT
         args = dict((k, v[-1]) for k, v in self.request.args.lists())
         args['openid.mode'] = u'check_authentication'
-        url = openid_endpoint + '?' + url_encode(args)
+        url = self.openid_endpoint + '?' + url_encode(args)
+        response = Response(urllib.urlopen(url))
+        return self.verified(callback, response)
 
-        response = self.response_class(urllib.urlopen(url))
-        return self._on_authentication_verified(callback, response)
-
-    def _openid_args(self, callback_uri, ax_attrs=None, oauth_scope=None):
+    def args(self, callback_uri, oauth_scope=None):
         """Builds and returns the OpenId arguments used in the authentication
         request.
 
         :param callback_uri:
             The URL to redirect to after authentication.
-        :param ax_attrs:
-            List of Attribute Exchange attributes to be fetched.
         :param oauth_scope:
         :return:
             A dictionary of arguments for the authentication URL.
@@ -150,12 +114,12 @@ class OpenidMixin(object):
                 '://' + self.request.host + '/',
             'openid.mode': 'checkid_setup',
         }
-        if ax_attrs:
+        if self.ax_attrs:
             args.update({
                 'openid.ns.ax': 'http://openid.net/srv/ax/1.0',
                 'openid.ax.mode': 'fetch_request',
             })
-            ax_attrs = set(ax_attrs)
+            ax_attrs = set(self.ax_attrs)
             required = []
             if 'name' in ax_attrs:
                 ax_attrs -= set(['name', 'firstname', 'fullname', 'lastname'])
@@ -191,7 +155,7 @@ class OpenidMixin(object):
 
         return args
 
-    def _on_authentication_verified(self, callback, response):
+    def verified(self, callback, response):
         """Called after the authentication attempt. It calls the callback
         function set when the authentication process started, passing a
         dictionary of user data if the authentication was successful or
@@ -235,7 +199,7 @@ class OpenidMixin(object):
         user = {}
         name_parts = []
         for name, uri in _ax_args:
-            value = self._get_ax_arg(uri, ax_ns)
+            value = self.ax_arg(uri, ax_ns)
             if value:
                 user[name] = value
                 if name in ('first_name', 'last_name'):
@@ -249,7 +213,7 @@ class OpenidMixin(object):
 
         return callback(user)
 
-    def _get_ax_arg(self, uri, ax_ns):
+    def ax_arg(self, uri, ax_ns):
         """Returns an Attribute Exchange value from request.
 
         :param uri:
