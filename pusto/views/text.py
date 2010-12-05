@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
-from naya import UrlMap
+from naya.helpers import marker
 
 
-map = UrlMap(__name__)
-
-
-@map.route('/new', defaults={'id': 'new'})
-@map.route('/<id>/edit')
+@marker.route('/new', defaults={'id': 'new'})
+@marker.route('/<id>/edit')
 def edit(app, id):
     text = prepare(id, app)
     bit = prepare_bit('new', text, app)
     return app.to_template('text/edit.html', text=text, active=bit)
 
 
-@map.route('/<id>/delete')
+@marker.route('/<id>/delete')
 def delete(app, id):
     text = prepare(id, app)
     for bit in text['bits']:
@@ -22,7 +19,7 @@ def delete(app, id):
     return app.redirect(app.url_for(':text.edit'))
 
 
-@map.route('/<id>/bit')
+@marker.route('/<id>/bit')
 def bit(app, id):
     if not app.request.form:
         app.abort(403)

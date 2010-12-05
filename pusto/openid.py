@@ -47,8 +47,8 @@ class OpenidMixin(object):
             if 'user' in self.session:
                 return func(*args, **kwargs)
 
-            endpoint = self.conf['openid:endpoint']
-            ax_attrs = self.conf['openid:ax_attrs']
+            endpoint = self['openid:endpoint']
+            ax_attrs = self['openid:ax_attrs']
 
             if self.request.args.get('openid.mode', None):
                 self.get_authenticated_user(

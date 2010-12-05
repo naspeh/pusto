@@ -1,11 +1,6 @@
-from naya.base import Module
+from naya.helpers import marker
 
 from . import text
-
-
-mod = Module(__name__, {
-    'maps': [(text.map, 'text')]
-})
 
 
 REDIRECTS = (
@@ -16,7 +11,14 @@ REDIRECTS = (
 )
 
 
-@mod.route('/<path:path>')
+@marker.defaults()
+def defaults():
+    return {
+        'modules': {'text': text}
+    }
+
+
+@marker.route('/<path:path>')
 def redirector(app, path):
     path = path.rstrip('/')
     for paths in REDIRECTS:
@@ -25,12 +27,12 @@ def redirector(app, path):
     app.abort(404)
 
 
-@mod.route('/login/')
+@marker.route('/login/')
 def login(app):
     return app.with_login(lambda: app.redirect('/'))()
 
 
-@mod.route('/logout/')
+@marker.route('/logout/')
 def logout(app):
     app.with_logout()
     return 'ok'
