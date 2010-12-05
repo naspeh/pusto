@@ -36,4 +36,4 @@ def login(app):
 @marker.route('/logout/')
 def logout(app):
     app.logout()
-    return 'ok'
+    return app.redirect('/')
