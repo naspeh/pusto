@@ -23,6 +23,8 @@ app = Pusto(__name__, {
             '^_mockups\/',
             '^_styles\/main\.css$',
         ],
-        'filters': {'rst': markup.rst, 'markdown': markup.markdown}
+        'env': {
+            'filters': {'rst': markup.rst, 'markdown': markup.markdown}
+        }
     }
 })
