@@ -1,6 +1,6 @@
 from naya.helpers import marker
 
-from . import text
+from . import auth, text
 
 
 REDIRECTS = (
@@ -14,7 +14,10 @@ REDIRECTS = (
 @marker.defaults()
 def defaults():
     return {
-        'modules': {'text': text}
+        'modules': {
+            'text': text,
+            'auth': (auth, {'prefix': ''})
+        }
     }
 
 
@@ -25,15 +28,3 @@ def redirector(app, path):
         if path in paths:
             return app.redirect(paths[0])
     app.abort(404)
-
-
-@marker.with_login()
-@marker.route('/login/')
-def login(app):
-    return app.redirect('/')
-
-
-@marker.route('/logout/')
-def logout(app):
-    app.logout()
-    return app.redirect('/')

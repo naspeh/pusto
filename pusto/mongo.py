@@ -3,7 +3,7 @@ from pymongo.errors import InvalidId
 
 from naya.helpers import marker
 
-from .models import TextBit, Text
+from .models import Node, TextBit, Text
 
 
 class MongoMixin(object):
@@ -11,7 +11,7 @@ class MongoMixin(object):
     def mongo_init(self):
         self.mongo = Connection()
         self.db = self.mongo.pusto
-        self.mongo.register([Text, TextBit])
+        self.mongo.register([Node, Text, TextBit])
 
     def object_id(self, id):
         try:
