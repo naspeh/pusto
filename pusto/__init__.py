@@ -24,7 +24,8 @@ app = Pusto(__name__, {
             '^_styles\/main\.css$',
         ],
         'env': {
-            'filters': {'rst': markup.rst, 'markdown': markup.markdown}
+            'filters': {'rst': markup.rst, 'markdown': markup.markdown},
+            'options': {'autoescape': False}
         }
     }
 })
