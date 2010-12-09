@@ -1,16 +1,10 @@
 from naya.testing import aye, call
 from nose import with_setup
 
-from . import app
+from . import app, drop_db
 
 
 c = app.test_client()
-
-
-def setup_db():
-    test_db = 'test_pusto'
-    app.mongo.drop_database(test_db)
-    app.db = app.mongo[test_db]
 
 
 def add_text():
@@ -41,7 +35,7 @@ def add_bit(text_id, bit_id, body='body', number=1, insert='', parent=''):
     return text, bit
 
 
-@with_setup(setup_db)
+@with_setup(drop_db)
 def test_bit_new():
     text, bit = add_text()
     text, bit2 = add_bit(text['_id'], 'new', 'body2', 2)
@@ -49,7 +43,7 @@ def test_bit_new():
     aye('==', bit2['body'], text['bits'][1]['body'])
 
 
-@with_setup(setup_db)
+@with_setup(drop_db)
 def test_bit_edit():
     text, bit = add_text()
     text, bit2 = add_bit(text['_id'], bit['_id'], 'body.v2')
@@ -57,7 +51,7 @@ def test_bit_edit():
     aye('==', bit2['body'], text['bits'][0]['body'])
 
 
-@with_setup(setup_db)
+@with_setup(drop_db)
 def test_bit_before():
     text, bit = add_text()
     text, bit2 = add_bit(text['_id'], 'new', 'body2', 2, 'before', bit['_id'])
@@ -65,7 +59,7 @@ def test_bit_before():
     aye('==', bit2['body'], text['bits'][0]['body'])
 
 
-@with_setup(setup_db)
+@with_setup(drop_db)
 def test_bit_after():
     text, bit = add_text()
     text, bit2 = add_bit(text['_id'], 'new', 'body2', 2)
@@ -77,7 +71,7 @@ def test_bit_after():
     aye('==', bit2['body'], text['bits'][0]['body'])
 
 
-@with_setup(setup_db)
+@with_setup(drop_db)
 def test_bit_delete():
     text, bit = add_text()
     c.post(app.url_for(':text.bit', id=text['_id']), data={
@@ -92,7 +86,7 @@ def test_bit_delete():
     aye('==', 0, call(len, text['bits']))
 
 
-@with_setup(setup_db)
+@with_setup(drop_db)
 def test_bit_reset():
     text, bit = add_text()
     body = 'body2'
@@ -109,7 +103,7 @@ def test_bit_reset():
     aye('!=', body, text['bits'][0]['body'])
 
 
-@with_setup(setup_db)
+@with_setup(drop_db)
 def test_text_delete():
     text = add_text()[0]
     c.get(app.url_for(':text.delete', id=text['_id']))
@@ -141,7 +135,7 @@ def test_fails():
     c.get(app.url_for(':text.bit', id='new'), code=403)
 
 
-@with_setup(setup_db)
+@with_setup(drop_db)
 def test_fails2():
     text = add_text()[0]
     c.get(app.url_for(':text.delete', id=text['_id']))

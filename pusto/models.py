@@ -4,7 +4,7 @@ from mongokit import Document as BaseDocument, IS
 from naya.helpers import marker
 
 from . import markup
-from .translit import slugify
+from .ext.translit import slugify
 
 
 class Document(BaseDocument):
@@ -19,15 +19,39 @@ class Document(BaseDocument):
             return not bool(self.validation_errors)
 
 
-class Created(Document):
+class CreatedMixin(Document):
     structure = {
         'created': datetime,
     }
     required_fields = ['created']
     default_values = {'created': datetime.utcnow}
+    indexes = [
+        {'fields': [('created', -1)]},
+    ]
 
 
-class Markup(Document):
+@marker.model()
+class User(CreatedMixin):
+    __collection__ = 'users'
+
+    structure = {
+        'email': unicode,
+        'username': unicode
+    }
+    required_fields = ['email', 'username']
+    indexes = [
+        {'fields': ['email'], 'unique': True},
+        {'fields': ['username'], 'unique': True}
+    ]
+
+
+class OwnerMixin(Document):
+    structure = {
+        'owner': User
+    }
+
+
+class MarkupMixin(Document):
     structure = {
         'markup': IS(u'rst', u'markdown'),
     }
@@ -36,7 +60,7 @@ class Markup(Document):
 
 
 @marker.model()
-class TextBit(Markup, Created):
+class TextBit(MarkupMixin, CreatedMixin):
     __collection__ = 'text_bits'
 
     structure = {
@@ -50,7 +74,7 @@ class TextBit(Markup, Created):
 
 
 @marker.model()
-class Text(Markup, Created):
+class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     __collection__ = 'texts'
 
     structure = {
@@ -61,7 +85,7 @@ class Text(Markup, Created):
 
 
 @marker.model()
-class Node(Created):
+class Node(CreatedMixin, OwnerMixin):
     __collection__ = 'nodes'
 
     structure = {

@@ -1,7 +1,10 @@
+from datetime import datetime
+
 from naya.helpers import marker
 from pymongo.errors import DuplicateKeyError
 
 
+@marker.with_login()
 @marker.route('/node/new', defaults={'id': 'new'})
 @marker.route('/node/<id>/edit')
 def edit(app, id):
@@ -9,11 +12,15 @@ def edit(app, id):
     errors = []
     data = app.request.form
     if data:
+        published = 'published' in data and data['published'] or None
+        published = published and datetime.utcnow() or None
+
         node.update({
             'parent': prepare_doc(app, app.db.Node, data['parent']),
             'title': data['title'].strip() or None,
             'slug': data['slug'].strip() or None,
-            'content': prepare_doc(app, app.db.Text, data['content'])
+            'content': prepare_doc(app, app.db.Text, data['content']),
+            'published': published
         })
         node.prepare_slug()
 

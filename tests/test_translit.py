@@ -5,7 +5,7 @@ def test():
     u'''
     NOTICE: Need Doctest
 
-    >>> from pusto.translit import translify, slugify, solve_langs
+    >>> from pusto.ext.translit import translify, slugify, solve_langs
     >>> solve_langs(u'сыр')
     ['ru']
     >>> solve_langs(u'хліб')

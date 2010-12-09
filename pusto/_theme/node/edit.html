@@ -28,6 +28,10 @@
             <label for="f_content">ID контетнта</label>
         </div>
         <div>
+            <input type="checkbox" name="published" id="f_published"{% if node.published %} checked="checked"{% endif %} />
+            <label for="f_published">Опубликовать</label>
+        </div>
+        <div>
             <button type="submit" name="save" value="save">Готово</button>
         </div>
     </form>
