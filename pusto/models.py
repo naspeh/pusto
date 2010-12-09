@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from mongokit import Document as BaseDocument, IS
+from naya.helpers import marker
 
 from . import markup
 from .translit import slugify
@@ -26,6 +27,7 @@ class Created(Document):
     default_values = {'created': datetime.utcnow}
 
 
+@marker.model()
 class Node(Created):
     __collection__ = 'nodes'
 
@@ -61,6 +63,7 @@ class Markup(Document):
     default_values = {'markup': u'rst'}
 
 
+@marker.model()
 class TextBit(Markup, Created):
     __collection__ = 'text_bits'
 
@@ -74,6 +77,7 @@ class TextBit(Markup, Created):
         return getattr(markup, self['markup'])(self['body'])
 
 
+@marker.model()
 class Text(Markup, Created):
     __collection__ = 'texts'
 

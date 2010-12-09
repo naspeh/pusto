@@ -1,16 +1,14 @@
 from datetime import datetime
 
-from naya.testing import aye
+from naya.testing import raises
 from pymongo.errors import DuplicateKeyError
 
-from pusto import app
+from . import app
 from pusto.translit import slugify
 
 
 def setup():
-    test_db = 'test_pusto'
-    app.mongo.drop_database(test_db)
-    app.db = app.mongo[test_db]
+    app.mongo.drop_database(app['mongo:db'])
 
 
 def is_created(doc):
@@ -37,7 +35,7 @@ def test_node(title=u'test title'):
 
     node2 = app.db.Node()
     node2['title'] = title
-    aye.raises(DuplicateKeyError, lambda: node2.save())
+    raises(DuplicateKeyError, lambda: node2.save())
     return node
 
 

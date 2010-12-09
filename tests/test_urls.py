@@ -1,6 +1,6 @@
 from naya.testing import aye
 
-from pusto import app
+from . import app
 from pusto.views import REDIRECTS
 
 

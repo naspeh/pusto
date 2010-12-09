@@ -1,7 +1,7 @@
-from naya.testing import aye
+from naya.testing import aye, call
 from nose import with_setup
 
-from pusto import app
+from . import app
 
 
 c = app.test_client()
@@ -31,7 +31,7 @@ def add_bit(text_id, bit_id, body='body', number=1, insert='', parent=''):
     }, code=200)
     aye('==', app.db.Text.fetch().count(), 1)
     text = app.db.Text.fetch_one()
-    aye('len', number, text['bits'])
+    aye('==', number, call(len, text['bits']))
     aye('==', app.db.TextBit.fetch().count(), number)
     if bit_id == 'new':
         bit = list(app.db.TextBit.fetch())[-1]
@@ -89,7 +89,7 @@ def test_bit_delete():
     aye('==', app.db.TextBit.fetch().count(), 0)
 
     text.reload()
-    aye('len', 0, text['bits'])
+    aye('==', 0, call(len, text['bits']))
 
 
 @with_setup(setup_db)
@@ -105,7 +105,7 @@ def test_bit_reset():
     aye('==', app.db.TextBit.fetch().count(), 1)
 
     text.reload()
-    aye('len', 1, text['bits'])
+    aye('==', 1, call(len, text['bits']))
     aye('!=', body, text['bits'][0]['body'])
 
 

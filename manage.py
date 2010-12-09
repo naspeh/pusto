@@ -2,8 +2,10 @@
 from naya.script import make_shell, sh
 from werkzeug.script import make_runserver, run
 
-from pusto import app
+from pusto import App
 
+
+app = App()
 
 sh.defaults(host='yadro.org', params={
     'activate': 'source /root/.virtualenvs/pusto/bin/activate && which python',
