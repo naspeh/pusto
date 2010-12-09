@@ -8,15 +8,20 @@ from .ext.openid import Openid
 class OpenidMixin(object):
     @marker.defaults()
     def openid_defaults(self):
-        return {'openid': {
-            'endpoint': 'https://www.google.com/accounts/o8/ud',
-            'ax_attrs': ['email'],
-        }}
+        return {
+            'openid': {
+                'endpoint': 'https://www.google.com/accounts/o8/ud',
+                'ax_attrs': ['email'],
+            },
+            'admin': None
+        }
 
     @marker.wrap_handler()
     def openid_wrap_handler(self, handler):
-        for mark in marker.with_login.get(handler):
-            handler = self.with_login(handler)
+        for mark in marker.authorized.get(handler):
+            handler = self.authorized(
+                handler, *mark['args'], **mark['kwargs']
+            )
 
         user = self.session.get('user', None)
         if user:
@@ -24,10 +29,12 @@ class OpenidMixin(object):
         self.user = user or None
         return handler
 
-    def with_login(self, func):
+    def authorized(self, func, as_admin=False):
         @wraps(func)
         def decorated(*args, **kwargs):
-            if 'user' in self.session:
+            if 'user' in self.session and self.user:
+                if as_admin and self.user['name'] != self['admin']:
+                    return self.abort(403)
                 return func(*args, **kwargs)
 
             openid = Openid(
@@ -50,7 +57,7 @@ class OpenidMixin(object):
         user = self.db.User.find_one({'email': user_['email']})
         if not user:
             user = self.db.User()
-            user.update({'email': user_['email'], 'username': user_['name']})
+            user.update(user_)
             user.save()
 
         self.session['user'] = user['_id']

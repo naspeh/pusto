@@ -4,7 +4,7 @@ from naya.helpers import marker
 from pymongo.errors import DuplicateKeyError
 
 
-@marker.with_login()
+@marker.authorized(as_admin=True)
 @marker.route('/node/new', defaults={'id': 'new'})
 @marker.route('/node/<id>/edit')
 def edit(app, id):

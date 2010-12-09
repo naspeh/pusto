@@ -36,12 +36,12 @@ class User(CreatedMixin):
 
     structure = {
         'email': unicode,
-        'username': unicode
+        'name': unicode
     }
-    required_fields = ['email', 'username']
+    required_fields = ['email', 'name']
     indexes = [
         {'fields': ['email'], 'unique': True},
-        {'fields': ['username'], 'unique': True}
+        {'fields': ['name'], 'unique': True}
     ]
 
 

@@ -28,7 +28,7 @@ def test_user(name=u'naspeh'):
     user = app.db.User()
     is_created(user)
     assert not user.is_valid()
-    user.update({'email': u'%s@ya' % name, 'username': name})
+    user.update({'email': u'%s@ya' % name, 'name': name})
     user.save()
     assert user['_id']
     return user

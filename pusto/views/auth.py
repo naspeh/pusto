@@ -1,7 +1,7 @@
 from naya.helpers import marker
 
 
-@marker.with_login()
+@marker.authorized()
 @marker.route('/login/')
 def login(app):
     return app.redirect('/')

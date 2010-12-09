@@ -33,5 +33,6 @@ class App(Naya, MongoMixin, OpenidMixin):
             'mongo': {
                 'db': 'pusto',
                 'models': [models]
-            }
+            },
+            'admin': 'naspeh'
         }
