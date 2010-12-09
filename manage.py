@@ -27,11 +27,11 @@ def action_clean(mask=''):
 
 def action_pre_commit(test=('t', False)):
     '''Check code before commit'''
-    sh(('./manage.py clean'))
-    sh(('./manage.py pep8'))
-    sh(('git diff | grep -5 print'))
+    action_clean()
+    action_pep8()
+    sh('git diff | grep -5 print')
     if test:
-        sh('./manage.py test -c')
+        action_test(with_coverage=False)
 
 
 def action_deploy(local=('l', False), kill=True, pip=True):
@@ -43,8 +43,7 @@ def action_deploy(local=('l', False), kill=True, pip=True):
 
         sh(('pwd', 'git push origin master'))
         sh((
-            '$activate',
-            'cd $project_path', 'pwd',
+            '$activate', 'cd $project_path', 'pwd',
             'git pull origin master',
             deploy,
         ), remote=True)
@@ -52,8 +51,8 @@ def action_deploy(local=('l', False), kill=True, pip=True):
 
     if pip:
         sh((
-            '$activate',
-            'cd $project_path', 'pwd', 'git pull origin master',
+            '$activate', 'cd $project_path', 'pwd',
+            'git pull origin master',
             'pip install -r docs/pip.stage.txt',
         ))
 
