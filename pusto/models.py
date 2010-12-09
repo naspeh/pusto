@@ -8,11 +8,11 @@ from .translit import slugify
 
 
 class Document(BaseDocument):
-    raise_validation_errors = False
-
     def is_valid(self, field=None):
         self.validation_errors = {}
+        self.raise_validation_errors = False
         self.validate()
+        self.raise_validation_errors = True
         if field:
             return field not in self.validation_errors
         else:
@@ -25,34 +25,6 @@ class Created(Document):
     }
     required_fields = ['created']
     default_values = {'created': datetime.utcnow}
-
-
-@marker.model()
-class Node(Created):
-    __collection__ = 'nodes'
-
-    structure = {
-        'title': unicode,
-        'slug': unicode,
-        'urls': [unicode],
-        'published': datetime
-    }
-    required_fields = ['title', 'slug']
-    use_autorefs = True
-
-    def prepare_slug(self):
-        if not self['slug'] and self['title']:
-            self['slug'] = slugify(self['title'])
-
-    def save(self, *args, **kwargs):
-        self.prepare_slug()
-        super(Node, self).save(*args, **kwargs)
-
-Node.structure['parent'] = Node
-Node.indexes = [{
-    'fields':['parent', 'slug'],
-    'unique':True,
-}]
 
 
 class Markup(Document):
@@ -82,7 +54,37 @@ class Text(Markup, Created):
     __collection__ = 'texts'
 
     structure = {
-        'node': Node,
         'bits': [TextBit],
     }
     use_autorefs = True
+    force_autorefs_current_db = True
+
+
+@marker.model()
+class Node(Created):
+    __collection__ = 'nodes'
+
+    structure = {
+        'title': unicode,
+        'slug': unicode,
+        'urls': [unicode],
+        'published': datetime,
+        'content': Text
+    }
+    required_fields = ['title', 'slug']
+    use_autorefs = True
+    force_autorefs_current_db = True
+
+    def prepare_slug(self):
+        if not self['slug'] and self['title']:
+            self['slug'] = slugify(self['title'])
+
+    def save(self, *args, **kwargs):
+        self.prepare_slug()
+        super(Node, self).save(*args, **kwargs)
+
+Node.structure['parent'] = Node
+Node.indexes = [{
+    'fields':['parent', 'slug'],
+    'unique':True,
+}]

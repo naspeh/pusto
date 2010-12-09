@@ -25,6 +25,15 @@ def action_clean(mask=''):
     sh('\n'.join(command))
 
 
+def action_pre_commit(test=('t', False)):
+    '''Check code before commit'''
+    sh(('./manage.py clean'))
+    sh(('./manage.py pep8'))
+    sh(('git diff | grep -5 print'))
+    if test:
+        sh('./manage.py test -c')
+
+
 def action_deploy(local=('l', False), kill=True, pip=True):
     '''Deploy code on server.'''
     if not local:

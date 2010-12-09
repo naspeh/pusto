@@ -1,6 +1,6 @@
 from naya.helpers import marker
 
-from . import auth, text
+from . import auth, text, node
 
 
 REDIRECTS = (
@@ -16,7 +16,8 @@ def defaults():
     return {
         'modules': {
             'text': text,
-            'auth': (auth, {'prefix': ''})
+            'auth': (auth, {'prefix': ''}),
+            'node': (node, {'prefix': ''})
         }
     }
 

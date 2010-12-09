@@ -28,10 +28,13 @@ def test_node(title=u'test title'):
     node = app.db.Node()
     is_created(node)
     assert not node.is_valid()
-    node['title'] = title
+    node.update({'title': title, 'content': test_text()})
     node.save()
     assert node['slug'] == slugify(title)
     assert '_id' in node
+
+    node['wrong'] = True
+    assert not node.is_valid()
 
     node2 = app.db.Node()
     node2['title'] = title
@@ -52,6 +55,6 @@ def test_text():
     is_created(text)
     is_markuped(text)
     assert text.is_valid()
-    text.update({'bits': [bit], 'node': test_node(u'test title #2')})
+    text.update({'bits': [bit]})
     text.save()
     assert '_id' in text
