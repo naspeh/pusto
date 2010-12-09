@@ -29,9 +29,7 @@ def action_pre_commit(test=('t', False)):
     '''Check code before commit'''
     action_clean()
     action_pep8()
-    sh('echo print && git diff | grep -5 print')
-    if test:
-        action_test(with_coverage=False)
+    sh('git diff | grep -5 print')
 
 
 def action_deploy(local=('l', False), kill=True, pip=True):
