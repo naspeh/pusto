@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ node.title }}{% endblock %}
+
+{%- block content %}
+<div id="node-show">
+    <h1>{{ node.title }}</h1>
+    {% if node.content -%}
+        <p>{{ node.content }}</p>
+    {% endif %}
+
+    {% for child in children -%}
+        <a href="{{ app.url_for(':node.show', slug=child.full_slug()) }}">{{ child.title }}</a>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -12,7 +12,7 @@
     {% endif %}
     <form method="post" action="">
         <div>
-            <input name="parent" id="f_parent" value="{{ node.parent or ''}}" />
+            <input name="parent" id="f_parent" value="{{ node.parent._id or ''}}" />
             <label for="f_parent">Родитель</label>
         </div>
         <div>
@@ -24,7 +24,7 @@
             <label for="f_slug">Метка</label>
         </div>
         <div>
-            <input name="content" id="f_content" value="{{ node.content or ''}}" />
+            <input name="content" id="f_content" value="{{ node.content._id or ''}}" />
             <label for="f_content">ID контетнта</label>
         </div>
         <div>

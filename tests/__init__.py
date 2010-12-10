@@ -30,5 +30,6 @@ def clear_db(docs=None):
 
 
 def authorize(name=u'naspeh'):
+    name = unicode(name)
     app.session_load()
     app.openid_complete({'email': u'%s@ya' % name, 'name': name})

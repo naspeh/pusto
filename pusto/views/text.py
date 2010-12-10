@@ -57,6 +57,7 @@ def bit(app, id):
 def prepare(id, app):
     if id == 'new':
         text = app.db.Text()
+        text.update({'owner': app.user})
     else:
         text = app.db.Text.by_id(id) if id else None
     if not text:

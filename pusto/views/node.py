@@ -16,6 +16,7 @@ def edit(app, id):
         published = published and datetime.utcnow() or None
 
         node.update({
+            'owner': app.user,
             'parent': app.db.Node.by_id(data['parent'].strip()),
             'title': data['title'].strip() or None,
             'slug': data['slug'].strip() or None,
@@ -34,6 +35,15 @@ def edit(app, id):
             for error in node.validation_errors.values():
                 errors += error
     return app.to_template('node/edit.html', node=node, errors=errors)
+
+
+@marker.route('/a/<path:slug>')
+def show(app, slug):
+    node = app.db.Node.by_slug(slug)
+    if not node:
+        return app.abort(404)
+    children = app.db.Node.fetch({'parent': node.get_dbref()})
+    return app.to_template('node/show.html', node=node, children=children)
 
 
 def prepare(id, app):

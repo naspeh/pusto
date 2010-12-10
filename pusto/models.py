@@ -117,6 +117,23 @@ class Node(CreatedMixin, OwnerMixin):
         self.prepare_slug()
         super(Node, self).save(*args, **kwargs)
 
+    def by_slug(self, flat_slug):
+        slugs = flat_slug.strip('/').split('/')
+        parent = None
+        for slug in slugs:
+            parent = None if parent is None else parent
+            parent_doc = self.one({'slug': slug, 'parent': parent})
+            if not parent_doc:
+                return None
+            parent = parent_doc.get_dbref()
+        return parent_doc
+
+    def full_slug(self):
+        slug = [self['slug']]
+        if self['parent']:
+            slug.insert(0, self['parent'].full_slug())
+        return '/'.join(slug)
+
 Node.structure['parent'] = Node
 Node.indexes = [{
     'fields':['parent', 'slug'],
