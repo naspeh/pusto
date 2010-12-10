@@ -26,27 +26,28 @@ def action_clean(mask=''):
 
 
 def action_code():
-    '''Check code style'''
+    '''Check code style.'''
     action_clean()
     action_pep8()
     sh('git diff | grep -5 print')
 
 
-def action_deploy(local=('l', False), kill=True, pip=True):
-    '''Deploy code on server.'''
-    if not local:
-        deploy = './manage.py deploy -l'
-        deploy += '' if kill else ' --no-kill'
-        deploy += '' if pip else ' --no-pip'
+def action_rmdb():
+    '''Drop database.'''
+    app.mongo.drop_database(app['mongo:db'])
 
-        sh(('pwd', 'git push origin master'))
-        sh((
-            '$activate', 'cd $project_path', 'pwd',
-            'git pull origin master',
-            deploy,
-        ), remote=True)
+
+def action_remote(target=''):
+    '''Call remote command.'''
+    if not target:
+        print 'Error. Target no define'
         return
 
+    sh(['$activate', 'cd $project_path', target], remote=True)
+
+
+def action_deploy(kill=True, pip=True):
+    '''Deploy code on server.'''
     if pip:
         sh((
             '$activate', 'cd $project_path', 'pwd',
