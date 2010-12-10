@@ -20,26 +20,27 @@ def delete(app, id):
 
 @marker.route('/<id>/bit')
 def bit(app, id):
-    if not app.request.form:
+    data = app.request.form
+    if not data:
         app.abort(403)
 
-    action = app.request.form['action']
-    bit_id = app.request.form['bit']
+    action = data['action']
+    bit_id = data['bit']
     text = prepare(id, app)
     bit = prepare_bit(bit_id, text, app)
     if action == 'apply':
         if bit['_id'] is None:
             del bit['_id']
-        insert = app.request.form['insert']
+        insert = data['insert']
         if insert:
             text['bits'].remove(bit)
-            parent = app.request.form['parent']
-            parent = app.db.TextBit.find_one(app.object_id(parent))
+            parent = data['parent']
+            parent = app.db.TextBit.by_id(parent)
             parent = text['bits'].index(parent)
             parent = parent if insert == 'before' else parent + 1
             text['bits'].insert(parent, bit)
 
-        bit['body'] = app.request.form['body']
+        bit['body'] = data['body']
         bit.save()
         text.save()
         prepare_bit('new', text, app)
@@ -57,8 +58,7 @@ def prepare(id, app):
     if id == 'new':
         text = app.db.Text()
     else:
-        id = app.object_id(id)
-        text = app.db.Text.find_one(id) if id else None
+        text = app.db.Text.by_id(id) if id else None
     if not text:
         return app.abort(404)
     return text
@@ -71,8 +71,7 @@ def prepare_bit(id, text, app):
         bit['_id'] = None
         text['bits'].append(bit)
     else:
-        id = app.object_id(id)
-        bit = app.db.TextBit.find_one(id) if id else None
+        bit = app.db.TextBit.by_id(id) if id else None
     if not bit:
         return app.abort(404)
     return bit

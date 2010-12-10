@@ -30,7 +30,7 @@ def add_bit(text_id, bit_id, body='body', number=1, insert='', parent=''):
     if bit_id == 'new':
         bit = list(app.db.TextBit.fetch())[-1]
     else:
-        bit = app.db.TextBit.find_one(app.object_id(bit_id))
+        bit = app.db.TextBit.by_id(bit_id)
     aye('==', bit['body'], body)
     return text, bit
 

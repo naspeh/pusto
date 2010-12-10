@@ -16,10 +16,10 @@ def edit(app, id):
         published = published and datetime.utcnow() or None
 
         node.update({
-            'parent': prepare_doc(app, app.db.Node, data['parent']),
+            'parent': app.db.Node.by_id(data['parent'].strip()),
             'title': data['title'].strip() or None,
             'slug': data['slug'].strip() or None,
-            'content': prepare_doc(app, app.db.Text, data['content']),
+            'content': app.db.Text.by_id(data['content'].strip()),
             'published': published
         })
         node.prepare_slug()
@@ -36,16 +36,11 @@ def edit(app, id):
     return app.to_template('node/edit.html', node=node, errors=errors)
 
 
-def prepare_doc(app, doc_type, flat_id):
-    id = app.object_id(flat_id.strip())
-    return doc_type.find_one(id) if id else None
-
-
 def prepare(id, app):
     if id == 'new':
         node = app.db.Node()
     else:
-        node = prepare_doc(app, app.db.Node, id)
+        node = app.db.Node.by_id(id.strip()) if id else None
     if not node:
         return app.abort(404)
     return node

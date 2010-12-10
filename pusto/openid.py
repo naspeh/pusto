@@ -25,7 +25,7 @@ class OpenidMixin(object):
 
         user = self.session.get('user', None)
         if user:
-            user = self.db.User.find_one(self.object_id(user))
+            user = self.db.User.by_id(user)
         self.user = user or None
         return handler
 
@@ -54,7 +54,7 @@ class OpenidMixin(object):
     def openid_complete(self, user_):
         if not user_:
             self.abort(403)
-        user = self.db.User.find_one({'email': user_['email']})
+        user = self.db.User.one({'email': user_['email']})
         if not user:
             user = self.db.User()
             user.update(user_)

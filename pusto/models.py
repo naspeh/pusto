@@ -1,7 +1,8 @@
 from datetime import datetime
 
-from mongokit import Document as BaseDocument, IS
+from mongokit import Document as BaseDocument, IS, ObjectId
 from naya.helpers import marker
+from pymongo.errors import InvalidId
 
 from . import markup
 from .ext.translit import slugify
@@ -17,6 +18,13 @@ class Document(BaseDocument):
             return field not in self.validation_errors
         else:
             return not bool(self.validation_errors)
+
+    def by_id(self, id):
+        try:
+            id = ObjectId(id)
+        except InvalidId:
+            return None
+        return self.get_from_id(id) if id else None
 
 
 class CreatedMixin(Document):
