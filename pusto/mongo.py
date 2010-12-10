@@ -18,5 +18,9 @@ class MongoMixin(object):
 
         models = []
         for container in self['mongo:models']:
-            models += [m[0] for m in marker.model.of(container)]
+            for model in marker.model.of(container):
+                model = model[0]
+                models.append(model)
+                model.collection = self.db[model.__collection__]
+
         self.mongo.register(models)

@@ -3,12 +3,12 @@ from datetime import datetime
 from naya.testing import raises
 from pymongo.errors import DuplicateKeyError
 
-from . import app, drop_db
+from . import app, clear_db
 from pusto.ext.translit import slugify
 
 
 def setup():
-    drop_db()
+    clear_db()
 
 
 def is_created(doc):

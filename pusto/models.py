@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from mongokit import Document as BaseDocument, IS, ObjectId
+from mongokit import Document as _Document, IS, ObjectId
 from naya.helpers import marker
 from pymongo.errors import InvalidId
 
@@ -8,7 +8,9 @@ from . import markup
 from .ext.translit import slugify
 
 
-class Document(BaseDocument):
+class Document(_Document):
+    collection = None
+
     def is_valid(self, field=None):
         self.validation_errors = {}
         self.raise_validation_errors = False
