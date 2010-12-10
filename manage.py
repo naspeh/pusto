@@ -25,8 +25,8 @@ def action_clean(mask=''):
     sh('\n'.join(command))
 
 
-def action_pre_commit(test=('t', False)):
-    '''Check code before commit'''
+def action_code():
+    '''Check code style'''
     action_clean()
     action_pep8()
     sh('git diff | grep -5 print')
