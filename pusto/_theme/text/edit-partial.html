@@ -1,6 +1,6 @@
 {% macro main(text, active=None, app) -%}
 <div id="toolbar">
-    <a href="#{{ app.url_for(':text.delete', id=text._id) }}" class="delete">удалить</a>
+    {% if text._id %}<a href="#{{ app.url_for(':text.delete', id=text._id) }}" class="delete">удалить</a>{% endif %}
     <a href="#" class="fluidsize">смотреть</a>
     <a href="#" class="fixsize">редактировать</a>
 </div>

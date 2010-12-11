@@ -93,6 +93,10 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     use_autorefs = True
     force_autorefs_current_db = True
 
+    @property
+    def html(self):
+        return '\n'.join(b.html for b in self['bits'])
+
 
 @marker.model()
 class Node(CreatedMixin, OwnerMixin):

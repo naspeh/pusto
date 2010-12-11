@@ -37,7 +37,7 @@ def edit(app, id):
     return app.to_template('node/edit.html', node=node, errors=errors)
 
 
-@marker.route('/a/<path:slug>')
+@marker.route('/node/<path:slug>')
 def show(app, slug):
     node = app.db.Node.by_slug(slug)
     if not node:

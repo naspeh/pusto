@@ -1,6 +1,6 @@
 from naya.testing import aye
 
-from . import app, clear_db, authorize
+from . import app, clear_db, authorize, test_text
 from pusto.ext.translit import slugify
 
 
@@ -12,13 +12,13 @@ def setup():
     authorize(app['admin'])
 
 
-def add_node(title='test title', parent=None):
+def add_node(title='test title', parent=None, content=None):
     title = unicode(title)
     c.post(app.url_for(':node.edit'), data={
-        'parent': '' if parent is None else parent,
+        'parent': parent or '',
         'title': title,
         'slug': '',
-        'content': '',
+        'content': content or '',
     }, code=200, follow_redirects=True)
 
     if not title:
@@ -31,11 +31,14 @@ def add_node(title='test title', parent=None):
 
 
 def test_node_new():
-    clear_db([Node])
+    clear_db([Node, app.db.Text, app.db.TextBit])
 
     add_node('')
-    node = add_node()
+
+    text = test_text.add_text()[0]
+    node = add_node(content=text['_id'])
     aye(True, node['_id'])
+    aye('==', node['content'], text)
     aye('==', app.user, node['owner'])
     aye('==', c.path, app.url_for(':node.edit', id=node['_id']))
 
@@ -81,6 +84,7 @@ def test_node_show():
     aye('in', '<h1>%s</h1>' % node['title'], c.data)
     aye('in', slug1, c.data)
     aye('in', slug2, c.data)
+    aye('in', node['content'].html, c.data)
 
     c.get(app.url_for(':node.show', slug=slug1), code=200)
     aye('in', '<h1>%s</h1>' % node1['title'], c.data)

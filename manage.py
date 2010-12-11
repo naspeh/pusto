@@ -43,7 +43,11 @@ def action_remote(target=''):
         print 'Error. Target no define'
         return
 
-    sh(['$activate', 'cd $project_path', target], remote=True)
+    sh(
+        ['$activate', 'cd $project_path', target],
+        params={'m': './manage.py'},
+        remote=True
+    )
 
 
 def action_deploy(kill=True, pip=True):

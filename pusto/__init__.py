@@ -1,3 +1,4 @@
+from jinja2 import DebugUndefined
 from naya.base import Naya
 
 from . import views, models
@@ -27,7 +28,11 @@ class App(Naya, MongoMixin, OpenidMixin):
                 ],
                 'env': {
                     'filters': {'rst': rst, 'markdown': markdown},
-                    'options': {'autoescape': False}
+                    'options': {
+                        'autoescape': False,
+                        'trim_blocks': True,
+                        'undefined': DebugUndefined
+                    }
                 }
             },
             'mongo': {

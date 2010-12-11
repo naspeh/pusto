@@ -5,7 +5,7 @@
 <div id="node-show">
     <h1>{{ node.title }}</h1>
     {% if node.content -%}
-        <p>{{ node.content }}</p>
+        <p>{{ node.content.html }}</p>
     {% endif %}
 
     {% for child in children -%}
