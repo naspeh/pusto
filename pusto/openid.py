@@ -24,6 +24,7 @@ class OpenidMixin(object):
             )
 
         user = self.session.get('user', None)
+        user = isinstance(user, basestring) and user or None
         if user:
             user = self.db.User.by_id(user)
         self.user = user or None
@@ -60,4 +61,4 @@ class OpenidMixin(object):
             user.update(user_)
             user.save()
 
-        self.session['user'] = user['_id']
+        self.session['user'] = str(user['_id'])

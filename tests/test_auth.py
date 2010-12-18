@@ -22,13 +22,22 @@ def test_login():
 
     name = u'naya'
     authorize(name)
+    user = app.db.User.one({'name': name})
 
+    aye(True, user)
     aye('in', 'user', app.session)
-    aye('==', app.session['user'], app.db.User.one({'name': name})['_id'])
+    aye('==', app.session['user'], str(user['_id']))
 
     c.get(login, code=200, follow_redirects=True)
     aye(True, app.user)
     aye('==', c.path, '/')
+
+
+@with_setup(clean_auth)
+def test_bad_session():
+    app.session['user'] = {'name': 'naspeh'}
+    c.get(app.url_for(':auth.login'), code=302)
+    aye(False, app.user)
 
 
 @with_setup(clean_auth)
