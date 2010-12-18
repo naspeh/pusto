@@ -22,7 +22,7 @@ class App(Naya, MongoMixin, OpenidMixin):
                 'url_prefix': '/',
                 'path_ends': ['/index.html', '.html'],
                 'path_allow': [
-                    '^$', '^naspeh$', '^resume$', '^post/[-\w]*$',
+                    '^(|naspeh|resume|post/[-\w]*)$',
                     '^_mockups\/',
                     '^_styles\/main\.css$',
                 ],
