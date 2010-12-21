@@ -15,6 +15,7 @@ class App(_App):
 
 
 app = App(prefs={
+    'testing': True,
     'mongo': {'db': 'test_pusto'}
 })
 

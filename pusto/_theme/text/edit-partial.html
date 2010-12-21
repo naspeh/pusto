@@ -16,7 +16,7 @@
 </div></div>
 <div id="editor">
     <form method="post" id="editor-form" action="{{ app.url_for(':text.bit', id=text._id or 'new') }}">
-        <input id="text-url" name="text-url" type="hidden" value="{{ app.url_for(':text.edit', id=text._id) }}" />
+        <input id="text-url" name="text-url" type="hidden" value="{{ app.url_for(':text.edit', id=text._id or None) }}" />
         <div class="toolbar choicer">
             <select id="bit-choicer" name="bit">
                 {% for bit in text.bits -%}

@@ -1,13 +1,15 @@
 {% extends "base.html" %}
+{% from '_helpers.html' import css, js %}
 {% import 'text/edit-partial.html' as partial %}
 
 {% block title %}Edit for fun{% endblock %}
 
 {% block extrahead %}
-<script src="{{ app.url_for(':theme', path='_scripts/jquery.js') }}" type="text/javascript"></script>
-<script src="{{ app.url_for(':theme', path='_scripts/jquery.form.js') }}" type="text/javascript"></script>
-<script>{% include 'text/edit.js' %}</script>
-<style>{% include 'text/edit.css' %}</style>
+{{ js('_scripts/jquery.js') }}
+{{ js('_scripts/jquery.form.js') }}
+
+{{ js('text/edit.js', include=True) }}
+{{ css('text/edit.css', include=True) }}
 {% endblock %}
 
 

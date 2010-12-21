@@ -16,6 +16,10 @@ def add_text():
 
 
 def add_bit(text_id, bit_id, body='body', number=1, insert='', parent=''):
+    url = app.url_for(':text.edit', id=text_id)
+    c.get(url, code=200)
+    aye('in', 'value="%s"' % url, c.data)
+
     c.post(app.url_for(':text.bit', id=text_id), data={
         'bit': bit_id,
         'action': 'apply',
