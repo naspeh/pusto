@@ -103,7 +103,7 @@ class TextBit(MarkupMixin, CreatedMixin):
 
 
 @marker.model()
-class Text(MarkupMixin, CreatedMixin, OwnerMixin):
+class Text(CreatedMixin, OwnerMixin):
     __collection__ = 'texts'
 
     structure = {

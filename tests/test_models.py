@@ -77,7 +77,6 @@ def test_text(user=None):
 
     text = app.db.Text()
     is_created(text)
-    is_markuped(text)
     assert text.is_valid()
     text.update({'bits': [bit], 'owner': user or test_user(u'nayavu')})
     text.save()
