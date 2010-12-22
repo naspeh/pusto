@@ -31,8 +31,9 @@ class App(Naya, MongoMixin, OpenidMixin):
                     'options': {
                         'autoescape': False,
                         'trim_blocks': True,
-                        'undefined': DebugUndefined
-                    }
+                        'undefined': DebugUndefined,
+                        'extensions': ['jinja2.ext.with_']
+                    },
                 }
             },
             'mongo': {

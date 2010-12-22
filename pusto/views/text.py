@@ -4,14 +4,16 @@ from naya.helpers import marker
 @marker.route('/new', defaults={'id': 'new'})
 @marker.route('/<id>/edit')
 def edit(app, id):
-    text = prepare(id, app)
+    text, node = prepare(id, app)
     bit = prepare_bit('new', text, app)
-    return app.to_template('text/edit.html', text=text, active=bit)
+    return app.to_template('text/edit.html', text=text, active=bit, node=node)
 
 
 @marker.route('/<id>/delete')
 def delete(app, id):
-    text = prepare(id, app)
+    text, node = prepare(id, app)
+    node['content'] = None
+    node.save()
     for bit in text['bits']:
         bit.delete()
     text.delete()
@@ -26,7 +28,7 @@ def bit(app, id):
 
     action = data['action']
     bit_id = data['bit']
-    text = prepare(id, app)
+    text, node = prepare(id, app)
     bit = prepare_bit(bit_id, text, app)
     if action == 'apply':
         if bit['_id'] is None:
@@ -51,18 +53,22 @@ def bit(app, id):
         bit = prepare_bit('new', text, app)
     elif action == 'reset':
         return bit['body']
-    return app.from_template('text/edit-partial.html', 'main')(text, bit, app)
+    return app.from_template('text/edit-partial.html', 'main')(
+        text, node, bit, app
+    )
 
 
 def prepare(id, app):
+    node = None
     if id == 'new':
         text = app.db.Text()
         text.update({'owner': app.user})
     else:
         text = app.db.Text.by_id(id) if id else None
+        node = text and text.node or None
     if not text:
         return app.abort(404)
-    return text
+    return text, node or app.db.Node()
 
 
 def prepare_bit(id, text, app):

@@ -10,6 +10,7 @@ from .ext.translit import slugify
 
 class Document(_Document):
     collection = None
+    app = None
 
     def is_valid(self, field=None):
         self.validation_errors = {}
@@ -92,6 +93,10 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     }
     use_autorefs = True
     force_autorefs_current_db = True
+
+    @property
+    def node(self):
+        return self.app.db.Node.one({'content': self.get_dbref()})
 
     @property
     def html(self):

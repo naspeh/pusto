@@ -14,11 +14,20 @@
     float: right;
     {{ border_radius('10px 10px 0 0') }}
 }
-#toolbar a.fixsize {
+#toolbar a.active {
+    background: #fcc;
+}
+#toolbar a.edit {
     display: none;
 }
 #toolbar a.delete {
     float: left;
+}
+#options {
+    display: none;
+    padding: 10px;
+    border-bottom: 2px solid #ccc;
+    font-size: 0.7em;
 }
 #viewer {
     padding: 2px 0;

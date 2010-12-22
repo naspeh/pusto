@@ -32,27 +32,67 @@ $(document).ready(function() {
         reset.click();
     });
 
-    $('#toolbar a').live('click', function() {
+    $('#toolbar a.edit, #toolbar a.preview').live('click', function() {
         var $this = $(this);
         var toolbar = $this.parent();
         var editor = $('#text-edit');
-        if ($this.hasClass('fixsize')) {
+        if ($this.hasClass('edit')) {
             editor.find('#preview').hide().html('');
             editor.find('#viewer, #editor').show();
             $this.hide();
-            toolbar.find('.fluidsize').show();
-        } else if ($this.hasClass('fluidsize')) {
+            toolbar.find('.preview').show();
+        } else if ($this.hasClass('preview')) {
             var viewer = editor.find('#preview');
             editor.find('.document').clone().appendTo(viewer);
             viewer.show()
             editor.find('#viewer, #editor').hide();
             $this.hide();
-            toolbar.find('.fixsize').show();
-        } else if ($this.hasClass('delete') && confirm('Точно хотите удалить?')) {
+            toolbar.find('.edit').show();
+        }
+        return false;
+    });
+
+    $('#toolbar a.delete').live('click', function(){
+        var $this = $(this);
+        if (confirm('Точно хотите удалить?')) {
             var href = $this.attr('href').replace('#', '');
             $this.attr('href', href);
         }
-    })
+    });
+
+    $('#toolbar a.options').live('click', function(){
+        var $this = $(this);
+        var div = $("#options");
+        if ($this.hasClass('active')) {
+            div.slideUp();
+            $this.removeClass('active');
+        } else {
+            $this.addClass('active');
+            var url = div.find('form').attr('action');
+            url += '?content=' + div.find('input[name="content"]').val();
+            $.get(url, function(data){
+                div.html(data);
+                div.slideDown();
+                div.find(':text:first').focus();
+            });
+        }
+        return false
+    });
+
+    $('#options form').live('submit', function(){
+        var $this = $(this);
+        $this.ajaxSubmit({
+            'beforeSubmit': function() {
+                $('#options').find(':input').attr('disabled', 'disabled');
+            },
+            'success' : function(data) {
+                var div = $('#options');
+                div.html(data);
+                div.find(':input').attr('disabled', '');
+            }
+        });
+        return false;
+    });
 
     $('#action-apply, #action-delete, #action-reset').live('click', function() {
         var form = $('#editor-form');

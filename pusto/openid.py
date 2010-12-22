@@ -34,7 +34,7 @@ class OpenidMixin(object):
         @wraps(func)
         def decorated(*args, **kwargs):
             if 'user' in self.session and self.user:
-                if as_admin and self.user['name'] != self['admin']:
+                if as_admin and not self.is_admin():
                     return self.abort(403)
                 return func(*args, **kwargs)
 
@@ -62,3 +62,8 @@ class OpenidMixin(object):
             user.save()
 
         self.session['user'] = str(user['_id'])
+
+    def is_admin(self, user=None):
+        if not user:
+            user = self.user
+        return user and user['name'] == self['admin'] or False

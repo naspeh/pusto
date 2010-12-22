@@ -1,6 +1,3 @@
-{% extends "base.html" %}
-{% block title %}Edit node{% endblock %}
-
 {%- block content %}
 <div id="node-edit">
     {% if errors %}
@@ -10,28 +7,21 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <form method="post" action="">
+    <form method="post" action="{{ app.url_for(':node.edit', id=node._id or None) }}">
+        <input type="hidden" name="content" id="f_content" value="{{ content._id or ''}}" />
         <div>
-            <input name="parent" id="f_parent" value="{{ node.parent._id or ''}}" />
-            <label for="f_parent">Родитель</label>
-        </div>
-        <div>
-            <input name="title" id="f_title" value="{{ node.title or ''}}" />
             <label for="f_title">Название</label>
-        </div>
-        <div>
-            <input name="slug" id="f_slug" value="{{ node.slug or ''}}" />
-            <label for="f_slug">Метка</label>
-        </div>
-        <div>
-            <input name="content" id="f_content" value="{{ node.content._id or ''}}" />
-            <label for="f_content">ID контетнта</label>
-        </div>
-        <div>
+            <input name="title" id="f_title" size="40" value="{{ node.title or ''}}" />
             <input type="checkbox" name="published" id="f_published"{% if node.published %} checked="checked"{% endif %} />
             <label for="f_published">Опубликовать</label>
         </div>
         <div>
+            <label for="f_parent">Путь</label>
+            <input name="parent" id="f_parent" value="{{ node.parent and node.parent.full_slug() or ''}}" />
+
+            <label for="f_slug">/</label>
+            <input name="slug" id="f_slug" value="{{ node.slug or ''}}" />
+
             <button type="submit" name="save" value="save">Готово</button>
         </div>
     </form>

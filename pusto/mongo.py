@@ -22,5 +22,6 @@ class MongoMixin(object):
                 model = model[0]
                 models.append(model)
                 model.collection = self.db[model.__collection__]
+                model.app = self
 
         self.mongo.register(models)

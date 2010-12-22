@@ -17,12 +17,13 @@ def edit(app, id):
 
         node.update({
             'owner': app.user,
-            'parent': app.db.Node.by_id(data['parent'].strip()),
+            'parent': app.db.Node.by_slug(data['parent'].strip()),
             'title': data['title'].strip() or None,
             'slug': data['slug'].strip() or None,
             'content': app.db.Text.by_id(data['content'].strip()),
             'published': published
         })
+        content = node['content']
         node.prepare_slug()
 
         if node.is_valid():
@@ -31,10 +32,18 @@ def edit(app, id):
                 return app.redirect(':node.edit', id=str(node['_id']))
             except DuplicateKeyError, e:
                 errors = [e]
+                del node['_id']
         else:
             for error in node.validation_errors.values():
                 errors += error
-    return app.to_template('node/edit.html', node=node, errors=errors)
+    elif '_id' in node:
+        content = node['content']
+    else:
+        content = app.db.Text.by_id(app.request.args['content'])
+
+    return app.to_template(
+        'node/edit.html', node=node, content=content, errors=errors
+    )
 
 
 @marker.route('/node/<path:slug>')

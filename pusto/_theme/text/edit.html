@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% from '_helpers.html' import css, js %}
-{% import 'text/edit-partial.html' as partial %}
+{% from '_helpers.html' import css, js with context %}
+{% from 'text/edit-partial.html' import main as partial %}
 
 {% block title %}Edit for fun{% endblock %}
 
@@ -15,6 +15,6 @@
 
 {%- block content %}
 <div id="text-edit">
-    {{ partial.main(text, active, app) }}
+    {{ partial(text, node, active, app) }}
 </div>
 {% endblock %}
