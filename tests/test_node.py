@@ -69,16 +69,24 @@ def test_node_with_text():
 
     text = test_text.add_text()[0]
     text_id = text['_id']
-    c.get(app.url_for(':node.edit'), query_string={'content': text_id})
+    c.get(app.url_for(':node.edit'), query_string={
+        'content': text_id
+    }, code=200)
     aye('in', 'value="%s"' % text_id, c.data, c.url)
     node = add_node(content=text_id)
 
-    c.get(app.url_for(':text.show', id=text_id))
+    c.get(app.url_for(':text.show', id=text_id), code=200)
     aye('in', node['title'], c.data)
 
-    c.get(app.url_for(':text.delete', id=text_id))
+    c.get(app.url_for(':text.delete', id=text_id), code=302)
     node.reload()
     aye('is', None, node['content'])
+
+    c.get(app.url_for(':text.edit'), query_string={
+        'node': str(node['_id'])
+    }, code=200)
+    node.reload()
+    aye(True, node['content'])
 
 
 def test_node_new_fails():
@@ -88,7 +96,7 @@ def test_node_new_fails():
 
     node = add_node()
     node.delete()
-    c.get(app.url_for(':node.edit', id=node['_id']))
+    c.get(app.url_for(':node.edit', id=node['_id']), code=404)
 
 
 def test_node_show():
@@ -99,20 +107,20 @@ def test_node_show():
     slug21 = '/'.join([slug2, node21['slug']])
 
     c.get(app.url_for(':node.show', slug=slug), code=200)
-    aye('in', '<h1>%s</h1>' % node['title'], c.data)
+    aye('in', '<h1>%s' % node['title'], c.data)
     aye('in', slug1, c.data)
     aye('in', slug2, c.data)
     aye('in', node['content'].html, c.data)
 
     c.get(app.url_for(':node.show', slug=slug1), code=200)
-    aye('in', '<h1>%s</h1>' % node1['title'], c.data)
+    aye('in', '<h1>%s' % node1['title'], c.data)
 
     c.get(app.url_for(':node.show', slug=slug2), code=200)
-    aye('in', '<h1>%s</h1>' % node2['title'], c.data)
+    aye('in', '<h1>%s' % node2['title'], c.data)
     aye('in', slug21, c.data)
 
     c.get(app.url_for(':node.show', slug=slug21), code=200)
-    aye('in', '<h1>%s</h1>' % node21['title'], c.data)
+    aye('in', '<h1>%s' % node21['title'], c.data)
 
 
 def test_node_show_fails2():

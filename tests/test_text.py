@@ -162,3 +162,6 @@ def test_fails2():
     text = add_text()[0]
     c.get(app.url_for(':text.delete', id=text['_id']))
     c.post(app.url_for(':text.bit', id=text['_id']), data=DATA, code=404)
+    c.get(app.url_for(':text.edit', id=text['_id']), query_string={
+        'node': 'wrong-node'
+    }, code=404)

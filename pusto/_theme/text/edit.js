@@ -95,7 +95,7 @@ $(document).ready(function() {
 
     $('#action-apply, #action-delete, #action-reset').live('click', function() {
         var form = $('#editor-form');
-        var url = form.find('#text-url').val();
+        var url = window.location.pathname;
         var selected = form.find(':selected');
         var action = $(this).attr('value');
         if (action == 'delete' &&  !confirm('Точно хотите удалить ' + selected.html() + '?')) {
@@ -123,6 +123,7 @@ $(document).ready(function() {
         });
         return false;
     });
+
     $('#viewer .bit .info').live('click', function() {
         var choicer = $('#bit-choicer');
         var bit = $(this).parent();
@@ -132,6 +133,7 @@ $(document).ready(function() {
         reset.click();
         return false;
     });
+
     $('#bit-insert').live('change', function() {
         var $this = $(this);
         var choicer = $('#bit-choicer');
