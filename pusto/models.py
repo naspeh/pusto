@@ -3,6 +3,7 @@ from datetime import datetime
 from mongokit import Document as _Document, IS, ObjectId
 from naya.helpers import marker
 from pymongo.errors import InvalidId
+from werkzeug import Href
 
 from . import markup
 from .ext.translit import slugify
@@ -148,6 +149,25 @@ class Node(CreatedMixin, OwnerMixin):
     def children(self):
         return self.app.db.Node.fetch({'parent': self.get_dbref()})
 
+    @property
+    def full_slug(self):
+        slug = [self['slug']]
+        if self['parent']:
+            slug.insert(0, self['parent'].full_slug)
+        return '/'.join(slug)
+
+    @property
+    def url_edit(self):
+        text_id = self['content'] and self['content']['_id'] or None
+        url = self.app.url_for(':text.edit', id=text_id)
+        if not text_id:
+            url = Href(url)(node=self['_id'])
+        return url
+
+    @property
+    def url_show(self):
+        return self.app.url_for(':node.show', slug=self.full_slug)
+
     def prepare_slug(self):
         if not self['slug'] and self['title']:
             self['slug'] = slugify(self['title'])
@@ -166,12 +186,6 @@ class Node(CreatedMixin, OwnerMixin):
                 return None
             parent = parent_doc.get_dbref()
         return parent_doc
-
-    def full_slug(self):
-        slug = [self['slug']]
-        if self['parent']:
-            slug.insert(0, self['parent'].full_slug())
-        return '/'.join(slug)
 
 Node.structure['parent'] = Node
 Node.indexes = [{

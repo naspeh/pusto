@@ -46,20 +46,20 @@ def test_node_new():
     add_node()
     aye('in', 'duplicate key error index', c.data)
 
-    node1 = add_node('test title #1', parent=node.full_slug())
+    node1 = add_node('test title #1', parent=node.full_slug)
     aye('==', node, node1['parent'])
     aye('==', app.user, node1['owner'])
-    aye('in', 'value="%s"' % node.full_slug(), c.data)
+    aye('in', 'value="%s"' % node.full_slug, c.data)
 
-    node2 = add_node(u'тест тайтл #2', parent=node.full_slug())
+    node2 = add_node(u'тест тайтл #2', parent=node.full_slug)
     aye('==', node, node2['parent'])
     aye('==', app.user, node2['owner'])
-    aye('in', 'value="%s"' % node.full_slug(), c.data)
+    aye('in', 'value="%s"' % node.full_slug, c.data)
 
-    node21 = add_node('test title #21', parent=node2.full_slug())
+    node21 = add_node('test title #21', parent=node2.full_slug)
     aye('==', node2, node21['parent'])
     aye('==', app.user, node21['owner'])
-    aye('in', 'value="%s"' % node2.full_slug(), c.data)
+    aye('in', 'value="%s"' % node2.full_slug, c.data)
 
     return node, node1, node2, node21
 

@@ -17,7 +17,7 @@
         </div>
         <div>
             <label for="f_parent">Путь</label>
-            <input name="parent" id="f_parent" value="{{ node.parent and node.parent.full_slug() or ''}}" />
+            <input name="parent" id="f_parent" value="{{ node.parent and node.parent.full_slug or ''}}" />
 
             <label for="f_slug">/</label>
             <input name="slug" id="f_slug" value="{{ node.slug or ''}}" />

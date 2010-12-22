@@ -10,12 +10,8 @@
 {%- macro list(nodes) %}
 {% for node in nodes %}
 <li>
-    {% with content_id = node.content and node.content._id or 'new' %}
-    <b><a href="{{ app.url_for(':node.show', slug=node.full_slug()) }}">{{ node.title }}</a></b>
-    {% if app.is_admin() %}
-    <a href="{{ app.url_for(':text.edit', id=content_id) }}?node={{ node._id }}">[изменить]</a>
-    {% endif %}
-    {% endwith %}
+    <b><a href="{{ node.url_show }}">{{ node.title }}</a></b>
+    {% if app.is_admin() %} <a href="{{ node.url_edit }}">[edit]</a>{% endif %}</h1>
     <ul>{{ list(node.children) }}</ul>
 </li>
 {% endfor %}
