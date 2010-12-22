@@ -1,4 +1,5 @@
 from docutils import core
+from lxml import html
 from markdown2 import Markdown
 
 
@@ -11,4 +12,5 @@ def rst(text):
     parts = core.publish_parts(source=text, writer_name='html',
         settings_overrides={'footnote_references': 'superscript'}
     )
-    return parts['html_body']
+    result = html.fromstring(parts['html_body'])
+    return '\n'.join(html.tostring(i) for i in result.iterchildren())
