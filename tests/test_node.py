@@ -64,6 +64,20 @@ def test_node_new():
     return node, node1, node2, node21
 
 
+def test_node_with_text():
+    clear_db([Node, app.db.Text, app.db.TextBit])
+
+    text = test_text.add_text()[0]
+    text_id = text['_id']
+    c.get(app.url_for(':node.edit'), query_string={'content': text_id})
+    aye('in', 'value="%s"' % text_id, c.data, c.url)
+    node = add_node(content=text_id)
+
+    c.get(app.url_for(':text.delete', id=text_id))
+    node.reload()
+    aye('is', None, node['content'])
+
+
 def test_node_new_fails():
     clear_db([Node])
 

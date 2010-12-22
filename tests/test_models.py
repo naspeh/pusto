@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from naya.testing import raises
+from naya.testing import aye, raises
 from pymongo.errors import DuplicateKeyError
 
 from . import app, clear_db
@@ -41,7 +41,8 @@ def test_node(title=u'test title'):
 
     name = u'naya'
     user = test_user(name)
-    node.update({'title': title, 'content': test_text(user), 'owner': user})
+    text = test_text(user)
+    node.update({'title': title, 'content': text, 'owner': user})
     node.save()
     assert node['slug'] == slugify(title)
     assert node['_id']
@@ -56,6 +57,12 @@ def test_node(title=u'test title'):
     raises(DuplicateKeyError, lambda: node2.save())
 
     raises(DuplicateKeyError, lambda: test_user(name))
+
+    text.delete()
+    aye('==', 0, app.db.Text.fetch().count())
+    aye('==', 0, app.db.TextBit.fetch().count())
+    node.reload()
+    aye('is', None, node['content'])
     return node
 
 
@@ -77,4 +84,9 @@ def test_text(user=None):
     assert text['_id']
     assert text['owner']['_id']
     assert text['bits'][0]['_id']
+
+    bit.delete()
+    text.reload()
+    aye('==', 0, app.db.TextBit.fetch().count())
+    aye(False, text['bits'])
     return text

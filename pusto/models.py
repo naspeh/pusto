@@ -29,6 +29,13 @@ class Document(_Document):
             return None
         return self.get_from_id(id) if id else None
 
+    def pre_delete(self):
+        pass
+
+    def delete(self, *args, **kwargs):
+        self.pre_delete()
+        super(Document, self).delete(*args, **kwargs)
+
 
 class CreatedMixin(Document):
     structure = {
@@ -80,8 +87,19 @@ class TextBit(MarkupMixin, CreatedMixin):
     required_fields = ['body']
 
     @property
+    def text(self):
+        return self.app.db.Text.one({'bits': self.get_dbref()})
+
+    @property
     def html(self):
         return getattr(markup, self['markup'])(self['body'])
+
+    def pre_delete(self):
+        text = self.text
+        for bit in text['bits']:
+            if bit['_id'] == self['_id']:
+                text['bits'].remove(bit)
+        text.save()
 
 
 @marker.model()
@@ -101,6 +119,14 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     @property
     def html(self):
         return '\n'.join(b.html for b in self['bits'])
+
+    def pre_delete(self):
+        node = self.node
+        if node:
+            node['content'] = None
+            node.save()
+        for bit in self['bits']:
+            bit.delete()
 
 
 @marker.model()

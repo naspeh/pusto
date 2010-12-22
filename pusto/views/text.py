@@ -11,11 +11,7 @@ def edit(app, id):
 
 @marker.route('/<id>/delete')
 def delete(app, id):
-    text, node = prepare(id, app)
-    node['content'] = None
-    node.save()
-    for bit in text['bits']:
-        bit.delete()
+    text = prepare(id, app)[0]
     text.delete()
     return app.redirect(app.url_for(':text.edit'))
 
@@ -48,8 +44,6 @@ def bit(app, id):
         prepare_bit('new', text, app)
     elif action == 'delete' and bit_id != 'new':
         bit.delete()
-        text['bits'].remove(bit)
-        text.save()
         bit = prepare_bit('new', text, app)
     elif action == 'reset':
         return bit['body']
