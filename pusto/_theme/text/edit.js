@@ -43,8 +43,7 @@ $(document).ready(function() {
             toolbar.find('.preview').show();
         } else if ($this.hasClass('preview')) {
             var viewer = editor.find('#preview');
-            editor.find('.document').clone().appendTo(viewer);
-            viewer.show()
+            viewer.load("{{ app.url_for(':text.show', id=text._id) }}").show();
             editor.find('#viewer, #editor').hide();
             $this.hide();
             toolbar.find('.edit').show();
@@ -112,7 +111,7 @@ $(document).ready(function() {
                 if (action=='reset') {
                     editor.find('textarea').val(data);
                 } else {
-                    editor.html(data);
+                    editor.replaceWith(data);
                     var new_url = editor.find('#text-url').val();
                     if (url != new_url) {
                         window.location = new_url;

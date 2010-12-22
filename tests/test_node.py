@@ -73,6 +73,9 @@ def test_node_with_text():
     aye('in', 'value="%s"' % text_id, c.data, c.url)
     node = add_node(content=text_id)
 
+    c.get(app.url_for(':text.show', id=text_id))
+    aye('in', node['title'], c.data)
+
     c.get(app.url_for(':text.delete', id=text_id))
     node.reload()
     aye('is', None, node['content'])

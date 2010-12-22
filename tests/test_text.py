@@ -116,6 +116,19 @@ def test_text_delete():
     aye('==', app.db.Text.fetch().count(), 0)
 
 
+@with_setup(clear_db)
+def test_text_show():
+    text = add_text()[0]
+    url = app.url_for(':text.show', id=text['_id'])
+    c.get(url, code=200)
+    aye('in', '%s' % text['_id'], c.data)
+    aye('in', text.html, c.data)
+    aye(False, call(c.data.startswith, '<div id="text-show">'), c.data)
+
+    c.get(url, code=200, headers=[('X_REQUESTED_WITH', 'XMLHttpRequest')])
+    aye(True, call(c.data.startswith, '<div id="text-show">'), c.data)
+
+
 DATA = {
     'bit': 'new',
     'action': 'apply',

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from '_helpers.html' import css, js with context %}
+
+{% set title=node and node.title or 'Show %s' % text._id %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extrahead %}
+{{ js('_scripts/jquery.js') }}
+
+{# js('text/show.js', include=True) }}
+{{ css('text/show.css', include=True) #}
+{% endblock %}
+
+
+{%- block content %}
+<div id="text-show">
+    <h1>{{ title }}</h1>
+    {{ text.html }}
+</div>
+{% endblock %}

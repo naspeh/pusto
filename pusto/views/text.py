@@ -16,6 +16,14 @@ def delete(app, id):
     return app.redirect(app.url_for(':text.edit'))
 
 
+@marker.route('/<id>')
+def show(app, id):
+    text, node = prepare(id, app)
+    return app.maybe_partial(
+        app.to_template('text/show.html', text=text, node=node), '#text-show'
+    )
+
+
 @marker.route('/<id>/bit')
 def bit(app, id):
     data = app.request.form
@@ -47,8 +55,9 @@ def bit(app, id):
         bit = prepare_bit('new', text, app)
     elif action == 'reset':
         return bit['body']
-    return app.from_template('text/edit-partial.html', 'main')(
-        text, node, bit, app
+    return app.maybe_partial(
+        app.to_template('text/edit.html', text=text, node=node, active=bit),
+        '#text-edit'
     )
 
 
