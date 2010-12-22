@@ -111,7 +111,7 @@ $(document).ready(function() {
                 if (action=='reset') {
                     editor.find('textarea').val(data);
                 } else {
-                    editor.replaceWith(data);
+                    editor.html($(data).html());
                     var new_url = editor.find('#text-url').val();
                     if (url != new_url) {
                         window.location = new_url;

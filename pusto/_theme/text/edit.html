@@ -15,10 +15,12 @@
 {%- block content %}
 <div id="text-edit">
     <div id="toolbar">
-        {% if text._id %}<a href="#{{ app.url_for(':text.delete', id=text._id) }}" class="delete">удалить</a>{% endif %}
-        {% if text._id and app.is_admin() %}<a href="#" class="options">опции</a>{% endif %}
-        {% if text._id %}<a href="#" class="preview">смотреть</a>{% endif %}
+        {% if text._id %}
+        <a href="#{{ app.url_for(':text.delete', id=text._id) }}" class="delete">удалить</a>
+        <a href="#" class="preview">смотреть</a>
         <a href="#" class="edit">редактировать</a>
+        {% if app.is_admin() %}<a href="#" class="options">опции</a>{% endif %}
+        {% endif %}
     </div>
     {% if text._id and app.is_admin() %}
     <div id="options">
