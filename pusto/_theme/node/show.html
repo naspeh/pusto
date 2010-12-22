@@ -3,16 +3,29 @@
 
 {%- block content %}
 <div id="node-show">
-    {% with content_id = node.content and node.content._id or 'new' %}
-    <h1>{{ node.title }} <a href="{{ app.url_for(':text.edit', id=content_id) }}?node={{ node._id }}">изменить</a></h1>
+    {% if app.is_admin() %}
+    <a href="{{ app.url_for(':node.list') }}">nodes</a>
+    {% endif %}
+    {% if node.parent %}
+    <a href="{{ app.url_for(':node.show', slug=node.parent.full_slug()) }}">{{ node.parent.title }}</a>
+    {% endif %}
+    {% with content_id = node.content and node.content._id or 'new' -%}
+    <h1>
+        {{- node.title }}&nbsp;
+        {%- if app.is_admin() -%}
+        <a href="{{ app.url_for(':text.edit', id=content_id) }}?node={{ node._id }}">[edit]</a>
+        {%- endif -%}
+    </h1>
     {% endwith %}
 
     {% if node.content -%}
         {{ app.part_template('text/show.html', '#text-show .document', text=node.content, node=node) }}
     {% endif %}
-
-    {% for child in children -%}
-        <a href="{{ app.url_for(':node.show', slug=child.full_slug()) }}">{{ child.title }}</a>
+    
+    <ul>
+    {% for child in node.children -%}
+        <li><a href="{{ app.url_for(':node.show', slug=child.full_slug()) }}">{{ child.title }}</a></li>
     {% endfor %}
+    </ul>
 </div>
 {% endblock %}

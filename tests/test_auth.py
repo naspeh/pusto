@@ -28,9 +28,10 @@ def test_login():
     aye('in', 'user', app.session)
     aye('==', app.session['user'], str(user['_id']))
 
-    c.get(login, code=200, follow_redirects=True)
+    c.get(login, code=200)
     aye(True, app.user)
-    aye('==', c.path, '/')
+    aye('in', app.user['name'], c.data)
+    aye('in', app.url_for(':auth.logout'), c.data)
 
 
 @with_setup(clean_auth)
@@ -44,7 +45,9 @@ def test_bad_session():
 def test_logout():
     test_login()
 
-    c.get(app.url_for(':auth.logout'), code=200, follow_redirects=True)
-    aye('==', c.path, '/')
+    user = app.user
+    c.get(app.url_for(':auth.logout'), code=200)
+    aye('in', user['name'], c.data)
+    aye('in', app.url_for(':auth.login'), c.data)
     aye('not in', 'user', app.session)
     aye(False, app.user)

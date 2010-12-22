@@ -51,8 +51,13 @@ def show(app, slug):
     node = app.db.Node.by_slug(slug)
     if not node:
         return app.abort(404)
-    children = app.db.Node.fetch({'parent': node.get_dbref()})
-    return app.to_template('node/show.html', node=node, children=children)
+    return app.to_template('node/show.html', node=node)
+
+
+@marker.route('/nodes/')
+def list(app):
+    nodes = app.db.Node.find({'parent': None})
+    return app.to_template('node/list.html', nodes=nodes)
 
 
 def prepare(id, app):

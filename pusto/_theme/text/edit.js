@@ -4,6 +4,10 @@ $(document).ready(function() {
     reset.live('click', function() {
         var choicer = $('#bit-choicer');
         var editor = $('#text-edit');
+        var url = editor.find('#text-url').val();
+        if (url != window.location.pathname) {
+            window.location = url;
+        }
         editor.find('.bit').removeClass('active');
 
         var selected = choicer.find(':selected').html();
@@ -95,7 +99,6 @@ $(document).ready(function() {
 
     $('#action-apply, #action-delete, #action-reset').live('click', function() {
         var form = $('#editor-form');
-        var url = window.location.pathname;
         var selected = form.find(':selected');
         var action = $(this).attr('value');
         if (action == 'delete' &&  !confirm('Точно хотите удалить ' + selected.html() + '?')) {
@@ -112,10 +115,6 @@ $(document).ready(function() {
                     editor.find('textarea').val(data);
                 } else {
                     editor.html($(data).html());
-                    var new_url = editor.find('#text-url').val();
-                    if (url != new_url) {
-                        window.location = new_url;
-                    }
                     reset.click();
                 }
                 editor.find(':input').attr('disabled', '');

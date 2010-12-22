@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Nodes{% endblock %}
+
+{%- block content %}
+<div id="node-list">
+    <ul>{{ list(nodes) }}</ul>
+</div>
+{% endblock %}
+
+{%- macro list(nodes) %}
+{% for node in nodes %}
+<li>
+    {% with content_id = node.content and node.content._id or 'new' %}
+    <b><a href="{{ app.url_for(':node.show', slug=node.full_slug()) }}">{{ node.title }}</a></b>
+    {% if app.is_admin() %}
+    <a href="{{ app.url_for(':text.edit', id=content_id) }}?node={{ node._id }}">[изменить]</a>
+    {% endif %}
+    {% endwith %}
+    <ul>{{ list(node.children) }}</ul>
+</li>
+{% endfor %}
+{% endmacro %}

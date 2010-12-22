@@ -73,6 +73,11 @@ def prepare(id, app, node_id=None):
     else:
         text = app.db.Text.by_id(id) if id else None
         node = text and text.node or None
+    if text and text['owner'] and text['owner'] != app.user:
+        return app.abort(403)
+    elif text and not text['owner'] and app.user:
+        text['owner'] = app.user
+
     if not node and node_id:
         node = app.db.Node.by_id(node_id)
         if not node:

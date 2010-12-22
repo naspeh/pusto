@@ -144,6 +144,10 @@ class Node(CreatedMixin, OwnerMixin):
     use_autorefs = True
     force_autorefs_current_db = True
 
+    @property
+    def children(self):
+        return self.app.db.Node.fetch({'parent': self.get_dbref()})
+
     def prepare_slug(self):
         if not self['slug'] and self['title']:
             self['slug'] = slugify(self['title'])
