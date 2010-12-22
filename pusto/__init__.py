@@ -1,22 +1,15 @@
 from jinja2 import DebugUndefined
-from lxml import html
 from naya.base import Naya
 
 from . import views, models
+from .app import AppMixin
 from .markup import markdown, rst
 from .mongo import MongoMixin
 from .openid import OpenidMixin
 
 
-class App(Naya, MongoMixin, OpenidMixin):
+class App(Naya, AppMixin, MongoMixin, OpenidMixin):
     import_name = __name__
-
-    def maybe_partial(self, html_, selector):
-        if not self.request.is_xhr:
-            return html_
-        result = html.fromstring(html_).cssselect(selector)
-        result = [html.tostring(i) for i in result]
-        return '\n'.join(result)
 
     @Naya.marker.config()
     def config(self):
