@@ -56,6 +56,7 @@ def bit(app, id):
         prepare_bit('new', text, app)
     elif action == 'delete' and bit_id != 'new':
         bit.delete()
+        text.reload()
         bit = prepare_bit('new', text, app)
     elif action == 'reset':
         return bit['body']

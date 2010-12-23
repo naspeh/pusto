@@ -87,6 +87,7 @@ def test_bit_delete():
     }, code=200)
     aye('==', app.db.Text.fetch().count(), 1)
     aye('==', app.db.TextBit.fetch().count(), 0)
+    aye('not in', str(bit['_id']), c.data)
 
     text.reload()
     aye('==', 0, call(len, text['bits']))
