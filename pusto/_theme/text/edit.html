@@ -15,12 +15,15 @@
 {%- block content %}
 <div id="text-edit">
     <div id="toolbar">
+        {% if node._id %}<b>{{ node.title }}</b> ({{ node.full_slug }}){% endif %}
+        <div class="actions">
         {% if text._id %}
-        <a href="#{{ app.url_for(':text.delete', id=text._id) }}" class="delete">удалить</a>
-        <a href="#" class="preview">смотреть</a>
-        <a href="#" class="edit">редактировать</a>
-        {% if app.is_admin() %}<a href="#" class="options">опции</a>{% endif %}
+            <a href="#" class="preview">смотреть</a>
+            <a href="#" class="edit">изменить</a>
+            {% if app.is_admin() %}<a href="#" class="options">опции</a>{% endif %}
+            <a href="#{{ app.url_for(':text.delete', id=text._id) }}" class="delete">удалить</a>
         {% endif %}
+        </div>
     </div>
     {% if text._id and app.is_admin() %}
     <div id="options">
@@ -61,6 +64,7 @@
                 <button id="action-apply" type="submit" name="action" value="apply">Готово</button>
                 <button id="action-reset" type="submit" value="reset">Сброс</button>
                 <button id="action-delete" type="submit" name="action" value="delete">Удалить</button>
+                <button id="action-refresh" type="submit" value="refresh">Все обновить</button>
             </div>
         </form>
     </div>

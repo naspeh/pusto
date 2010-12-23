@@ -93,12 +93,15 @@ $(document).ready(function() {
                 var div = $('#options');
                 div.html(data);
                 div.find(':input').attr('disabled', '');
+                if (div.find('.errors').length == 0) {
+                    $("#action-refresh").click();
+                }
             }
         });
         return false;
     });
 
-    $('#action-apply, #action-delete, #action-reset').live('click', function() {
+    $('#action-apply, #action-delete, #action-reset, #action-refresh').live('click', function() {
         var form = $('#editor-form');
         var selected = form.find(':selected');
         var action = $(this).attr('value');

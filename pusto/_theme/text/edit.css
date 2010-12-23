@@ -6,12 +6,14 @@
     line-height: 1.1em;
     height: 1.1em;
 }
+#toolbar .actions {
+    float: right;
+}
 #toolbar a {
     border: 1px solid #ccc;
     background: #eee;
     font-weight: bold;
     padding: 0 5px;
-    float: right;
     {{ border_radius('10px 10px 0 0') }}
 }
 #toolbar a.active {
@@ -19,9 +21,6 @@
 }
 #toolbar a.edit {
     display: none;
-}
-#toolbar a.delete {
-    float: left;
 }
 #options {
     display: none;

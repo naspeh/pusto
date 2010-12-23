@@ -23,19 +23,20 @@ def edit(app, id):
             'content': app.db.Text.by_id(data['content'].strip()),
             'published': published
         })
-        content = node['content']
+        node_ = node.copy()
         node.prepare_slug()
-
         if node.is_valid():
             try:
                 node.save()
                 return app.redirect(':node.edit', id=str(node['_id']))
             except DuplicateKeyError, e:
                 errors = [e]
-                del node['_id']
+                node = node_
         else:
             for error in node.validation_errors.values():
                 errors += error
+
+        content = node['content']
     elif '_id' in node:
         content = node['content']
     else:

@@ -62,6 +62,8 @@ def bit(app, id):
     elif action == 'reset':
         fill_session(app, text, bit)
         return bit['body']
+    elif action == 'refresh':
+        pass
 
     fill_session(app, text, bit)
     return app.maybe_partial(

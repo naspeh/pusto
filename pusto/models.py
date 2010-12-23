@@ -156,6 +156,9 @@ class Node(CreatedMixin, OwnerMixin):
 
     @property
     def full_slug(self):
+        if '_id' not in self:
+            raise KeyError('Node not saved')
+
         slug = [self['slug']]
         if self['parent']:
             slug.insert(0, self['parent'].full_slug)

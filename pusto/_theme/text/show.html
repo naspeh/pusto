@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% from '_helpers.html' import css, js with context %}
 
-{% set title=node and node.title or 'Show %s' % text._id %}
-
-{% block title %}{{ title }}{% endblock %}
+{% block title %}{{ node.title or 'Text %s' % text._id }}{% endblock %}
 
 {% block extrahead %}
 {{ js('_scripts/jquery.js') }}
@@ -15,7 +13,7 @@
 
 {%- block content %}
 <div id="text-show">
-    <h1>{{ title }}</h1>
+    {% if node.title %}<h1>{{ node.title }}</h1>{% endif %}
     <div class="document">{{ text.html }}</div>
 </div>
 {% endblock %}
