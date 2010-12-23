@@ -1,8 +1,7 @@
 from datetime import datetime
 
-from mongokit import Document as _Document, IS, ObjectId
+from mongokit import Document as _Document, IS
 from naya.helpers import marker
-from pymongo.errors import InvalidId
 from werkzeug import Href
 
 from . import markup
@@ -24,9 +23,8 @@ class Document(_Document):
             return not bool(self.validation_errors)
 
     def by_id(self, id):
-        try:
-            id = ObjectId(id)
-        except InvalidId:
+        id = self.app.object_id(id)
+        if not id:
             return None
         return self.get_from_id(id) if id else None
 
@@ -120,6 +118,13 @@ class Text(CreatedMixin, OwnerMixin):
     @property
     def html(self):
         return '\n'.join(b.html for b in self['bits'])
+
+    def bit_by_id(self, bit_id):
+        bit_id = self.app.object_id(bit_id)
+        for bit in self['bits']:
+            if '_id' in bit and bit['_id'] == bit_id:
+                return bit
+        return None
 
     def pre_delete(self):
         node = self.node

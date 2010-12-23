@@ -9,6 +9,7 @@ def edit(app, id):
         node = app.request.args['node']
     text, node = prepare(id, app, node)
     bit = prepare_bit('new', text, app)
+    bit = get_active(app, text, bit)
     return app.to_template('text/edit.html', text=text, active=bit, node=node)
 
 
@@ -59,7 +60,10 @@ def bit(app, id):
         text.reload()
         bit = prepare_bit('new', text, app)
     elif action == 'reset':
+        fill_session(app, text, bit)
         return bit['body']
+
+    fill_session(app, text, bit)
     return app.maybe_partial(
         app.to_template('text/edit.html', text=text, node=node, active=bit),
         '#text-edit'
@@ -102,3 +106,22 @@ def prepare_bit(id, text, app):
     if not bit:
         return app.abort(404)
     return bit
+
+
+def get_active(app, text, bit):
+    if '_id' not in text:
+        return bit
+
+    text_id = str(text['_id'])
+    if 'texts' in app.session and text_id in app.session['texts']:
+        active = app.session['texts'][text_id]
+        active = text.bit_by_id(active)
+        bit = active and active or bit
+    return bit
+
+
+def fill_session(app, text, bit):
+    if '_id' not in text:
+        return
+    app.session.setdefault('texts', {})
+    app.session['texts'][str(text['_id'])] = str(bit['_id'])

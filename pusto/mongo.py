@@ -1,4 +1,5 @@
-from mongokit import Connection
+from mongokit import Connection, ObjectId
+from pymongo.errors import InvalidId
 
 from naya.helpers import marker
 
@@ -25,3 +26,9 @@ class MongoMixin(object):
                 model.app = self
 
         self.mongo.register(models)
+
+    def object_id(self, id):
+        try:
+            return ObjectId(id)
+        except InvalidId:
+            return None
