@@ -40,6 +40,7 @@
 }
 #viewer .src {
     height: 346px;
+    padding: 10px 0;
 }
 #viewer .bit {
     border-top: 1px solid #cfc;
