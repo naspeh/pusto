@@ -1,5 +1,13 @@
 $(document).ready(function() {
+    var container = $('#text-edit');
     var reset = $('#action-reset');
+
+    container.live('start-loading', function() {
+        container.find('.loading').show();
+    });
+    container.live('stop-loading', function() {
+        container.find('.loading').hide();
+    });
 
     reset.live('click', function() {
         var choicer = $('#bit-choicer');
@@ -37,21 +45,34 @@ $(document).ready(function() {
         reset.click();
     });
 
-    $('#toolbar a.edit, #toolbar a.preview').live('click', function() {
+    $('#toolbar a.edit, #toolbar a.preview, #toolbar a.src').live('click', function() {
         var $this = $(this);
-        var toolbar = $this.parent();
-        var editor = $('#text-edit');
+        container.trigger('start-loading');
         if ($this.hasClass('edit')) {
-            editor.find('#preview').hide().html('');
-            editor.find('#viewer, #editor').show();
+            $('#action-refresh').click();
+            return false
+        }
+
+        var toolbar = $this.parent();
+        var viewer = container.find('#viewer');
+        var editor = container.find('#editor');
+        var href = $this.attr('href').replace('#', '');
+        if ($this.hasClass('preview')) {
+            editor.hide();
             $this.hide();
-            toolbar.find('.preview').show();
-        } else if ($this.hasClass('preview')) {
-            var viewer = editor.find('#preview');
-            viewer.load("{{ app.url_for(':text.show', id=text._id) }}").show();
-            editor.find('#viewer, #editor').hide();
+            toolbar.find('.edit, .src').show();
+            $.post(href, function(data){
+                viewer.html(data);
+                container.trigger('stop-loading');
+            });
+        } else if ($this.hasClass('src')) {
+            editor.show();
             $this.hide();
-            toolbar.find('.edit').show();
+            toolbar.find('.edit, .preview').show();
+            $.post(href, function(data) {
+                viewer.html(data);
+                container.trigger('stop-loading');
+            });
         }
         return false;
     });
@@ -111,7 +132,7 @@ $(document).ready(function() {
         form.ajaxSubmit({
             'data': {action: action},
             'beforeSubmit': function() {
-                $('#text-edit').find(':input').attr('disabled', 'disabled');
+                container.trigger('start-loading');
             },
             'success': function(data, status) {
                 var editor = $('#text-edit');
@@ -121,7 +142,7 @@ $(document).ready(function() {
                     editor.html($(data).html());
                     reset.click();
                 }
-                editor.find(':input').attr('disabled', '');
+                container.trigger('stop-loading');
            }
         });
         return false;

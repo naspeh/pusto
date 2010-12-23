@@ -119,6 +119,10 @@ class Text(CreatedMixin, OwnerMixin):
     def html(self):
         return '\n'.join(b.html for b in self['bits'])
 
+    @property
+    def src(self):
+        return '\n\n'.join(b['body'] for b in self['bits'])
+
     def bit_by_id(self, bit_id):
         bit_id = self.app.object_id(bit_id)
         for bit in self['bits']:

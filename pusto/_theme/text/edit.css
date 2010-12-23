@@ -1,6 +1,8 @@
 {% from '_styles/macros.jinja' import border_radius %}
 
-#text-edit {}
+#text-edit {
+    position: relative;
+}
 #toolbar {
     border-bottom: 2px solid #ccc;
     line-height: 1.1em;
@@ -10,10 +12,10 @@
     float: right;
 }
 #toolbar a {
-    border: 1px solid #ccc;
     background: #eee;
     font-weight: bold;
     padding: 0 5px;
+    border: 1px solid #ccc;
     {{ border_radius('10px 10px 0 0') }}
 }
 #toolbar a.active {
@@ -29,13 +31,16 @@
     font-size: 0.7em;
 }
 #viewer {
+    min-height: 342px;
     padding: 2px 0;
 }
 #viewer .wrap {
     height: 346px;
     overflow: auto;
 }
-
+#viewer .src {
+    height: 346px;
+}
 #viewer .bit {
     border-top: 1px solid #cfc;
     background: #fff;

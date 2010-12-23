@@ -6,14 +6,20 @@
 {% block extrahead %}
 {{ js('_scripts/jquery.js') }}
 
-{# js('text/show.js', include=True) }}
-{{ css('text/show.css', include=True) #}
+{#{ js('text/show.js', include=True) }#}
+{{ css('text/show.css', include=True) }}
 {% endblock %}
 
 
 {%- block content %}
 <div id="text-show">
     {% if node.title %}<h1>{{ node.title }}</h1>{% endif %}
-    <div class="document">{{ text.html }}</div>
+    <div id="text-show-body">
+        {% if src %}
+        <div class="src"><textarea>{{ text.src }}</textarea></div>
+        {% else %}
+        <div class="document">{{ src and text.src or text.html }}</div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

@@ -20,12 +20,13 @@ def delete(app, id):
     return app.redirect(app.url_for(':text.edit'))
 
 
-@marker.route('/<id>')
-def show(app, id):
+@marker.route('/<id>', defaults={'src': False})
+@marker.route('/<id>/src', defaults={'src': True})
+def show(app, id, src):
     text, node = prepare(app, id)
-    return app.maybe_partial(
-        app.to_template('text/show.html', text=text, node=node), '#text-show'
-    )
+    return app.maybe_partial(app.to_template(
+        'text/show.html', text=text, node=node, src=src
+    ), '#text-show-body')
 
 
 @marker.route('/<id>/bit')

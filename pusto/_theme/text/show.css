@@ -1,0 +1,12 @@
+#text-show h1 {
+    margin-top: 0;
+    border-bottom: 2px solid #ccc;
+}
+#text-show-body .src {
+    height: 500px;
+}
+#text-show-body .src textarea {
+    width: 99.4%;
+    height: 99.4%;
+    border: none;
+}
