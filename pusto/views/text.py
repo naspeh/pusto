@@ -7,22 +7,22 @@ def edit(app, id):
     node = None
     if 'node' in app.request.args:
         node = app.request.args['node']
-    text, node = prepare(id, app, node)
-    bit = prepare_bit('new', text, app)
+    text, node = prepare(app, id, node)
+    bit = prepare_bit(app, 'new', text)
     bit = get_active(app, text, bit)
     return app.to_template('text/edit.html', text=text, active=bit, node=node)
 
 
 @marker.route('/<id>/delete')
 def delete(app, id):
-    text = prepare(id, app)[0]
+    text = prepare(app, id)[0]
     text.delete()
     return app.redirect(app.url_for(':text.edit'))
 
 
 @marker.route('/<id>')
 def show(app, id):
-    text, node = prepare(id, app)
+    text, node = prepare(app, id)
     return app.maybe_partial(
         app.to_template('text/show.html', text=text, node=node), '#text-show'
     )
@@ -36,8 +36,8 @@ def bit(app, id):
 
     action = data['action']
     bit_id = data['bit']
-    text, node = prepare(id, app)
-    bit = prepare_bit(bit_id, text, app)
+    text, node = prepare(app, id)
+    bit = prepare_bit(app, bit_id, text)
     if action == 'apply':
         if bit['_id'] is None:
             del bit['_id']
@@ -54,11 +54,11 @@ def bit(app, id):
         bit.save()
         text.save()
 
-        prepare_bit('new', text, app)
+        prepare_bit(app, 'new', text)
     elif action == 'delete' and bit_id != 'new':
         bit.delete()
         text.reload()
-        bit = prepare_bit('new', text, app)
+        bit = prepare_bit(app, 'new', text)
     elif action == 'reset':
         fill_session(app, text, bit)
         return bit['body']
@@ -70,7 +70,7 @@ def bit(app, id):
     )
 
 
-def prepare(id, app, node_id=None):
+def prepare(app, id, node_id=None):
     node = None
     if id == 'new':
         text = app.db.Text()
@@ -95,7 +95,7 @@ def prepare(id, app, node_id=None):
     return text, node or app.db.Node()
 
 
-def prepare_bit(id, text, app):
+def prepare_bit(app, id, text):
     if id == 'new':
         bit = app.db.TextBit()
         bit['body'] = ''

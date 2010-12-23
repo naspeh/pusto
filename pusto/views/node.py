@@ -8,7 +8,7 @@ from pymongo.errors import DuplicateKeyError
 @marker.route('/node/new', defaults={'id': 'new'})
 @marker.route('/node/<id>/edit')
 def edit(app, id):
-    node = prepare(id, app)
+    node = prepare(app, id)
     errors = []
     data = app.request.form
     if data:
@@ -60,7 +60,7 @@ def list(app):
     return app.to_template('node/list.html', nodes=nodes)
 
 
-def prepare(id, app):
+def prepare(app, id):
     if id == 'new':
         node = app.db.Node()
     else:
