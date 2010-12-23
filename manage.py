@@ -61,11 +61,9 @@ def action_deploy(kill=True, pip=True):
         ))
 
     if kill:
-        sh(('killall pusto.fcgi'))
+        sh('killall pusto.fcgi')
 
-    sh((
-        'screen -d -m $project_path/pusto.fcgi',
-    ))
+    sh('screen -d -m $project_path/pusto.fcgi')
 
 
 def action_test(target='', base=False, rm=False, failed=('f', False),
