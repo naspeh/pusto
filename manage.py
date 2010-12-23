@@ -52,10 +52,11 @@ def action_remote(target=''):
 
 def action_deploy(kill=True, pip=True):
     '''Deploy code on server.'''
+    sh(('cd $project_path', 'pwd', 'git pull origin master'))
+
     if pip:
         sh((
             '$activate', 'cd $project_path', 'pwd',
-            'git pull origin master',
             'pip install -r docs/pip.stage.txt',
         ))
 
