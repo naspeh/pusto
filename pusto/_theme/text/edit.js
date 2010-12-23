@@ -13,6 +13,7 @@ $(document).ready(function() {
         var selected = choicer.find(':selected').html();
         var bit = editor.find('#bit-' + selected.replace('#', ''));
         bit.addClass('active')
+        window.location.hash = ''
         window.location.hash = '#' + bit.attr('id');
 
         var insert = $('#bit-insert');
