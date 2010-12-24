@@ -36,7 +36,7 @@
     margin: -4px 10px 0 0;
     line-height: 1.2em;
 }
-#header .powered-by {
+#header .info {
     display: inline-block;
     background-color: #008000;
     font-size: small;
@@ -44,14 +44,13 @@
     padding-left: 10px;
     {{ border_radius('0 0 10px 10px') }}
 }
-#header .powered-by a {
+#header .info a {
     display: inline-block;
     font-weight: bold;
     background: #fff;
     padding: 0 10px;
     {{ border_radius('0 0 10px 10px') }}
 }
-
 #header .source {
     display: inline-block;
     background-color: #fff;
