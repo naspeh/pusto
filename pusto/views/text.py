@@ -1,8 +1,8 @@
 from naya.helpers import marker
 
 
-@marker.route('/new', defaults={'id': 'new'})
-@marker.route('/<id>/edit')
+@marker.route('/text/new', defaults={'id': 'new'})
+@marker.route('/text/<id>/edit')
 def edit(app, id):
     node = None
     if 'node' in app.request.args:
@@ -13,15 +13,15 @@ def edit(app, id):
     return app.to_template('text/edit.html', text=text, active=bit, node=node)
 
 
-@marker.route('/<id>/delete')
+@marker.route('/text/<id>/delete')
 def delete(app, id):
     text = prepare(app, id)[0]
     text.delete()
     return app.redirect(app.url_for(':text.edit'))
 
 
-@marker.route('/<id>', defaults={'src': False})
-@marker.route('/<id>/src', defaults={'src': True})
+@marker.route('/text/<id>', defaults={'src': False})
+@marker.route('/text/<id>/src', defaults={'src': True})
 def show(app, id, src):
     text, node = prepare(app, id)
     return app.maybe_partial(app.to_template(
@@ -29,7 +29,14 @@ def show(app, id, src):
     ), '#text-show-body')
 
 
-@marker.route('/<id>/bit')
+@marker.authorized()
+@marker.route('/texts/')
+def roll(app):
+    texts = app.db.Text.find({'owner': app.user.dbref})
+    return app.to_template('text/list.html', texts=texts)
+
+
+@marker.route('/text/<id>/bit')
 def bit(app, id):
     data = app.request.form
     if not data:
@@ -67,10 +74,9 @@ def bit(app, id):
         pass
 
     fill_session(app, text, bit)
-    return app.maybe_partial(
-        app.to_template('text/edit.html', text=text, node=node, active=bit),
-        '#text-edit'
-    )
+    return app.maybe_partial(app.to_template(
+        'text/edit.html', text=text, node=node, active=bit
+    ), '#text-edit')
 
 
 def prepare(app, id, node_id=None):

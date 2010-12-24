@@ -32,7 +32,7 @@
 
     {% if text._id and app.is_admin() %}
     <div id="options">
-        {% with content=text, node=node %}{% include 'node/edit.html' %}{% endwith %}
+        {{ app.part_template('node/edit.html', '#node-edit', content=text, node=node) }}
     </div>
     {% endif %}
 

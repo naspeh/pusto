@@ -39,12 +39,14 @@ def edit(app, id):
         content = node['content']
     elif '_id' in node:
         content = node['content']
-    else:
+    elif 'content' in app.request.args:
         content = app.db.Text.by_id(app.request.args['content'])
+    else:
+        content = None
 
-    return app.to_template(
+    return app.maybe_partial(app.to_template(
         'node/edit.html', node=node, content=content, errors=errors
-    )
+    ), '#node-edit')
 
 
 @marker.route('/node/<path:slug>')
@@ -56,7 +58,7 @@ def show(app, slug):
 
 
 @marker.route('/nodes/')
-def list(app):
+def roll(app):
     nodes = app.db.Node.find({'parent': None})
     return app.to_template('node/list.html', nodes=nodes)
 

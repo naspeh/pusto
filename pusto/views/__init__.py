@@ -15,7 +15,7 @@ REDIRECTS = (
 def defaults():
     return {
         'modules': {
-            'text': text,
+            'text': (text, {'prefix': ''}),
             'auth': (auth, {'prefix': ''}),
             'node': (node, {'prefix': ''})
         }

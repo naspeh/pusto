@@ -12,6 +12,10 @@ class Document(_Document):
     collection = None
     app = None
 
+    @property
+    def dbref(self):
+        return self.get_dbref()
+
     def is_valid(self, field=None):
         self.validation_errors = {}
         self.raise_validation_errors = False
@@ -122,6 +126,10 @@ class Text(CreatedMixin, OwnerMixin):
     @property
     def src(self):
         return '\n\n'.join(b['body'] for b in self['bits'])
+
+    @property
+    def url_edit(self):
+        return self.app.url_for(':text.edit', id=self['_id'])
 
     def bit_by_id(self, bit_id):
         bit_id = self.app.object_id(bit_id)

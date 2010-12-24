@@ -4,7 +4,7 @@
 {%- block content %}
 <div id="node-show">
     {% if app.is_admin() %}
-    <a href="{{ app.url_for(':node.list') }}">nodes</a>
+    <a href="{{ app.url_for(':node.roll') }}">nodes</a>
     {% endif %}
     {% if node.parent %}
     <a href="{{ node.parent.url_show }}">{{ node.parent.title }}</a>
