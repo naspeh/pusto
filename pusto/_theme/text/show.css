@@ -8,6 +8,9 @@
 #text-show-body .src textarea {
     width: 100%;
     height: 100%;
+
     border: none;
     padding: 0;
+    outline: none;
+    resize: none;
 }
