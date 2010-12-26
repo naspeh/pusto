@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 
 from mongokit import Document as _Document, IS
@@ -105,6 +106,19 @@ class TextBit(MarkupMixin, CreatedMixin):
             if bit['_id'] == self['_id']:
                 text['bits'].remove(bit)
         text.save()
+
+    def save_all(self, text):
+        bodies = re.split(r'\n{2}\.\. _bit[-\d+]*:\n{2}', self['body'])
+        for body in bodies[:-1]:
+            bit_new = self.app.db.TextBit(self.copy())
+            if '_id' in bit_new:
+                del bit_new['_id']
+            bit_new['body'] = body
+            bit_new.save()
+            text['bits'].insert(text['bits'].index(self), bit_new)
+
+        self['body'] = bodies[-1]
+        self.save()
 
 
 @marker.model()
