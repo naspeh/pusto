@@ -71,7 +71,8 @@ def bit(app, id):
         fill_session(app, text, bit)
         return bit['body']
     elif action == 'refresh':
-        pass
+        if bit['_id']:
+            prepare_bit(app, 'new', text)
 
     fill_session(app, text, bit)
     return app.maybe_partial(app.to_template(
