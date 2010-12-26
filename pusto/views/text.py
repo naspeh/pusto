@@ -61,7 +61,7 @@ def bit(app, id):
             text['bits'].insert(parent, bit)
 
         bodies = re.split(r'\n{2}\.\. _bit-\d*:\n{2}', data['body'])
-        for body in bodies[1:]:
+        for body in bodies[:-1]:
             bit_new = app.db.TextBit(bit.copy())
             if '_id' in bit_new:
                 del bit_new['_id']
@@ -69,7 +69,7 @@ def bit(app, id):
             bit_new.save()
             text['bits'].insert(text['bits'].index(bit), bit_new)
 
-        bit['body'] = bodies[0]
+        bit['body'] = bodies[-1]
         bit.save()
         text.save()
 
