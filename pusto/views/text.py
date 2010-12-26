@@ -1,3 +1,5 @@
+import re
+
 from naya.helpers import marker
 
 
@@ -58,7 +60,16 @@ def bit(app, id):
             parent = parent if insert == 'before' else parent + 1
             text['bits'].insert(parent, bit)
 
-        bit['body'] = data['body']
+        bodies = re.split(r'\n{2}\.\. _bit-\d*:\n{2}', data['body'])
+        for body in bodies[1:]:
+            bit_new = app.db.TextBit(bit.copy())
+            if '_id' in bit_new:
+                del bit_new['_id']
+            bit_new['body'] = body
+            bit_new.save()
+            text['bits'].insert(text['bits'].index(bit), bit_new)
+
+        bit['body'] = bodies[0]
         bit.save()
         text.save()
 

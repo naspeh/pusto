@@ -28,6 +28,8 @@ def edit(app, id):
         if node.is_valid():
             try:
                 node.save()
+                if not app.request.is_xhr:
+                    return app.redirect(':node.edit', id=node['_id'])
             except DuplicateKeyError, e:
                 errors = [e]
                 node = node_

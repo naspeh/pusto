@@ -11,6 +11,8 @@ from .ext.translit import slugify
 class Document(_Document):
     collection = None
     app = None
+    use_autorefs = True
+    force_autorefs_current_db = True
 
     @property
     def dbref(self):
@@ -109,11 +111,11 @@ class TextBit(MarkupMixin, CreatedMixin):
 class Text(CreatedMixin, OwnerMixin):
     __collection__ = 'texts'
 
+    BIT_BEGIN = '.. _bit-%s:\n\n'
+
     structure = {
         'bits': [TextBit],
     }
-    use_autorefs = True
-    force_autorefs_current_db = True
 
     @property
     def node(self):
@@ -121,11 +123,18 @@ class Text(CreatedMixin, OwnerMixin):
 
     @property
     def html(self):
-        return '\n'.join(b.html for b in self['bits'])
+        return markup.rst(self.src)
 
     @property
     def src(self):
-        return '\n\n'.join(b['body'] for b in self['bits'])
+        src = []
+        for i in xrange(len(self['bits'])):
+            body = self['bits'][i]['body']
+            if i == 0:
+                src.append(body)
+            else:
+                src.append(self.BIT_BEGIN % i + body)
+        return '\n\n'.join(src)
 
     @property
     def url_edit(self):
@@ -159,8 +168,6 @@ class Node(CreatedMixin, OwnerMixin):
         'content': Text
     }
     required_fields = ['title', 'slug']
-    use_autorefs = True
-    force_autorefs_current_db = True
 
     @property
     def children(self):
