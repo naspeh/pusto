@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 {% from '_helpers.html' import css, js with context %}
 
-{% block title %}Edit for fun{% endblock %}
+{% block title %}{{ node.title and 'Edit "%s"' % node.title or 'Edit for fun' }}{% endblock %}
 
 {% block extrahead %}
 {{ js('_scripts/jquery.js') }}
 {{ js('_scripts/jquery.form.js') }}
 
-{{ css('text/show.css', include=True) }}
 {{ js('text/edit.js', include=True) }}
+
+{{ css('text/show.css', include=True) }}
 {{ css('text/edit.css', include=True) }}
 {% endblock %}
 
 
 {%- block content %}
-<div id="text-edit">
+<div id="text-edit"><div class="wrap">
     <div class="loading"></div>
 
     <div id="toolbar">
@@ -70,9 +71,9 @@
                 <button id="action-apply" type="submit" name="action" value="apply">Готово</button>
                 <button id="action-reset" type="submit" value="reset">Сброс</button>
                 <button id="action-delete" type="submit" name="action" value="delete">Удалить</button>
-                <button id="action-refresh" type="submit" value="refresh">Все обновить</button>
+                <button id="action-refresh" type="submit" value="refresh">Обновить все</button>
             </div>
         </form>
     </div>
-</div>
+</div></div>
 {% endblock %}

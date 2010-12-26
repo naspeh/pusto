@@ -1,6 +1,6 @@
 {% macro css(path, include=False) %}
 {% if not app.testing and include -%}
-    <style>{% include path %}</style>
+    <style type="text/css">{% include path %}</style>
 {%- else -%}
     <link rel="stylesheet" href="{{ app.url_for(':theme', path=path) }}" type="text/css" />
 {%- endif %}
@@ -8,7 +8,7 @@
 
 {% macro js(path, include=False) %}
 {% if not app.testing and include -%}
-    <script>{% include path %}</script>
+    <script type="text/javascript">{% include path %}</script>
 {%- else -%}
     <script src="{{ app.url_for(':theme', path=path) }}" type="text/javascript"></script>
 {%- endif %}

@@ -1,12 +1,22 @@
 {% from '_styles/_helpers.css' import border_radius %}
 
 #text-edit {
+    position: absolute;
+    top: 45px;
+    bottom: 5px;
+    left: 10px;
+    right: 10px;
+    min-height: 350px;
+}
+#text-edit .wrap {
     position: relative;
+    width: 100%;
+    height: 100%
 }
 #toolbar {
     border-bottom: 2px solid #ccc;
     line-height: 1.1em;
-    height: 1.1em;
+    height: 18px;
 }
 #toolbar .actions {
     float: right;
@@ -26,21 +36,31 @@
 }
 #options {
     display: none;
+    position: absolute;
+    top: 22px;
+    right: 0;
+    left: 0;
+    z-index: 10;
     padding: 10px;
     border-bottom: 2px solid #ccc;
     font-size: 0.7em;
+    background: #fff;
 }
 #viewer {
-    min-height: 342px;
-    padding: 2px 0;
+    position: absolute;
+    top: 22px;
+    bottom: 35.5%;
+    width: 100%;
 }
 #viewer .wrap {
-    height: 346px;
     overflow: auto;
 }
 #viewer .src {
-    height: 346px;
-    padding: 10px 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
 }
 #viewer .bit {
     border-top: 1px solid #cfc;
@@ -64,14 +84,21 @@
     background: #fcc;
 }
 #editor {
-    height: 200px;
-    background: #eee;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 35%;
+}
+#editor form {
     position: relative;
+    height: 100%;
+    width: 100%;
 }
 #editor .toolbar {
+    background: #eee;
     border-top: 2px solid #ccc;
-    height: 30px;
-    line-height: 1.8em;
+    padding-top: 2px;
+    height: 26px;
 }
 #editor .toolbar.choicer {
     padding-left: 5px;
@@ -85,10 +112,25 @@
     display: none;
 }
 #editor .textarea {
-    height: 170px;
-    text-align: center;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    border: 1px solid #999;
+    padding: 2px;
 }
-#editor textarea {
-    height: 99.4%;
-    width: 99.4%;
+#editor .textarea.active {
+    border-color: #7af;
+}
+#editor .textarea textarea {
+    height: 100%;
+    width: 100%;
+    border: none;
+    background-color:#fff;
+    padding: 0;
+
+    outline: none;
+    resize: none;
 }

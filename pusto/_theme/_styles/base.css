@@ -7,9 +7,12 @@
 
 /* Page */
 html {
+  height: 100%;
   font-size: 100%; /* Avoids IE 5-7 bug with EM fonts */
 }
 body {
+  position: relative;
+  height: 100%;
   width: 55em;
   padding: 0;
   margin: 0 auto;

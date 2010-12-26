@@ -57,6 +57,8 @@ $(document).ready(function() {
         var viewer = container.find('#viewer');
         var editor = container.find('#editor');
         var href = $this.attr('href').replace('#', '');
+        toolbar.find('.options').removeClass('active');
+        container.find('#options').hide();
         if ($this.hasClass('preview')) {
             editor.hide();
             $this.hide();
@@ -182,4 +184,12 @@ $(document).ready(function() {
 
     // Initial page
     reset.click();
+
+    // Styles
+    $('#editor .textarea').live('focus', function() {
+        $(this).addClass('active');
+
+    }).live('blur', function() {
+        $(this).removeClass('active');
+    });
 });
