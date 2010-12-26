@@ -15,7 +15,8 @@
 }
 #toolbar {
     border-bottom: 2px solid #ccc;
-    line-height: 1.1em;
+    padding-top: 5px;
+    line-height: 18px;
     height: 18px;
 }
 #toolbar .actions {
@@ -37,7 +38,7 @@
 #options {
     display: none;
     position: absolute;
-    top: 22px;
+    top: 27px;
     right: 0;
     left: 0;
     z-index: 10;
@@ -48,7 +49,7 @@
 }
 #viewer {
     position: absolute;
-    top: 22px;
+    top: 27px;
     bottom: 35.5%;
     width: 100%;
 }
