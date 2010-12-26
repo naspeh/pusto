@@ -87,6 +87,8 @@ class MarkupMixin(Document):
 class TextBit(MarkupMixin, CreatedMixin):
     __collection__ = 'text_bits'
 
+    BIT_HIDE = '<div class="bit-hide"><pre>%s</pre></div>'
+
     structure = {
         'body': unicode
     }
@@ -98,7 +100,10 @@ class TextBit(MarkupMixin, CreatedMixin):
 
     @property
     def html(self):
-        return getattr(markup, self['markup'])(self['body'])
+        html = getattr(markup, self['markup'])(self['body'])
+        if not html.strip():
+            html = self.BIT_HIDE % self['body']
+        return html
 
     def pre_delete(self):
         text = self.text
