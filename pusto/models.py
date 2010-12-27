@@ -175,6 +175,12 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
                 return bit
         return None
 
+    def bits_exlude(self, bit):
+        bits = list(self['bits'])
+        if bits.count(bit):
+            bits.remove(bit)
+        return bits
+
     def pre_delete(self):
         node = self.node
         if node:

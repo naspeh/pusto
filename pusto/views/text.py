@@ -9,7 +9,7 @@ def edit(app, id):
         node = app.request.args['node']
     text, node = prepare(app, id, node)
     bit = prepare_bit(app, 'new', text)
-    bit = get_active(app, text, bit)
+    bit = active_bit(app, text, bit)
     return app.to_template('text/edit.html', text=text, active=bit, node=node)
 
 
@@ -49,7 +49,7 @@ def bit(app, id):
     if action == 'apply':
         if bit['_id'] is None:
             del bit['_id']
-        insert = data['insert']
+        insert = 'insert' in data and data['insert'] or None
         if insert:
             text['bits'].remove(bit)
             parent = data['parent']
@@ -58,7 +58,7 @@ def bit(app, id):
             parent = parent if insert == 'before' else parent + 1
             text['bits'].insert(parent, bit)
 
-        type = data['type']
+        type = 'type' in data and data['type'] or None
         if type:
             bit['type'] = type
 
@@ -73,7 +73,8 @@ def bit(app, id):
         bit = prepare_bit(app, 'new', text)
     elif action == 'reset':
         fill_session(app, text, bit)
-        return bit['body']
+        if bit['_id']:
+            prepare_bit(app, 'new', text)
     elif action == 'refresh':
         if bit['_id']:
             prepare_bit(app, 'new', text)
@@ -122,7 +123,7 @@ def prepare_bit(app, id, text):
     return bit
 
 
-def get_active(app, text, bit):
+def active_bit(app, text, bit):
     if '_id' not in text:
         return bit
 

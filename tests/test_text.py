@@ -138,7 +138,6 @@ DATA = {
     'bit': 'new',
     'action': 'apply',
     'body': 'body2',
-    'insert': ''
 }
 
 

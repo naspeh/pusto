@@ -9,31 +9,22 @@ $(document).ready(function() {
         container.find('.loading').hide();
     });
 
-    reset.live('click', function() {
+    container.live('init', function() {
         var choicer = $('#bit-choicer');
         var editor = $('#text-edit');
         var url = editor.find('#text-url').val();
         if (url != window.location.pathname) {
             window.location = url;
         }
-        editor.find('.bit').removeClass('active');
 
         var selected = choicer.find(':selected').html();
         var bit = editor.find('#bit-' + selected.replace('#', ''));
-        bit.addClass('active')
         window.location.hash = ''
         window.location.hash = '#' + bit.attr('id');
 
         var insert = $('#bit-insert');
-        insert.find('option[value=""]').attr('selected', 'selected');
-        insert.change();
-
-        if (selected=='#new') {
-            editor.find('#action-delete').hide();
-        } else {
-            editor.find('#action-delete').show();
-        }
-        if (choicer.find('option').length > 1) {
+        if (insert.length > 0) {
+            $('#bit-insert').change();
             choicer.focus();
         } else {
             editor.find('textarea').focus();
@@ -49,7 +40,7 @@ $(document).ready(function() {
         var $this = $(this);
         container.trigger('start-loading');
         if ($this.hasClass('edit')) {
-            $('#action-refresh').click();
+            reset.click();
             return false
         }
 
@@ -117,14 +108,14 @@ $(document).ready(function() {
                 div.html(data);
                 div.find(':input').attr('disabled', '');
                 if (div.find('.errors').length == 0) {
-                    $("#action-refresh").click();
+                    reset.click();
                 }
             }
         });
         return false;
     });
 
-    $('#action-apply, #action-delete, #action-reset, #action-refresh').live('click', function() {
+    $('#action-apply, #action-delete, #action-reset').live('click', function() {
         var form = $('#editor-form');
         var selected = form.find(':selected');
         var action = $(this).attr('value');
@@ -138,12 +129,8 @@ $(document).ready(function() {
             },
             'success': function(data, status) {
                 var editor = $('#text-edit');
-                if (action=='reset') {
-                    editor.find('textarea').val(data);
-                } else {
-                    editor.html($(data).html());
-                    reset.click();
-                }
+                editor.html($(data).html());
+                container.trigger('init');
                 container.trigger('stop-loading');
            }
         });
@@ -156,20 +143,13 @@ $(document).ready(function() {
         bit = bit.attr('name');
         var choice = choicer.find('option:[value="' + bit + '"]');
         choice.attr('selected', 'selected');
-        reset.click();
+        choicer.change();
         return false;
     });
 
     $('#bit-insert').live('change', function() {
         var $this = $(this);
-        var choicer = $('#bit-choicer');
         var parent = $('#bit-parent');
-        var selected = $this.find(':selected');
-        var bit_selected = choicer.find(':selected');
-        var options = choicer.find('option').clone();
-        parent.html(options);
-        parent.find('option[value="new"]').remove();
-        parent.find('option[value="' + bit_selected.val() + '"]').remove();
         if (parent.find('option').length) {
             parent.show();
             $this.show();
@@ -177,13 +157,11 @@ $(document).ready(function() {
             parent.hide();
             $this.hide();
         }
+        var selected = $this.find(':selected');
         if (selected.val() == '') {
             parent.hide();
         }
     });
-
-    // Initial page
-    reset.click();
 
     // Styles
     $('#editor .textarea').live('focus', function() {
@@ -192,4 +170,7 @@ $(document).ready(function() {
     }).live('blur', function() {
         $(this).removeClass('active');
     });
+
+    // Initial page
+    container.trigger('init');
 });

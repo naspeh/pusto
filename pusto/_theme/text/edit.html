@@ -40,7 +40,8 @@
     <div id="viewer"><div class="wrap"><div class="document">
         {% for bit in text.bits -%}
         {% set index = bit._id and loop.index or 'new' %}
-        <div id="bit-{{ index }}" name="{{ bit._id or 'new'}}" class="bit">
+        {% set selected=active._id == bit._id and ' active' or '' %}
+        <div id="bit-{{ index }}" name="{{ bit._id or 'new'}}" class="bit{{ selected }}">
             <a href="#" class="info">#{{ index }}</a>
             {% if bit.body %}{{ bit.html }}{% else %}<div class="b-notice">Тут пусто...</div>{% endif %}
         </div>
@@ -53,29 +54,38 @@
             <div class="toolbar choicer">
                 <select id="bit-choicer" name="bit">
                     {% for bit in text.bits -%}
-                    {% set index = bit._id and loop.index or 'new' %}
-                    <option{% if active._id == bit._id %} selected="selected"{% endif %} value="{{ bit._id or 'new' }}">#{{ index }}</option>
+                    {% set index=bit._id and loop.index or 'new' %}
+                    {% set selected=active._id == bit._id and ' selected="selected"' or '' %}
+                    <option value="{{ bit._id or 'new' }}"{{ selected }}>#{{ index }}</option>
                     {% endfor %}
                 </select>
-                <select id="bit_type" name="type">
-                    <option value="">обычный</option>
-                    <option value="global">глобальный</option>
-                </select>
+                {% set other_bits=text.bits_exlude(active) %}
+                {% if other_bits %}
                 <select id="bit-insert" name="insert">
                     <option value="">-----</option>
                     <option value="before">перед</option>
                     <option value="after">после</option>
                 </select>
-                <select id="bit-parent" name="parent"></select>
+                <select id="bit-parent" name="parent">
+                {% for bit in other_bits %}
+                    {% set index=text['bits'].index(bit) + 1 %}
+                    {% set selected=active._id == bit._id and ' selected="selected"' or '' %}
+                    <option value="{{ bit._id or 'new' }}"{{ selected }}>#{{ index }}</option>
+                {% endfor %}
+                </select>
+                {% endif %}
             </div>
             <div class="textarea">
                 <textarea name="body">{{ active.body }}</textarea>
             </div>
             <div class="toolbar actions">
+                <select id="bit-type" name="type">
+                    <option value="">обычный</option>
+                    <option value="global"{% if active.type == 'global' %} selected="selected"{% endif %}>глобальный</option>
+                </select>
                 <button id="action-apply" type="submit" name="action" value="apply">Готово</button>
                 <button id="action-reset" type="submit" value="reset">Сброс</button>
-                <button id="action-delete" type="submit" name="action" value="delete">Удалить</button>
-                <button id="action-refresh" type="submit" value="refresh">Обновить все</button>
+                {% if other_bits %}<button id="action-delete" type="submit" name="action" value="delete">Удалить</button>{% endif %}
             </div>
         </form>
     </div>
