@@ -8,7 +8,7 @@
 #text-show-body .src textarea {
     width: 100%;
     height: 100%;
-    font-family: 'DejaVu Sans Mono', monospace;
+    font: 12px 'DejaVu Sans Mono', monospace;
 
     border: none;
     padding: 0;
