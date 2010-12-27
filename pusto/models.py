@@ -84,23 +84,32 @@ class MarkupMixin(Document):
 
 
 @marker.model()
-class TextBit(MarkupMixin, CreatedMixin):
+class TextBit(CreatedMixin):
     __collection__ = 'text_bits'
 
     BIT_HIDE = '<div class="bit-hide"><pre>%s</pre></div>'
 
     structure = {
-        'body': unicode
+        'body': unicode,
+        'type': IS(u'global', u'code', u'quote')
     }
     required_fields = ['body']
 
     @property
     def text(self):
-        return self.app.db.Text.one({'bits': self.get_dbref()})
+        return self.app.db.Text.one({'bits': self.dbref})
 
     @property
     def html(self):
-        html = getattr(markup, self['markup'])(self['body'])
+        text = self.text
+        bodies = [self['body']]
+        for bit in text['bits']:
+            if bit['type'] == 'global' and bit != self:
+                bodies.append(bit['body'])
+
+        bodies = '\n\n'.join(bodies)
+
+        html = getattr(markup, text['markup'])(bodies)
         if not html.strip():
             html = self.BIT_HIDE % self['body']
         return html
@@ -127,7 +136,7 @@ class TextBit(MarkupMixin, CreatedMixin):
 
 
 @marker.model()
-class Text(CreatedMixin, OwnerMixin):
+class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     __collection__ = 'texts'
 
     BIT_BEGIN = '.. _bit-%s:\n\n'

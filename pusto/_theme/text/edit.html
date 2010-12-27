@@ -57,6 +57,10 @@
                     <option{% if active._id == bit._id %} selected="selected"{% endif %} value="{{ bit._id or 'new' }}">#{{ index }}</option>
                     {% endfor %}
                 </select>
+                <select id="bit_type" name="type">
+                    <option value="">обычный</option>
+                    <option value="global">глобальный</option>
+                </select>
                 <select id="bit-insert" name="insert">
                     <option value="">-----</option>
                     <option value="before">перед</option>

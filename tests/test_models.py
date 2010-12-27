@@ -69,7 +69,6 @@ def test_node(title=u'test title'):
 def test_text(user=None):
     bit = app.db.TextBit()
     is_created(bit)
-    is_markuped(bit)
     assert not bit.is_valid()
     bit['body'] = u'test body'
     bit.save()
@@ -77,6 +76,7 @@ def test_text(user=None):
 
     text = app.db.Text()
     is_created(text)
+    is_markuped(text)
     assert text.is_valid()
     text.update({'bits': [bit], 'owner': user or test_user(u'nayavu')})
     text.save()

@@ -25,7 +25,8 @@ def add_bit(text_id, bit_id, body='body', number=1, insert='', parent=''):
         'action': 'apply',
         'body': body,
         'insert': insert,
-        'parent': parent
+        'parent': parent,
+        'type': ''
     }, code=200)
     aye('==', app.db.Text.fetch().count(), 1)
     text = app.db.Text.fetch_one()

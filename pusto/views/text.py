@@ -58,6 +58,10 @@ def bit(app, id):
             parent = parent if insert == 'before' else parent + 1
             text['bits'].insert(parent, bit)
 
+        type = data['type']
+        if type:
+            bit['type'] = type
+
         bit['body'] = data['body'].strip()
         bit.save_all(text)
         text.save()
