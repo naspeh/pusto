@@ -66,8 +66,6 @@ def translify(text, langs=[], priority=PRIORITY):
     u'hlib + s\\u044br + maslo = buterbrod'
     >>> translify(u'хліб + сыр + масло = бутерброд', ['ru'])
     u'hl\\u0456b + syr + maslo = buterbrod'
-    >>> translify(u'хліб + сыр + масло = бутерброд', ['ru', 'ua'])
-    u'hlib + syr + maslo = buterbrod'
     >>> translify(u'съешь печенье')
     u's"esh\\' pechen\\'e'
     >>> translify('42')
