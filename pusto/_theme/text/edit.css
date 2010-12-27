@@ -93,6 +93,17 @@
     border: none;
     margin: 0;
 }
+#viewer .bit-error {
+    background: #eee;
+    padding: 10px 0;
+    color: red;
+    font-weight: bold;
+}
+#viewer .bit-error pre {
+    background: none;
+    border: none;
+    margin: 0;
+}
 #editor {
     position: absolute;
     bottom: 0;

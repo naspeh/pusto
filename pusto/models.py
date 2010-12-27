@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 
+from docutils.utils import SystemMessage
 from mongokit import Document as _Document, IS
 from naya.helpers import marker
 from werkzeug import Href
@@ -109,7 +110,11 @@ class TextBit(CreatedMixin):
 
         bodies = '\n\n'.join(bodies)
 
-        html = getattr(markup, text['markup'])(bodies)
+        try:
+            html = getattr(markup, text['markup'])(bodies)
+        except SystemMessage as e:
+            html = '<div class="bit-error"><pre>%s</pre></div>' % e
+
         if not html.strip():
             html = self.BIT_HIDE % self['body']
         return html
