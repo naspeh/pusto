@@ -89,10 +89,11 @@ class TextBit(CreatedMixin):
     __collection__ = 'text_bits'
 
     BIT_HIDE = '<div class="bit-hide"><pre>%s</pre></div>'
+    BIT_ERROR = '<div class="bit-error"><pre>%s</pre></div>'
 
     structure = {
         'body': unicode,
-        'type': IS(u'global', u'code', u'quote')
+        'type': IS(u'global')
     }
     required_fields = ['body']
 
@@ -107,13 +108,12 @@ class TextBit(CreatedMixin):
         for bit in text['bits']:
             if bit['type'] == 'global' and bit != self:
                 bodies.append(bit['body'])
-
         bodies = '\n\n'.join(bodies)
 
         try:
             html = getattr(markup, text['markup'])(bodies)
         except SystemMessage as e:
-            html = '<div class="bit-error"><pre>%s</pre></div>' % e
+            html = self.BIT_ERROR % e
 
         if not html.strip():
             html = self.BIT_HIDE % self['body']
@@ -134,7 +134,12 @@ class TextBit(CreatedMixin):
                 del bit_new['_id']
             bit_new['body'] = body
             bit_new.save()
-            text['bits'].insert(text['bits'].index(self), bit_new)
+            bits = text['bits']
+            if '_id' in self:
+                bit = text.bit_by_id(self['_id'])
+            else:
+                bit = self
+            bits.insert(bits.index(bit), bit_new)
 
         self['body'] = bodies[-1]
         self.save()
