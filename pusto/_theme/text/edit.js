@@ -36,7 +36,7 @@ $(document).ready(function() {
         reset.click();
     });
 
-    $('#toolbar a.edit, #toolbar a.preview, #toolbar a.src').live('click', function() {
+    $('#toolbar a.edit, #toolbar a.preview, #toolbar a.src, #toolbar a.html').live('click', function() {
         var $this = $(this);
         container.trigger('start-loading');
         if ($this.hasClass('edit')) {
@@ -52,21 +52,16 @@ $(document).ready(function() {
         container.find('#options').hide();
         if ($this.hasClass('preview')) {
             editor.hide();
-            $this.hide();
-            toolbar.find('.edit, .src').show();
-            $.post(href, function(data){
-                viewer.html(data);
-                container.trigger('stop-loading');
-            });
-        } else if ($this.hasClass('src')) {
+        } else if ($this.hasClass('src') || $this.hasClass('html')) {
             editor.show();
-            $this.hide();
-            toolbar.find('.edit, .preview').show();
-            $.post(href, function(data) {
-                viewer.html(data);
-                container.trigger('stop-loading');
-            });
         }
+        $this.after(toolbar.find('a.edit'));
+        toolbar.find('a').show();
+        $this.hide();
+        $.post(href, function(data) {
+            viewer.html(data);
+            container.trigger('stop-loading');
+        });
         return false;
     });
 

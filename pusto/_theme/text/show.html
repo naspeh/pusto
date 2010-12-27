@@ -16,9 +16,9 @@
     {% if node.title %}<h1>{{ node.title }}</h1>{% endif %}
     <div id="text-show-body">
         {% if src %}
-        <div class="src"><textarea readonly="readonly">{{ text.src }}</textarea></div>
+        <div class="src"><textarea readonly="readonly">{{ src == 'text' and text.src or text.html }}</textarea></div>
         {% else %}
-        <div class="document">{{ src and text.src or text.html }}</div>
+        <div class="document">{{ text.html }}</div>
         {% endif %}
     </div>
 </div>

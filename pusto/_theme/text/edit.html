@@ -22,9 +22,10 @@
         {% if node._id %}<b>{{ node.title }}</b> <small>({{ node.full_slug }})</small>{% endif %}
         <div class="actions">
         {% if text._id %}
-            <a href="#{{ app.url_for(':text.show', id=text._id) }}" class="preview">смотреть</a>
             <a href="#" class="edit">изменить</a>
-            <a href="#{{ app.url_for(':text.show', id=text._id, src=True) }}" class="src">сорцы</a>
+            <a href="#{{ app.url_for(':text.show', id=text._id) }}" class="preview">смотреть</a>
+            <a href="#{{ app.url_for(':text.show', id=text._id, src='text') }}" class="src">текст</a>
+            <a href="#{{ app.url_for(':text.show', id=text._id, src='html') }}" class="html">html</a>
             {% if app.is_admin() %}<a href="#" class="options">опции</a>{% endif %}
             <a href="#{{ app.url_for(':text.delete', id=text._id) }}" class="delete">удалить</a>
         {% endif %}

@@ -21,7 +21,8 @@ def delete(app, id):
 
 
 @marker.route('/text/<id>', defaults={'src': False})
-@marker.route('/text/<id>/src', defaults={'src': True})
+@marker.route('/text/<id>/text', defaults={'src': 'text'})
+@marker.route('/text/<id>/html', defaults={'src': 'html'})
 def show(app, id, src):
     text, node = prepare(app, id)
     return app.maybe_partial(app.to_template(
