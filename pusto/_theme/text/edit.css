@@ -67,6 +67,7 @@
     border-top: 1px solid #cfc;
     background: #fff;
     min-height: 30px;
+    margin: 0 0 10px 0;
 }
 #viewer .bit .info {
     display: inline-block;
