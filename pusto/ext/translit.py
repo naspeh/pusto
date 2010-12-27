@@ -6,7 +6,7 @@ RU = (
     u'ёыъэ',
     u'а,a;б,b;в,v;г,g;д,d;е,e;ё,yo;ж,zh;з,z;и,i;'
     u'й,y;к,k;л,l;м,m;н,n;о,o;п,p;р,r;с,s;т,t;'
-    u'у,u;ф,f;х,kh;ц,c;ч,ch;ш,sh;щ,shh;ъ,\";ы,y;ь,\';'
+    u'у,u;ф,f;х,h;ц,c;ч,ch;ш,sh;щ,shh;ъ,\";ы,y;ь,\';'
     u'э,e;ю,yu;я,ya'
 )
 
@@ -57,7 +57,7 @@ def solve_langs(text, priority=PRIORITY):
 def translify(text, langs=[], priority=PRIORITY):
     u'''
     >>> translify(u'хліб + сыр + масло = бутерброд')
-    u'khlib + syr + maslo = buterbrod'
+    u'hlib + syr + maslo = buterbrod'
     >>> translify(u'хліб + сыр + масло = бутерброд', priority=['ua', 'ru'])
     u'hlib + syr + maslo = buterbrod'
     >>> translify(u'хлеб + масло = бутерброд', priority=['ua', 'ru'])
@@ -65,13 +65,9 @@ def translify(text, langs=[], priority=PRIORITY):
     >>> translify(u'хліб + сыр + масло = бутерброд', ['ua'])
     u'hlib + s\\u044br + maslo = buterbrod'
     >>> translify(u'хліб + сыр + масло = бутерброд', ['ru'])
-    u'khl\\u0456b + syr + maslo = buterbrod'
+    u'hl\\u0456b + syr + maslo = buterbrod'
     >>> translify(u'хліб + сыр + масло = бутерброд', ['ru', 'ua'])
-    u'khlib + syr + maslo = buterbrod'
-    >>> translify(u'хор', ['ua'])
-    u'hor'
-    >>> translify(u'хор', ['ru'])
-    u'khor'
+    u'hlib + syr + maslo = buterbrod'
     >>> translify(u'съешь печенье')
     u's"esh\\' pechen\\'e'
     >>> translify('42')
@@ -92,9 +88,9 @@ def translify(text, langs=[], priority=PRIORITY):
 def slugify(text):
     u'''
     >>> slugify(u'хліб + сыр + масло = бутерброд')
-    u'khlib-syr-maslo-buterbrod'
+    u'hlib-syr-maslo-buterbrod'
     >>> slugify(u'Хлеб всему голова.')
-    u'khleb-vsemu-golova'
+    u'hleb-vsemu-golova'
     >>> slugify(u'съешь печенье')
     u's-esh-pechene'
     >>> slugify(42)
