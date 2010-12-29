@@ -62,6 +62,9 @@
     margin-right: 5px;
     {{ border_radius('0 0 10px 10px') }}
 }
+#header a.login {
+    color: #f63;
+}
 
 /* Content */
 #content {

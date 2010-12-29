@@ -14,14 +14,12 @@
     <div id="header">
         <div class="logo-wrap"><a href="/" class="logo"></a></div>
         <div class="header-adds">
-            <div class="info auth">
-            {% if app.user %}
-                Хай <b>{{ app.user.name }}</b> <a href="{{ app.url_for(':auth.logout') }}">Выход</a>
-            {% else %}
-                Тут есть <a href="{{ app.url_for(':auth.login') }}">Вход</a>
-            {% endif %}
-            </div>
-            {#<div class="info powered-by">powered by <a href="http://github.com/naspeh/naya">naya</a></div>#}
+        {% if app.user %}
+            <div class="info auth">Хай <b>{{ app.user.name }}</b> <a href="{{ app.url_for(':auth.logout') }}">Выход</a></div>
+        {% else %}
+            <a class="login" href="{{ app.url_for(':auth.login') }}">Вход</a>
+            <div class="info powered-by">powered by <a href="http://github.com/naspeh/naya">naya</a></div>
+        {% endif %}
         </div>
     </div>
     <div id="content">
