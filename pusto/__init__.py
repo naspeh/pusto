@@ -21,7 +21,7 @@ class App(Naya, AppMixin, MongoMixin, OpenidMixin):
             },
             'jinja': {
                 'url_prefix': '/',
-                'path_ends': ['/index.html', '.html'],
+                'path_ends': ['/index.html', '.html', '.rst'],
                 'path_allow': [
                     '^(|naspeh|resume|post/[-\w]*)$',
                     '^_mockups\/',
