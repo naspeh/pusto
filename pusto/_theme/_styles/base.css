@@ -33,19 +33,19 @@ header, hgroup, menu, nav, section {
 
 /* Titles */
 h1, h2, h3, h4, h5, h6 {
-  margin: 1em 0 .5em 0; /* Titles should be close to the text they describe */
+  margin: 0.65em 0 .4em 0; /* Titles should be close to the text they describe */
   line-height: 1.2; /* Bigger text is often nicer with smaller line space */
   font-weight: bold; /* Browser default. Use "normal" for less bulky titles */
   font-style: normal;
 }
 h1 {
-  font-size: 1.75em;
+  font-size: 1.3em;
 }
 h2 {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 h3 {
-  font-size: 1.25em;
+  font-size: 1.1em;
 }
 h4 {
   font-size: 1em;
@@ -53,16 +53,16 @@ h4 {
 
 /* Lists */
 ul, ol {
-  margin: .75em 0 .75em 32px;
+  margin: .4em 0 .4em 32px;
   padding: 0;
 }
 
 /* Paragraphs */
 p {
-  margin: .75em 0; /* Most browser defaults are "1em 0". */
+  margin: .4em 0; /* Most browser defaults are "1em 0". */
 }
 address {
-  margin: .75em 0; /* You may want display:inline;margin:0; in HTML 5 */
+  margin: .4em 0; /* You may want display:inline;margin:0; in HTML 5 */
   font-style: normal; /* The annoying browser default is "italic". */
 }
 
@@ -128,7 +128,7 @@ pre {
 }
 
 blockquote {
-  margin: .75em 0 .75em 20px;
+  margin: .5em 0 .5em 20px;
   padding: 0 0 0 10px;
   background: #efe;
   border-left: 3px solid #f63;
@@ -153,10 +153,10 @@ blockquote p, li p {
 
 /* Basic styles for definition lists */
 dl {
-  margin: .75em 0;
+  margin: .5em 0;
 }
 dt {
-  margin: .75em 0 0 0;
+  margin: .5em 0 0 0;
   font-weight: bold;
 }
 dd {
