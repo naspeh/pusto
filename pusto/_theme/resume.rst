@@ -35,15 +35,14 @@
 Собственные проекты
 ===================
 |horosh|_ - проект для публикации отчетов о путешествиях. Стартовал 25.11.2009.
- На нем опробован новый для меня python_ `фреймворк`_ Pylons_. В качестве JavaScript фреймворка был использован jQuery_. Приложение проектировал удобным, использовал `AJAX <http://ru.wikipedia.org/wiki/AJAX>`_, но старался не перегибать с последним. Оценить интерфейс редактирования можно по `демо событию <http://horosh.org/demo/>`_. Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
+ На нем опробован новый для меня python_ фреймворк Pylons_. В качестве JavaScript фреймворка был использован jQuery_. Приложение проектировал удобным, использовал `AJAX <http://ru.wikipedia.org/wiki/AJAX>`_, но старался не перегибать с последним. Оценить интерфейс редактирования можно по `демо событию <http://horosh.org/demo/>`_. Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
 
 
 |naya|_ - микрофреймворк на базе Werkzeug_, используется на этом сайте.
-  Werkzeug_ это библиотека (инструмент) для разработки WSGI приложений, но это не `фреймворк`_, поэтому на базе него уже построено не один `фреймворк`_: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashamer <http://glashammer.org/>`_.
+  Werkzeug_ это библиотека (инструмент) для разработки WSGI приложений, но это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, поэтому на базе него уже построено не один фреймворк: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashamer <http://glashammer.org/>`_.
 
   |naya|_ это еще один, с моими идеями и удобством :).
 
-.. _фреймворк: http://ru.wikipedia.org/wiki/Фреймворк
 
 Активно использую
 =================
