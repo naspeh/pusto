@@ -77,7 +77,7 @@
                 {% endif %}
             </div>
             <div class="textarea">
-                <textarea name="body">{{ active.body }}</textarea>
+                <textarea name="body">{{ active.body|e }}</textarea>
             </div>
             <div class="toolbar actions">
                 <select id="bit-type" name="type">
