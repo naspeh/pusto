@@ -89,3 +89,26 @@ def test_text(user=None):
     aye('==', 0, app.db.TextBit.fetch().count())
     aye(False, text['bits'])
     return text
+
+
+def test_global_bit():
+    clear_db([app.db.User])
+
+    url = 'http://pusto.org'
+    body = u'.. _pusto: %s' % url
+
+    bit_glob = app.db.TextBit()
+    bit_glob.update({'body': body, 'type': u'global'})
+    bit_glob.save()
+
+    bit = app.db.TextBit()
+    bit['body'] = u'pusto_'
+    bit.save()
+
+    text = app.db.Text()
+    text.update({'bits': [bit_glob, bit], 'owner': test_user(u'nayavu')})
+    text.save()
+
+    aye('in', body, bit_glob.html)
+    aye('in', url, bit.html)
+    aye('in', url, text.html)

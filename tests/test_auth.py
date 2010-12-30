@@ -51,3 +51,23 @@ def test_logout():
     aye('in', app.url_for(':auth.login'), c.data)
     aye('not in', 'user', app.session)
     aye(False, app.user)
+
+
+def test_logout_with_referer():
+    def logout(referer):
+        test_login()
+        referer = app.request.host_url.rstrip('/') + referer
+        c.get(app.url_for(':auth.logout'),
+            code=200, follow_redirects=True,
+            headers=[('Referer', referer)]
+        )
+
+    referer = app.url_for(':text.edit')
+    logout(referer)
+    aye('==', referer, c.path)
+
+    logout(app.url_for(':auth.logout'))
+    aye('==', '/', c.path)
+
+    logout(app.url_for(':auth.login'))
+    aye('==', '/', c.path)
