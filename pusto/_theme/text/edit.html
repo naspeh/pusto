@@ -80,9 +80,12 @@
                 <textarea name="body">{{ active.body|e }}</textarea>
             </div>
             <div class="toolbar actions">
+                {% set types=(('code', 'код'), ('quote', 'цитата'), ('global', 'глобальный'), ('hidden', 'скрытый')) %}
                 <select id="bit-type" name="type">
                     <option value="">обычный</option>
-                    <option value="global"{% if active.type == 'global' %} selected="selected"{% endif %}>глобальный</option>
+                    {% for type in types %}
+                    <option value="{{ type.0 }}"{% if active.type == type.0 %} selected="selected"{% endif %}>{{ type.1 }}</option>
+                    {% endfor %}
                 </select>
                 <button id="action-apply" type="submit" name="action" value="apply">Готово</button>
                 <button id="action-reset" type="submit" value="reset">Сброс</button>

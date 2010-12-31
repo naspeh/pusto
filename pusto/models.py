@@ -90,10 +90,11 @@ class TextBit(CreatedMixin):
 
     BIT_HIDE = '<div class="bit-hide"><pre>%s</pre></div>'
     BIT_ERROR = '<div class="bit-error"><pre>%s</pre></div>'
+    TYPES = u'global', u'hidden', u'code'
 
     structure = {
         'body': unicode,
-        'type': IS(u'global')
+        'type': IS(*TYPES)
     }
     required_fields = ['body']
 
@@ -102,9 +103,20 @@ class TextBit(CreatedMixin):
         return self.app.db.Text.one({'bits': self.dbref})
 
     @property
+    def src(self):
+        type, body = self['type'], self['body']
+        if type == 'code':
+            body = '::\n\n%s' % self.add_indent(body)
+        elif type == 'quote':
+            body = self.add_indent(body)
+        elif type == 'hidden':
+            body = '..\n%s' % self.add_indent(body)
+        return body
+
+    @property
     def html(self):
         text = self.text
-        bodies = [self['body']]
+        bodies = [self.src]
         for bit in text['bits']:
             if bit['type'] == 'global' and bit != self:
                 bodies.append(bit['body'])
@@ -115,8 +127,8 @@ class TextBit(CreatedMixin):
         except SystemMessage as e:
             html = self.BIT_ERROR % e
 
-        if not html.strip():
-            html = self.BIT_HIDE % self['body']
+        if not html.strip() or re.match('(?s)<!--.*-->', html):
+            html = self.BIT_HIDE % self.src
         return html
 
     def pre_delete(self):
@@ -144,6 +156,8 @@ class TextBit(CreatedMixin):
         self['body'] = bodies[-1]
         self.save()
 
+    def add_indent(self, body, size=2):
+        return re.sub('(?m)^', '  ', body)
 
 @marker.model()
 class Text(MarkupMixin, CreatedMixin, OwnerMixin):
@@ -167,7 +181,7 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     def src(self):
         src = []
         for i in xrange(len(self['bits'])):
-            body = self['bits'][i]['body']
+            body = self['bits'][i].src
             if i == 0:
                 src.append(body)
             else:
