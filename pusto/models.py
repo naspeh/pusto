@@ -2,6 +2,7 @@ import re
 from datetime import datetime
 
 from docutils.utils import SystemMessage
+from lxml import html
 from mongokit import Document as _Document, IS
 from naya.helpers import marker
 from werkzeug import Href
@@ -99,12 +100,12 @@ class TextBit(CreatedMixin):
     required_fields = ['body']
 
     @property
-    def text(self):
+    def parent(self):
         return self.app.db.Text.one({'bits': self.dbref})
 
     @property
     def html(self):
-        text = self.text
+        text = self.parent
         bodies = [self['body']]
         for bit in text['bits']:
             if bit['type'] == 'global' and bit != self:
@@ -112,16 +113,16 @@ class TextBit(CreatedMixin):
         bodies = '\n\n'.join(bodies)
 
         try:
-            html = getattr(markup, text['markup'])(bodies)
+            html_ = getattr(markup, text['markup'])(bodies)
         except SystemMessage as e:
-            html = self.BIT_ERROR % e
+            html_ = self.BIT_ERROR % e
 
-        if not html.strip() or re.match('(?s)<!--.*-->', html):
-            html = self.BIT_HIDE % self['body']
-        return html
+        if not html_.strip() or re.match('(?s)<!--.*-->', html_):
+            html_ = self.BIT_HIDE % self['body']
+        return html_
 
     def pre_delete(self):
-        text = self.text
+        text = self.parent
         for bit in text['bits']:
             if bit['_id'] == self['_id']:
                 text['bits'].remove(bit)
@@ -180,10 +181,6 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
         return self.app.db.Node.one({'content': self.get_dbref()})
 
     @property
-    def html(self):
-        return markup.rst(self.src)
-
-    @property
     def src(self):
         src = []
         for i in xrange(len(self['bits'])):
@@ -193,6 +190,14 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
             else:
                 src.append(self.BIT_BEGIN % i + body)
         return '\n\n'.join(src)
+
+    @property
+    def html(self):
+        return markup.rst(self.src)
+
+    @property
+    def text(self):
+        return html.fromstring(self.html).text_content()
 
     @property
     def url_edit(self):

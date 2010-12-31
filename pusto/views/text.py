@@ -72,13 +72,8 @@ def bit(app, id):
         bit.delete()
         text.reload()
         bit = prepare_bit(app, 'new', text)
-    elif action == 'reset':
-        fill_session(app, text, bit)
-        if bit['_id']:
-            prepare_bit(app, 'new', text)
-    elif action == 'refresh':
-        if bit['_id']:
-            prepare_bit(app, 'new', text)
+    elif action == 'reset' and bit['_id']:
+        prepare_bit(app, 'new', text)
 
     fill_session(app, text, bit)
     return app.maybe_partial('#text-edit', app.to_template(
