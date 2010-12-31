@@ -103,20 +103,9 @@ class TextBit(CreatedMixin):
         return self.app.db.Text.one({'bits': self.dbref})
 
     @property
-    def src(self):
-        type, body = self['type'], self['body']
-        if type == 'code':
-            body = '::\n\n%s' % self.add_indent(body)
-        elif type == 'quote':
-            body = self.add_indent(body)
-        elif type == 'hidden':
-            body = '..\n%s' % self.add_indent(body)
-        return body
-
-    @property
     def html(self):
         text = self.text
-        bodies = [self.src]
+        bodies = [self['body']]
         for bit in text['bits']:
             if bit['type'] == 'global' and bit != self:
                 bodies.append(bit['body'])
@@ -128,7 +117,7 @@ class TextBit(CreatedMixin):
             html = self.BIT_ERROR % e
 
         if not html.strip() or re.match('(?s)<!--.*-->', html):
-            html = self.BIT_HIDE % self.src
+            html = self.BIT_HIDE % self['body']
         return html
 
     def pre_delete(self):
@@ -155,6 +144,22 @@ class TextBit(CreatedMixin):
 
         self['body'] = bodies[-1]
         self.save()
+
+    def save(self, *args, **kwargs):
+        self.prepare_body()
+        super(TextBit, self).save(*args, **kwargs)
+
+    def prepare_body(self):
+        type, body = self['type'], self['body']
+        if type == 'code':
+            body = '.. sourcecode:: text\n\n%s' % self.add_indent(body)
+            type = None
+        elif type == 'quote':
+            body = self.add_indent(body)
+            type = None
+        elif type == 'hidden':
+            body = '..\n%s' % self.add_indent(body)
+        self.update({'body': body, 'type': type})
 
     def add_indent(self, body, size=2):
         return re.sub('(?m)^', '  ', body)
