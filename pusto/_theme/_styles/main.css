@@ -93,7 +93,10 @@
     height: 100%;
     background: #fefefe url(../_images/loading.gif) no-repeat center;
 }
+
+/* Highlight */
 .highlighttable {
+    width: 100%;
     border: none;
 }
 .highlighttable td, .highlighttable th {
@@ -104,4 +107,8 @@
 .highlighttable .linenodiv {
     color: #aaa;
     border-right: 1px solid #ccc;
+    text-align: right;
+}
+.highlighttable .code {
+    width: 100%;
 }

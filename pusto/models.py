@@ -187,7 +187,7 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     def src(self):
         src = []
         for i in xrange(len(self['bits'])):
-            body = self['bits'][i].src
+            body = self['bits'][i]['body']
             if i == 0:
                 src.append(body)
             else:
