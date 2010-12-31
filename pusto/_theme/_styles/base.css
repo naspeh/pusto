@@ -124,6 +124,7 @@ pre {
     border-top: 1px solid #008000;
     border-bottom: 1px solid #008000;
     line-height: 1.2em;
+    font: 12px monospace;
     overflow: auto;
 }
 

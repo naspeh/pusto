@@ -93,3 +93,15 @@
     height: 100%;
     background: #fefefe url(../_images/loading.gif) no-repeat center;
 }
+.highlighttable {
+    border: none;
+}
+.highlighttable td, .highlighttable th {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.highlighttable .linenodiv {
+    color: #aaa;
+    border-right: 1px solid #ccc;
+}
