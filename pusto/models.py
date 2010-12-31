@@ -159,6 +159,7 @@ class TextBit(CreatedMixin):
     def add_indent(self, body, size=2):
         return re.sub('(?m)^', '  ', body)
 
+
 @marker.model()
 class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     __collection__ = 'texts'
