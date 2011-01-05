@@ -68,7 +68,7 @@ def bit(app, id):
         text.save()
 
         prepare_bit(app, 'new', text)
-    elif action == 'delete' and bit_id != 'new':
+    elif action == 'delete' and bit['_id']:
         bit.delete()
         text.reload()
         bit = prepare_bit(app, 'new', text)
@@ -91,8 +91,6 @@ def prepare(app, id, node_id=None):
         node = text and text.node or None
     if text and text['owner'] and text['owner'] != app.user:
         return app.abort(403)
-    elif text and not text['owner'] and app.user:
-        text['owner'] = app.user
 
     if not node and node_id:
         node = app.db.Node.by_id(node_id)
@@ -132,7 +130,5 @@ def active_bit(app, text, bit):
 
 
 def fill_session(app, text, bit):
-    if '_id' not in text:
-        return
     app.session.setdefault('texts', {})
     app.session['texts'][str(text['_id'])] = str(bit['_id'])

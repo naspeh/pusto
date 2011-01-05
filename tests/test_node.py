@@ -34,6 +34,8 @@ def add_node(title='test title', parent=None, content=None):
 def test_node_new():
     clear_db([Node, app.db.Text, app.db.TextBit])
 
+    c.get(app.url_for(':node.edit', code=200))
+
     add_node('')
 
     text = test_text.add_text()[0]
@@ -123,8 +125,17 @@ def test_node_show():
     aye('in', '<h1>%s' % node21['title'], c.data)
 
 
-def test_node_show_fails2():
+def test_node_show_fails():
     test_node_new()
     c.get(app.url_for(':node.show', slug='test/test1/test2'), code=404)
     c.get(app.url_for(':node.show', slug='test1'), code=404)
     c.get(app.url_for(':node.show', slug='test/test21'), code=404)
+
+
+def test_nodes():
+    test_node_new()
+
+    c.get(app.url_for(':node.roll'))
+    for node in Node.find():
+        aye('in', node.url_edit, c.data)
+        aye('in', node.url_show, c.data)
