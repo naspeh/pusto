@@ -91,9 +91,15 @@ def test_text(user=None):
     return text
 
 
-def test_global_bit():
+def add_bits(bits, text=app.db.Text):
     clear_db([app.db.User])
 
+    text.update({'bits': bits, 'owner': test_user(u'nayavu')})
+    text.save()
+    return text
+
+
+def test_global_bit():
     url = 'http://pusto.org'
     body = u'.. _pusto: %s' % url
 
@@ -105,10 +111,22 @@ def test_global_bit():
     bit['body'] = u'pusto_'
     bit.save()
 
-    text = app.db.Text()
-    text.update({'bits': [bit_glob, bit], 'owner': test_user(u'nayavu')})
-    text.save()
+    text = add_bits([bit_glob, bit])
 
     aye('in', body, bit_glob.html)
     aye('in', url, bit.html)
     aye('in', url, text.html)
+
+
+def test_code_bit():
+    bit = app.db.TextBit()
+    bit['body'] = (
+        u'.. sourcecode:: unknow\n'
+        u'  :linenos:\n'
+        u'\n'
+        u'  from naya import Naya\n'
+    )
+    bit.save()
+
+    add_bits([bit])
+    aye('in', 'class="highlight', bit.html)
