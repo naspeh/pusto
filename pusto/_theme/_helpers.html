@@ -1,8 +1,8 @@
-{% macro css(path, include=False) %}
+{% macro css(path, include=False, less=True) %}
 {% if not app.testing and include -%}
     <style type="text/css">{% include path %}</style>
 {%- else -%}
-    <link rel="stylesheet" href="{{ app.url_for(':theme', path=path) }}" type="text/css" />
+    <link rel="stylesheet{{less and '/less' or ''}}" href="{{ app.url_for(':theme', path=path) }}" type="text/css" />
 {%- endif %}
 {% endmacro %}
 
