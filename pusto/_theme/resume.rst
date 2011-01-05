@@ -39,7 +39,7 @@
 
 
 |naya|_ - микрофреймворк на базе Werkzeug_, используется на этом сайте.
-  Werkzeug_ это библиотека (инструмент) для разработки WSGI приложений, но это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, поэтому на базе него уже построено не один фреймворк: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashamer <http://glashammer.org/>`_.
+  Werkzeug_ это библиотека (инструмент) для разработки `WSGI <http://ru.wikipedia.org/wiki/WSGI>`_ приложений, но это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, поэтому на базе него уже построено не один фреймворк: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashamer <http://glashammer.org/>`_.
 
   |naya|_ это еще один, с моими идеями и удобством :).
 
@@ -59,7 +59,7 @@
 Ранее использовал
 =================
 * Java с февраля 2009 г (последний раз - сентябрь 2009 г);
-* PHP с ноября 2006 г; работал с `Zend Framework <http://framework.zend.com/) (последний раз - март 2009 г>`_.
+* PHP с ноября 2006 г; работал с `Zend Framework <http://framework.zend.com/>`_ (последний раз - март 2009 г).
 
 Личные качества
 ===============
