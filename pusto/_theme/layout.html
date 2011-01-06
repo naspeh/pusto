@@ -19,7 +19,7 @@
         <div class="logo-wrap"><a href="/" class="logo"></a></div>
         <div class="header-adds">
         {% if app.user %}
-            <div class="info auth">Хай <b>{{ app.user.name }}</b> <a href="{{ app.url_for(':auth.logout') }}">Выход</a></div>
+            <div class="info auth">Привет, <b>{{ app.user.name }}</b> <a href="{{ app.url_for(':auth.logout') }}">Выход</a></div>
         {% else %}
             <a class="login" href="{{ app.url_for(':auth.login') }}">Вход</a>
             <div class="info powered-by">powered by <a href="http://github.com/naspeh/naya">naya</a></div>

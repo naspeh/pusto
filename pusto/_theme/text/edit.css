@@ -107,6 +107,12 @@
     border: none;
     margin: 0;
 }
+#viewer .bit-new {
+    padding: 20px 0;
+    text-align: center;
+    color: #faa;
+    font-weight: bold;
+}
 #editor {
     position: absolute;
     bottom: 0;

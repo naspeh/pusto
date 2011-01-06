@@ -5,24 +5,24 @@
 
 /* Base styles */
 html {
-  height: 100%;
+    height: 100%;
 }
 body {
-  font: 14px/1.5 @font-main;
-  line-height: 1.3;
-  position: relative;
-  width: 950px;
-  height: 100%;
-  margin: 0 auto;
+    font: 14px/1.5 @font-main;
+    line-height: 1.3;
+    position: relative;
+    width: 900px;
+    height: 100%;
+    margin: 0 auto;
 }
 
 /* TODO: Think about moving to text styles */
 a {
-  color: @color-alfa;
-  text-decoration: none;
+    color: @color-alfa;
+    text-decoration: none;
 }
 a:hover, a:focus, a:active {
-  color: @color-beta;
+    color: @color-beta;
 }
 hr {
     border: 0 #ccc solid;
@@ -41,10 +41,10 @@ pre {
     overflow: auto;
 }
 blockquote {
-  margin-left: 20px;
-  padding-left: 10px;
-  background: #efe;
-  border-left: 3px solid @color-beta;
+    margin-left: 20px;
+    padding-left: 10px;
+    background: #efe;
+    border-left: 3px solid @color-beta;
 }
 
 /* Header */
@@ -86,7 +86,7 @@ blockquote {
             background-color: @color-alfa;
             font-size: small;
             color: #fff;
-            padding-left: 10px;
+            padding: 2px 0 0 10px;
             .border_radius(0 0 10px 10px);
 
             a {
@@ -117,17 +117,27 @@ blockquote {
     padding: 0 10px;
     margin-top: 10px;
 }
+.document {
+    margin-bottom: 20px;
+
+    {% include '_styles/text.css' %}
+    {% include '_styles/syntax.css' %}
+}
 
 /* Blocks */
-.b-confirm, .b-notice {
-    padding: 20px 0;
-    text-align: center;
-}
-.b-notice {
-    color: #faa;
-    font-weight: bold;
-}
 
+.note {
+    border-left: 3px solid @color-flat;
+    color: @color-flat - #444;
+    margin-left: 20px;
+    padding-left: 10px;
+
+    .admonition-title {
+        color: @color-beta;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+}
 /* Misc */
 .loading {
     display: none;
@@ -138,10 +148,6 @@ blockquote {
     width: 100%;
     height: 100%;
     background: #fefefe url(../_images/loading.gif) no-repeat center;
-}
-.document {
-    {% include '_styles/text.css' %}
-    {% include '_styles/syntax.css' %}
 }
 
 /* Highlight */
