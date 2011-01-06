@@ -38,10 +38,11 @@
  На нем опробован новый для меня python_ фреймворк Pylons_. В качестве JavaScript фреймворка был использован jQuery_. Приложение проектировал удобным, использовал `AJAX <http://ru.wikipedia.org/wiki/AJAX>`_, но старался не перегибать с последним. Оценить интерфейс редактирования можно по `демо событию <http://horosh.org/demo/>`_. Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
 
 
-|naya|_ - микрофреймворк на базе Werkzeug_, используется на этом сайте.
-  Werkzeug_ это библиотека (инструмент) для разработки `WSGI <http://ru.wikipedia.org/wiki/WSGI>`_ приложений, но это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, поэтому на базе него уже построено не один фреймворк: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashamer <http://glashammer.org/>`_.
+|naya|_ - микрофреймворк на базе Werkzeug_.
+  Используется на этом сайте и воплощает мои взгляды на удобную разработку и красоту приложения.
 
-  |naya|_ это еще один, с моими идеями и удобством :).
+  .. note::
+    Werkzeug_ - это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, а библиотека (инструмент) для разработки `WSGI <http://ru.wikipedia.org/wiki/WSGI>`_ приложений. На базе нее построено немало фреймворков: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashammer <http://glashammer.org/>`_.
 
 
 Активно использую
@@ -52,7 +53,7 @@
 * SQL (MySQL, SQLite);
 * `NoSQL <http://ru.wikipedia.org/wiki/NoSQL>`_; интересуюсь `MongoDB <http://www.mongodb.org/>`_;
 * `распределённые системы контроля версий (DVCS) <http://habrahabr.ru/blogs/development_tools/71115/>`_: `git <http://git-scm.com/>`_, `mercurial <http://mercurial.selenic.com/>`_;
-* пользователь GNU/Linux с июля 2008.
+* пользователь GNU/Linux с июля 2008; `Debian GNU/Linux <http://www.debian.org/>`_ и `Vim <http://www.vim.org/>`_ с августа 2010.
 
 Интересуюсь архитектурой приложений, `паттернами проектирования <http://ru.wikipedia.org/wiki/Шаблон_проектирования>`_, `гибкими методиками разработки <http://ru.wikipedia.org/wiki/Гибкая_методология_разработки>`_, `рефакторингом <http://ru.wikipedia.org/wiki/Рефакторинг>`_, `TDD <http://ru.wikipedia.org/wiki/Разработка_через_тестирование>`_, `свободным ПО <http://ru.wikipedia.org/wiki/Свободное_программное_обеспечение>`_, пользовательскими интерфейсами, `юзабилити <http://ru.wikipedia.org/wiki/Юзабилити>`_. Слежу за новшествами в сфере веб-разработки.
 

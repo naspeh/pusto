@@ -1,7 +1,7 @@
 from jinja2 import DebugUndefined
 from naya.base import Naya
 
-from . import views, models
+from . import views, static, models
 from .app import AppMixin
 from .markup import markdown, rst
 from .mongo import MongoMixin
@@ -15,7 +15,10 @@ class App(Naya, AppMixin, MongoMixin, OpenidMixin):
     def config(self):
         return {
             'debug': True,
-            'modules': {'': views},
+            'modules': {
+                '': views,
+                'static': (static, {'prefix': ''}),
+            },
             'theme': {
                 'url_prefix': '/',
             },

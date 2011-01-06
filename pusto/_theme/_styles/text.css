@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 p, dl, dd, hr, ol, ul, pre,
 table, address, fieldset {
-    margin-bottom: 0.75em;
+    margin-bottom: 1em;
 }
 dt {
     font-weight: bold;
