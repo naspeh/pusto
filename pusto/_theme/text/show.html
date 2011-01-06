@@ -1,19 +1,18 @@
 {% extends "layout.html" %}
-{% from '_helpers.html' import css, js with context %}
 
 {% block title %}{{ node.title or 'Text %s' % text._id }}{% endblock %}
 
 {% block extrahead %}
-{{ js('_scripts/jquery.js') }}
+{{ h.js('_scripts/jquery.js') }}
 
-{#{ js('text/show.js', include=True) }#}
-{{ css('text/show.css', include=True) }}
+{#{ h.js('text/show.js', include=True) }#}
+{{ h.css('text/show.css', include=True) }}
 {% endblock %}
 
 
 {%- block content %}
 <div id="text-show">
-    {% if node.title %}<h1>{{ node.title }}</h1>{% endif %}
+    {% if node.title %}<h1 class="text-title">{{ node.title }}</h1>{% endif %}
     <div id="text-show-body">
         {% if src %}
         <div class="src"><textarea readonly="readonly">{{ src == 'text' and text.src|e or text.html }}</textarea></div>

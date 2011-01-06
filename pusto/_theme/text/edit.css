@@ -1,4 +1,4 @@
-{% from '_styles/_helpers.css' import border_radius %}
+{% from '_styles/helpers.css' import border_radius %}
 
 #text-edit {
     position: absolute;

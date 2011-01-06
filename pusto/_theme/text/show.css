@@ -1,4 +1,4 @@
-#text-show h1 {
+#text-show h1.text-title {
     margin: 0;
     border-bottom: 2px solid #ccc;
 }

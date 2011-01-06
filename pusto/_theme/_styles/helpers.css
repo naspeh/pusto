@@ -1,0 +1,13 @@
+{% macro border_radius(value) -%}
+    border-radius: {{ value }};
+    -moz-border-radius: {{ value }};
+    -webkit-border-radius: {{ value }};
+{%- endmacro %}
+
+{%- macro include(path) %}
+{% if not app.testing and include %}
+    {% include path %}
+{% else %}
+    @import "{{ app.url_for(':theme', path=path) }}";
+{% endif %}
+{%- endmacro %}
