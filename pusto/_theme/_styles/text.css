@@ -1,4 +1,5 @@
-/* Headings */
+/* Need including `_styles/common.less` in parent file */
+
 h1 {
     font-size: 1.3em;
 }
@@ -8,29 +9,47 @@ h2 {
 h3, h4, h5, h6 {
     font-size: 1.1em;
 }
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5em;
+}
 
-/* Spacing */
+p, dl, dd, hr, ol, ul, pre,
+table, address, fieldset {
+    margin-bottom: 1em;
+}
 ol {
     list-style: decimal;
 }
 ul {
     list-style: disc;
 }
-li {
+li, dd {
     margin-left: 1em;
-}
-h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 0.5em;
-}
-p, dl, dd, hr, ol, ul, pre,
-table, address, fieldset {
-    margin-bottom: 1em;
 }
 dt {
     font-weight: bold;
 }
-dd {
-    margin-left: 1em;
+hr {
+    border: 0 #ccc solid;
+    border-top-width: 1px;
+    clear: both;
+    height: 0;
+}
+pre {
+    padding: 5px;
+    background: #efe;
+    border-top: 1px solid @color-alfa;
+    border-bottom: 1px solid @color-alfa;
+    font: 0.9em @font-mono;
+    line-height: 1.2em;
+    white-space: pre;
+    overflow: auto;
+}
+blockquote {
+    margin-left: 20px;
+    padding-left: 10px;
+    background: #efe;
+    border-left: 3px solid @color-beta;
 }
 
 /* Blocks */

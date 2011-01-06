@@ -4,10 +4,10 @@
     -webkit-border-radius: {{ value }};
 {%- endmacro %}
 
-{%- macro include(path) %}
-{% if not app.testing and include %}
-    {% include path %}
-{% else %}
+{% macro include(path) %}
+{% if app.debug -%}
     @import "{{ app.url_for(':theme', path=path) }}";
-{% endif %}
-{%- endmacro %}
+{%- else -%}
+    {% include path %}
+{%- endif %}
+{% endmacro %}

@@ -1,6 +1,6 @@
 {% import '_styles/helpers.css' as h  %}
 
-{{ h.include('_styles/base.less') }}
+{{ h.include('_styles/common.less') }}
 {{ h.include('_styles/reset.css') }}
 
 /* Base styles */
@@ -15,36 +15,12 @@ body {
     height: 100%;
     margin: 0 auto;
 }
-
-/* TODO: Think about moving to text styles */
 a {
     color: @color-alfa;
     text-decoration: none;
 }
 a:hover, a:focus, a:active {
     color: @color-beta;
-}
-hr {
-    border: 0 #ccc solid;
-    border-top-width: 1px;
-    clear: both;
-    height: 0;
-}
-pre {
-    padding: 5px;
-    background: #efe;
-    border-top: 1px solid @color-alfa;
-    border-bottom: 1px solid @color-alfa;
-    font: 0.9em @font-mono;
-    line-height: 1.2em;
-    white-space: pre;
-    overflow: auto;
-}
-blockquote {
-    margin-left: 20px;
-    padding-left: 10px;
-    background: #efe;
-    border-left: 3px solid @color-beta;
 }
 
 /* Header */
@@ -124,20 +100,6 @@ blockquote {
     {% include '_styles/syntax.css' %}
 }
 
-/* Blocks */
-
-.note {
-    border-left: 3px solid @color-flat;
-    color: @color-flat - #444;
-    padding-left: 10px;
-
-    .admonition-title {
-        color: @color-beta;
-        font-weight: bold;
-        text-decoration: underline;
-        margin-bottom: 5px;
-    }
-}
 /* Misc */
 .loading {
     display: none;
@@ -148,23 +110,4 @@ blockquote {
     width: 100%;
     height: 100%;
     background: #fefefe url(../_images/loading.gif) no-repeat center;
-}
-
-/* Highlight */
-/* TODO: Think about moving to syntax or text styles */
-.highlighttable {
-    width: 100%;
-
-    td, th {
-        margin: 0;
-        padding: 0;
-    }
-    .linenodiv {
-        color: #aaa;
-        border-right: 1px solid #ccc;
-        text-align: right;
-    }
-    .code {
-        width: 100%;
-    }
 }
