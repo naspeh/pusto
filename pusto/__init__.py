@@ -25,7 +25,7 @@ class App(Naya, AppMixin, MongoMixin, OpenidMixin):
                 'path_allow': [
                     '^(|naspeh|resume|post/[-\w]*)$',
                     '^_mockups\/',
-                    '^_styles\/main\.css$',
+                    '\.(css|less)$',
                 ],
                 'env': {
                     'filters': {'rst': rst, 'markdown': markdown},

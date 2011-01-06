@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "layout.html" %}
 {% block title %}Гриша aka naspeh{% endblock %}
 
 {% macro profile() %}

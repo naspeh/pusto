@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "layout.html" %}
 {% block title %} Уникальный ник{% endblock %}
 
 {% block content %}{% filter rst %}

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "layout.html" %}
 {% block title %}{{ node.title }}{% endblock %}
 
 {%- block content %}
@@ -14,7 +14,7 @@
     {% if node.content -%}
         {{ app.part_template('text/show.html', '#text-show .document', text=node.content, node=node) }}
     {% endif %}
-   
+
     <hr />
     <ul>
     {% for child in node.children -%}

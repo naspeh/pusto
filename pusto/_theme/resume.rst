@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "layout.html" %}
 {% block title %}Резюме Костюк Гриши{% endblock %}
 
 {% block content %}

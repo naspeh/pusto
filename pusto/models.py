@@ -113,7 +113,7 @@ class TextBit(CreatedMixin):
         bodies = '\n\n'.join(bodies)
 
         try:
-            html_ = getattr(markup, text['markup'])(bodies)
+            html_ = markup.rst(bodies, as_document=False)
         except SystemMessage as e:
             html_ = self.BIT_ERROR % e
 

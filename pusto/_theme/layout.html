@@ -1,14 +1,18 @@
+{% import '_helpers.html' as h with context %}
 <!DOCTYPE HTML>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>pusto.org: {% block title %}Гриша aka naspeh{% endblock %}</title>
 
     <link rel="icon" href="{{ app.url_for(':theme', path='_images/favicon.png') }}" type="image/png" />
-    <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/base.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/syntax.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ app.url_for(':jinja', path='_styles/main.css') }}" type="text/css" />
+    {{ h.css('layout.less', less=True) }}
+    {# <link rel="stylesheet" href="{{ app.url_for(':jinja', path='base.css') }}" type="text/css" /> #}
+    {# <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/base.css') }}" type="text/css" /> #}
+    {# <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/syntax.css') }}" type="text/css" /> #}
 
     {% block extrahead %}{% endblock %}
+
+    {{ h.js('_scripts/less.js') }}
 </head>
 <body>
     <div id="header">

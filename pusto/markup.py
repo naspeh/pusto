@@ -10,7 +10,7 @@ def markdown(text):
     return md.convert(text)
 
 
-def rst(text):
+def rst(text, as_document=True):
     Pygments.register('sourcecode')
 
     parts = core.publish_parts(source=text, writer_name='html',
@@ -20,4 +20,7 @@ def rst(text):
         }
     )
     result = html.fromstring(parts['html_body'])
-    return '\n'.join(html.tostring(i) for i in result.iterchildren())
+    result = '\n'.join(html.tostring(i) for i in result.iterchildren())
+    if as_document:
+        result = '<div class="document">%s</div>' % result
+    return result

@@ -1,11 +1,55 @@
-{% from '_styles/_helpers.css' import border_radius %}
+{% import '_styles/_helpers.css' as h %}
+
+{% include '_styles/reset.css' %}
+
+/* Base styles */
+html {
+  height: 100%;
+}
+body {
+  font: 13px/1.5 Verdana, "DejaVu Sans", Geneva, sans-serif;
+  line-height: 1.3;
+  position: relative;
+  width: 950px;
+  height: 100%;
+  margin: 0 auto;
+}
+a {
+  color: #008000;
+  text-decoration: none;
+}
+a:hover, a:focus, a:active {
+  color: #f63;
+}
+hr {
+    border: 0 #ccc solid;
+    border-top-width: 1px;
+    clear: both;
+    height: 0;
+}
+pre {
+    padding: 5px;
+    background: #efe;
+    border-top: 1px solid #008000;
+    border-bottom: 1px solid #008000;
+    font: 0.9em "DejaVu Sans Mono", monospace;
+    line-height: 1.2em;
+    white-space: pre;
+    overflow: auto;
+}
+blockquote {
+  margin-left: 20px;
+  padding-left: 10px;
+  background: #efe;
+  border-left: 3px solid #f63;
+}
 
 /* Header */
 #header {
     background: #f63;
     height: 40px;
     position: relative;
-    {{ border_radius('0 0 15px 15px') }}
+    {{ h.border_radius('0 0 15px 15px') }}
 }
 #header img {
     border: none;
@@ -22,7 +66,7 @@
     display: inline-block;
     padding-left: 20px;
     height: 40px;
-    {{ border_radius('0 0 0 15px') }}
+    {{ h.border_radius('0 0 0 15px') }}
 }
 #header .logo {
     display: inline-block;
@@ -43,14 +87,14 @@
     font-size: small;
     color: #fff;
     padding-left: 10px;
-    {{ border_radius('0 0 10px 10px') }}
+    {{ h.border_radius('0 0 10px 10px') }}
 }
 #header .info a {
     display: inline-block;
     font-weight: bold;
     background: #fff;
     padding: 0 10px;
-    {{ border_radius('0 0 10px 10px') }}
+    {{ h.border_radius('0 0 10px 10px') }}
 }
 #header .source {
     display: inline-block;
@@ -60,7 +104,7 @@
     color: #fff;
     padding: 0 10px;
     margin-right: 5px;
-    {{ border_radius('0 0 10px 10px') }}
+    {{ h.border_radius('0 0 10px 10px') }}
 }
 #header a.login {
     color: #f63;
@@ -92,6 +136,10 @@
     width: 100%;
     height: 100%;
     background: #fefefe url(../_images/loading.gif) no-repeat center;
+}
+.document {
+    {% include '_styles/text.css' %}
+    {% include '_styles/syntax.css' %}
 }
 
 /* Highlight */

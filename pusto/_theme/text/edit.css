@@ -67,14 +67,15 @@
     border-top: 1px solid #cfc;
     background: #fff;
     min-height: 30px;
-    margin: 0 0 10px 0;
+    margin-bottom: 10px;
+    padding-top: 10px;
 }
 #viewer .bit .info {
     display: inline-block;
     float: right;
     background: #cfc;
     font-size: small;
-    margin: 0 1px 5px 5px;
+    margin: -10px 1px 5px 5px;
     padding: 0 2px 5px 5px;
     {{ border_radius('0 0 0 25px') }}
 }
@@ -86,8 +87,9 @@
     background: #fcc;
 }
 #viewer .bit-hide {
-    background: #eee;
-    padding: 10px 0;
+    background: #efefef;
+    padding: 5px 0;
+    margin: -5px 0;
 }
 #viewer .bit-hide pre {
     background: none;
