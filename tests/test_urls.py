@@ -1,7 +1,7 @@
 from naya.testing import aye
 
 from . import app
-from pusto.views import REDIRECTS
+from pusto.static import REDIRECTS
 
 
 c = app.test_client()

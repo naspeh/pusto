@@ -32,3 +32,35 @@ dt {
 dd {
     margin-left: 1em;
 }
+
+/* Blocks */
+.note {
+    border-left: 3px solid @color-flat;
+    color: @color-flat - #444;
+    padding-left: 10px;
+
+    .admonition-title {
+        color: @color-beta;
+        font-weight: bold;
+        text-decoration: underline;
+        margin-bottom: 5px;
+    }
+}
+
+/* Highlight */
+.highlighttable {
+    width: 100%;
+
+    td, th {
+        margin: 0;
+        padding: 0;
+    }
+    .linenodiv {
+        color: @color-flat - #444;
+        border-right: 1px solid @color-flat;
+        text-align: right;
+    }
+    .code {
+        width: 100%;
+    }
+}
