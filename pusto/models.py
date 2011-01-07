@@ -185,8 +185,8 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
 
     @property
     def html(self):
-        return '\n'.join(
-            bit.pure_html for bit in self['bits']
+        return '\n\n'.join(
+            bit.pure_html.strip() for bit in self['bits']
                 if bit['type'] not in TextBit.TYPES
         )
 
