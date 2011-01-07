@@ -95,6 +95,7 @@ class TextBit(CreatedMixin):
 
     TYPES = u'global', u'hidden'
     BIT_ERROR = '<div class="system-message"><pre>%s</pre></div>'
+    BIT_HIDE = '<div class="bit-hide">%s</div>'
 
     structure = {
         'body': unicode,
@@ -107,7 +108,7 @@ class TextBit(CreatedMixin):
         return self.app.db.Text.one({'bits': self.dbref})
 
     @property
-    def html(self):
+    def pure_html(self):
         text = self.parent
         bodies = [self['body']]
         for bit in text['bits']:
@@ -118,12 +119,17 @@ class TextBit(CreatedMixin):
         try:
             html_ = markup.rst(bodies, as_bit=True)
         except SystemMessage as e:
-            self['type'] = 'error'
             html_ = self.BIT_ERROR % e
+        return html_
+
+    @property
+    def html(self):
+        html_ = self.pure_html
 
         text = do_striptags(html_.strip())
         if not text.strip():
             html_ = highlight(self['body'], RstLexer(), HtmlFormatter())
+            html_ = self.BIT_HIDE % html_
         return html_
 
     def pre_delete(self):
@@ -180,7 +186,7 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     @property
     def html(self):
         return '\n'.join(
-            bit.html for bit in self['bits']
+            bit.pure_html for bit in self['bits']
                 if bit['type'] not in TextBit.TYPES
         )
 

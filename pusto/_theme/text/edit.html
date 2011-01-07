@@ -43,9 +43,7 @@
         {% set selected=active._id == bit._id and ' active' or '' %}
         <div id="bit-{{ index }}" name="{{ bit._id or 'new'}}" class="bit{{ selected }}">
             <a href="#" class="info">#{{ index }}</a>
-            {% if bit.body and bit.type %}
-            <div class="bit-hide">{{ bit.html }}</div>
-            {% elif bit.body %}
+            {% if bit.body %}
             {{ bit.html }}
             {% else %}
             <div class="bit-new">Тут пусто...</div>

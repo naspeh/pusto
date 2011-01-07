@@ -58,7 +58,7 @@ blockquote {
     border-left: 2px solid @color-flat;
     color: @color-flat - #444;
     padding: 5px 10px;
-    margin-top: 7px;
+    margin: 7px 0 1em 0;
 
     p.admonition-title {
         color: @color-beta;
@@ -83,18 +83,22 @@ blockquote {
     .system-message-title {
         font-weight: bold;
     }
-    :last-child {
-        margin-bottom: 0;
-    }
+    .last-child;
 }
 
 /* Highlight */
+.highlight {
+    margin-bottom: 1em;
+
+    pre {
+        margin-bottom: 0;
+    }
+}
 .highlighttable {
     width: 100%;
 
-    td, th {
-        margin: 0;
-        padding: 0;
+    pre, .highlight {
+        margin-bottom: 0;
     }
     .linenodiv {
         color: @color-flat - #444;

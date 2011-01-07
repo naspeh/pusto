@@ -70,7 +70,8 @@
     border-top: 1px solid #cfc;
     background: #fff;
     min-height: 1.3em;
-    padding: 10px 0;
+    padding-top: 10px;
+    margin-bottom: 1em;
 }
 #viewer .bit .info {
     display: inline-block;
@@ -81,7 +82,7 @@
     padding: 0 2px 5px 5px;
     {{ border_radius('0 0 0 25px') }}
 }
-#viewer .bit :last-child {
+#viewer .bit > :last-child {
     margin-bottom: 0;
 }
 #viewer .bit.active {
@@ -99,6 +100,10 @@
     border: 1px dotted #ccc;
     background: #fff3f3;
     padding: 10px;
+    margin-bottom: 1em;
+}
+#viewer .bit-hide > :last-child {
+    margin-bottom: 0;
 }
 #viewer .bit-new {
     padding: 20px 0;
