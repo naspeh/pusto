@@ -62,7 +62,7 @@
                     <option value="{{ bit._id or 'new' }}"{{ selected }}>#{{ index }}</option>
                     {% endfor %}
                 </select>
-                {% set other_bits=text.bits_exlude(active) %}
+                {% set other_bits=text.bits_exlude(active)[:-1] %}
                 {% if other_bits %}
                 <select id="bit-insert" name="insert">
                     <option value="">-----</option>
@@ -82,6 +82,7 @@
                 <textarea name="body">{{ active.body|e }}</textarea>
             </div>
             <div class="toolbar actions">
+                <span class="bit-changed">Не сохранен</span>
                 {% set types=(('code', 'код'), ('quote', 'цитата'), ('global', 'глобальный'), ('hidden', 'скрытый')) %}
                 <select id="bit-type" name="type">
                     <option value="">обычный</option>

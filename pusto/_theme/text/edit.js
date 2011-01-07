@@ -2,6 +2,15 @@ $(document).ready(function() {
     var container = $('#text-edit');
     var reset = $('#action-reset');
 
+    var need_save = function() {
+        if ($('#editor').hasClass('changed') && !confirm('Кусок не сохранен, продолжить?')) {
+            $('#editor textarea').focus();
+            return true;
+        }
+        $('#editor').removeClass('changed');
+        return false;
+    }
+
     container.live('start-loading', function() {
         container.find('.loading').show();
     });
@@ -17,26 +26,33 @@ $(document).ready(function() {
             window.location = url;
         }
 
-        var selected = choicer.find(':selected').html();
-        var bit = editor.find('#bit-' + selected.replace('#', ''));
+        var active = editor.find('.bit.active');
         window.location.hash = ''
-        window.location.hash = '#' + bit.attr('id');
+        window.location.hash = active.attr('id');
 
         var insert = $('#bit-insert');
         if (insert.length > 0) {
-            $('#bit-insert').change();
-            choicer.focus();
-        } else {
-            editor.find('textarea').focus();
+            insert.change();
+            //choicer.focus();
         }
+        editor.find('#editor textarea').focus();
         return false;
     });
 
     $('#bit-choicer').live('change', function() {
+        if (need_save()) {
+            var active = $('#viewer .bit.active');
+            var choice = $(this).find('option:[value=' + active.attr("name") + ']');
+            choice.attr('selected', 'selected');
+            return false;
+        }
         reset.click();
     });
 
     $('#toolbar a.edit, #toolbar a.preview, #toolbar a.src, #toolbar a.html').live('click', function() {
+        if (need_save()) {
+            return false;
+        }
         var $this = $(this);
         container.trigger('start-loading');
         if ($this.hasClass('edit')) {
@@ -114,6 +130,7 @@ $(document).ready(function() {
         var form = $('#editor-form');
         var selected = form.find(':selected');
         var action = $(this).attr('value');
+
         if (action == 'delete' &&  !confirm('Точно хотите удалить ' + selected.html() + '?')) {
             return false;
         }
@@ -133,10 +150,13 @@ $(document).ready(function() {
     });
 
     $('#viewer .bit .info').live('click', function() {
+        if (need_save()) {
+            return false;
+        }
         var choicer = $('#bit-choicer');
         var bit = $(this).parent();
         bit = bit.attr('name');
-        var choice = choicer.find('option:[value="' + bit + '"]');
+        var choice = choicer.find('option:[value=' + bit + ']');
         choice.attr('selected', 'selected');
         choicer.change();
         return false;
@@ -159,6 +179,10 @@ $(document).ready(function() {
     });
 
     // Styles
+    $('#editor textarea').live('change', function() {
+        $('#editor').addClass('changed');
+    });
+
     $('#editor .textarea').live('focus', function() {
         $(this).addClass('active');
 

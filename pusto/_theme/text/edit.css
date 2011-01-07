@@ -141,6 +141,17 @@
     top: 0;
     right: 5px;
 }
+#editor .bit-changed {
+    display: none;
+    font-weight: bold;
+    color: #fff;
+    background: #faa;
+    padding: 1px;
+    {{ border_radius('3px') }}
+}
+#editor.changed .bit-changed {
+    display: inline;
+}
 #editor #bit-parent {
     display: none;
 }
