@@ -63,7 +63,7 @@ def bit(app, id):
         if type:
             bit['type'] = type
 
-        bit['body'] = data['body'].strip()
+        bit['body'] = data['body']
         bit.save_all(text)
         text.save()
 
