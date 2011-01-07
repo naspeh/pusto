@@ -3,9 +3,6 @@
 {% block title %}{{ node.title or 'Text %s' % text._id }}{% endblock %}
 
 {% block extrahead %}
-{{ h.js('_scripts/jquery.js') }}
-
-{#{ h.js('text/show.js', include=True) }#}
 {{ h.css('text/show.css', include=True) }}
 {% endblock %}
 

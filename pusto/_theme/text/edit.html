@@ -2,8 +2,9 @@
 {% block title %}{{ node.title and 'Edit "%s"' % node.title or 'Edit for fun' }}{% endblock %}
 
 {% block extrahead %}
-{{ h.js('_scripts/jquery.js') }}
-{{ h.js('_scripts/jquery.form.js') }}
+{{ h.jquery() }}
+{{ h.jquery_form() }}
+{{ h.jquery_taboverride() }}
 
 {{ h.js('text/edit.js', include=True) }}
 

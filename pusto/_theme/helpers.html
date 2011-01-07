@@ -13,3 +13,21 @@
     <script src="{{ app.url_for(':theme', path=path) }}" type="text/javascript"></script>
 {%- endif %}
 {% endmacro %}
+
+
+{# Libs #}
+{% macro jquery() %}
+{{ js('_scripts/jquery.%s' % (app.debug and 'js' or 'min.js')) }}
+{% endmacro %}
+
+{% macro jquery_form() %}
+{{ js('_scripts/jquery.form.js') }}
+{% endmacro %}
+
+{% macro jquery_taboverride() %}
+{{ js('_scripts/jquery.taboverride.js') }}
+{% endmacro %}
+
+{% macro less_js() %}
+{{ js('_scripts/less.%s' % (app.debug and 'js' or 'min.js')) }}
+{% endmacro %}

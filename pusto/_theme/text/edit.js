@@ -179,17 +179,20 @@ $(document).ready(function() {
     });
 
     // Styles
-    $('#editor textarea').live('change', function() {
-        $('#editor').addClass('changed');
-    });
+    $('#editor textarea').tabOverride().live({
+        'change': function() {
+            $('#editor').addClass('changed');
+        },
+        'focus': function() {
+            $(this).parents('.textarea').addClass('active');
 
-    $('#editor .textarea').live('focus', function() {
-        $(this).addClass('active');
-
-    }).live('blur', function() {
-        $(this).removeClass('active');
+        },
+        'blur': function() {
+            $(this).parents('.textarea').removeClass('active');
+        }
     });
 
     // Initial page
     container.trigger('init');
+    $.fn.tabOverride.setTabSize(4);
 });

@@ -6,13 +6,10 @@
 
     <link rel="icon" href="{{ app.url_for(':theme', path='_images/favicon.png') }}" type="image/png" />
     {{ h.css('layout.less', less=True) }}
-    {# <link rel="stylesheet" href="{{ app.url_for(':jinja', path='base.css') }}" type="text/css" /> #}
-    {# <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/base.css') }}" type="text/css" /> #}
-    {# <link rel="stylesheet" href="{{ app.url_for(':theme', path='_styles/syntax.css') }}" type="text/css" /> #}
 
     {% block extrahead %}{% endblock %}
 
-    {{ h.js('_scripts/less.js') }}
+    {{ h.less_js() }}
 </head>
 <body>
     <div id="header">
