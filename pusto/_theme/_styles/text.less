@@ -55,16 +55,19 @@ blockquote {
 
 /* Blocks */
 .note {
-    border-left: 3px solid @color-flat;
+    border-left: 2px solid @color-flat;
     color: @color-flat - #444;
-    padding-left: 10px;
+    padding: 5px 10px;
+    margin-top: 7px;
 
     p.admonition-title {
-        display: inline;
         color: @color-beta;
+        border: 2px solid @color-flat;
         font-weight: bold;
-        text-decoration: underline;
-        margin-right: 5px;
+        padding: 2px 3px;
+        margin: -12px 5px 0 -12px;
+        .border_radius(10px 10px 10px 0);
+        .inline_block;
     }
     p.admonition-title + p {
         display: inline;
