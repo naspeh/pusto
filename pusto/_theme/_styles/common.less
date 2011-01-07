@@ -1,9 +1,3 @@
-.border_radius (@radius: 5px) {
-  -moz-border-radius: @radius;
-  -webkit-border-radius: @radius;
-  border-radius: @radius;
-}
-
 @color-alfa: #008000;
 @color-beta: #f63;
 
@@ -11,3 +5,23 @@
 
 @font-main: Verdana, "DejaVu Sans", Geneva, sans-serif;
 @font-mono: Consolas, "DejaVu Sans Mono", monospace;
+
+// Mixins
+.border_radius (@radius: 5px) {
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.inline_block {
+  display: inline-block;
+  vertical-align: top;
+  // IE 6/7
+  *zoom: 1;
+  *display: inline;
+}
+
+.typography {
+    {% include '_styles/text.css' %}
+    {% include '_styles/syntax.css' %}
+}

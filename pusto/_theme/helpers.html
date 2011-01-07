@@ -1,15 +1,15 @@
-{%- macro css(path, include=False, less=False) %}
-{% if not app.testing and include %}
+{% macro css(path, include=False, less=False) %}
+{% if include and not app.testing and not app.debug and not less -%}
     <style type="text/css">{% include path %}</style>
-{% else %}
+{%- else -%}
     <link rel="stylesheet{{ less and '/less' or '' }}" href="{{ app.url_for(':theme', path=path) }}" type="text/css" />
-{% endif %}
-{%- endmacro %}
+{%- endif %}
+{% endmacro %}
 
-{%- macro js(path, include=False) %}
-{% if not app.testing and include %}
+{% macro js(path, include=False) %}
+{%- if include and not app.testing and not app.debug -%}
     <script type="text/javascript">{% include path %}</script>
-{% else %}
+{%- else -%}
     <script src="{{ app.url_for(':theme', path=path) }}" type="text/javascript"></script>
-{% endif %}
-{%- endmacro %}
+{%- endif %}
+{% endmacro %}
