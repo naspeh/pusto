@@ -30,12 +30,13 @@ $(document).ready(function() {
         window.location.hash = ''
         window.location.hash = active.attr('id');
 
+        $.fn.tabOverride.setTabSize(4);
+        editor.find('#editor textarea').focus().tabOverride();
         var insert = $('#bit-insert');
         if (insert.length > 0) {
             insert.change();
             //choicer.focus();
         }
-        editor.find('#editor textarea').focus();
         return false;
     });
 
@@ -194,5 +195,4 @@ $(document).ready(function() {
 
     // Initial page
     container.trigger('init');
-    $.fn.tabOverride.setTabSize(4);
 });

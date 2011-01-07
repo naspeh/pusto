@@ -5,7 +5,7 @@
 <div id="text-list">
     <ul>
     {% for text in texts %}
-        {% set title=text.node and text.node.title or text.bits and text.text|truncate(60) or text._id %}
+        {% set title=text.node and text.node.title or text.bits and text.html|striptags|truncate(60) or text._id %}
         <li>{% if text.node %}<b>Node:</b> {% endif %}<a href="{{ text.url_edit }}">{{ title }}</a></li>
     {% endfor %}
     </ul>

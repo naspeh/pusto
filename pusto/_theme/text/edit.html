@@ -37,20 +37,22 @@
     </div>
     {% endif %}
 
-    <div id="viewer"><div class="wrap">
+    <div id="viewer"><div class="wrap"><div class="document">
         {% for bit in text.bits -%}
         {% set index = bit._id and loop.index or 'new' %}
         {% set selected=active._id == bit._id and ' active' or '' %}
         <div id="bit-{{ index }}" name="{{ bit._id or 'new'}}" class="bit{{ selected }}">
             <a href="#" class="info">#{{ index }}</a>
-            {% if bit.body %}
-            <div class="document">{{ bit.html }}</div>
+            {% if bit.body and bit.type %}
+            <div class="bit-hide">{{ bit.html }}</div>
+            {% elif bit.body %}
+            {{ bit.html }}
             {% else %}
             <div class="bit-new">Тут пусто...</div>
             {% endif %}
         </div>
         {%- endfor %}
-    </div></div>
+    </div></div></div>
 
     <div id="editor">
         <form method="post" id="editor-form" action="{{ app.url_for(':text.bit', id=text._id or 'new') }}">

@@ -13,7 +13,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.5em;
 }
 
-p, dl, dd, hr, ol, ul, pre,
+p, dl, dd, hr, ol, ul, pre, blockquote,
 table, address, fieldset {
     margin-bottom: 1em;
 }
@@ -65,6 +65,20 @@ blockquote {
         margin-bottom: 5px;
     }
 }
+.system-message {
+    color: red;
+    border: 1px dotted red;
+    background: @color-flat + #222;
+    padding: 10px;
+    margin-bottom: 1em;
+    .system-message-title {
+        font-weight: bold;
+    }
+    :last-child {
+        margin-bottom: 0;
+    }
+}
+
 
 /* Highlight */
 .highlighttable {

@@ -14,7 +14,7 @@
         {% if src %}
         <div class="src"><textarea readonly="readonly">{{ src == 'text' and text.src|e or text.html }}</textarea></div>
         {% else %}
-        {{ text.html }}
+        <div class="document">{{ text.html }}</div>
         {% endif %}
     </div>
 </div>

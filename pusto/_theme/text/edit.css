@@ -67,8 +67,7 @@
     border-top: 1px solid #cfc;
     background: #fff;
     min-height: 1.3em;
-    margin-bottom: 10px;
-    padding-top: 10px;
+    padding: 10px 0;
 }
 #viewer .bit .info {
     display: inline-block;
@@ -79,7 +78,7 @@
     padding: 0 2px 5px 5px;
     {{ border_radius('0 0 0 25px') }}
 }
-#viewer .bit .document, #viewer .bit .document :last-child {
+#viewer .bit :last-child {
     margin-bottom: 0;
 }
 #viewer .bit.active {
@@ -89,26 +88,14 @@
 #viewer .bit.active .info {
     background: #fcc;
 }
+#viewer .bit-hide, #viewer .system-message {
+    margin-left: 10px;
+    margin-right: 10px;
+}
 #viewer .bit-hide {
+    border: 1px dotted #ccc;
     background: #efefef;
-    padding: 5px 0;
-    margin: -5px 0;
-}
-#viewer .bit-hide pre {
-    background: none;
-    border: none;
-    margin: 0;
-}
-#viewer .bit-error {
-    background: #eee;
-    padding: 10px 0;
-    color: red;
-    font-weight: bold;
-}
-#viewer .bit-error pre {
-    background: none;
-    border: none;
-    margin: 0;
+    padding: 10px;
 }
 #viewer .bit-new {
     padding: 20px 0;

@@ -2,9 +2,12 @@ import re
 from datetime import datetime
 
 from docutils.utils import SystemMessage
-from lxml import html
+from jinja2.filters import do_striptags
 from mongokit import Document as _Document, IS
 from naya.helpers import marker
+from pygments import highlight
+from pygments.lexers import RstLexer
+from pygments.formatters import HtmlFormatter
 from werkzeug import Href
 
 from . import markup
@@ -88,10 +91,10 @@ class MarkupMixin(Document):
 @marker.model()
 class TextBit(CreatedMixin):
     __collection__ = 'text_bits'
+    _visible = True
 
-    BIT_HIDE = '<div class="bit-hide"><pre>%s</pre></div>'
-    BIT_ERROR = '<div class="bit-error"><pre>%s</pre></div>'
-    TYPES = u'global', u'hidden', u'code'
+    TYPES = u'global', u'hidden'
+    BIT_ERROR = '<div class="system-message"><pre>%s</pre></div>'
 
     structure = {
         'body': unicode,
@@ -115,10 +118,12 @@ class TextBit(CreatedMixin):
         try:
             html_ = markup.rst(bodies, as_bit=True)
         except SystemMessage as e:
+            self['type'] = 'error'
             html_ = self.BIT_ERROR % e
 
-        if not html_.strip() or re.match('(?s)<!--.*-->', html_):
-            html_ = self.BIT_HIDE % self['body']
+        text = do_striptags(html_.strip())
+        if not text.strip():
+            html_ = highlight(self['body'], RstLexer(), HtmlFormatter())
         return html_
 
     def pre_delete(self):
@@ -145,25 +150,6 @@ class TextBit(CreatedMixin):
 
         self['body'] = bodies[-1]
         self.save()
-
-    def save(self, *args, **kwargs):
-        self.prepare_body()
-        super(TextBit, self).save(*args, **kwargs)
-
-    def prepare_body(self):
-        type, body = self['type'], self['body']
-        if type == 'code':
-            body = '.. sourcecode:: text\n\n%s' % self.add_indent(body)
-            type = None
-        elif type == 'quote':
-            body = self.add_indent(body)
-            type = None
-        elif type == 'hidden':
-            body = '..\n%s' % self.add_indent(body)
-        self.update({'body': body, 'type': type})
-
-    def add_indent(self, body, size=2):
-        return re.sub('(?m)^', '  ', body)
 
 
 @marker.model()
@@ -193,11 +179,10 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
 
     @property
     def html(self):
-        return markup.rst(self.src)
-
-    @property
-    def text(self):
-        return html.fromstring(self.html).text_content()
+        return '\n'.join(
+            bit.html for bit in self['bits']
+                if bit['type'] not in TextBit.TYPES
+        )
 
     @property
     def url_edit(self):

@@ -113,7 +113,7 @@ def test_global_bit():
 
     text = add_bits([bit_glob, bit])
 
-    aye('in', body, bit_glob.html)
+    aye('in', url, bit_glob.html)
     aye('in', url, bit.html)
     aye('in', url, text.html)
 
