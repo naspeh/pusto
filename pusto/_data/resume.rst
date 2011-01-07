@@ -2,7 +2,7 @@
 {% block title %}Резюме Костюк Гриши{% endblock %}
 
 {% block content %}
-<img src="{{ app.url_for(':theme', path='_images/ava200.jpg') }}" style="float: right" />
+<img src="{{ app.url_for(':theme', path='_images/ava300.jpg') }}" style="float: right" />
 {% filter rst %}
 Гриша Костюк aka `naspeh </post/unikalniy-nick/>`_
 ==================================================
