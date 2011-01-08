@@ -95,7 +95,9 @@ $(document).ready(function() {
             insert.change();
             //choicer.focus();
         }
+
         $.fn.tabOverride.setTabSize(4);
+        toggle_last = toggle_list[0];
         $.Shortcuts.start();
         return false;
     });
