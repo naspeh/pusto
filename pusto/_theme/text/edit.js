@@ -187,7 +187,6 @@ $(document).ready(function() {
         enableInInput: true,
         list: 'textarea',
         handler: function() {
-            console.debug('Ctrl+M');
             edit = $('#editor');
             if (edit.hasClass('tab-override')) {
                 edit.removeClass('tab-override');
@@ -203,7 +202,6 @@ $(document).ready(function() {
         enableInInput: true,
         list: 'textarea',
         handler: function() {
-            console.debug('Ctrl+Enter');
             $('#editor #action-apply').click();
         }
     });
