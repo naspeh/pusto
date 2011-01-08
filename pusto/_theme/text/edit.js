@@ -2,6 +2,13 @@ $(document).ready(function() {
     var container = $('#text-edit');
     var reset = $('#action-reset');
     var bit_orig = '';
+    var toggle_list = [
+        '#toolbar a.preview',
+        '#editor #bit-choicer',
+        '#editor textarea',
+        '#editor #action-apply'
+    ];
+    var toggle_last = toggle_list[2];
 
     var need_save = function() {
         if ($('#editor').hasClass('changed') && !confirm('Кусок не сохранен, продолжить?')) {
@@ -11,6 +18,55 @@ $(document).ready(function() {
         $('#editor').removeClass('changed');
         return false;
     }
+
+    $.Shortcuts.add({
+        mask: 'Ctrl+Enter',
+        enableInInput: true,
+        handler: function() {
+            $('#editor #action-apply').click();
+        }
+    }).add({
+        type: 'down',
+        mask: 'Alt+C',
+        enableInInput: true,
+        handler: function() {
+            edit = $('#editor');
+            if (edit.hasClass('tab-override')) {
+                edit.removeClass('tab-override');
+                edit.find('textarea').tabOverride(false);
+            } else {
+                edit.addClass('tab-override');
+                edit.find('textarea').tabOverride();
+            }
+        }
+    }).add({
+        type: 'down',
+        mask: 'Alt+Z',
+        enableInInput: true,
+        handler: function() {
+            var next = $.inArray(toggle_last, toggle_list);
+            next = next + 1
+            if (next == toggle_list.length) {
+                next = 0
+            }
+            toggle_last = toggle_list[next];
+            $(toggle_last).focus();
+            return false;
+        }
+    }).add({
+        type: 'down',
+        mask: 'Alt+X',
+        enableInInput: true,
+        handler: function() {
+            var next = $.inArray(toggle_last, toggle_list);
+            next = next - 1
+            if (next == -1) {
+                next = toggle_list.length - 1
+            }
+            toggle_last = toggle_list[next];
+            $(toggle_last).focus();
+        }
+    });
 
     container.live('start-loading', function() {
         container.find('.loading').show();
@@ -38,6 +94,7 @@ $(document).ready(function() {
             //choicer.focus();
         }
         $.fn.tabOverride.setTabSize(4);
+        $.Shortcuts.start();
         return false;
     });
 
@@ -181,31 +238,6 @@ $(document).ready(function() {
         }
     });
 
-    $.Shortcuts.add({
-        type: 'down',
-        mask: 'Ctrl+M',
-        enableInInput: true,
-        list: 'textarea',
-        handler: function() {
-            edit = $('#editor');
-            if (edit.hasClass('tab-override')) {
-                edit.removeClass('tab-override');
-                edit.find('textarea').tabOverride(false);
-            } else {
-                edit.addClass('tab-override');
-                edit.find('textarea').tabOverride();
-            }
-        }
-    }).add({
-        type: 'down',
-        mask: 'Ctrl+Enter',
-        enableInInput: true,
-        list: 'textarea',
-        handler: function() {
-            $('#editor #action-apply').click();
-        }
-    });
-
     $('#editor textarea').live({
         'keyup': function() {
             var $this = $(this);
@@ -220,11 +252,9 @@ $(document).ready(function() {
             bit_orig = $('#text-body-orig').html();
             $this.trigger('keyup');
             $this.parents('.textarea').addClass('active');
-            $.Shortcuts.start('textarea');
         },
         'blur': function() {
             $(this).parents('.textarea').removeClass('active');
-            $.Shortcuts.stop('textarea');
         }
     });
 
