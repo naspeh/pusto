@@ -1,14 +1,21 @@
+{% import 'common.html' as c with context %}
+
 $(document).ready(function() {
+    var keys = {
+        'apply': '{{ c.keys.text.apply }}',
+        'toggle': '{{ c.keys.text.toggle }}',
+        'tabber': '{{ c.keys.text.tabber }}',
+    }
     var container = $('#text-edit');
     var reset = $('#action-reset');
     var bit_orig = '';
     var toggle_list = [
-        '#toolbar a.preview',
-        '#editor #bit-choicer',
-        '#editor textarea',
-        '#editor #action-apply'
+        '#editor textarea:visible',
+        '#toolbar a.preview:visible',
+        '#toolbar a.edit:visible',
+        '#editor #bit-choicer:visible',
     ];
-    var toggle_last = toggle_list[2];
+    var toggle_last = toggle_list[0];
 
     var need_save = function() {
         if ($('#editor').hasClass('changed') && !confirm('Кусок не сохранен, продолжить?')) {
@@ -20,14 +27,14 @@ $(document).ready(function() {
     }
 
     $.Shortcuts.add({
-        mask: 'Ctrl+Enter',
+        mask: keys.apply,
         enableInInput: true,
         handler: function() {
-            $('#editor #action-apply').click();
+            $('#editor #action-apply').focus();
         }
     }).add({
         type: 'down',
-        mask: 'Alt+C',
+        mask: keys.tabber,
         enableInInput: true,
         handler: function() {
             edit = $('#editor');
@@ -41,30 +48,25 @@ $(document).ready(function() {
         }
     }).add({
         type: 'down',
-        mask: 'Alt+Z',
+        mask: keys.toggle,
         enableInInput: true,
         handler: function() {
-            var next = $.inArray(toggle_last, toggle_list);
-            next = next + 1
-            if (next == toggle_list.length) {
-                next = 0
+            $(toggle_last).blur();
+            getNext().focus();
+            function getNext() {
+                var next = $.inArray(toggle_last, toggle_list);
+                next = next - 1
+                if (next == -1) {
+                    next = toggle_list.length - 1
+                }
+                toggle_last = toggle_list[next];
+                var result = $(toggle_last);
+                if (result.length == 0) {
+                    toggle_last = toggle_list[next];
+                    result = getNext()
+                }
+                return result;
             }
-            toggle_last = toggle_list[next];
-            $(toggle_last).focus();
-            return false;
-        }
-    }).add({
-        type: 'down',
-        mask: 'Alt+X',
-        enableInInput: true,
-        handler: function() {
-            var next = $.inArray(toggle_last, toggle_list);
-            next = next - 1
-            if (next == -1) {
-                next = toggle_list.length - 1
-            }
-            toggle_last = toggle_list[next];
-            $(toggle_last).focus();
         }
     });
 
