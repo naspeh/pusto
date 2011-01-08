@@ -24,8 +24,13 @@
 {{ js('_scripts/jquery.form.js') }}
 {% endmacro %}
 
-{% macro jquery_taboverride() %}
-{{ js('_scripts/jquery.taboverride.js') }}
+{% macro jquery_textarea(tab=False, autogrow=False) %}
+{% if tab %}{{ js('_scripts/jquery.taboverride.js') }}{% endif %}
+{% if autogrow %}{{ js('_scripts/jquery.simpleautogrow.js') }}{% endif %}
+{% endmacro %}
+
+{% macro jquery_hotkeys() %}
+{{ js('_scripts/jquery.shortcuts.%s' % (app.debug and 'js' or 'min.js')) }}
 {% endmacro %}
 
 {% macro less_js() %}

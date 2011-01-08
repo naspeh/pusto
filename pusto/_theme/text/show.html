@@ -4,6 +4,13 @@
 
 {% block extrahead %}
 {{ h.css('text/show.css', include=True) }}
+{{ h.jquery() }}
+{{ h.jquery_textarea(autogrow=True) }}
+<script>
+    $(document).ready(function() {
+        $('#text-show-body textarea').simpleautogrow();
+    });
+</script>
 {% endblock %}
 
 

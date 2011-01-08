@@ -4,7 +4,8 @@
 {% block extrahead %}
 {{ h.jquery() }}
 {{ h.jquery_form() }}
-{{ h.jquery_taboverride() }}
+{{ h.jquery_textarea(tab=True) }}
+{{ h.jquery_hotkeys() }}
 
 {{ h.js('text/edit.js', include=True) }}
 
@@ -79,12 +80,14 @@
                 </select>
                 {% endif %}
             </div>
+            <div id="text-body-orig">{{ active.body|e }}</div>
             <div class="textarea">
                 <textarea name="body">{{ active.body|e }}</textarea>
             </div>
             <div class="toolbar actions">
-                <span class="bit-changed">Не сохранен</span>
-                {% set types=(('code', 'код'), ('quote', 'цитата'), ('global', 'глобальный'), ('hidden', 'скрытый')) %}
+                <span class="note-bit-changed">Не сохранен</span>
+                <span class="note-tab-override" title="Для переключения режима табуляции - нажмите Ctrl+M">[Tab] (Ctrl+M)</span>
+                {% set types=(('global', 'глобальный'), ('hidden', 'скрытый')) %}
                 <select id="bit-type" name="type">
                     <option value="">обычный</option>
                     {% for type in types %}

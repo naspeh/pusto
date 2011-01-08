@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var container = $('#text-edit');
     var reset = $('#action-reset');
+    var bit_orig = '';
 
     var need_save = function() {
         if ($('#editor').hasClass('changed') && !confirm('Кусок не сохранен, продолжить?')) {
@@ -30,15 +31,16 @@ $(document).ready(function() {
         window.location.hash = ''
         window.location.hash = active.attr('id');
 
-        $.fn.tabOverride.setTabSize(4);
-        editor.find('#editor textarea').focus().tabOverride();
+        editor.find('#editor textarea').focus();
         var insert = $('#bit-insert');
         if (insert.length > 0) {
             insert.change();
             //choicer.focus();
         }
+        $.fn.tabOverride.setTabSize(4);
         return false;
     });
+
 
     $('#bit-choicer').live('change', function() {
         if (need_save()) {
@@ -179,17 +181,52 @@ $(document).ready(function() {
         }
     });
 
-    // Styles
-    $('#editor textarea').tabOverride().live({
-        'change': function() {
-            $('#editor').addClass('changed');
+    $.Shortcuts.add({
+        type: 'down',
+        mask: 'Ctrl+M',
+        enableInInput: true,
+        list: 'textarea',
+        handler: function() {
+            console.debug('Ctrl+M');
+            edit = $('#editor');
+            if (edit.hasClass('tab-override')) {
+                edit.removeClass('tab-override');
+                edit.find('textarea').tabOverride(false);
+            } else {
+                edit.addClass('tab-override');
+                edit.find('textarea').tabOverride();
+            }
+        }
+    }).add({
+        type: 'down',
+        mask: 'Ctrl+Enter',
+        enableInInput: true,
+        list: 'textarea',
+        handler: function() {
+            console.debug('Ctrl+Enter');
+            $('#editor #action-apply').click();
+        }
+    });
+
+    $('#editor textarea').live({
+        'keyup': function() {
+            var $this = $(this);
+            if (bit_orig != $this.val()) {
+                $('#editor').addClass('changed');
+            } else {
+                $('#editor').removeClass('changed');
+            }
         },
         'focus': function() {
-            $(this).parents('.textarea').addClass('active');
-
+            var $this = $(this);
+            bit_orig = $('#text-body-orig').html();
+            $this.trigger('keyup');
+            $this.parents('.textarea').addClass('active');
+            $.Shortcuts.start('textarea');
         },
         'blur': function() {
             $(this).parents('.textarea').removeClass('active');
+            $.Shortcuts.stop('textarea');
         }
     });
 

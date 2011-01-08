@@ -136,16 +136,25 @@
     top: 0;
     right: 5px;
 }
-#editor .bit-changed {
-    display: none;
+#editor .note-bit-changed, #editor .note-tab-override {
+    font-size: smaller;
     font-weight: bold;
     color: #fff;
     background: #faa;
     padding: 1px;
     {{ border_radius('3px') }}
 }
-#editor.changed .bit-changed {
+#editor .note-bit-changed {
+    display: none;
+}
+#editor.changed .note-bit-changed {
     display: inline;
+}
+#editor .note-tab-override {
+    background: #ccc;
+}
+#editor.tab-override .note-tab-override {
+    background: #faa;
 }
 #editor #bit-parent {
     display: none;
@@ -172,4 +181,7 @@
     padding: 0;
     outline: none;
     resize: none;
+}
+#editor #text-body-orig {
+    display: none;
 }
