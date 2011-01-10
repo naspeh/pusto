@@ -23,9 +23,9 @@
         <div class="actions">
         {% if text._id %}
             <a href="#" class="edit">изменить</a>
-            <a href="#{{ text.url_show() }}" class="preview">смотреть</a>
-            <a href="#{{ text.url_show(src='text') }}" class="src">текст</a>
-            <a href="#{{ text.url_show(src='html') }}" class="html">html</a>
+            <a href="#{{ text.url_show }}" class="preview">смотреть</a>
+            <a href="#{{ text.url_src(src='text') }}" class="src">текст</a>
+            <a href="#{{ text.url_src(src='html') }}" class="html">html</a>
             {% if app.is_admin() %}<a href="#" class="options">опции</a>{% endif %}
             <a href="#{{ text.url_delete }}" class="delete">удалить</a>
         {% endif %}

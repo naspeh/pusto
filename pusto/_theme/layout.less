@@ -86,6 +86,20 @@ a:hover, a:focus, a:active {
             color: @color-beta;
         }
     }
+    ul.menu {
+        position: absolute;
+        bottom: -1px;
+        right: 10px;
+
+        li {
+            background: #fff;
+            display: inline;
+            padding: 0 3px;
+            font-weight: bold;
+            text-transform: lowercase;
+            .border_radius(10px 10px 0 0);
+        }
+    }
 }
 /* Content */
 #content {

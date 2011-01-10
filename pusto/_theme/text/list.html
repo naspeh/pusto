@@ -1,12 +1,39 @@
 {% extends "layout.html" %}
 {% block title %}Texts{% endblock %}
 
+{% block extrahead %}
+{{ h.css('text/list.less', less=True) }}
+
+{{ h.jquery() }}
+<script>
+    $(document).ready(function() {
+        $('#text-list li.item').live({
+            'hover': function() {
+                $(this).toggleClass('active');
+            },
+            'click': function() {
+                window.location = $(this).find('strong a').attr('href');
+            }
+        });
+    });
+</script>
+{% endblock %}
+
 {%- block content %}
 <div id="text-list">
-    <ul>
+    <ul class="toolbar">
+        <li><a href="{{ app.url_for(':text.edit') }}">Новый текст</a></li>
+    </ul>
+    <ul class="items">
     {% for text in texts %}
         {% set title=text.node and text.node.title or text.bits and text.html|striptags|truncate(60) or text._id %}
-        <li>{% if text.node %}<b>Node:</b> {% endif %}<a href="{{ text.url_edit }}">{{ title }}</a></li>
+        <li class="item {{ loop.cycle('odd', 'even') }}" title="Изменить">
+            <strong>{% if text.node %}Node: {% endif %} <a href="{{ text.url_edit }}">{{ title }}</a></strong>
+            <ul class="actions">
+                <li><a href="{{ text.url_show }}" title="Смотреть">[смотреть]</a></li>
+                <li><a href="{{ text.url_delete }}" title="Удалить">[удалить]</a></li>
+            </ul>
+        </li>
     {% endfor %}
     </ul>
 </div>

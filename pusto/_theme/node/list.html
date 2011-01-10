@@ -11,7 +11,7 @@
 {% for node in nodes %}
 <li>
     <b><a href="{{ node.url_show }}">{{ node.title }}</a></b>
-    {% if app.is_admin() %} <a href="{{ node.url_edit }}">[edit]</a>{% endif %}</h1>
+    {% if app.is_admin() %} <a href="{{ node.url_edit }}">[изменить]</a>{% endif %}</h1>
     <ul>{{ list(node.children) }}</ul>
 </li>
 {% endfor %}

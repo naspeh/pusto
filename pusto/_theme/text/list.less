@@ -1,0 +1,35 @@
+{% include '_styles/common.less' %}
+
+#text-list {
+    ul.toolbar {
+        .toolbar;
+    }
+
+    ul.items {
+        width: 100%;
+
+        li.item {
+            padding: 5px;
+            .border_radius(5px);
+
+            strong {
+                font-size: larger;
+            }
+            ul.actions {
+                float: right;
+                display: inline;
+
+                li {
+                    display: inline;
+                    font-size: small;
+                }
+            }
+        }
+        li.item.even {
+            background: #f6f6f6;
+        }
+        li.item.active {
+            background: #fee;
+        }
+    }
+}

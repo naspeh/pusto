@@ -23,6 +23,12 @@
             <div class="info powered-by">powered by <a href="http://github.com/naspeh/naya">naya</a></div>
         {% endif %}
         </div>
+        {% if app.user %}
+        <ul class="menu">
+            <li><a href="{{ app.url_for(':text.roll') }}">Тексты</a></li>
+            <li><a href="{{ app.url_for(':node.roll') }}">Узлы</a></li>
+        </ul>
+        {% endif %}
     </div>
     <div id="content">
         {% block content %}{% endblock %}
