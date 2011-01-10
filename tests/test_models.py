@@ -121,8 +121,8 @@ def test_global_bit():
 def test_code_bit():
     bit = app.db.TextBit()
     bit['body'] = (
-        u'.. sourcecode:: unknow\n'
-        u'  :linenos:\n'
+        u'.. code-block:: unknow\n'
+        u'  :number:\n'
         u'\n'
         u'  from naya import Naya\n'
     )

@@ -194,6 +194,13 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     def url_edit(self):
         return self.app.url_for(':text.edit', id=self['_id'])
 
+    @property
+    def url_delete(self):
+        return self.app.url_for(':text.delete', id=self['_id'])
+
+    def url_show(self, src=None):
+        return self.app.url_for(':text.show', id=self['_id'], src=src)
+
     def bit_by_id(self, bit_id):
         bit_id = self.app.object_id(bit_id)
         for bit in self['bits']:
