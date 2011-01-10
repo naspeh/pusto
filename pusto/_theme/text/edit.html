@@ -64,12 +64,23 @@
                     <option value="{{ bit._id or 'new' }}"{{ selected }}>#{{ index }}</option>
                     {% endfor %}
                 </select>
+                {% set types=(('global', 'глобальный', 'присоединяется к каждому кусочку'), ('hidden', 'скрытый', '')) %}
+                <select id="bit-type" name="type">
+                    <option value="">обычный тип</option>
+                    <optgroup label="еще типы">
+                    {% for type in types %}
+                        <option title="{{ type.2 }}" value="{{ type.0 }}"{% if active.type == type.0 %} selected="selected"{% endif %}>{{ type.1 }}</option>
+                    {% endfor %}
+                    </optgroup>
+                </select>
                 {% set other_bits=text.bits_exlude(active)[:-1] %}
                 {% if other_bits %}
                 <select id="bit-insert" name="insert">
-                    <option value="">-----</option>
-                    <option value="before">перед</option>
-                    <option value="after">после</option>
+                    <option value="">не двигать</option>
+                    <optgroup label="поставить">
+                        <option value="before">перед</option>
+                        <option value="after">после</option>
+                    </optgroup>
                 </select>
                 <select id="bit-parent" name="parent">
                 {% for bit in other_bits %}
@@ -80,20 +91,13 @@
                 </select>
                 {% endif %}
             </div>
-            <div id="text-body-orig">{{ active.body|e }}</div>
+            <textarea id="bit-orig" readonly="readonly" disabled="disabled">{{ active.body|e }}</textarea>
             <div class="textarea">
                 <textarea name="body">{{ active.body|e }}</textarea>
             </div>
             <div class="toolbar actions">
                 <span class="note-bit-changed">Не сохранен</span>
                 <span class="note-tab-override" title="Для переключения режима табуляции - нажмите {{ c.keys.text.tabber }}">[Tab] ({{ c.keys.text.tabber }})</span>
-                {% set types=(('global', 'глобальный'), ('hidden', 'скрытый')) %}
-                <select id="bit-type" name="type">
-                    <option value="">обычный</option>
-                    {% for type in types %}
-                    <option value="{{ type.0 }}"{% if active.type == type.0 %} selected="selected"{% endif %}>{{ type.1 }}</option>
-                    {% endfor %}
-                </select>
                 <button id="action-apply" type="submit" name="action" value="apply">Готово</button>
                 <button id="action-reset" type="submit" value="reset">Сброс</button>
                 {% if other_bits %}<button id="action-delete" type="submit" name="action" value="delete">Удалить</button>{% endif %}

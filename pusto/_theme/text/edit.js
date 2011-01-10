@@ -8,7 +8,6 @@ $(document).ready(function() {
     }
     var container = $('#text-edit');
     var reset = $('#action-reset');
-    var bit_orig = '';
     var toggle_list = [
         '#editor textarea:visible',
         '#toolbar a.preview:visible',
@@ -245,7 +244,7 @@ $(document).ready(function() {
     $('#editor textarea').live({
         'keyup': function() {
             var $this = $(this);
-            if (bit_orig != $this.val()) {
+            if ($('#bit-orig').val() != $this.val()) {
                 $('#editor').addClass('changed');
             } else {
                 $('#editor').removeClass('changed');
@@ -253,7 +252,6 @@ $(document).ready(function() {
         },
         'focus': function() {
             var $this = $(this);
-            bit_orig = $('#text-body-orig').html();
             $this.trigger('keyup');
             $this.parents('.textarea').addClass('active');
         },
