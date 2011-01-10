@@ -11,7 +11,7 @@ class Pygments(Directive):
     inline_styles = False
     formatters = {
         'default': HtmlFormatter(noclasses=inline_styles),
-        'linenos': HtmlFormatter(noclasses=inline_styles, linenos=True),
+        'number': HtmlFormatter(noclasses=inline_styles, linenos=True),
     }
 
     required_arguments = 1

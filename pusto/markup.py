@@ -12,7 +12,7 @@ def markdown(text):
 
 
 def rst(text, as_bit=False):
-    Pygments.register('sourcecode')
+    Pygments.register('code-block')
 
     parts = core.publish_parts(source=text, writer_name='html',
         settings_overrides={
