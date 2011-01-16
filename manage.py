@@ -8,7 +8,9 @@ from pusto import App
 app = App()
 
 sh.defaults(host='yadro.org', params={
-    'activate': 'source /root/.virtualenvs/pusto/bin/activate && which python',
+    'activate': 'source .env/bin/activate && which python',
+    'env_path': '.env',
+    'sock_path': '/tmp/pusto-uwsgi.sock',
     'project_path': '/var/www/nanaya',
 })
 
@@ -40,11 +42,11 @@ def action_rmdb():
 def action_remote(target=''):
     '''Call remote command.'''
     if not target:
-        print 'Error. Target no define'
+        print('Error. Target no define')
         return
 
     sh(
-        ['$activate', 'cd $project_path', target],
+        ['cd $project_path', '$activate', target],
         params={'m': './manage.py'},
         remote=True
     )
@@ -56,14 +58,21 @@ def action_deploy(kill=True, pip=True):
 
     if pip:
         sh((
-            '$activate', 'cd $project_path', 'pwd',
+            'cd $project_path', '$activate', 'pwd',
             'pip install -r docs/pip.stage.txt',
         ))
 
     if kill:
-        sh('killall pusto.fcgi')
+        pids = sh(
+            "ps -ef | grep $sock_path | grep -v grep | awk '{print $$2}'",
+            capture=True
+        )
+        if pids:
+            sh('kill %s' % pids.replace('\n', ' '))
+        else:
+            print('no kill...')
 
-    sh('screen -d -m $project_path/pusto.fcgi')
+    sh('screen -d -m uwsgi -s $sock_path -w stage:app -H $env_path')
 
 
 def action_test(target='', base=False, rm=False, failed=('f', False),
