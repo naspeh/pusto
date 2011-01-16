@@ -52,7 +52,7 @@ def action_remote(target=''):
     )
 
 
-def action_deploy(kill=True, pip=True):
+def action_deploy(pip=True):
     '''Deploy code on server.'''
     sh(('cd $project_path', 'pwd', 'git pull origin master'))
 
@@ -62,15 +62,11 @@ def action_deploy(kill=True, pip=True):
             'pip install -r docs/pip.stage.txt',
         ))
 
-    if kill:
-        pids = sh(
-            "ps -ef | grep $sock_path | grep -v grep | awk '{print $$2}'",
-            capture=True
-        )
-        if pids:
-            sh('kill %s' % pids.replace('\n', ' '))
-        else:
-            print('no kill...')
+    pids = sh('pgrep -f $sock_path', capture=True)
+    if pids:
+        sh('kill %s' % pids.replace('\n', ' '))
+    else:
+        print('no kill...')
 
     sh('screen -d -m uwsgi -s $sock_path -w stage:app -H $env_path')
 
