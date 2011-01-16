@@ -242,7 +242,13 @@ class Node(CreatedMixin, OwnerMixin):
 
     @property
     def children(self):
-        return self.app.db.Node.fetch({'parent': self.get_dbref()})
+        return list(self.app.db.Node.fetch({'parent': self.get_dbref()}))
+
+    @property
+    def parent_children(self):
+        children = self['parent'].children
+        children.remove(self)
+        return children
 
     @property
     def full_slug(self):
