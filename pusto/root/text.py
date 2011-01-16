@@ -17,7 +17,8 @@ def edit(app, id):
 def delete(app, id):
     text = prepare(app, id)[0]
     text.delete()
-    return app.redirect(app.url_for(':text.roll'))
+    target =  app.user and 'roll' or 'edit'
+    return app.redirect(app.url_for(':text.%s' % target))
 
 
 @marker.route('/text/<id>', defaults={'src': False})
