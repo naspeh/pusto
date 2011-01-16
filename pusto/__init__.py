@@ -15,6 +15,7 @@ class App(Naya, AppMixin, MongoMixin, OpenidMixin):
     def config(self):
         return {
             'debug': True,
+            'admins': ['naspeh', 'k.kostyuk'],
             'modules': {
                 '': root,
                 'static': (static, {'prefix': ''}),
@@ -44,5 +45,4 @@ class App(Naya, AppMixin, MongoMixin, OpenidMixin):
                 'db': 'pusto',
                 'models': [models]
             },
-            'admin': 'naspeh'
         }

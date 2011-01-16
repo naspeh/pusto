@@ -13,7 +13,7 @@ class OpenidMixin(object):
                 'endpoint': 'https://www.google.com/accounts/o8/ud',
                 'ax_attrs': ['email'],
             },
-            'admin': None
+            'admins': []
         }
 
     @marker.wrap_handler()
@@ -66,4 +66,4 @@ class OpenidMixin(object):
     def is_admin(self, user=None):
         if not user:
             user = self.user
-        return user and user['name'] == self['admin'] or False
+        return user and user['name'] in self['admins'] or False

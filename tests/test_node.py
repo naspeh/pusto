@@ -10,7 +10,7 @@ Node = app.db.Node
 
 
 def setup():
-    authorize(app['admin'])
+    authorize(app['admins'][0])
 
 
 def add_node(title='test title', parent=None, content=None):
