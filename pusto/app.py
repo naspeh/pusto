@@ -3,8 +3,11 @@ from lxml import html
 
 class AppMixin(object):
     def partial(self, selector, html_):
+        def to_unicode(element):
+            return html.tostring(element, encoding='utf-8').decode('utf-8')
+
         result = html.fromstring(html_).cssselect(selector)
-        result = [html.tostring(i) for i in result]
+        result = [to_unicode(el) for el in result]
         return '\n'.join(result)
 
     def maybe_partial(self, selector, html_,):
