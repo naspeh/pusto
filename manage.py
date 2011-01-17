@@ -59,7 +59,7 @@ def action_deploy(pip=True):
     if pip:
         sh((
             'cd $project_path', '$activate', 'pwd',
-            'pip install -r docs/pip.stage.txt',
+            'pip install -r docs/pip/stage.txt',
         ))
 
     pids = sh('pgrep -f $sock_path', capture=True)

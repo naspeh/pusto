@@ -17,11 +17,17 @@
             }
             ul.actions {
                 float: right;
-                display: inline;
+                padding-top: 1px;
+                .inline_block;
 
                 li {
                     display: inline;
+                    padding: 2px 5px;
                     font-size: small;
+                    font-weight: bold;
+                    background: #eee;
+                    border: 1px solid @color-flat;
+                    .border_radius(5px);
                 }
             }
         }
@@ -30,6 +36,11 @@
         }
         li.item.active {
             background: #fee;
+            ul.actions {
+                li {
+                    background: #fcc;
+                }
+            }
         }
     }
 }

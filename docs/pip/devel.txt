@@ -1,4 +1,4 @@
--r pip.common.txt
+-r common.txt
 
 nose
 coverage

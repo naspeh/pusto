@@ -8,14 +8,14 @@ from .mongo import MongoMixin
 from .openid import OpenidMixin
 
 
-class App(Naya, AppMixin, MongoMixin, OpenidMixin):
+class App(AppMixin, Naya, MongoMixin, OpenidMixin):
     import_name = __name__
 
     @Naya.marker.config()
     def config(self):
         return {
             'debug': True,
-            'profiler': True,
+            'profiler': False,
             'admins': ['naspeh', 'k.kostyuk'],
             'modules': {
                 '': root,

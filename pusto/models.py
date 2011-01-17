@@ -235,6 +235,12 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
         for bit in self['bits']:
             bit.delete()
 
+    def is_allow(self, user=None):
+        user = user and user or self.app.user
+        if self['owner'] == user or self.app.is_admin(user):
+            return True
+        return False
+
 
 @marker.model()
 class Node(CreatedMixin, OwnerMixin):

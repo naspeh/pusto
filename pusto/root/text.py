@@ -1,8 +1,8 @@
 from naya.helpers import marker
 
 
-@marker.route('/text/new', defaults={'id': 'new'})
-@marker.route('/text/<id>/edit')
+@marker.route('/text/new/', defaults={'id': 'new'})
+@marker.route('/text/<id>/edit/')
 def edit(app, id):
     node = None
     if 'node' in app.request.args:
@@ -13,32 +13,37 @@ def edit(app, id):
     return app.to_template('text/edit.html', text=text, active=bit, node=node)
 
 
-@marker.route('/text/<id>/delete')
+@marker.route('/text/<id>/delete/')
 def delete(app, id):
     text = prepare(app, id)[0]
     text.delete()
-    target =  app.user and 'roll' or 'edit'
+    target = app.user and 'roll' or 'edit'
     return app.redirect(app.url_for(':text.%s' % target))
 
 
-@marker.route('/text/<id>', defaults={'src': False})
-@marker.route('/text/<id>/text', defaults={'src': 'text'})
-@marker.route('/text/<id>/html', defaults={'src': 'html'})
+@marker.route('/text/<id>/', defaults={'src': False})
+@marker.route('/text/<id>/text/', defaults={'src': 'text'})
+@marker.route('/text/<id>/html/', defaults={'src': 'html'})
 def show(app, id, src):
-    text, node = prepare(app, id)
+    text, node = prepare(app, id, check_allow=False)
     return app.maybe_partial('#text-show-body', app.to_template(
         'text/show.html', text=text, node=node, src=src
     ))
 
 
 @marker.authorized()
-@marker.route('/texts/')
-def roll(app):
-    texts = app.db.Text.find({'owner': app.user.dbref})
-    return app.to_template('text/list.html', texts=texts)
+@marker.route('/texts/', defaults={'all': False})
+@marker.route('/texts/all/', defaults={'all': True})
+def roll(app, all):
+    if all and not app.is_admin():
+        return app.abort(403)
+
+    query = {} if all else {'owner': app.user.dbref}
+    texts = app.db.Text.find(query)
+    return app.to_template('text/list.html', texts=texts, all=all)
 
 
-@marker.route('/text/<id>/bit')
+@marker.route('/text/<id>/bit/')
 def bit(app, id):
     data = app.request.form
     if not data:
@@ -82,7 +87,7 @@ def bit(app, id):
     ))
 
 
-def prepare(app, id, node_id=None):
+def prepare(app, id, node_id=None, check_allow=True):
     node = None
     if id == 'new':
         text = app.db.Text()
@@ -90,7 +95,7 @@ def prepare(app, id, node_id=None):
     else:
         text = app.db.Text.by_id(id) if id else None
         node = text and text.node or None
-    if text and text['owner'] and text['owner'] != app.user:
+    if text and '_id' in text and check_allow and not text.is_allow():
         return app.abort(403)
 
     if not node and node_id:

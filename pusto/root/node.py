@@ -5,8 +5,8 @@ from pymongo.errors import DuplicateKeyError
 
 
 @marker.authorized(as_admin=True)
-@marker.route('/node/new', defaults={'id': 'new'})
-@marker.route('/node/<id>/edit')
+@marker.route('/node/new/', defaults={'id': 'new'})
+@marker.route('/node/<id>/edit/')
 def edit(app, id):
     node = prepare(app, id)
     errors = []
@@ -50,7 +50,7 @@ def edit(app, id):
     ))
 
 
-@marker.route('/node/<path:slug>')
+@marker.route('/node/<path:slug>/')
 def show(app, slug):
     node = app.db.Node.by_slug(slug)
     if not node:
