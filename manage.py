@@ -62,7 +62,7 @@ def action_deploy(pip=True):
             'pip install -r docs/pip.stage.txt',
         ))
 
-    pids = sh('pgrep -f $sock_path', capture=True)
+    pids = sh('pgrep -f $sock_path', capture=True, no_exit=True)
     if pids:
         sh('kill %s' % pids.replace('\n', ' '))
     else:
