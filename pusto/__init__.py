@@ -15,6 +15,7 @@ class App(Naya, AppMixin, MongoMixin, OpenidMixin):
     def config(self):
         return {
             'debug': True,
+            'profiler': True,
             'admins': ['naspeh', 'k.kostyuk'],
             'modules': {
                 '': root,

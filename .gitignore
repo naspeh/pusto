@@ -2,4 +2,5 @@
 .coverage
 .noseids
 .env
+var
 naya

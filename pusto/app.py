@@ -1,4 +1,5 @@
 from lxml import html
+from naya.helpers import marker
 
 
 class AppMixin(object):
@@ -18,3 +19,19 @@ class AppMixin(object):
     def part_template(self, template_name, selector, **context):
         html_ = self.to_template(template_name, **context)
         return self.partial(selector, html_)
+
+    @marker.middleware()
+    def profile_middleware(self, dispatch):
+        if not self['profiler']:
+            return dispatch
+
+        from repoze.profile.profiler import AccumulatingProfileMiddleware
+
+        return AccumulatingProfileMiddleware(
+            dispatch,
+            log_filename='var/profile.log',
+            cachegrind_filename='var/cachegrind.out',
+            discard_first_request=True,
+            flush_at_shutdown=True,
+            path='/__profile__'
+        )
