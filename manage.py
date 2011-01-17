@@ -76,7 +76,7 @@ def action_deploy(pip=True):
         print('no kill...')
 
     sh('screen -d -m '
-       'uwsgi -s $sock_path -w stage:app -H$env_path -M -p4 --uid=nobody')
+       'uwsgi -s $sock_path -w stage:app -H$env_path --uid=nobody')
     action_pids()
 
 
