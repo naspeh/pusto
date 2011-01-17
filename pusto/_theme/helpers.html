@@ -33,6 +33,10 @@
 {{ js('_scripts/jquery.shortcuts.%s' % (app.debug and 'js' or 'min.js')) }}
 {% endmacro %}
 
+{% macro jquery_scroller() %}
+{{ js('_scripts/jquery.scrollTo.%s' % (app.debug and 'js' or 'min.js')) }}
+{% endmacro %}
+
 {% macro less_js() %}
 {{ js('_scripts/less.%s' % (app.debug and 'js' or 'min.js')) }}
 {% endmacro %}

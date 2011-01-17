@@ -77,7 +77,6 @@ $(document).ready(function() {
     });
 
     container.live('init', function() {
-        var choicer = $('#bit-choicer');
         var editor = $('#text-edit');
         var url = editor.find('#text-url').val();
         if (url != window.location.pathname) {
@@ -85,14 +84,12 @@ $(document).ready(function() {
         }
 
         var active = editor.find('.bit.active');
-        window.location.hash = ''
-        window.location.hash = active.attr('id');
+        $('#viewer .wrap').scrollTo(active);
 
         editor.find('#editor textarea').focus();
         var insert = $('#bit-insert');
         if (insert.length > 0) {
             insert.change();
-            //choicer.focus();
         }
 
         $.fn.tabOverride.setTabSize(4);
