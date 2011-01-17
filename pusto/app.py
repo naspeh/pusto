@@ -29,9 +29,9 @@ class AppMixin(object):
 
         return AccumulatingProfileMiddleware(
             dispatch,
-            log_filename='var/profile.log',
-            cachegrind_filename='var/cachegrind.out',
-            discard_first_request=True,
+            log_filename=self.get_path('..', 'var', 'profile.log'),
+            cachegrind_filename=self.get_path('..', 'var', 'cachegrind.out'),
+            discard_first_request=False,
             flush_at_shutdown=True,
             path='/__profile__'
         )

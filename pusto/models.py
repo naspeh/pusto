@@ -91,7 +91,7 @@ class MarkupMixin(Document):
 @marker.model()
 class TextBit(CreatedMixin):
     __collection__ = 'text_bits'
-    _visible = True
+    _parent = None
 
     TYPES = u'global', u'hidden'
     BIT_ERROR = '<div class="system-message"><pre>%s</pre></div>'
@@ -105,6 +105,8 @@ class TextBit(CreatedMixin):
 
     @property
     def parent(self):
+        if self._parent:
+            return self._parent
         return self.app.db.Text.one({'bits': self.dbref})
 
     @property
@@ -167,6 +169,13 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
     structure = {
         'bits': [TextBit],
     }
+    indexes = [{'fields': 'bits'}]
+
+    @property
+    def bits(self):
+        for bit in self['bits']:
+            bit._parent = self
+        return self['bits']
 
     @property
     def node(self):

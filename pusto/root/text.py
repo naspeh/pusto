@@ -115,6 +115,7 @@ def prepare_bit(app, id, text):
         bit = app.db.TextBit.by_id(id) if id else None
     if not bit:
         return app.abort(404)
+    bit._parent = text
     return bit
 
 
