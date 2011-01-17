@@ -62,13 +62,31 @@ def action_deploy(pip=True):
             'pip install -r docs/pip.stage.txt',
         ))
 
-    pids = sh('pgrep -f $sock_path', capture=True, no_exit=True)
+    def get_pids():
+        pids = sh('pgrep -f $sock_path', capture=True, no_exit=True)
+        return pids.replace('\n', ' ')
+
+    pids = action_pids(False)
     if pids:
-        sh('kill %s' % pids.replace('\n', ' '))
+        sh('kill %s' % pids)
     else:
         print('no kill...')
 
-    sh('screen -d -m uwsgi -s $sock_path -w stage:app -H $env_path')
+    sh('screen -d -m '
+       'uwsgi -s $sock_path -w stage:app -H$env_path -M -p4 --uid=www-data')
+    action_pids()
+
+
+def action_pids(info=True):
+    pids = sh('pgrep -f $sock_path', capture=True, no_exit=True)
+    pids =  pids.replace('\n', ' ')
+    if not info:
+        return pids
+
+    if pids:
+        print('Pids: %s' % pids)
+    else:
+        print('WARNING. No pids...')
 
 
 def action_test(target='', base=False, rm=False, failed=('f', False),
