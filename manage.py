@@ -65,10 +65,6 @@ def action_deploy(pip=True):
             'pip install -r docs/pip/stage.txt',
         ))
 
-    def get_pids():
-        pids = sh('pgrep -f $sock_path', capture=True, no_exit=True)
-        return pids.replace('\n', ' ')
-
     pids = action_pids(False)
     if pids:
         sh('kill %s' % pids)
@@ -81,6 +77,7 @@ def action_deploy(pip=True):
 
 
 def action_pids(info=True):
+    '''Show process ids for uwsgi'''
     pids = sh('pgrep -f $sock_path', capture=True, no_exit=True)
     pids = pids and pids.replace('\n', ' ') or None
     if not info:
