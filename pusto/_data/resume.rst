@@ -24,7 +24,7 @@
 
 Опыт работы
 ===========
-| 12.2009 - 01.2010 веб-разработчик на python в `42 Coffee Cups <http://42coffeecups.com/>`_;
+| 12.2009 - 01.2011 веб-разработчик на python в `42 Coffee Cups <http://42coffeecups.com/>`_;
 | 02.2009 - 09.2009 веб-разработчик на Java в `Ardas Group <http://www.ardas.dp.ua/ru>`_;
 | 03.2007 - 02.2009 веб-разработчик на PHP, Freelance;
 | 11.2006 - 03.2007 веб-разработчик на PHP в ЧП «Зебра»;
