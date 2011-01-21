@@ -35,19 +35,18 @@
 .toolbar { 
     position: relative;
     border-bottom: 2px solid #ccc;
-    padding-top: 5px;
-    height: 18px;
 
     li {
-        display: inline;
+        .inline_block;
+        margin-bottom: -2px;
 
         a {
             background: #eee;
             font-weight: bold;
             padding: 0 5px;
             border: 1px solid #ccc;
-            line-height: 16px;
             .border_radius(10px 10px 0 0);
+            .inline_block;
 
             :active {
                 background: #fcc;

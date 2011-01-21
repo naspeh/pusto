@@ -17,6 +17,7 @@
     position: relative;
     border-bottom: 2px solid #ccc;
     padding-top: 5px;
+    line-height: 1.2;
 }
 #toolbar .actions {
     position: absolute;
