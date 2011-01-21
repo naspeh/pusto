@@ -35,7 +35,7 @@ class App(AppMixin, Naya, MongoMixin, OpenidMixin):
                 'env': {
                     'filters': {'rst': rst, 'markdown': markdown},
                     'options': {
-                        'autoescape': False,
+                        'autoescape': True,
                         'trim_blocks': True,
                         'undefined': DebugUndefined,
                         'extensions': ['jinja2.ext.with_']

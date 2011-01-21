@@ -12,7 +12,7 @@
     <h1>{{ node.title }}{% if app.is_admin() %} <a href="{{ node.url_edit }}">[изменить]</a>{% endif %}</h1>
 
     {% if node.content -%}
-        {{ app.part_template('text/show.html', '#text-show .document', text=node.content, node=node) }}
+        {{ app.part_template('text/show.html', '#text-show .document', text=node.content, node=node)|safe }}
     {% endif %}
 
     {% set children = node.children and node.children or node.parent_children %}

@@ -46,7 +46,7 @@
         <div id="bit-{{ index }}" name="{{ bit._id or 'new'}}" class="bit{{ selected }}">
             <a href="#" class="info">#{{ index }}</a>
             {% if bit.body %}
-            {{ bit.html }}
+            {{ bit.html|safe }}
             {% else %}
             <div class="bit-new">Тут пусто...</div>
             {% endif %}
@@ -92,9 +92,9 @@
                 </select>
                 {% endif %}
             </div>
-            <textarea id="bit-orig" readonly="readonly" disabled="disabled">{{ active.body|e }}</textarea>
+            <textarea id="bit-orig" readonly="readonly" disabled="disabled">{{ active.body }}</textarea>
             <div class="textarea">
-                <textarea name="body">{{ active.body|e }}</textarea>
+                <textarea name="body">{{ active.body }}</textarea>
             </div>
             <div class="toolbar actions">
                 <span class="note-bit-changed">Не сохранен</span>
