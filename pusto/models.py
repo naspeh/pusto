@@ -132,6 +132,9 @@ class TextBit(CreatedMixin):
         if not text.strip():
             html_ = highlight(self['body'], RstLexer(), HtmlFormatter())
             html_ = self.BIT_HIDE % html_
+
+        if self['type'] == 'hidden':
+            html_ = self.BIT_HIDE % html_
         return html_
 
     def pre_delete(self):

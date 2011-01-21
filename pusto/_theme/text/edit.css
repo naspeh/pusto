@@ -17,14 +17,13 @@
     position: relative;
     border-bottom: 2px solid #ccc;
     padding-top: 5px;
-    height: 18px;
 }
 #toolbar .actions {
     position: absolute;
     right: 0;
     bottom: -1px;
 }
-#toolbar a {
+#toolbar .actions a {
     background: #eee;
     font-weight: bold;
     padding: 0 5px;
@@ -32,10 +31,10 @@
     line-height: 16px;
     {{ border_radius('10px 10px 0 0') }}
 }
-#toolbar a.active {
+#toolbar .actions a.active {
     background: #fcc;
 }
-#toolbar a.edit {
+#toolbar .actions a.edit {
     display: none;
 }
 #options {
@@ -124,6 +123,7 @@
 }
 #editor .toolbar {
     background: #eee;
+    border-bottom: none;
     border-top: 2px solid #ccc;
     padding-top: 2px;
     height: 26px;

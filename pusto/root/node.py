@@ -50,7 +50,7 @@ def edit(app, id):
     ))
 
 
-@marker.route('/node/<path:slug>/')
+@marker.route('/<path:slug>/')
 def show(app, slug):
     node = app.db.Node.by_slug(slug)
     if not node:
