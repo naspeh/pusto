@@ -35,7 +35,7 @@
 
     {% if text._id and app.is_admin() %}
     <div id="options">
-        {{ app.part_template('node/edit.html', '#node-edit', content=text, node=node) }}
+        {{ app.part_template('node/edit.html', '#node-edit', content=text, node=node)|safe }}
     </div>
     {% endif %}
 
