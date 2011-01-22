@@ -58,11 +58,11 @@ def copy(app, id):
     text_orig, node = prepare(app, id, check_allow=False)
     text = app.db.Text()
     for bit in text_orig['bits']:
-         bit = bit.copy()
-         del bit['_id']
-         bit = app.db.TextBit(bit)
-         bit.save()
-         text['bits'].append(bit)
+        bit = bit.copy()
+        del bit['_id']
+        bit = app.db.TextBit(bit)
+        bit.save()
+        text['bits'].append(bit)
     text['owner'] = app.user
     text.save()
     return app.redirect(app.url_for(':text.edit', id=text['_id']))
