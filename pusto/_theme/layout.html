@@ -15,20 +15,15 @@
 <body>
     <div id="header">
         <div class="logo-wrap"><a href="/" class="logo"></a></div>
-        <div class="header-adds">
-        {% if app.user %}
-            <div class="info auth">Привет, <strong>{{ app.user.name }}</strong></div>
-        {% else %}
-            <a class="login" href="{{ app.url_for(':auth.login') }}">Вход</a>
-            <div class="info powered-by">powered by <a href="http://github.com/naspeh/naya">naya</a></div>
-        {% endif %}
-        </div>
-        {% if app.user %}
         <ul class="menu">
+        {% if app.user %}
+            <li class="auth">Привет, <strong>{{ app.user.name }}</strong></li>
             <li><a href="{{ app.url_for(':text.roll') }}">Тексты</a></li>
             <li><a href="{{ app.url_for(':node.roll') }}">Узлы</a></li>
             <li><a href="{{ app.url_for(':auth.logout') }}">Выход</a></li>
-        </ul>
+        {% else %}
+            <li class="powered-by"><a href="http://github.com/naspeh/naya">powered by naya</a></li>
+            <li "login"><a href="{{ app.url_for(':auth.login') }}">Вход</a></li>
         {% endif %}
     </div>
     <div id="content">
