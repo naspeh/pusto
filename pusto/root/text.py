@@ -17,8 +17,14 @@ def edit(app, id):
 def delete(app, id):
     text = prepare(app, id)[0]
     text.delete()
-    target = app.user and 'roll' or 'edit'
-    return app.redirect(app.url_for(':text.%s' % target))
+
+    target = {'endpoint': ':text.edit'}
+    if app.user:
+        target = {
+            'endpoint': ':text.roll',
+            'all': app.session.get('text.list.all', False)
+        }
+    return app.redirect(app.url_for(**target))
 
 
 @marker.route('/text/<id>/', defaults={'src': False})
@@ -38,6 +44,7 @@ def roll(app, all):
     if all and not app.is_admin():
         return app.abort(403)
 
+    app.session['text.list.all'] = all
     query = {} if all else {'owner': app.user.dbref}
     texts = app.db.Text.find(query)
     return app.to_template('text/list.html', texts=texts, all=all)
