@@ -48,7 +48,7 @@ def roll(app, all):
     query = {} if all else {'owner': app.user.dbref}
     texts = list(app.db.Text.find(query))
     sample = app.db.Node.one({'slug': 'example', 'parent': None})
-    if sample and sample['content']:
+    if sample and sample['content'] and sample['owner'] != app.user:
         texts += [sample['content']]
     return app.to_template('text/list.html', texts=texts, all=all)
 
