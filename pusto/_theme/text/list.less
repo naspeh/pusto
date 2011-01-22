@@ -10,6 +10,7 @@
         margin-top: -1px;
 
         li.item {
+            position: relative;
             padding: 5px;
             .border_radius(5px);
 
@@ -17,8 +18,9 @@
                 font-size: larger;
             }
             ul.actions {
-                float: right;
-                padding-top: 1px;
+                position: absolute;
+                top: 6px;
+                right: 0;
                 .inline_block;
 
                 li {
