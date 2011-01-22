@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}Автозагрузка классов в приложениях на Zend Framework{% endblock %}
-
-{% block content %}<div class="document">{% filter markdown %}
+{% block content %}<div class="document">{% autoescape false %}{% filter markdown %}
 Автозагрузка классов в приложениях на Zend Framework
 ====================================================
 Чт, 2008-09-25 15:38 — [naspeh](/naspeh/)
@@ -155,4 +154,4 @@
 [Пример загрузчика](http://code.google.com/p/yadro/source/browse/trunk/system/modules/core/models/Loader.php)
 
 **P.S.** Автор знаком с ZF начиная 0.1.x версий. Первое знакомство: [PHPIns!de #18, Июль'2006](http://phpclub.ru/detail/magazine/2006/07/).
-{% endfilter %}</div>{% endblock %}
+{% endfilter %}{% endautoescape %}</div>{% endblock %}
