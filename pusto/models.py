@@ -207,6 +207,10 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
         return self.app.url_for(':text.edit', id=self['_id'])
 
     @property
+    def url_copy(self):
+        return self.app.url_for(':text.copy', id=self['_id'])
+
+    @property
     def url_delete(self):
         return self.app.url_for(':text.delete', id=self['_id'])
 

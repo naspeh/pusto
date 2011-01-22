@@ -46,7 +46,10 @@ def roll(app, all):
 
     app.session['text.list.all'] = all
     query = {} if all else {'owner': app.user.dbref}
-    texts = app.db.Text.find(query)
+    texts = list(app.db.Text.find(query))
+    sample = app.db.Node.one({'slug': 'example', 'parent': None})
+    if sample and sample['content']:
+        texts += [sample['content']]
     return app.to_template('text/list.html', texts=texts, all=all)
 
 

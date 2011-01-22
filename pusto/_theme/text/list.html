@@ -14,9 +14,6 @@
             'mouseleave': function() {
                 $(this).removeClass('active');
             },
-            'click': function() {
-                window.location = $(this).find('strong a').attr('href');
-            }
         });
         $('#text-list a.delete').live('click', function(){
             if (confirm('Точно хотите удалить ?')) {
@@ -38,16 +35,18 @@
     </ul>
     <ul class="items">
     {% for text in texts %}
-        {% set title=text.node and text.node.title or text.bits and text.html|striptags|truncate(60) or text._id %}
-        <li class="item {{ loop.cycle('odd', 'even') }}" title="Смотреть">
-            <strong>{% if text.node %}Node: {% endif %} <a href="{{ text.url_show }}">{{ title }}</a></strong>
-            {% if text.is_allow() %}
+        {% set title=text.node and text.node.title or text.bits and text.html|striptags|truncate(50) or text._id %}
+        <li class="item {{ loop.cycle('odd', 'even') }}">
+            <a class="title" href="{{ text.url_show }}">{{ title }}</a>
             <ul class="actions">
-                {% if all %}<li>{{ text.owner and text.owner.name or 'none' }}</li>{% endif %}
+                {% if all  and text.owner %}<li title="Владелец">{{ text.owner.name }}</li>{% endif %}
+                {% if text.node %}<li><a title="Есть человеческий урл" href="{{ text.node.url_show }}">узел</a></li>{% endif %}
+                <li><a href="{{ text.url_copy }}" title="Копировать">клон</a></li>
+                {% if text.is_allow() %}
                 <li><a href="{{ text.url_edit }}" title="Изменить">изменить</a></li>
                 <li><a class="delete" href="{{ text.url_delete }}" title="Удалить">удалить</a></li>
+                {% endif %}
             </ul>
-            {% endif %}
         </li>
     {% endfor %}
     </ul>
