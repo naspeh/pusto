@@ -50,6 +50,21 @@ def roll(app, all):
     return app.to_template('text/list.html', texts=texts, all=all)
 
 
+@marker.route('/text/<id>/copy/')
+def copy(app, id):
+    text_orig, node = prepare(app, id, check_allow=False)
+    text = app.db.Text()
+    for bit in text_orig['bits']:
+         bit = bit.copy()
+         del bit['_id']
+         bit = app.db.TextBit(bit)
+         bit.save()
+         text['bits'].append(bit)
+    text['owner'] = app.user
+    text.save()
+    return app.redirect(app.url_for(':text.edit', id=text['_id']))
+
+
 @marker.route('/text/<id>/bit/')
 def bit(app, id):
     data = app.request.form
