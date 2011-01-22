@@ -60,7 +60,7 @@ a:hover, a:focus, a:active {
             background-color: @color-alfa;
             font-size: small;
             color: #fff;
-            padding: 2px 0 0 10px;
+            padding: 2px 10px 0 10px;
             .border_radius(0 0 10px 10px);
             .inline_block;
 
@@ -70,6 +70,9 @@ a:hover, a:focus, a:active {
                 padding: 0 10px;
                 .border_radius(0 0 10px 10px);
                 .inline_block;
+            }
+            > a:last-child {
+                margin-right: -10px;
             }
         }
         .source {

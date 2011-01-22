@@ -17,7 +17,7 @@
         <div class="logo-wrap"><a href="/" class="logo"></a></div>
         <div class="header-adds">
         {% if app.user %}
-            <div class="info auth">Привет, <b>{{ app.user.name }}</b> <a href="{{ app.url_for(':auth.logout') }}">Выход</a></div>
+            <div class="info auth">Привет, <strong>{{ app.user.name }}</strong></div>
         {% else %}
             <a class="login" href="{{ app.url_for(':auth.login') }}">Вход</a>
             <div class="info powered-by">powered by <a href="http://github.com/naspeh/naya">naya</a></div>
@@ -27,6 +27,7 @@
         <ul class="menu">
             <li><a href="{{ app.url_for(':text.roll') }}">Тексты</a></li>
             <li><a href="{{ app.url_for(':node.roll') }}">Узлы</a></li>
+            <li><a href="{{ app.url_for(':auth.logout') }}">Выход</a></li>
         </ul>
         {% endif %}
     </div>
@@ -40,7 +41,7 @@
     </script>
     <script type="text/javascript">
     try{
-    var pageTracker = _gat._getTracker("UA-6254112-1");
+    var pageTracker = _gat._getTracker("{{ app. google_analytics }}");
     pageTracker._trackPageview();
     } catch(err) {}
     </script>

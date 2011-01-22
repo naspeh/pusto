@@ -48,4 +48,5 @@ class App(AppMixin, Naya, MongoMixin, OpenidMixin):
                 'db': 'pusto',
                 'models': [models]
             },
+            'google_analytics': 'UA-6254112-1'
         }

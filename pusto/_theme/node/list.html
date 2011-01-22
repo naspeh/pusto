@@ -10,7 +10,7 @@
 {%- macro list(nodes) %}
 {% for node in nodes %}
 <li>
-    <b><a href="{{ node.url_show }}">{{ node.title }}</a></b>
+    <strong><a href="{{ node.url_show }}">{{ node.title }}</a></strong>
     {% if app.is_admin() %} <a href="{{ node.url_edit }}">[изменить]</a>{% endif %}</h1>
     <ul>{{ list(node.children) }}</ul>
 </li>
