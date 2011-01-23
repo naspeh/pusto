@@ -57,7 +57,7 @@ def show(app, slug):
         return app.abort(404)
     return app.to_template('node/show.html', node=node)
 
-
+@marker.authorized(as_admin=True)
 @marker.route('/nodes/')
 def roll(app):
     nodes = app.db.Node.find({'parent': None})

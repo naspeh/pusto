@@ -68,6 +68,7 @@
     height: auto;
 }
 #viewer .bit {
+    clear: both;
     border-top: 1px solid #cfc;
     background: #fff;
     min-height: 1.3em;

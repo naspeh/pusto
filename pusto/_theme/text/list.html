@@ -37,10 +37,10 @@
     {% for text in texts %}
         {% set title=text.node and text.node.title or text.bits and text.html|striptags|truncate(50) or text._id %}
         <li class="item {{ loop.cycle('odd', 'even') }}">
-            <a class="title" href="{{ text.url_show }}">{{ title }}</a>
+            <a class="title" href="{{ text.url_main }}">{{ title }}</a>
             <ul class="actions">
                 {% if all  and text.owner %}<li title="Владелец">{{ text.owner.name }}</li>{% endif %}
-                {% if text.node %}<li><a title="Есть человеческий урл" href="{{ text.node.url_show }}">узел</a></li>{% endif %}
+                {# if text.node %}<li><a title="Есть человеческий урл" href="{{ text.node.url_show }}">узел</a></li>{% endif #}
                 <li><a href="{{ text.url_copy }}" title="Копировать">клон</a></li>
                 {% if text.is_allow() %}
                 <li><a href="{{ text.url_edit }}" title="Изменить">изменить</a></li>

@@ -1,15 +1,16 @@
 {% extends "layout.html" %}
 {% block title %}{{ node.title }}{% endblock %}
 
+{% block extrahead %}
+{{ h.css('node/show.less', less=True) }}
+{% endblock %}
+
 {%- block content %}
 <div id="node-show">
-    {% if app.is_admin() %}
-    <a href="{{ app.url_for(':node.roll') }}">nodes</a>
-    {% endif %}
-    {% if node.parent %}
-    <a href="{{ node.parent.url_show }}">{{ node.parent.title }}</a>
-    {% endif %}
-    <h1>{{ node.title }}{% if app.is_admin() %} <a href="{{ node.url_edit }}">[изменить]</a>{% endif %}</h1>
+    <h1 class="node-title">
+        {% if node.parent %}<a href="{{ node.parent.url_show }}">{{ node.parent.title }}</a> :: {% endif %}
+        {{ node.title }}{% if app.is_admin() %} <a href="{{ node.url_edit }}">[изменить]</a>{% endif %}
+    </h1>
 
     {% if node.content -%}
         {{ app.part_template('text/show.html', '#text-show .document', text=node.content, node=node)|safe }}
@@ -17,8 +18,8 @@
 
     {% set children = node.children and node.children or node.parent_children %}
     {% if children %}
-    <hr />
-    <ul>
+
+    <ul class="relations">
     {% for child in children -%}
         <li><a href="{{ child.url_show }}">{{ child.title }}</a></li>
     {% endfor %}

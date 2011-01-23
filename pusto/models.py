@@ -203,6 +203,12 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
         )
 
     @property
+    def url_main(self, src=None):
+        if not self.node:
+            return self.url_show
+        return self.node.url_show
+
+    @property
     def url_edit(self):
         return self.app.url_for(':text.edit', id=self['_id'])
 
