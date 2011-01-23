@@ -60,33 +60,46 @@ def action_deploy(pip=True):
     sh(('cd $project_path', 'pwd', 'git pull origin master'))
 
     if pip:
-        sh((
-            'cd $project_path', '$activate', 'pwd',
-            'pip install -r docs/pip/stage.txt',
-        ))
+        action_pip(target='stage')
 
-    pids = action_pids(False)
-    if pids:
-        sh('kill %s' % pids)
-    else:
-        print('no kill...')
-
-    sh('screen -d -m '
-       'uwsgi -s $sock_path -w stage:app -H$env_path --uid=nobody')
-    action_pids()
+    action_uwsgi(restart=True)
 
 
-def action_pids(info=True):
-    '''Show process ids for uwsgi'''
-    pids = sh('pgrep -f $sock_path', capture=True, no_exit=True)
-    pids = pids and pids.replace('\n', ' ') or None
-    if not info:
-        return pids
+def action_pip(target='devel'):
+    '''Update virtualenv with pip requirements.'''
+    sh((
+        'cd $project_path', '$activate', 'pwd',
+        'pip install -r docs/pip/%s.txt' % target,
+    ))
 
-    if pids:
-        print('Pids: %s' % pids)
-    else:
-        print('WARNING. No pids...')
+
+def action_uwsgi(restart=('r', False), kill=('k', False), pids=('p', False)):
+    '''Manage uwsgi.'''
+    def get_pids(info=True):
+        pids = sh('pgrep -f $sock_path', capture=True, no_exit=True)
+        pids = pids and pids.replace('\n', ' ') or None
+        if not info:
+            return pids
+
+        if pids:
+            print('Pids: %s' % pids)
+        else:
+            print('WARNING. No pids...')
+
+    if pids == True:
+        get_pids()
+
+    if kill == True or restart == True:
+        pids = get_pids(False)
+        if pids:
+            sh('kill %s' % pids)
+        else:
+            print('no kill...')
+
+    if restart == True:
+        sh('screen -d -m '
+           'uwsgi -s $sock_path -w stage:app -H$env_path --uid=nobody -b 8192')
+        get_pids()
 
 
 def action_test(target='', base=False, rm=False, failed=('f', False),
