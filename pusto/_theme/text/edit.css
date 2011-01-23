@@ -18,7 +18,10 @@
     border-bottom: 2px solid #ccc;
     padding-top: 5px;
     line-height: 1.2;
-    height: 16px;
+    height: 18px;
+}
+#toolbar h1.title {
+    font-size: 18px;
 }
 #toolbar .actions {
     position: absolute;

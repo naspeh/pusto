@@ -20,7 +20,7 @@
     <div class="loading"></div>
 
     <div id="toolbar">
-        {% if node._id %}<h1><a href="{{ node.url_show }}">{{ node.title }}</a></h1>{% endif %}
+        {% if node._id %}<h1 class="title"><a href="{{ node.url_show }}">{{ node.title }}</a></h1>{% endif %}
         <div class="actions">
         {% if text._id %}
             <a href="#" class="edit">изменить</a>
