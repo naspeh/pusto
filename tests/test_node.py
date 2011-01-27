@@ -109,20 +109,20 @@ def test_node_show():
     slug21 = '/'.join([slug2, node21['slug']])
 
     c.get(app.url_for(':node.show', slug=slug), code=200)
-    aye('in', '<h1>%s' % node['title'], c.data)
+    aye('in', node['title'], c.cssselect('h1.node-title'))
     aye('in', slug1, c.data)
     aye('in', slug2, c.data)
     aye('in', node['content'].html, c.data)
 
     c.get(app.url_for(':node.show', slug=slug1), code=200)
-    aye('in', '<h1>%s' % node1['title'], c.data)
+    aye('in', node1['title'], c.cssselect('h1.node-title'))
 
     c.get(app.url_for(':node.show', slug=slug2), code=200)
-    aye('in', '<h1>%s' % node2['title'], c.data)
+    aye('in', node2['title'], c.cssselect('h1.node-title'))
     aye('in', slug21, c.data)
 
     c.get(app.url_for(':node.show', slug=slug21), code=200)
-    aye('in', '<h1>%s' % node21['title'], c.data)
+    aye('in', node21['title'], c.cssselect('h1.node-title'))
 
 
 def test_node_show_fails():

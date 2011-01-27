@@ -16,18 +16,20 @@ class OpenidMixin(object):
             'admins': []
         }
 
+    @marker.pre_request()
+    def openid_pre_request(self):
+        user = self.session.get('user', None)
+        user = isinstance(user, basestring) and user or None
+        if user:
+            user = self.db.User.by_id(user)
+        self.user = user or None
+
     @marker.wrap_handler()
     def openid_wrap_handler(self, handler):
         for mark in marker.authorized.get(handler):
             handler = self.authorized(
                 handler, *mark['args'], **mark['kwargs']
             )
-
-        user = self.session.get('user', None)
-        user = isinstance(user, basestring) and user or None
-        if user:
-            user = self.db.User.by_id(user)
-        self.user = user or None
         return handler
 
     def authorized(self, func, as_admin=False):

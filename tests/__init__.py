@@ -4,7 +4,7 @@ from pusto import App as _App
 
 
 class App(_App):
-    @marker.pre_request()
+    @marker.pre_request.index(0)
     def session_load(self):
         if not hasattr(self, 'session'):
             self.session = {}
