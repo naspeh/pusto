@@ -17,11 +17,6 @@ def make_app():
     return App()
 
 
-def action_pep8(target='.'):
-    '''Run pep8.'''
-    sh('pep8 --ignore=E202 %s' % target)
-
-
 def action_clean(mask=''):
     '''Clean useless files.'''
     masks = [mask] if mask else ['*.pyc', '*.pyo', '*~', '*.orig']
@@ -29,10 +24,10 @@ def action_clean(mask=''):
     sh('\n'.join(command))
 
 
-def action_code():
-    '''Check code style.'''
-    action_clean()
-    action_pep8()
+def action_code(target='.'):
+    '''Check code style'''
+    sh('pep8 --ignore=E202 %s' % target)
+    sh('pyflakes %s' % target)
     sh('git diff | grep -5 print')
 
 

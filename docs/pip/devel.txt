@@ -3,4 +3,5 @@
 nose
 coverage
 pep8
+pyflakes
 bpython
