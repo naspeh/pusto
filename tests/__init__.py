@@ -1,4 +1,5 @@
 from naya.helpers import marker
+from naya.testing import aye
 
 from pusto import App as _App
 
@@ -18,6 +19,7 @@ app = App(prefs={
     'testing': True,
     'mongo': {'db': 'test_pusto'}
 })
+client = app.test_client()
 
 
 def clear_db(docs=None):
@@ -34,3 +36,5 @@ def authorize(name=u'naspeh'):
     name = unicode(name)
     app.session_load()
     app.openid_complete({'email': u'%s@ya' % name, 'name': name})
+    client.get('/')
+    aye('==', name, app.user['name'])

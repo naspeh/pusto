@@ -1,10 +1,7 @@
 from naya.testing import aye, raises
 from nose import with_setup
 
-from . import app, authorize
-
-
-c = app.test_client()
+from . import app, client as c, authorize
 
 
 def clean_auth():

@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from naya.testing import aye
 
-from . import app, clear_db, authorize, test_text
+from . import app, client as c, clear_db, authorize, test_text
 from pusto.ext.translit import slugify
 
 
-c = app.test_client()
 Node = app.db.Node
 
 
@@ -135,7 +134,10 @@ def test_node_show_fails():
 def test_nodes():
     test_node_new()
 
-    c.get(app.url_for(':node.roll'))
+    c.get(app.url_for(':node.roll'), code=200)
     for node in Node.find():
         aye('in', node.url_edit, c.data)
         aye('in', node.url_show, c.data)
+
+    authorize('naya')
+    c.get(app.url_for(':node.roll'), code=403)

@@ -3,10 +3,7 @@ import re
 from naya.testing import aye, call
 from nose import with_setup
 
-from . import app, clear_db, authorize
-
-
-c = app.test_client()
+from . import app, client as c, clear_db, authorize
 
 
 def add_text(number=1):

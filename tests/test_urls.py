@@ -1,10 +1,7 @@
 from naya.testing import aye
 
-from . import app
+from . import client as c
 from pusto.static import REDIRECTS
-
-
-c = app.test_client()
 
 
 def test_allow_and_redirects():
