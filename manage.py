@@ -26,9 +26,9 @@ def action_clean(mask=''):
 
 def action_code(target='.'):
     '''Check code style'''
-    sh('pep8 --ignore=E202 %s' % target)
-    sh('pyflakes %s' % target)
-    sh('git diff | grep -5 print')
+    sh('pep8 --ignore=E202 %s' % target, no_exit=True)
+    sh('pyflakes %s' % target, no_exit=True)
+    sh('git diff | grep -5 print', no_exit=True)
 
 
 def action_rmdb():
