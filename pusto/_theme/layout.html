@@ -1,5 +1,7 @@
 {% import 'helpers.html' as h with context %}
 {% import 'common.html' as c with context %}
+
+{% if partial or app.request.is_xhr %}{% block partial %}{% endblock %}{% else %}
 <!DOCTYPE HTML>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -43,3 +45,4 @@
     </script>
 </body>
 </html>
+{% endif %}

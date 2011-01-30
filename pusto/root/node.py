@@ -46,7 +46,7 @@ def edit(app, id):
         content = None
 
     return app.to_template('node/edit.html',
-        node=node, content=content, errors=errors, partial=app.request.is_xhr
+        node=node, content=content, errors=errors,
     )
 
 
