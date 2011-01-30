@@ -141,7 +141,7 @@ def test_text_show():
     aye(False, call(c.data.startswith, '<div id="text-show">'), c.data)
 
     c.get(url, code=200, headers=[('X_REQUESTED_WITH', 'XMLHttpRequest')])
-    aye(True, call(c.data.startswith, '<div id="text-show-body">'), c.data)
+    aye(True, call(re.match, '^\s*<div id="text-show-body">', c.data))
 
 
 @with_setup(clear_db)

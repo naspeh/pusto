@@ -1,7 +1,7 @@
-{% extends "layout.html" %}
+{% extends partial and "partial.html" or "layout.html" %}
 {% block title %}Edit Node{% endblock %}
 
-{%- block content %}
+{% block content %}{% block partial %}
 <div id="node-edit">
     {% if errors %}
     <ul class="errors">
@@ -29,4 +29,4 @@
         </div>
     </form>
 </div>
-{% endblock %}
+{% endblock %}{% endblock %}

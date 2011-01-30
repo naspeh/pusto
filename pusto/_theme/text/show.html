@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends partial and "partial.html" or "layout.html" %}
 
 {% block title %}{{ node.title or 'Text %s' % text._id }}{% endblock %}
 
@@ -15,12 +15,13 @@
 {% endblock %}
 
 
-{%- block content %}
+{% block content %}
 <div id="text-show">
     <h1 class="text-title">
         {% if node.title %}{{ node.title }}{% endif %}
         {% if text.is_allow() %}<a href="{{ text.url_edit }}">[изменить]</a>{% endif %}
     </h1>
+    {% block partial %}
     <div id="text-show-body">
         {% if src %}
         <div class="src"><textarea readonly="readonly">{{ src == 'text' and text.src or text.html|safe }}</textarea></div>
@@ -28,5 +29,6 @@
         <div class="document">{{ text.html|safe }}</div>
         {% endif %}
     </div>
+    {% endblock %}
 </div>
 {% endblock %}

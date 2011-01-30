@@ -45,9 +45,9 @@ def edit(app, id):
     else:
         content = None
 
-    return app.maybe_partial('#node-edit', app.to_template(
-        'node/edit.html', node=node, content=content, errors=errors
-    ))
+    return app.to_template('node/edit.html',
+        node=node, content=content, errors=errors, partial=app.request.is_xhr
+    )
 
 
 @marker.route('/a/<path:slug>/')

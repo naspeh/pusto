@@ -32,9 +32,9 @@ def delete(app, id):
 @marker.route('/text/<id>/html/', defaults={'src': 'html'})
 def show(app, id, src):
     text, node = prepare(app, id, check_allow=False)
-    return app.maybe_partial('#text-show-body', app.to_template(
-        'text/show.html', text=text, node=node, src=src
-    ))
+    return app.to_template('text/show.html',
+        text=text, node=node, src=src, partial=app.request.is_xhr
+    )
 
 
 @marker.authorized()
@@ -107,9 +107,9 @@ def bit(app, id):
         prepare_bit(app, 'new', text)
 
     fill_session(app, text, bit)
-    return app.maybe_partial('#text-edit', app.to_template(
-        'text/edit.html', text=text, node=node, active=bit
-    ))
+    return app.to_template('text/edit.html',
+        text=text, node=node, active=bit, partial=app.request.is_xhr
+    )
 
 
 def prepare(app, id, node_id=None, check_allow=True):
