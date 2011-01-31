@@ -17,10 +17,10 @@ def defaults():
     }
 
 
-@marker.route('/<path:path>')
-def redirector(app, path):
-    path = path.rstrip('/')
-    for paths in REDIRECTS:
-        if path in paths:
-            return app.redirect(paths[0])
-    app.abort(404)
+class StaticMixin(object):
+    @marker.pre_request()
+    def redirector(self):
+        path = self.request.path.strip('/')
+        for paths in REDIRECTS:
+            if path in paths:
+                return self.redirect(paths[0], code=301)

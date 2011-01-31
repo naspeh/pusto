@@ -8,7 +8,7 @@ def test_allow_and_redirects():
     check('/')
     check('/resume/')
     check('/naspeh/')
-    c.get('/googlee71e35f8e9cbd607.html/', code=302)
+    c.get('/googlee71e35f8e9cbd607.html/', code=301)
     c.get(c.path, code=200, follow_redirects=True)
     aye('==', c.path, '/googlee71e35f8e9cbd607.html')
     c.get(c.path, code=200)
@@ -18,7 +18,7 @@ def test_allow_and_redirects():
 
 
 def test_not_found():
-    c.get('/not-found', code=404)
+    c.get('/not-found', follow_redirects=True, code=404)
 
 
 def check(main_url, *children):
@@ -38,6 +38,6 @@ def check(main_url, *children):
         children.append(without_slash)
 
     for url in children:
-        c.get(url, code=302)
+        c.get(url, code=301)
         c.get(url, code=200, follow_redirects=True)
         aye('==', c.path, main_url)

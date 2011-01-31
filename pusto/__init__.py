@@ -6,9 +6,10 @@ from .app import AppMixin
 from .markup import markdown, rst
 from .mongo import MongoMixin
 from .openid import OpenidMixin
+from .static import StaticMixin
 
 
-class App(AppMixin, Naya, MongoMixin, OpenidMixin):
+class App(AppMixin, Naya, MongoMixin, OpenidMixin, StaticMixin):
     import_name = __name__
 
     @Naya.marker.config()
