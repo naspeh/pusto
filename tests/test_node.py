@@ -15,9 +15,8 @@ def setup():
 def add_node(title='test title', parent=None, content=None):
     title = unicode(title)
     c.post(app.url_for(':node.edit'), data={
-        'parent': parent or '',
         'title': title,
-        'slug': '',
+        'slug': '%s/' % parent or '',
         'content': content or '',
     }, code=200, follow_redirects=True)
 
@@ -50,17 +49,17 @@ def test_node_new():
     node1 = add_node('test title #1', parent=node.full_slug)
     aye('==', node, node1['parent'])
     aye('==', app.user, node1['owner'])
-    aye('in', 'value="%s"' % node.full_slug, c.data)
+    aye('in', 'value="%s"' % node1.full_slug, c.data)
 
     node2 = add_node(u'тест тайтл #2', parent=node.full_slug)
     aye('==', node, node2['parent'])
     aye('==', app.user, node2['owner'])
-    aye('in', 'value="%s"' % node.full_slug, c.data)
+    aye('in', 'value="%s"' % node2.full_slug, c.data)
 
     node21 = add_node('test title #21', parent=node2.full_slug)
     aye('==', node2, node21['parent'])
     aye('==', app.user, node21['owner'])
-    aye('in', 'value="%s"' % node2.full_slug, c.data)
+    aye('in', 'value="%s"' % node21.full_slug, c.data)
 
     return node, node1, node2, node21
 

@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block title %}Edit Node{% endblock %}
-
 {% block content %}{% block partial %}
 <div id="node-edit">
     {% if errors %}
@@ -15,16 +14,13 @@
         <div>
             <label for="f_title">Название</label>
             <input name="title" id="f_title" size="40" value="{{ node.title or ''}}" />
-            <input type="checkbox" name="published" id="f_published"{% if node.published %} checked="checked"{% endif %} />
-            <label for="f_published">Опубликовать</label>
+
+            <label for="f_slug">Слуг</label>
+            <input name="slug" id="f_slug" size="40" value="{{ node.parent and node.full_slug or node.slug or ''}}" />
         </div>
         <div>
-            <label for="f_parent">Путь</label>
-            <input name="parent" id="f_parent" value="{{ node.parent and node.parent.full_slug or ''}}" />
-
-            <label for="f_slug">/</label>
-            <input name="slug" id="f_slug" value="{{ node.slug or ''}}" />
-
+            <input type="checkbox" name="published" id="f_published"{% if node.published %} checked="checked"{% endif %} />
+            <label for="f_published">Опубликовать</label>
             <button type="submit" name="save" value="save">Готово</button>
         </div>
     </form>

@@ -12,14 +12,19 @@ def edit(app, id):
     errors = []
     data = app.request.form
     if data:
-        published = 'published' in data and data['published'] or None
-        published = published and datetime.utcnow() or None
+        published = data.get('published', None) and datetime.utcnow() or None
+
+        slugs = data['slug'].strip().split('/')
+        slug = slugs and slugs[-1] or None
+        parent = slugs and slugs[:-1] or None
+        if parent:
+            parent = app.db.Node.by_slug('/'.join(parent))
 
         node.update({
             'owner': app.user,
-            'parent': app.db.Node.by_slug(data['parent'].strip()),
+            'parent': parent,
             'title': data['title'].strip() or None,
-            'slug': data['slug'].strip() or None,
+            'slug': slug,
             'content': app.db.Text.by_id(data['content'].strip()),
             'published': published
         })
