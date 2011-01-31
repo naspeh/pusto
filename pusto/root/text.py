@@ -89,8 +89,7 @@ def bit(app, id):
             text['bits'].insert(parent, bit)
 
         type = 'type' in data and data['type'] or None
-        if type:
-            bit['type'] = type
+        bit['type'] = type
 
         bit['body'] = data['body']
         bit.save_all(text)
