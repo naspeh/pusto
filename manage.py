@@ -31,10 +31,21 @@ def action_code(target='.'):
     sh('git diff | grep -5 print', no_exit=True)
 
 
-def action_dropdb():
-    '''Drop database.'''
+def action_db(target=''):
+    '''Drop|dump|restore database'''
+    targets = ('drop', 'dump', 'restore')
+    if not target or target not in targets:
+        print('Usage: ./manage.py %s' % '|'.join(targets))
+
     app = make_app()
-    app.mongo.drop_database(app['mongo:db'])
+    if target == 'drop':
+        app.mongo.drop_database(app['mongo:db'])
+    elif target == 'dump':
+        sh('mongodump -d{0}'.format(app['mongo:db']))
+    elif target == 'restore':
+        sh('mongorestore -d{0} dump/{0}'.format(app['mongo:db']))
+
+
 
 
 def action_remote(target=''):
