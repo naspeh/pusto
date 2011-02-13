@@ -46,8 +46,6 @@ def action_db(target=''):
         sh('mongorestore -d{0} dump/{0}'.format(app['mongo:db']))
 
 
-
-
 def action_remote(target=''):
     '''Call remote command.'''
     if not target:
