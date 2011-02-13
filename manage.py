@@ -31,7 +31,7 @@ def action_code(target='.'):
     sh('git diff | grep -5 print', no_exit=True)
 
 
-def action_rmdb():
+def action_dropdb():
     '''Drop database.'''
     app = make_app()
     app.mongo.drop_database(app['mongo:db'])

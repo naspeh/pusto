@@ -16,7 +16,7 @@
 </head>
 <body>
     <div id="header">
-        <div class="logo-wrap"><a href="/" class="logo"></a></div>
+        <div class="logo-wrap"><a href="{{ app.url_for(':home') }}" class="logo"></a></div>
         <ul class="menu">
         {% if app.user %}
             <li class="auth">Привет, <strong>{{ app.user.name }}</strong></li>

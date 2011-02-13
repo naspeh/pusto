@@ -26,7 +26,7 @@ def test_login():
     aye('==', app.session['user'], str(user['_id']))
 
     c.get(login, code=200, follow_redirects=True)
-    aye('==', '/', c.path)
+    aye('==', app.url_for(':home'), c.path)
     aye(True, app.user)
     aye('in', app.user['name'], c.data)
     aye('in', app.url_for(':auth.logout'), c.data)
@@ -44,7 +44,7 @@ def test_logout():
     test_login()
 
     c.get(app.url_for(':auth.logout'), code=200, follow_redirects=True)
-    aye('==', '/', c.path)
+    aye('==', app.url_for(':home'), c.path)
     aye('in', app.url_for(':auth.login'), c.data)
     aye('not in', 'user', app.session)
     aye(False, app.user)
@@ -64,7 +64,7 @@ def test_logout_with_referer():
     aye('==', referer, c.path)
 
     logout(app.url_for(':auth.logout'))
-    aye('==', '/', c.path)
+    aye('==', app.url_for(':home'), c.path)
 
     logout(app.url_for(':auth.login'))
-    aye('==', '/', c.path)
+    aye('==', app.url_for(':home'), c.path)

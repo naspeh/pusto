@@ -4,8 +4,8 @@
 {% block content %}
 <img src="{{ app.url_for(':theme', path='_images/ava300.jpg') }}" style="float: right" />
 {% filter rst %}
-Гриша Костюк aka `naspeh </post/unikalniy-nick/>`_
-==================================================
+Гриша Костюк aka `naspeh </naspeh/unikalnyy-nik/>`_
+===================================================
 * email и jabber: **naspeh(at)gmail.com**
 * тел: +380 63 6931716
 * г. Днепродзержинск (Украина)

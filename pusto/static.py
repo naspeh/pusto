@@ -5,7 +5,7 @@ REDIRECTS = (
     ('/post/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/',
     'blog/2008/09/25/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework',
     'r/zf-autoload'),
-    ('/post/unikalniy-nick/', 'r/nick'),
+    ('/naspeh/unikalnyy-nik/', 'post/unikalniy-nick', 'r/nick'),
 )
 
 

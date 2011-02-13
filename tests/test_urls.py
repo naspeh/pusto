@@ -1,7 +1,12 @@
 from naya.testing import aye
 
-from . import client as c
+from . import client as c, init_db, clear_db
 from pusto.static import REDIRECTS
+
+
+def setup():
+    clear_db()
+    init_db()
 
 
 def test_allow_and_redirects():

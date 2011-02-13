@@ -1,4 +1,5 @@
 from naya.helpers import marker
+from naya.script import sh
 from naya.testing import aye
 
 from pusto import App as _App
@@ -19,7 +20,8 @@ app = App(prefs={
     'testing': True,
     'mongo': {'db': 'test_pusto'}
 })
-client = app.test_client()
+
+client = app.test_client(url='/resume/')
 
 
 def clear_db(docs=None):
@@ -30,6 +32,12 @@ def clear_db(docs=None):
         doc.collection.drop()
 
     app.mongo_init()
+
+
+def init_db():
+    sh('mongorestore -d{0} {1}'.format(
+        app['mongo:db'], app.get_path('..', 'dump', 'pusto')
+    ))
 
 
 def authorize(name=u'naspeh'):

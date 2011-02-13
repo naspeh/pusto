@@ -29,7 +29,7 @@ class App(AppMixin, Naya, MongoMixin, OpenidMixin, StaticMixin):
                 'url_prefix': '/',
                 'path_ends': ['/index.html', '.html', '.rst'],
                 'path_allow': [
-                    '^(|naspeh|resume|post/[-\w]*)$',
+                    '^(resume|post\/[^_][-\w]*)$',
                     '^_mockups\/',
                     '\.(css|less|js)$',
                 ],
