@@ -5,7 +5,7 @@ from . import app, client as c, authorize
 
 
 def clean_auth():
-    authorize()
+    authorize('user')
     del app.session['user']
     app.user = None
 
