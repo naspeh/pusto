@@ -13,6 +13,7 @@ def edit(app, id):
     return app.to_template('text/edit.html', text=text, active=bit, node=node)
 
 
+@marker.authorized()
 @marker.route('/text/<id>/delete/')
 def delete(app, id):
     text = prepare(app, id)[0]
@@ -51,6 +52,7 @@ def roll(app, all):
     return app.to_template('text/list.html', texts=texts, all=all)
 
 
+@marker.authorized()
 @marker.route('/text/<id>/copy/')
 def copy(app, id):
     text_orig, node = prepare(app, id, check_allow=False)
