@@ -21,11 +21,14 @@
     {% set children = node.children and node.children or node.parent_children %}
     {% if children %}
 
-    <ul class="relations">
-    {% for child in children -%}
-        <li><a href="{{ child.url_show }}">{{ child.title }}</a></li>
-    {% endfor %}
-    </ul>
+    <div class="relations">
+        <h2>Другие публикации</h2>
+        <ul>
+        {% for child in children -%}
+            <li><a href="{{ child.url_show }}">{{ child.title }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
     {% endif %}
 </div>
 {% endblock %}
