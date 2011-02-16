@@ -67,14 +67,12 @@
                     <option value="{{ bit._id or 'new' }}"{{ selected }}>#{{ index }}</option>
                     {% endfor %}
                 </select>
-                {% set types=(('global', 'глобальный', 'присоединяется к каждому кусочку'), ('hidden', 'скрытый', '')) %}
+                {% set types=(('global', 'глобальный тип', 'присоединяется к каждому кусочку'), ('hidden', 'скрытый тип', '')) %}
                 <select id="bit-type" name="type">
                     <option value="">обычный тип</option>
-                    <optgroup label="еще типы">
                     {% for type in types %}
-                        <option title="{{ type.2 }}" value="{{ type.0 }}"{% if active.type == type.0 %} selected="selected"{% endif %}>{{ type.1 }}</option>
+                    <option title="{{ type.2 }}" value="{{ type.0 }}"{% if active.type == type.0 %} selected="selected"{% endif %}>{{ type.1 }}</option>
                     {% endfor %}
-                    </optgroup>
                 </select>
                 {% set other_bits=text.bits_exlude(active)[:-1] %}
                 {% if other_bits %}
