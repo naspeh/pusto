@@ -40,7 +40,7 @@ c 02.2011 веб-разработчик на python в `oDesk <http://odesk.com>
 
 
 |naya|_ - микрофреймворк на базе Werkzeug_.
-  Используется на этом сайте и воплощает мои взгляды на удобную разработку и красоту приложения.
+  Используется на этом сайте и воплощает некоторые мои взгляды на удобную разработку и красоту приложения.
 
   .. note::
     Werkzeug_ - это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, а библиотека (инструмент) для разработки `WSGI <http://ru.wikipedia.org/wiki/WSGI>`_ приложений. На базе нее построено немало фреймворков: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashammer <http://glashammer.org/>`_.
@@ -48,11 +48,11 @@ c 02.2011 веб-разработчик на python в `oDesk <http://odesk.com>
 
 Активно использую
 =================
-* python_ с августа 2009 г; работал с `Django <http://www.djangoproject.com/>`_, Pylons_;  интересуюсь Werkzeug_;
+* python_ с августа 2009 г; работал с `Django <http://www.djangoproject.com/>`_, Pylons_, Werkzeug_;
 * AJAX/JavaScript работал с jQuery_, `Prototype <http://www.prototypejs.org/>`_;
 * (X)HTML/CSS; интересуюсь `семантической версткой <http://pepelsbey.net/2008/04/semantic-coding-1/>`_;
-* SQL (MySQL, SQLite);
-* `NoSQL <http://ru.wikipedia.org/wiki/NoSQL>`_; интересуюсь `MongoDB <http://www.mongodb.org/>`_;
+* SQL; работал с PostgreSQL, MySQL, SQLite;
+* `NoSQL <http://ru.wikipedia.org/wiki/NoSQL>`_; работал с `Redis <http://redis.io/>`_, `MongoDB <http://www.mongodb.org/>`_;
 * `распределённые системы контроля версий (DVCS) <http://habrahabr.ru/blogs/development_tools/71115/>`_: `git <http://git-scm.com/>`_, `mercurial <http://mercurial.selenic.com/>`_;
 * пользователь GNU/Linux с июля 2008; `Debian GNU/Linux <http://www.debian.org/>`_ и `Vim <http://www.vim.org/>`_ с августа 2010.
 
