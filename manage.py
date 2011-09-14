@@ -60,11 +60,11 @@ def remote(target):
 
 
 @command()
-def deploy(pip=('', True, 'Update pip requirements')):
+def deploy(no_pip=('p', False, 'don\'t update pip requirements')):
     '''Deploy code on server'''
     sh(('cd $project_path', 'pwd', 'git pull origin master'))
 
-    if pip:
+    if not no_pip:
         pip(target='stage')
 
     uwsgi(restart=True)
@@ -149,11 +149,11 @@ def test(
 
 
 @command()
-def shell(use_bpython=('b', True, 'use bpython')):
+def shell(no_bpython=('', False, 'don\'t use bpython')):
     '''Start a new interactive python session'''
     namespace = {'app': make_app()}
     banner = 'Interactive shell for `pusto`'
-    if use_bpython:
+    if not no_bpython:
         try:
             import bpython
         except ImportError:
@@ -170,13 +170,13 @@ def shell(use_bpython=('b', True, 'use bpython')):
 def run(
     hostname=('h', 'localhost', 'server name'),
     port=('p', 5000, 'server port'),
-    reloader=('r', True, 'use reloader'),
-    debugger=('d', True, 'use debugger')
+    no_reloader=('', False, 'don\'t use reloader'),
+    no_debugger=('', False, 'don\'t use debugger')
 ):
     '''Start a new development server'''
     from werkzeug.serving import run_simple
     app = make_app()
-    run_simple(hostname, port, app, reloader, debugger)
+    run_simple(hostname, port, app, not no_reloader, not no_debugger)
 
 
 if __name__ == '__main__':
