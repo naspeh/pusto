@@ -10,8 +10,10 @@
     <h1 class="node-title">
         {% if node.parent %}<a href="{{ node.parent.url_show }}">{{ node.parent.title }}</a> :: {% endif %}
         {{ node.title }}{% if app.is_admin() %} <a href="{{ node.url_edit }}">[изменить]</a>{% endif %}
+        {% if node %}
+            <div class="node-detail">{{ node.created.strftime('%d.%m.%Y') }}</div>
+        {% endif %}
     </h1>
-
     {% if node.content -%}
         {% with partial=True, text=node.content, node=node %}
             {% include 'text/show.html' %}

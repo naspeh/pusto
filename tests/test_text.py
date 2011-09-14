@@ -123,6 +123,7 @@ def test_bit_reset():
 
 @with_setup(clear_db)
 def test_text_delete():
+    authorize()
     text = add_text()[0]
     c.get(app.url_for(':text.delete', id=text['_id']))
     aye('==', app.db.Text.fetch().count(), 0)
@@ -137,7 +138,7 @@ def test_text_show():
     c.get(url, code=200)
     aye('in', '%s' % text['_id'], c.data)
     aye('in', text.html, c.data)
-    aye('==', 1, call(c.data.count, 'class="document"'), c.data)
+    aye('==', 1, call(c.data.count, text.html), c.data)
     aye(False, call(c.data.startswith, '<div id="text-show">'), c.data)
 
     c.get(url, code=200, headers=[('X_REQUESTED_WITH', 'XMLHttpRequest')])

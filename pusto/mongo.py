@@ -25,6 +25,8 @@ class MongoMixin(object):
                 model.collection = self.db[model.__collection__]
                 model.app = self
 
+                model.generate_index(model.collection)
+
         self.mongo.register(models)
 
     def object_id(self, id):
