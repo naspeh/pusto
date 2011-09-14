@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from naya.script import make_shell, sh
-from werkzeug.script import make_runserver, run
+from naya.script import sh
+from opster import command, dispatch
 
 
 sh.defaults(host='yadro.org', params={
@@ -17,22 +17,25 @@ def make_app():
     return App()
 
 
-def action_clean(mask=''):
-    '''Clean useless files.'''
+@command()
+def clean(mask=None):
+    '''Clean useless files'''
     masks = [mask] if mask else ['*.pyc', '*.pyo', '*~', '*.orig']
     command = ('find . -name "%s" -exec rm -f {} +' % mask for mask in masks)
     sh('\n'.join(command))
 
 
-def action_code(target='.'):
+@command()
+def code(target='.'):
     '''Check code style'''
     sh('pep8 --ignore=E202 %s' % target, no_exit=True)
     sh('pyflakes %s' % target, no_exit=True)
-    sh('git diff | grep -5 print', no_exit=True)
+    sh('git diff | grep -1 print', no_exit=True)
 
 
-def action_db(target=''):
-    '''Drop|dump|restore database'''
+@command(usage='drop|dump|restore')
+def db(target):
+    '''Drop or dump or restore database'''
     targets = ('drop', 'dump', 'restore')
     if not target or target not in targets:
         print('Usage: ./manage.py %s' % '|'.join(targets))
@@ -46,12 +49,9 @@ def action_db(target=''):
         sh('mongorestore -d{0} dump/{0}'.format(app['mongo:db']))
 
 
-def action_remote(target=''):
-    '''Call remote command.'''
-    if not target:
-        print('Error. Target is not defined')
-        return
-
+@command()
+def remote(target):
+    '''Call remote command'''
     sh(
         ['cd $project_path', '$activate', target],
         params={'m': './manage.py'},
@@ -59,26 +59,33 @@ def action_remote(target=''):
     )
 
 
-def action_deploy(pip=True):
-    '''Deploy code on server.'''
+@command()
+def deploy(pip=('', True, 'Update pip requirements')):
+    '''Deploy code on server'''
     sh(('cd $project_path', 'pwd', 'git pull origin master'))
 
     if pip:
-        action_pip(target='stage')
+        pip(target='stage')
 
-    action_uwsgi(restart=True)
+    uwsgi(restart=True)
 
 
-def action_pip(target='devel'):
-    '''Update virtualenv with pip requirements.'''
+@command()
+def pip(target='devel'):
+    '''Update pip requirements on server'''
     sh((
         'cd $project_path', '$activate', 'pwd',
-        'pip install -r docs/pip/%s.txt' % target,
+        'pip install -r etc/pip/%s.txt' % target,
     ))
 
 
-def action_uwsgi(restart=('r', False), kill=('k', False), pids=('p', False)):
-    '''Manage uwsgi.'''
+@command()
+def uwsgi(
+    restart=('r', False, 'with restart'),
+    kill=('k', False, 'with killing pids'),
+    pids=('p', False, 'show pids')
+):
+    '''Manage uwsgi'''
     def get_pids(info=True):
         pids = sh('pgrep -f $sock_path', capture=True, no_exit=True)
         pids = pids and pids.replace('\n', ' ') or None
@@ -90,25 +97,34 @@ def action_uwsgi(restart=('r', False), kill=('k', False), pids=('p', False)):
         else:
             print('WARNING. No pids...')
 
-    if pids == True:
+    if pids:
         get_pids()
 
-    if kill == True or restart == True:
+    if kill or restart:
         pids = get_pids(False)
         if pids:
             sh('kill %s' % pids)
         else:
             print('no kill...')
 
-    if restart == True:
-        sh('screen -d -m '
-           'uwsgi -s $sock_path -w stage:app -H$env_path --uid=nobody -b 8192')
+    if restart:
+        sh(
+            'screen -d -m '
+            'uwsgi -s $sock_path -w stage:app -H$env_path --uid=nobody -b 8192'
+        )
         get_pids()
 
 
-def action_test(target='', base=False, rm=False, failed=('f', False),
-                with_coverage=('c', False), cover_package=('p', 'pusto')):
-    '''Run tests.'''
+@command()
+def test(
+    target='',
+    base=('', False, 'base nosetests command'),
+    rm=('', False, 'remove pilot files'),
+    failed=('f', False, 'with --failed option'),
+    with_coverage=('c', False, 'with coverage options'),
+    cover_package=('p', 'pusto', 'set coverage package')
+):
+    '''Run tests'''
     if rm:
         sh('rm .noseids .coverage')
 
@@ -132,9 +148,36 @@ def action_test(target='', base=False, rm=False, failed=('f', False),
     sh(' '.join(command))
 
 
-action_shell = make_shell(lambda: {'app': make_app()})
-action_run = make_runserver(make_app, use_reloader=True, use_debugger=True)
+@command()
+def shell(use_bpython=('b', True, 'use bpython')):
+    '''Start a new interactive python session'''
+    namespace = {'app': make_app()}
+    banner = 'Interactive shell for `pusto`'
+    if use_bpython:
+        try:
+            import bpython
+        except ImportError:
+            pass
+        else:
+            bpython.embed(locals_=namespace, banner=banner)
+            return
+
+    from code import interact
+    interact(banner, local=namespace)
+
+
+@command()
+def run(
+    hostname=('h', 'localhost', 'server name'),
+    port=('p', 5000, 'server port'),
+    reloader=('r', True, 'use reloader'),
+    debugger=('d', True, 'use debugger')
+):
+    '''Start a new development server'''
+    from werkzeug.serving import run_simple
+    app = make_app()
+    run_simple(hostname, port, app, reloader, debugger)
 
 
 if __name__ == '__main__':
-    run()
+    dispatch()

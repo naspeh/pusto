@@ -1,5 +1,7 @@
 -e git://github.com/mitsuhiko/werkzeug.git#egg=werkzeug
 -e git://github.com/mitsuhiko/jinja2.git#egg=jinja2
+-e git://github.com/piranha/opster.git#egg=opster
+
 -e git://github.com/namlook/mongokit.git#egg=mongokit
 -e hg+http://dev.pocoo.org/hg/pygments-main#egg=pygments
 
