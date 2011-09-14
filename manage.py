@@ -49,7 +49,7 @@ def action_db(target=''):
 def action_remote(target=''):
     '''Call remote command.'''
     if not target:
-        print('Error. Target no define')
+        print('Error. Target is not defined')
         return
 
     sh(
