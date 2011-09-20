@@ -24,7 +24,8 @@
 
 Опыт работы
 ===========
-c 02.2011 веб-разработчик на python в `oDesk <http://odesk.com>`_;
+В данный момент занимаюсь своими проектами
+  | 02.2011 - 09.2011 веб-разработчик на python в `oDesk <http://odesk.com>`_;
   | 12.2009 - 01.2011 веб-разработчик на python в `42 Coffee Cups <http://42coffeecups.com/>`_;
   | 02.2009 - 09.2009 веб-разработчик на Java в `Ardas Group <http://www.ardas.dp.ua/ru>`_;
   | 03.2007 - 02.2009 веб-разработчик на PHP, Freelance;
@@ -35,14 +36,16 @@ c 02.2011 веб-разработчик на python в `oDesk <http://odesk.com>
 
 Собственные проекты
 ===================
-|horosh|_ - проект для публикации отчетов о путешествиях. Стартовал 25.11.2009.
- На нем опробован новый для меня python_ фреймворк Pylons_. В качестве JavaScript фреймворка был использован jQuery_. Приложение проектировал удобным, использовал `AJAX <http://ru.wikipedia.org/wiki/AJAX>`_, но старался не перегибать с последним. Оценить интерфейс редактирования можно по `демо событию <http://horosh.org/demo/>`_. Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
 
+**pusto.org** - код доступен на `github <http://github.com/naspeh/pusto>`_. Место для эксперементов :)
 
 |naya|_ - микрофреймворк на базе Werkzeug_.
   Используется на этом сайте и воплощает некоторые мои взгляды на удобную разработку и красоту приложения.
 
-  .. note::
+|horosh|_ - проект для публикации отчетов о путешествиях. Стартовал 25.11.2009.
+ На нем опробован новый для меня python_ фреймворк Pylons_. В качестве JavaScript фреймворка был использован jQuery_. Приложение проектировал удобным, использовал `AJAX <http://ru.wikipedia.org/wiki/AJAX>`_, но старался не перегибать с последним. Оценить интерфейс редактирования можно по `демо событию <http://horosh.org/demo/>`_. Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
+
+.. note::
     Werkzeug_ - это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, а библиотека (инструмент) для разработки `WSGI <http://ru.wikipedia.org/wiki/WSGI>`_ приложений. На базе нее построено немало фреймворков: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashammer <http://glashammer.org/>`_.
 
 
