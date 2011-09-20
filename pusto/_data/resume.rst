@@ -42,12 +42,11 @@
 |naya|_ - микрофреймворк на базе Werkzeug_.
   Используется на этом сайте и воплощает некоторые мои взгляды на удобную разработку и красоту приложения.
 
-|horosh|_ - проект для публикации отчетов о путешествиях. Стартовал 25.11.2009.
- На нем опробован новый для меня python_ фреймворк Pylons_. В качестве JavaScript фреймворка был использован jQuery_. Приложение проектировал удобным, использовал `AJAX <http://ru.wikipedia.org/wiki/AJAX>`_, но старался не перегибать с последним. Оценить интерфейс редактирования можно по `демо событию <http://horosh.org/demo/>`_. Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
-
 .. note::
     Werkzeug_ - это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, а библиотека (инструмент) для разработки `WSGI <http://ru.wikipedia.org/wiki/WSGI>`_ приложений. На базе нее построено немало фреймворков: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashammer <http://glashammer.org/>`_.
 
+|horosh|_ - проект для публикации отчетов о путешествиях. Стартовал 25.11.2009.
+ На нем опробован новый для меня python_ фреймворк Pylons_. В качестве JavaScript фреймворка был использован jQuery_. Приложение проектировал удобным, использовал `AJAX <http://ru.wikipedia.org/wiki/AJAX>`_, но старался не перегибать с последним. Оценить интерфейс редактирования можно по `демо событию <http://horosh.org/demo/>`_. Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
 
 Активно использую
 =================
