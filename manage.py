@@ -33,20 +33,31 @@ def code(target='.'):
     sh('git diff | grep -1 print', no_exit=True)
 
 
-@command(usage='drop|dump|restore')
-def db(target):
-    '''Drop or dump or restore database'''
-    targets = ('drop', 'dump', 'restore')
-    if not target or target not in targets:
-        print('Usage: ./manage.py %s' % '|'.join(targets))
-
+@command()
+def db_drop(target):
+    '''Drop database'''
     app = make_app()
-    if target == 'drop':
-        app.mongo.drop_database(app['mongo:db'])
-    elif target == 'dump':
-        sh('mongodump -d{0}'.format(app['mongo:db']))
-    elif target == 'restore':
-        sh('mongorestore -d{0} dump/{0}'.format(app['mongo:db']))
+    app.mongo.drop_database(app['mongo:db'])
+
+
+@command()
+def db_dump(target, commit=('c', True, 'commit changes')):
+    '''Dump database'''
+    app = make_app()
+    sh('mongodump -d{0}'.format(app['mongo:db']))
+    sh([
+        'git checkout dump/pusto/users.bson',
+        'git add dump/',
+        'git commit -m "Updated dump;"',
+        'git push origin HEAD'
+    ])
+
+
+@command()
+def db_restore(target):
+    '''Restore database'''
+    app = make_app()
+    sh('mongorestore -d{0} dump/{0}'.format(app['mongo:db']))
 
 
 @command()
