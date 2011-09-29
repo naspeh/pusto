@@ -41,7 +41,7 @@ def db_drop(target):
 
 
 @command()
-def db_dump(target, commit=('c', True, 'commit changes')):
+def db_dump(target, commit=('c', False, 'commit changes')):
     '''Dump database'''
     app = make_app()
     sh('mongodump -d{0}'.format(app['mongo:db']))
