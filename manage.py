@@ -34,27 +34,28 @@ def code(target='.'):
 
 
 @command()
-def db_drop(target):
+def db_drop():
     '''Drop database'''
     app = make_app()
     app.mongo.drop_database(app['mongo:db'])
 
 
 @command()
-def db_dump(target, commit=('c', False, 'commit changes')):
+def db_dump(commit=('c', False, 'commit changes')):
     '''Dump database'''
     app = make_app()
     sh('mongodump -d{0}'.format(app['mongo:db']))
-    sh([
-        'git checkout dump/pusto/users.bson',
-        'git add dump/',
-        'git commit -m "Updated dump;"',
-        'git push origin HEAD'
-    ])
+    if commit:
+        sh([
+            'git checkout dump/pusto/users.bson',
+            'git add dump/',
+            'git commit -m "Updated dump;"',
+            'git push origin HEAD'
+        ])
 
 
 @command()
-def db_restore(target):
+def db_restore():
     '''Restore database'''
     app = make_app()
     sh('mongorestore -d{0} dump/{0}'.format(app['mongo:db']))
