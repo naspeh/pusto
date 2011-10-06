@@ -180,7 +180,7 @@ def shell(no_bpython=('', False, 'don\'t use bpython')):
 
 @command()
 def run(
-    hostname=('h', 'localhost', 'server name'),
+    hostname=('n', 'localhost', 'server name'),
     port=('p', 5000, 'server port'),
     no_reloader=('', False, 'don\'t use reloader'),
     no_debugger=('', False, 'don\'t use debugger')
