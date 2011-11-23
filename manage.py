@@ -71,11 +71,11 @@ def remote(target):
 
 
 @command()
-def deploy(no_pip=('p', False, 'don\'t update pip requirements')):
+def deploy(with_pip=('p', False, 'update pip requirements')):
     '''Deploy code on server'''
     sh(('cd $project_path', 'pwd', 'git pull origin master'))
 
-    if not no_pip:
+    if with_pip:
         pip(target='stage')
 
     sh('touch ../reload')
