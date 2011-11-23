@@ -8,7 +8,6 @@
     <title>pusto.org: {% block title %}Гриша aka naspeh{% endblock %}</title>
 
     <link rel="icon" href="{{ app.url_for(':theme', path='_images/favicon.png') }}" type="image/png" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&subset=latin,cyrillic" />
     {{ h.css('layout.less', less=True) }}
 
     {% block extrahead %}{% endblock %}

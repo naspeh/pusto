@@ -28,9 +28,8 @@ def delete(app, id):
     return app.redirect(app.url_for(**target))
 
 
-@marker.route('/text/<id>/', defaults={'src': False})
-@marker.route('/text/<id>/text/', defaults={'src': 'text'})
-@marker.route('/text/<id>/html/', defaults={'src': 'html'})
+@marker.route('/text/<id>/', defaults={'src': None})
+@marker.route('/text/<id>/<any(text, html):src>')
 def show(app, id, src):
     text, node = prepare(app, id, check_allow=False)
     return app.to_template('text/show.html', text=text, node=node, src=src)

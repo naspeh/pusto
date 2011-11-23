@@ -221,8 +221,8 @@ class Text(MarkupMixin, CreatedMixin, OwnerMixin):
         return self.app.url_for(':text.delete', id=self['_id'])
 
     @property
-    def url_show(self, src=None):
-        return self.app.url_for(':text.show', id=self['_id'], src=src)
+    def url_show(self):
+        return self.url_src()
 
     def url_src(self, src=None):
         return self.app.url_for(':text.show', id=self['_id'], src=src)
