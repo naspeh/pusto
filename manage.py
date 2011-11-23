@@ -4,10 +4,9 @@ from opster import command, dispatch
 
 
 sh.defaults(host='yadro.org', params={
-    'activate': 'source .env/bin/activate && which python',
-    'env_path': '.env',
-    'sock_path': '/tmp/pusto-uwsgi.sock',
-    'project_path': '/var/www/nanaya',
+    'activate': 'source ../env/bin/activate && which python',
+    'env_path': '../env',
+    'project_path': '/home/free/pusto/src',
 })
 
 
@@ -79,7 +78,7 @@ def deploy(no_pip=('p', False, 'don\'t update pip requirements')):
     if not no_pip:
         pip(target='stage')
 
-    uwsgi(restart=True)
+    sh('touch ../reload')
 
 
 @command()
@@ -89,42 +88,6 @@ def pip(target='devel'):
         'cd $project_path', '$activate', 'pwd',
         'pip install -r etc/pip/%s.txt' % target,
     ))
-
-
-@command()
-def uwsgi(
-    restart=('r', False, 'with restart'),
-    kill=('k', False, 'with killing pids'),
-    pids=('p', False, 'show pids')
-):
-    '''Manage uwsgi'''
-    def get_pids(info=True):
-        pids = sh('pgrep -f $sock_path', capture=True, no_exit=True)
-        pids = pids and pids.replace('\n', ' ') or None
-        if not info:
-            return pids
-
-        if pids:
-            print('Pids: %s' % pids)
-        else:
-            print('WARNING. No pids...')
-
-    if pids:
-        get_pids()
-
-    if kill or restart:
-        pids = get_pids(False)
-        if pids:
-            sh('kill %s' % pids)
-        else:
-            print('no kill...')
-
-    if restart:
-        sh(
-            'screen -d -m '
-            'uwsgi -s $sock_path -w stage:app -H$env_path --uid=nobody -b 8192'
-        )
-        get_pids()
 
 
 @command()
