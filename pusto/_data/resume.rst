@@ -6,9 +6,12 @@
 {% filter rst %}
 Гриша Костюк aka `naspeh </naspeh/unikalnyy-nik/>`_
 ===================================================
+.. * г. Днепродзержинск (Украина)
+.. * тел: +380 63 6931716
+
 * email и jabber: **naspeh(at)gmail.com**
-* тел: +380 63 6931716
-* г. Днепродзержинск (Украина)
+* тел: +7 985 1322283
+* г. Москва (с января 2012)
 * дата рождения: **15 апреля 1983**
 
 
@@ -26,7 +29,8 @@
 ===========
 .. 10.09.2011 - 10.10.2011 - перерыв в oDesk;
 
-C 02.2011 веб-разработчик на python в `oDesk <http://odesk.com>`_;
+C 01.2012 веб-разработчик на python в `ostrovok.ru <http://ostrovok.ru>`_;
+  | 02.2011 - 01.2012 веб-разработчик на python в `oDesk <http://odesk.com>`_;
   | 12.2009 - 01.2011 веб-разработчик на python в `42 Coffee Cups <http://42coffeecups.com/>`_;
   | 02.2009 - 09.2009 веб-разработчик на Java в `Ardas Group <http://www.ardas.dp.ua/ru>`_;
   | 03.2007 - 02.2009 веб-разработчик на PHP, Freelance;
@@ -47,7 +51,7 @@ C 02.2011 веб-разработчик на python в `oDesk <http://odesk.com>
     Werkzeug_ - это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, а библиотека (инструмент) для разработки `WSGI <http://ru.wikipedia.org/wiki/WSGI>`_ приложений. На базе нее построено немало фреймворков: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashammer <http://glashammer.org/>`_.
 
 |horosh|_ - проект для публикации отчетов о путешествиях. Стартовал 25.11.2009.
- На нем опробован новый для меня python_ фреймворк Pylons_. В качестве JavaScript фреймворка был использован jQuery_. Приложение проектировал удобным, использовал `AJAX <http://ru.wikipedia.org/wiki/AJAX>`_, но старался не перегибать с последним. Оценить интерфейс редактирования можно по `демо событию <http://horosh.org/demo/>`_. Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
+  Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
 
 Активно использую
 =================
@@ -57,7 +61,7 @@ C 02.2011 веб-разработчик на python в `oDesk <http://odesk.com>
 * SQL; работал с PostgreSQL, MySQL, SQLite;
 * `NoSQL <http://ru.wikipedia.org/wiki/NoSQL>`_; работал с `Redis <http://redis.io/>`_, `MongoDB <http://www.mongodb.org/>`_;
 * `распределённые системы контроля версий (DVCS) <http://habrahabr.ru/blogs/development_tools/71115/>`_: `git <http://git-scm.com/>`_, `mercurial <http://mercurial.selenic.com/>`_;
-* пользователь GNU/Linux с июля 2008; `Debian GNU/Linux <http://www.debian.org/>`_ и `Vim <http://www.vim.org/>`_ с августа 2010.
+* пользователь GNU/Linux с июля 2008; `Vim <http://www.vim.org/>`_ с августа 2010, `Arch Linux <http://www.archlinux.org/>`_ с января 2012;
 
 Интересуюсь `чистотой <http://www.python.org/dev/peps/pep-0008/>`_ и красотой кода, архитектурой приложений, `паттернами проектирования <http://ru.wikipedia.org/wiki/Шаблон_проектирования>`_, `гибкими методиками разработки <http://ru.wikipedia.org/wiki/Гибкая_методология_разработки>`_, `рефакторингом <http://ru.wikipedia.org/wiki/Рефакторинг>`_, `TDD <http://ru.wikipedia.org/wiki/Разработка_через_тестирование>`_, `свободным ПО <http://ru.wikipedia.org/wiki/Свободное_программное_обеспечение>`_, пользовательскими интерфейсами, `юзабилити <http://ru.wikipedia.org/wiki/Юзабилити>`_. Слежу за новшествами в сфере веб-разработки.
 
