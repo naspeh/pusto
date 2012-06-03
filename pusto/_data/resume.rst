@@ -55,13 +55,15 @@ C 01.2012 веб-разработчик на python в `ostrovok.ru <http://ostr
 
 Активно использую
 =================
+.. `Debian GNU/Linux <http://www.debian.org/>`_ и `Vim <http://www.vim.org/>`_ с августа 2010.
+
 * python_ с августа 2009 г; работал с `Django <http://www.djangoproject.com/>`_, Pylons_, Werkzeug_;
 * AJAX/JavaScript работал с jQuery_, `Prototype <http://www.prototypejs.org/>`_;
 * (X)HTML/CSS; интересуюсь `семантической версткой <http://pepelsbey.net/2008/04/semantic-coding-1/>`_;
 * SQL; работал с PostgreSQL, MySQL, SQLite;
 * `NoSQL <http://ru.wikipedia.org/wiki/NoSQL>`_; работал с `Redis <http://redis.io/>`_, `MongoDB <http://www.mongodb.org/>`_;
 * `распределённые системы контроля версий (DVCS) <http://habrahabr.ru/blogs/development_tools/71115/>`_: `git <http://git-scm.com/>`_, `mercurial <http://mercurial.selenic.com/>`_;
-* пользователь GNU/Linux с июля 2008; `Vim <http://www.vim.org/>`_ с августа 2010, `Arch Linux <http://www.archlinux.org/>`_ с января 2012;
+* пользователь GNU/Linux с июля 2008; `Vim <http://www.vim.org/>`_ с августа 2010; `Arch Linux <http://www.archlinux.org/>`_ с января 2012.
 
 Интересуюсь `чистотой <http://www.python.org/dev/peps/pep-0008/>`_ и красотой кода, архитектурой приложений, `паттернами проектирования <http://ru.wikipedia.org/wiki/Шаблон_проектирования>`_, `гибкими методиками разработки <http://ru.wikipedia.org/wiki/Гибкая_методология_разработки>`_, `рефакторингом <http://ru.wikipedia.org/wiki/Рефакторинг>`_, `TDD <http://ru.wikipedia.org/wiki/Разработка_через_тестирование>`_, `свободным ПО <http://ru.wikipedia.org/wiki/Свободное_программное_обеспечение>`_, пользовательскими интерфейсами, `юзабилити <http://ru.wikipedia.org/wiki/Юзабилити>`_. Слежу за новшествами в сфере веб-разработки.
 
