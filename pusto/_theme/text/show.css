@@ -2,6 +2,9 @@
     margin: 0;
     border-bottom: 2px solid #ccc;
 }
+#text-show-body {
+    padding-bottom: 10px
+}
 #text-show-body .src {
     height: 500px;
 }
