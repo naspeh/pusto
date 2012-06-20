@@ -20,7 +20,7 @@
         <ul class="menu">
         {% if app.user %}
             <li class="auth">Привет, <strong>{{ app.user.name }}</strong></li>
-            <li><a href="{{ app.url_for(':text.roll') }}">Тексты</a></li>
+            <li><a href="{{ app.url_for(':text.roll', all=False) }}">Тексты</a></li>
             {% if app.is_admin() %}<li><a href="{{ app.url_for(':node.roll') }}">Узлы</a></li>{% endif %}
             <li><a href="{{ app.url_for(':auth.logout') }}">Выход</a></li>
         {% else %}

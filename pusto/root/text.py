@@ -40,7 +40,7 @@ def show(app, id, src):
 @marker.route('/texts/all/', defaults={'all': True})
 def roll(app, all):
     if all and not app.is_admin():
-        return app.abort(403)
+        return app.redirect(app.url_for(':text.roll', all=False))
 
     app.session['text.list.all'] = all
     query = {} if all else {'owner': app.user.dbref}
