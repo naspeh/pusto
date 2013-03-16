@@ -94,8 +94,8 @@ class TextBit(CreatedMixin):
     _parent = None
 
     TYPES = u'global', u'hidden'
-    BIT_ERROR = '<div class="system-message"><pre>%s</pre></div>'
-    BIT_HIDE = '<div class="bit-hide">%s</div>'
+    BIT_ERROR = u'<div class="system-message"><pre>%s</pre></div>'
+    BIT_HIDE = u'<div class="bit-hide">%s</div>'
 
     structure = {
         'body': unicode,
