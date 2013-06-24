@@ -2,7 +2,7 @@
 from argh import dispatch_commands
 from werkzeug.serving import run_simple
 
-from yadro import app
+from pusto import app
 
 
 def run(host='localhost', port=5000):
