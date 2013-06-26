@@ -1,8 +1,9 @@
 Bootstrap
 ---------
+- requires Python 3.3;
 - create virtualenv;
-- if ``pip`` not exists run ``easy_install pip``;
-- run ``./env/bootsrap.py``.
+- run ``easy_install pip`` if ``pip`` not exists;
+- run ``env/bootsrap.py``.
 
 
 Usage
