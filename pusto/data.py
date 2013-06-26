@@ -9,10 +9,7 @@ def build(src_dir, build_dir):
     if os.path.exists(build_dir):
         shutil.rmtree(build_dir)
     os.mkdir(build_dir)
-    build_html(src_dir, build_dir)
 
-
-def build_html(src_dir, build_dir):
     fs_tree = {}
     for f in os.walk(src_dir):
         fs_tree[f[0]] = f[1], f[2]
