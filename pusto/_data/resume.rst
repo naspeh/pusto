@@ -30,14 +30,14 @@
 ===========
 .. 10.09.2011 - 10.10.2011 - перерыв в oDesk;
 
-C 01.2012 веб-разработчик на python в `ostrovok.ru <http://ostrovok.ru>`_;
-  | 02.2011 - 01.2012 веб-разработчик на python в `oDesk <http://odesk.com>`_;
-  | 12.2009 - 01.2011 веб-разработчик на python в `42 Coffee Cups <http://42coffeecups.com/>`_;
-  | 02.2009 - 09.2009 веб-разработчик на Java в `Ardas Group <http://www.ardas.dp.ua/ru>`_;
-  | 03.2007 - 02.2009 веб-разработчик на PHP, Freelance;
-  | 11.2006 - 03.2007 веб-разработчик на PHP в ЧП «Зебра»;
-  | 04.2006 - 10.2006 аналитик в ЧП «Компьютерные технологии и системы»;
-  | 02.2005 - 04.2006 оператор 1С в ТК «Сальве».
+| 01.2012 - 04.2013 веб-разработчик на python в `ostrovok.ru <http://ostrovok.ru>`_ (г.Москва);
+| 02.2011 - 01.2012 веб-разработчик на python в `oDesk <http://odesk.com>`_;
+| 12.2009 - 01.2011 веб-разработчик на python в `42 Coffee Cups <http://42coffeecups.com/>`_;
+| 02.2009 - 09.2009 веб-разработчик на Java в `Ardas Group <http://www.ardas.dp.ua/ru>`_;
+| 03.2007 - 02.2009 веб-разработчик на PHP, Freelance;
+| 11.2006 - 03.2007 веб-разработчик на PHP в ЧП «Зебра»;
+| 04.2006 - 10.2006 аналитик в ЧП «Компьютерные технологии и системы»;
+| 02.2005 - 04.2006 оператор 1С в ТК «Сальве».
 
 
 Собственные проекты
@@ -46,10 +46,11 @@ C 01.2012 веб-разработчик на python в `ostrovok.ru <http://ostr
 **pusto.org** - код доступен на `github <http://github.com/naspeh/pusto>`_. Место для эксперементов :)
 
 |naya|_ - микрофреймворк на базе Werkzeug_.
-  Используется на этом сайте и воплощает некоторые мои взгляды на удобную разработку и красоту приложения.
+  Используется на этом сайте. Эксперимент на тему WSGI_ микрофреймвок, 2011 г.
 
-.. note::
-    Werkzeug_ - это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, а библиотека (инструмент) для разработки `WSGI <http://ru.wikipedia.org/wiki/WSGI>`_ приложений. На базе нее построено немало фреймворков: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashammer <http://glashammer.org/>`_.
+..
+  .. note::
+    Werkzeug_ - это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, а библиотека (инструмент) для разработки WSGI_ приложений. На базе нее построено немало фреймворков: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashammer <http://glashammer.org/>`_.
 
 |horosh|_ - проект для публикации отчетов о путешествиях. Стартовал 25.11.2009.
   Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
@@ -93,6 +94,6 @@ C 01.2012 веб-разработчик на python в `ostrovok.ru <http://ostr
 .. _jQuery: http://jquery.com/
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Pylons: http://pylonshq.com/
-
+.. _WSGI: http://ru.wikipedia.org/wiki/WSGI
 {% endfilter %}
 {% endblock %}
