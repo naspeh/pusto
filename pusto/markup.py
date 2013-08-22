@@ -23,7 +23,7 @@ def rst(source, source_path=None):
 
 class Pygments(Directive):
     """Source code syntax hightlighting."""
-    inline_styles = False
+    inline_styles = True
     formatters = {
         'default': HtmlFormatter(noclasses=inline_styles),
         'number': HtmlFormatter(noclasses=inline_styles, linenos=True),

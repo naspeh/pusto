@@ -1,19 +1,17 @@
-@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,700&subset=latin,cyrillic)
-@import url(/_theme/reset.css)
-@import url(/_theme/syntax.css)
-/* Main */
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=PT+Mono&subset=latin,cyrillic);
+
 html {
     height: 100%;
 }
 body {
-    font: 1em/1.4 "Ubuntu" sans;
+    font: 1em/1.4 "PT Sans", sans-serif;
     position: relative;
     height: 100%;
     margin: 0 auto;
     padding: 0 10px;
     max-width: 880px;
     min-width: 780px;
-    min-height: 500px;
 }
 a {
     color: #008000;
@@ -52,20 +50,15 @@ li, dd {
 dt {
     font-weight: bold;
 }
-hr {
-    border: 0 #ccc solid;
-    border-top-width: 1px;
-    clear: both;
-    height: 0;
-}
 pre {
     overflow: auto;
     padding: 5px;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     background: #f9f9f9;
-    font: 0.8em monospace;
-    line-height: 1.2em;
+    font-family: "PT Mono", monospace;
+    font-size: 0.75em;
+    line-height: 1.25em;
     white-space: pre;
 }
 blockquote {
@@ -87,6 +80,23 @@ blockquote {
 }
 .system-message-title {
     font-weight: bold;
+}
+.note {
+    padding: 5px;
+    font-style: italic;
+}
+.note p {
+    background-color: #f9f9f9;
+}
+.note .admonition-title {
+    display: none;
+}
+.highlighttable .linenodiv pre {
+    margin-right: -10px;
+    border-right: 1px solid #ccc;
+}
+.highlighttable .code {
+    width: 100%;
 }
 
 /* Custom classes */
