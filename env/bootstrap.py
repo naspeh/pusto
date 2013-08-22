@@ -2,6 +2,8 @@
 from os.path import dirname, abspath
 from subprocess import check_call
 
+import pip
+
 ROOT = dirname(dirname(abspath(__file__)))
 
 
@@ -11,8 +13,9 @@ def sh(cmd):
 
 
 def main():
-    print('#### Install pip with wheels support...')
-    sh('pip install -r env/req-wheels.txt')
+    if not pip.__version__.startswith('1.4.'):
+        raise SystemExit('Required `pip` with wheels support (pip >= 1.4)')
+
     print('#### Install project dependencies from wheels...')
     sh('pip install -r env/req-dev.txt --no-index')
 
