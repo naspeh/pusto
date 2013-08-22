@@ -18,13 +18,12 @@ def rst(source, source_path=None):
             'traceback': True
         }
     )
-    result = parts['html_body']
-    return result
+    return parts['title'], parts['body']
 
 
 class Pygments(Directive):
     """Source code syntax hightlighting."""
-    inline_styles = True
+    inline_styles = False
     formatters = {
         'default': HtmlFormatter(noclasses=inline_styles),
         'number': HtmlFormatter(noclasses=inline_styles, linenos=True),

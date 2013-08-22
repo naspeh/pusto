@@ -36,8 +36,9 @@ def process_args():
         )
 
     elif args.sub == 'build':
-        build_dir = './var/data'
-        data.build('./data', build_dir)
+        root = os.path.dirname(__file__) + '/'
+        build_dir = root + 'var/data'
+        data.build(root + 'data', build_dir)
         if args.serve:
             os.chdir(build_dir)
             http.server.test(HandlerClass=http.server.SimpleHTTPRequestHandler)

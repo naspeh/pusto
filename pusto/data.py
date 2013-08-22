@@ -1,39 +1,52 @@
+import json
 import os
 import re
 import shutil
+import string
 
 from .markup import rst
+
+strip_tags = lambda t: t and re.sub(r'<.*?[^>]>', '', t)
 
 
 def build(src_dir, build_dir):
     if os.path.exists(build_dir):
         shutil.rmtree(build_dir)
-    os.mkdir(build_dir)
+    shutil.copytree(src_dir, build_dir)
 
-    fs_tree = {}
-    for f in os.walk(src_dir):
-        fs_tree[f[0]] = f[1], f[2]
+    tree = {}
+    for f in os.walk(build_dir):
+        tree[f[0]] = f[1], f[2]
 
-    root = fs_tree[src_dir]
-    for item in root[0]:
-        if not re.match('[a-z-A-Z0-9][a-zA-Z0-9-]*', item):
+    with open(build_dir + '/_theme/index.html') as f:
+        template = f.read()
+    build_subdir(build_dir, tree, template=template)
+
+
+def build_subdir(base_path, tree, template):
+    for item in tree[base_path][0]:
+        path = '/'.join([base_path, item])
+        if not os.path.isdir(path):
             continue
-        src_path = '/'.join([src_dir, item])
-        files = fs_tree[src_path][1]
-        if not files or 'index.rst' not in files:
-            continue
 
-        path = build_dir
-        parts = item.split('--')
-        for part in parts[:-1]:
-            if part:
-                path = '/'.join([path, part])
-                if not os.path.exists(path):
-                    os.mkdir(path)
-        path = '/'.join([path, parts[-1]])
-        shutil.copytree(src_path, path)
-        index = '/'.join([path, 'index.'])
-        with open(index + 'rst') as f:
-            text = rst(f.read(), source_path=index + 'rst')
-        with open(index + 'html', '+w') as f:
-            f.write(text)
+        build_subdir(path, tree, template)
+
+        files = tree[path][1]
+        meta = {}
+        if 'meta.json' in files:
+            with open('/'.join([path, 'meta.json']), 'r') as f:
+                meta = json.loads(f.read())
+
+        title = body = None
+        if 'index.rst' in files:
+            index = '/'.join([path, 'index.'])
+            with open(index + 'rst') as f:
+                title, body = rst(f.read(), source_path=index + 'rst')
+
+            html = string.Template(template).substitute(
+                title=strip_tags(title),
+                html_title=title,
+                html_body=body
+            )
+            with open(index + 'html', '+w') as f:
+                f.write(html)
