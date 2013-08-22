@@ -1,6 +1,2 @@
 *.pyc
-.coverage
-.noseids
-.env
 var
-naya

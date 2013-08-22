@@ -1,0 +1,176 @@
+.. _maximus: http://packages.debian.org/sid/maximus
+.. _devilspie: http://www.foosel.org/linux/devilspie
+.. |gnome| replace:: **gnome**
+
+..
+   http://www.burtonini.com/blog/computers/devilspie
+   http://live.gnome.org/DevilsPie
+   http://help.ubuntu.ru/wiki/devilspie (ru)
+
+..   created: 28.09.2011
+
+.. _bit-1:
+
+Gnome. Оптимизация окон
+=======================
+
+.. _bit-2:
+
+В статье покажу как оптимизирую рабочий стол для маленького разрешения ноутбука (1280х800) и рассмотрю пару полезных утилит для работы с окнами в |gnome| **второй** версии:
+
+- maximus_ убирает декорацию для максимизированного окна (по умолчанию максимизирует все окна);
+- devilspie_ позволяет сделать определенные дейсвия (focus, maximize и т.д.) с окном по его атрибутам.
+
+.. _bit-3:
+
+Так повелось, что |gnome| у меня стал рабочим столом в **linux**. И так сложилось, что решил использовать ноутбук "по полной", как рабочую лошадку, чтоб не возится с синхронизацией данных на нескольких рабочих машинах. Поэтому работу за ноутбуком нужно было сделать максимально удобной.
+
+.. note:: Возможно скоро променяю |gnome| на какой-нибудь `тайловый оконный менеджер <http://ru.wikipedia.org/wiki/Фреймовый_оконный_менеджер_X_Window_System>`_  и `debian <http://www.debian.org/>`_ на `arch linux <http://www.archlinux.org/>`_, поэтому решил записать этот рецепт, которым пользуюсь уже давно, может кому еще пригодится.
+
+До этого любил сидеть за монитором с большим разрешением 1600x1200 (Samsung SyncMaster 204b, 20 дюймов), и когда садился за ноут (1280х800) мне было неудобно, что на экране мало всего помещается. **Решение**: нужно по максимуму оптимизировать визуальное пространство, занимаемое приложениями.
+
+.. _bit-4:
+
+Первым делом думал избавиться от одной из панелей (по умолчанию в |gnome| их две, снизу и вверху экрана). Верхняя панелька мне очень понравилась еще при первом запуске |gnome| и ее удалять совсем не хотелось. Но места на ней совсем не хватало еще и для списка окон:
+
+.. image:: ./img/panel-top.png
+
+Список окон мне тоже оказался очень нужен и желательно, чтоб места для него было побольше:
+
+.. image:: ./img/panel-bottom.png
+
+Панельки так и остались у меня на своих местах :) как в **debian** по умолчанию. Я пробовал для них автоскрытие, но не пошло. Про режим на весь экран у приложений тоже помнил, но мне нужны были панельки, т.к. постоянно их использую.
+
+Нужно было оптимизировать пространство между этими панельками.
+
+.. _bit-5:
+
+Maximus_
+========
+
+**Декорация окон**. Когда окно не развернуто на весь рабочий стол, то в декорациях есть смысл: потянуть за заголовок, растянуть окно. А вот когда окно максимизировано, то частично смысл в декорациях теряется, да еще и место занимают. Действия типа: скрыть окно (Alt + F9), закрыть окно (Alt + F4), максимизировать (Alt + F10) хорошо выполняются через быстрые клавиши. Поэтому убираем декорацию окон, когда они максимизированы. Для этого есть пакет maximus_ в **debian**:
+
+::
+
+  $ aptitude install maximus
+
+.. note:: В `openbox <http://ru.wikipedia.org/wiki/Openbox>`_ есть такой пункт в меню окна: убрать декорацию, но у меня пока стандартный `metacity <http://ru.wikipedia.org/wiki/Metacity>`_.
+
+.. _bit-6:
+
+По умолчанию maximus_ разворачивает все окна на весь экран. Есть `вариант <http://www.zhart.ru/software/21-gnome-panel-minimize-in-ubuntu-linux>`_ прописывать `exclude_class`, но я поступил по-другому - отключил максимизацию
+::
+
+  $ gconftool -s /apps/maximus/no_maximize --type bool true
+  $ gconftool -R /apps/maximus                             
+   undecorate = true
+   binding = disabled
+   exclude_class = [Totem,Gnome-system-monitor]
+   no_maximize = true
+
+Т.е. максимизировать окна буду вручную через **Alt+F10**.
+
+В общем уже неплохо, но ряд приложений после запуска нужно сразу максимизировать, т.к. они не хотят запоминать своих размеров и положения... Лишние телодвижения: запустить, нажать **Alt+F10**, а хочется просто запустить.
+
+.. _bit-7:
+
+Devilspie_
+==========
+
+И тут на помощь приходит devilspie_. Он может работать не только с классами окон (`exclude_class` из maximus_ - это список классов окон), но и может проверить имя приложения, класс и имя окна `и еще ряд атрибутов <http://www.foosel.org/linux/devilspie#matchers>`_. Причем может `проверить атрибут <http://www.foosel.org/linux/devilspie#string_tests>`_ не только на соответствие, а и на содержание (contains) и соответствие регулярному выражению. `Действия <http://www.foosel.org/linux/devilspie#actions>`_ над окнами тоже разные: maximize, unmaximize, focus и undecorate даже :).
+
+.. _bit-8:
+
+Инструмент нашли, дальше используем.
+
+::
+
+  $ aptitude install devilspie
+
+Создаем файл `~/.devilspie/common.ds`. И помещаем туда что-то типа:
+
+.. code-block:: lua
+    :number:
+
+    (begin
+        ;(debug)
+        (if
+            (or
+                (contains(application_name) "Vim")
+                (contains(application_name) "Terminal")
+                (contains(window_name) "New Tab - Google Chrome")
+                (contains(window_name) "FatRat")
+                (contains(window_name) "Document Viewer")
+                (contains(window_name) "Clementine")
+                (is(window_name) "DreamPie")
+            )
+            (maximize)
+        )
+    )
+
+И добавляем `devilspie` в автозагрузку.
+
+.. _bit-9:
+
+Обычно работаю с конфигом `~/.devilspie/common.ds` следующим образом. Добавляю строку с дебагом (например: убрать ";" в начале строки №2 в приведенном выше листинге), убиваю процесс `devilspie` и запускаю его в терминале. В терминал начинают писаться атрибуты окон. Пример сессии:
+
+::
+
+   $ killall devilspie
+   $ devilspie
+
+    Window Title: 'naspeh@free: '; Application Name: 'Terminal'; Class: 'Gnome-terminal'; Geometry: 1280x774+0+3
+    Window Title: 'pusto.org: Edit for fun - Iceweasel'; Application Name: 'Iceweasel'; Class: 'Iceweasel'; Geometry: 1280x774+0+3
+    Window Title: 'x-nautilus-desktop'; Application Name: 'File Manager'; Class: 'Nautilus'; Geometry: 1280x800+0+0
+    Window Title: 'Bottom Expanded Edge Panel'; Application Name: 'Bottom Expanded Edge Panel'; Class: 'Gnome-panel'; Geometry: 1280x24+0+776
+    Window Title: 'Top Expanded Edge Panel'; Application Name: 'Top Expanded Edge Panel'; Class: 'Gnome-panel'; Geometry: 1280x25+0+0    
+
+Потом открываю нужное мне окно, смотрю атрибуты, правлю конфиг, перезапускаю `devilspie` и так пока не будет все хорошо :).
+
+.. _bit-10:
+
+Раз уж используем devilspie_, можно с его помощью еще что-то замутить.
+
+Например, **Skype** очень жутко ведет себя в **linux**. Один из боков: хочется чтоб окна чатов открывались в одном месте и одинакового размера. Если заниматься этим вручную, то тут нужно подгонять каждое новое окно чата мышкой, изрядно потыкав. И тут на помощь приходит действие `geometry` из devilspie_.
+
+
+
+
+
+.. _bit-11:
+
+Пример debug:
+
+::
+
+  Window Title: 'Skype? 2.2 (Beta) for Linux'; Application Name: 'Skype? 2.2 (Beta) for Linux'; Class: 'Skype'; Geometry: 266x487+0+25
+  Window Title: 'Anastasie - Skype? Chat'; Application Name: 'Skype'; Class: 'Skype'; Geometry: 824x619+456+95
+
+.. code-block:: lua
+    :number:
+
+    (if
+        (and
+            (contains(window_name) "Skype")
+            (matches(window_name) " Chat$")
+        )
+        (begin
+            ;(debug)
+            (geometry "808x674+367-0")
+        )
+    )
+
+С условием пришлось повозится (строки 2-5). Мне нужны были только чаты. Были проблемы со знаком "?" в имени окна `"Anastasie - Skype? Chat"` и `matches`. Поэтому первое условие (строка №3) берет все окна содержащие `skype`, а второе условие (строка №4) выбирает из них только чаты.
+
+.. _bit-12:
+
+Итого
+=====
+
+Есть действия, которые каждодневно повторяются, и если на них потратить немного времени и автоматизировать, то в конечном счете сэкономится пара ненужных телодвижений в день :). Как говорится: настрой свой **linux** под себя.
+
+.. _bit-13:
+
+Напоследок скриншот экрана:
+
+.. image:: ./img/screenshot.png

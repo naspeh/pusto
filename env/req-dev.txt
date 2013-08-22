@@ -1,0 +1,5 @@
+--use-wheel
+--find-links=env/wheels
+Pygments==1.6
+Werkzeug==0.9.1
+docutils==0.10

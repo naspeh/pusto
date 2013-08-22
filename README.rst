@@ -1,3 +1,11 @@
-Это исходники сайта `pusto.org <http://pusto.org>`_, на котором обкатывается naya_.
+Bootstrap
+---------
+- requires Python 3.3;
+- create virtualenv;
+- run ``easy_install pip`` if ``pip`` not exists;
+- run ``env/bootsrap.py``.
 
-.. _naya: http://github.com/naspeh/naya
+
+Usage
+-----
+Use ``./manage.py --help`` for information.
