@@ -49,7 +49,7 @@ def get_html(ctx, build_dir):
         meta = {}
 
     if not hasattr(get_html, 'tpl_cache'):
-        with open(build_dir + '/_theme/index.html') as f:
+        with open(build_dir + '/_theme/index.tpl') as f:
             get_html.tpl_cache = f.read()
     tpl = get_html.tpl_cache
 
