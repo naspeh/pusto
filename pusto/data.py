@@ -24,7 +24,7 @@ def get_urls(src_dir):
             urls += build_subdir(path)
 
             files = set(tree[path][1])
-            index = ({'index.html', 'index.rst'} & files or {None}).pop()
+            index = ({'index.rst', 'index.html'} & files or {None}).pop()
             if index:
                 meta = ({'meta.json'} & files or {None}).pop()
                 urls += [(url, Ctx(
