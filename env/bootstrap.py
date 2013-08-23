@@ -17,7 +17,7 @@ def main():
         raise SystemExit('Required `pip` with wheels support (pip >= 1.4)')
 
     print('#### Install project dependencies from wheels...')
-    sh('pip install -r env/req-dev.txt --no-index')
+    sh('pip install -r requirements.txt --no-index')
 
 if __name__ == '__main__':
     main()
