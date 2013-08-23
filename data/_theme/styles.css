@@ -73,7 +73,7 @@ blockquote {
     margin-bottom: 1em;
 
 }
-.system-message-title {
+.system-message .system-message-title {
     font-weight: bold;
 }
 .note {

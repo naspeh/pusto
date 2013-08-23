@@ -20,15 +20,12 @@ def build(src_dir, build_dir):
                 f.write(html)
 
 
-def run_server(host, port, src_dir):
+def create_app(src_dir):
     urls = dict(data.get_urls(src_dir))
 
     @Request.application
     def app(request):
-        if request.path == '/favicon.ico':
-            return Response('')
-
-        elif request.path == '/':
+        if request.path == '/l/':
             html = [
                 '<a href="{0}">{0}</a><br>'.format(u)
                 for u in sorted(urls.keys())
@@ -42,10 +39,12 @@ def run_server(host, port, src_dir):
                     html = f.read()
             return Response(html, mimetype='text/html')
 
-        else:
-            abort(404)
+        abort(404)
+    return app
 
+
+def run_server(host, port, src_dir):
     run_simple(
-        host, port, app, static_files={'': src_dir},
+        host, port, create_app(src_dir), static_files={'': src_dir},
         use_reloader=True, use_debugger=True
     )
