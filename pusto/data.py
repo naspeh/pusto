@@ -1,8 +1,6 @@
 import json
 import os
-import pprint
 import re
-import shutil
 import string
 from collections import namedtuple
 
@@ -36,36 +34,33 @@ def get_urls(src_dir):
         return urls
 
     urls = build_subdir(src_dir)
-    pprint.pprint(urls)
     return urls
 
 
-def build(src_dir, build_dir):
-    if os.path.exists(build_dir):
-        shutil.rmtree(build_dir)
-    shutil.copytree(src_dir, build_dir)
+def get_html(ctx, build_dir):
+    index = build_dir + ctx.index
+    if index.endswith('.html'):
+        return index, None
 
-    with open(build_dir + '/_theme/index.html') as f:
-        template = f.read()
+    if ctx.meta:
+        with open(build_dir + ctx.meta, 'r') as f:
+            meta = json.loads(f.read())
+    else:
+        meta = {}
 
-    for url, ctx in get_urls(src_dir):
-        if ctx.meta:
-            with open(build_dir + ctx.meta, 'r') as f:
-                meta = json.loads(f.read())
-        else:
-            meta = {}
+    if not hasattr(get_html, 'tpl_cache'):
+        with open(build_dir + '/_theme/index.html') as f:
+            get_html.tpl_cache = f.read()
+    tpl = get_html.tpl_cache
 
-        title = body = None
-        if ctx.index.endswith('.rst'):
-            index = build_dir + ctx.index
-            with open(index) as f:
-                title, body = rst(f.read(), source_path=ctx.index)
+    with open(index) as f:
+        title, body = rst(f.read(), source_path=index)
 
-            meta.update(
-                title=strip_tags(title),
-                html_title=title,
-                html_body=body
-            )
-            html = string.Template(template).substitute(meta)
-            with open(index.rstrip('rst') + 'html', '+w') as f:
-                f.write(html)
+    meta.update(
+        title=strip_tags(title),
+        html_title=title,
+        html_body=body
+    )
+    html = string.Template(tpl).substitute(meta)
+    index = index.rstrip('rst') + 'html'
+    return index, html

@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 import argparse
-import http
 import os
 
-from werkzeug.serving import run_simple
-
-from pusto import app, data
+from pusto import run_server, data
 
 ROOT_DIR = os.path.dirname(__file__)
 SRC_DIR = ROOT_DIR + '/data'
@@ -26,24 +23,17 @@ def process_args():
         .arg('--host', default='localhost')\
         .arg('--port', type=int, default=5000)
 
-    sub('build', help='build static content from `data` directory')\
-        .arg('-s', '--serve', action='store_true', help='run server')
+    sub('build', help='build static content from `data` directory')
 
     args = parser.parse_args()
     if not hasattr(args, 'sub'):
         parser.print_usage()
 
     elif args.sub == 'run':
-        run_simple(
-            args.host, args.port, app, static_files={'': BUILD_DIR},
-            use_reloader=True, use_debugger=True
-        )
+        run_server(args.host, args.port, SRC_DIR)
 
     elif args.sub == 'build':
         data.build(SRC_DIR, BUILD_DIR)
-        if args.serve:
-            os.chdir(BUILD_DIR)
-            http.server.test(HandlerClass=http.server.SimpleHTTPRequestHandler)
 
 
 if __name__ == '__main__':
