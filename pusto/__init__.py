@@ -1,6 +1,7 @@
-from werkzeug.wrappers import Request, Response
+from werkzeug.exceptions import abort
+from werkzeug.wrappers import Request
 
 
 @Request.application
 def app(request):
-    return Response('Hello Grisha!')
+    abort(404)

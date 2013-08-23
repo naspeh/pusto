@@ -7,6 +7,10 @@ from werkzeug.serving import run_simple
 
 from pusto import app, data
 
+ROOT_DIR = os.path.dirname(__file__)
+SRC_DIR = ROOT_DIR + '/data'
+BUILD_DIR = ROOT_DIR + '/var/data'
+
 
 def process_args():
     parser = argparse.ArgumentParser()
@@ -31,16 +35,14 @@ def process_args():
 
     elif args.sub == 'run':
         run_simple(
-            args.host, args.port, app,
+            args.host, args.port, app, static_files={'': BUILD_DIR},
             use_reloader=True, use_debugger=True
         )
 
     elif args.sub == 'build':
-        root = os.path.dirname(__file__) + '/'
-        build_dir = root + 'var/data'
-        data.build(root + 'data', build_dir)
+        data.build(SRC_DIR, BUILD_DIR)
         if args.serve:
-            os.chdir(build_dir)
+            os.chdir(BUILD_DIR)
             http.server.test(HandlerClass=http.server.SimpleHTTPRequestHandler)
 
 
