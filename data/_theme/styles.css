@@ -1,13 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic);
 @import url(http://fonts.googleapis.com/css?family=Cousine:400,700,400italic,700italic&subset=latin,cyrillic);
 
-html {
-    height: 100%;
-}
 body {
     font: 1em/1.4 "PT Sans", sans-serif;
-    position: relative;
-    height: 100%;
     margin: 0 auto;
     padding: 0 10px;
     max-width: 880px;
