@@ -1,12 +1,43 @@
 import json
 import os
+import pprint
 import re
 import shutil
 import string
+from collections import namedtuple
 
 from .markup import rst
 
 strip_tags = lambda t: t and re.sub(r'<.*?[^>]>', '', t)
+Ctx = namedtuple('UrlContext', 'index meta')
+
+
+def get_urls(src_dir):
+    tree = dict((f[0], (f[1], f[2])) for f in os.walk(src_dir))
+
+    def build_subdir(base_path):
+        urls = []
+        for item in tree[base_path][0]:
+            path = '/'.join([base_path, item])
+            url = path.replace(src_dir, '') + '/'
+            if not os.path.isdir(path):
+                continue
+
+            urls += build_subdir(path)
+
+            files = set(tree[path][1])
+            index = ({'index.html', 'index.rst'} & files or {None}).pop()
+            if index:
+                meta = ({'meta.json'} & files or {None}).pop()
+                urls += [(url, Ctx(
+                    index=index and url + index,
+                    meta=meta and url + meta
+                ))]
+        return urls
+
+    urls = build_subdir(src_dir)
+    pprint.pprint(urls)
+    return urls
 
 
 def build(src_dir, build_dir):
@@ -14,39 +45,27 @@ def build(src_dir, build_dir):
         shutil.rmtree(build_dir)
     shutil.copytree(src_dir, build_dir)
 
-    tree = {}
-    for f in os.walk(build_dir):
-        tree[f[0]] = f[1], f[2]
-
     with open(build_dir + '/_theme/index.html') as f:
         template = f.read()
-    build_subdir(build_dir, tree, template=template)
 
-
-def build_subdir(base_path, tree, template):
-    for item in tree[base_path][0]:
-        path = '/'.join([base_path, item])
-        if not os.path.isdir(path):
-            continue
-
-        build_subdir(path, tree, template)
-
-        files = tree[path][1]
-        meta = {}
-        if 'meta.json' in files:
-            with open('/'.join([path, 'meta.json']), 'r') as f:
+    for url, ctx in get_urls(src_dir):
+        if ctx.meta:
+            with open(build_dir + ctx.meta, 'r') as f:
                 meta = json.loads(f.read())
+        else:
+            meta = {}
 
         title = body = None
-        if 'index.rst' in files:
-            index = '/'.join([path, 'index.'])
-            with open(index + 'rst') as f:
-                title, body = rst(f.read(), source_path=index + 'rst')
+        if ctx.index.endswith('.rst'):
+            index = build_dir + ctx.index
+            with open(index) as f:
+                title, body = rst(f.read(), source_path=ctx.index)
 
-            html = string.Template(template).substitute(
+            meta.update(
                 title=strip_tags(title),
                 html_title=title,
                 html_body=body
             )
-            with open(index + 'html', '+w') as f:
+            html = string.Template(template).substitute(meta)
+            with open(index.rstrip('rst') + 'html', '+w') as f:
                 f.write(html)
