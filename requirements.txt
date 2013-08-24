@@ -1,5 +1,7 @@
 --use-wheel
 --find-links=env/wheels
+Jinja2==2.7.1
+MarkupSafe==0.18
 Pygments==1.6
 Werkzeug==0.9.3
 docutils==0.11

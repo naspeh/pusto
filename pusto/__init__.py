@@ -48,6 +48,8 @@ def create_app(src_dir):
 def run_server(host, port, src_dir):
     '''Dev server with reloader'''
     run_simple(
-        host, port, create_app(src_dir), static_files={'': src_dir},
-        use_reloader=True, use_debugger=True
+        host, port, create_app(src_dir),
+        use_reloader=True, use_debugger=True,
+        static_files={'': src_dir},
+        extra_files=[src_dir + '/_theme/index.tpl']
     )

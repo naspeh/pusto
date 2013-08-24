@@ -2,7 +2,8 @@ import os
 import re
 from collections import namedtuple
 from configparser import ConfigParser
-from string import Template
+
+from jinja2 import Template
 
 from .markup import rst
 
@@ -67,6 +68,6 @@ def get_html(ctx, build_dir):
         html_title=title,
         html_body=body
     )
-    html = Template(tpl).substitute(meta)
+    html = Template(tpl).render(meta)
     path = path.rstrip('rst') + 'html'
     return path, html

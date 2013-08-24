@@ -3,7 +3,7 @@
 
 body {
     font: 1em/1.4 "PT Sans", sans-serif;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 0 10px;
     max-width: 880px;
     min-width: 780px;
@@ -65,6 +65,15 @@ blockquote {
 }
 
 /* Blocks */
+.title {
+    position: relative;
+}
+.title .title-created {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+}
 .system-message {
     color: red;
     border: 1px dotted red;
