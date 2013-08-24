@@ -1,8 +1,8 @@
 import json
 import os
 import re
-import string
 from collections import namedtuple
+from string import Template
 
 from .markup import rst
 
@@ -38,9 +38,9 @@ def get_urls(src_dir):
 
 
 def get_html(ctx, build_dir):
-    index = build_dir + ctx.index
-    if index.endswith('.html'):
-        return index, None
+    path = build_dir + ctx.index
+    if path.endswith('.html'):
+        return path, None
 
     if ctx.meta:
         with open(build_dir + ctx.meta, 'r') as f:
@@ -53,14 +53,14 @@ def get_html(ctx, build_dir):
             get_html.tpl_cache = f.read()
     tpl = get_html.tpl_cache
 
-    with open(index) as f:
-        title, body = rst(f.read(), source_path=index)
+    with open(path) as f:
+        title, body = rst(f.read(), source_path=path)
 
     meta.update(
         title=strip_tags(title),
         html_title=title,
         html_body=body
     )
-    html = string.Template(tpl).substitute(meta)
-    index = index.rstrip('rst') + 'html'
-    return index, html
+    html = Template(tpl).substitute(meta)
+    path = path.rstrip('rst') + 'html'
+    return path, html
