@@ -7,8 +7,9 @@ from jinja2 import Template
 
 from .markup import rst
 
+tpl_file = '/_theme/index.tpl'
 strip_tags = lambda t: t and re.sub(r'<.*?[^>]>', '', t)
-Ctx = namedtuple('UrlContext', 'index meta')
+Ctx = namedtuple('UrlContext', 'url index meta')
 
 
 def get_urls(src_dir):
@@ -29,6 +30,7 @@ def get_urls(src_dir):
             if index:
                 meta = ({'meta.ini'} & files or {None}).pop()
                 urls += [(url, Ctx(
+                    url=url,
                     index=index and url + index,
                     meta=meta and url + meta
                 ))]
@@ -55,7 +57,7 @@ def get_html(ctx, build_dir):
         return path, None
 
     if not hasattr(get_html, 'tpl_cache'):
-        with open(build_dir + '/_theme/index.tpl') as f:
+        with open(build_dir + tpl_file) as f:
             get_html.tpl_cache = f.read()
     tpl = get_html.tpl_cache
 
@@ -64,6 +66,7 @@ def get_html(ctx, build_dir):
 
     meta = get_meta(build_dir + ctx.meta) if ctx.meta else {}
     meta.update(
+        url=ctx.url,
         title=strip_tags(title),
         html_title=title,
         html_body=body

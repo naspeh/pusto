@@ -51,5 +51,5 @@ def run_server(host, port, src_dir):
         host, port, create_app(src_dir),
         use_reloader=True, use_debugger=True,
         static_files={'': src_dir},
-        extra_files=[src_dir + '/_theme/index.tpl']
+        extra_files=[src_dir + data.tpl_file]
     )
