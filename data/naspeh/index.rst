@@ -8,13 +8,10 @@
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Pylons: http://pylonshq.com/
 
-.. _bit-1:
-
-.. image:: ./img/ava200.jpg
+Гриша aka `naspeh </naspeh/unique-nick/>`_
+------------------------------------------
+.. image:: _img/ava200.jpg
   :align: right
-
-Гриша aka `naspeh </talk/unique-nick/>`_
-============================================
 
 email и jabber: **naspeh(at)gmail.com**
 
