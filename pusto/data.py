@@ -1,7 +1,7 @@
-import json
 import os
 import re
 from collections import namedtuple
+from configparser import ConfigParser
 from string import Template
 
 from .markup import rst
@@ -26,7 +26,7 @@ def get_urls(src_dir):
             files = set(tree[path][1])
             index = ({'index.rst', 'index.html'} & files or {None}).pop()
             if index:
-                meta = ({'meta.json'} & files or {None}).pop()
+                meta = ({'meta.ini'} & files or {None}).pop()
                 urls += [(url, Ctx(
                     index=index and url + index,
                     meta=meta and url + meta
@@ -37,16 +37,21 @@ def get_urls(src_dir):
     return urls
 
 
+def get_meta(path):
+    with open(path, 'r') as f:
+        meta = f.read()
+    parser = ConfigParser()
+    parser.read_string('[default]\n' + meta)
+    meta = dict(parser.items('default'))
+    if 'aliases' in meta:
+        meta['aliases'] = meta['aliases'].strip('\n').split('\n')
+    return meta
+
+
 def get_html(ctx, build_dir):
     path = build_dir + ctx.index
     if path.endswith('.html'):
         return path, None
-
-    if ctx.meta:
-        with open(build_dir + ctx.meta, 'r') as f:
-            meta = json.loads(f.read())
-    else:
-        meta = {}
 
     if not hasattr(get_html, 'tpl_cache'):
         with open(build_dir + '/_theme/index.tpl') as f:
@@ -56,6 +61,7 @@ def get_html(ctx, build_dir):
     with open(path) as f:
         title, body = rst(f.read(), source_path=path)
 
+    meta = get_meta(build_dir + ctx.meta) if ctx.meta else {}
     meta.update(
         title=strip_tags(title),
         html_title=title,
