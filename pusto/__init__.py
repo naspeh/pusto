@@ -5,7 +5,7 @@ from werkzeug.exceptions import abort
 from werkzeug.serving import run_simple
 from werkzeug.wrappers import Request, Response
 
-from . import data
+from .data import get_pages
 
 
 def build(src_dir, build_dir):
@@ -14,7 +14,7 @@ def build(src_dir, build_dir):
         shutil.rmtree(build_dir)
     shutil.copytree(src_dir, build_dir)
 
-    for ctx in data.get_urls(build_dir).values():
+    for ctx in get_pages(build_dir).values():
         if not ctx.index_file.endswith('.html'):
             with open(ctx.path, '+w') as f:
                 f.write(ctx.html)
@@ -22,12 +22,12 @@ def build(src_dir, build_dir):
 
 def create_app(src_dir):
     '''Create WSGI application'''
-    urls = dict(data.get_urls(src_dir))
+    pages = get_pages(src_dir)
 
     @Request.application
     def app(request):
-        if request.path in urls:
-            ctx = urls[request.path]
+        if request.path in pages:
+            ctx = pages[request.path]
             return Response(ctx.html, mimetype='text/html')
 
         abort(404)
@@ -39,6 +39,5 @@ def run_server(host, port, src_dir):
     run_simple(
         host, port, create_app(src_dir),
         use_reloader=True, use_debugger=True,
-        static_files={'': src_dir},
-        extra_files=[src_dir + data.tpl_file]
+        static_files={'': src_dir}
     )
