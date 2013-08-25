@@ -1,42 +1,42 @@
 import os
 import re
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 from configparser import ConfigParser
 
-from jinja2 import Template
+from jinja2 import Template, Environment, FileSystemLoader
 
 from .markup import rst
 
-tpl_file = '/_theme/index.tpl'
+meta_files = {'meta.ini'}
+index_files = {'index.rst', 'index.tpl', 'index.html'}
+tpl_file = '/_theme/base.tpl'
 strip_tags = lambda t: t and re.sub(r'<.*?[^>]>', '', t)
-Ctx = namedtuple('UrlContext', 'url index meta')
+UrlCtx = namedtuple('UrlContext', 'url child_urls index meta')
 
 
 def get_urls(src_dir):
-    tree = dict((f[0], (f[1], f[2])) for f in os.walk(src_dir))
+    tree = OrderedDict((f[0], (f[1], f[2])) for f in os.walk(src_dir))
 
-    def build_subdir(base_path):
-        urls = []
-        for item in tree[base_path][0]:
-            path = '/'.join([base_path, item])
-            url = path.replace(src_dir, '') + '/'
-            if not os.path.isdir(path):
-                continue
+    urls = OrderedDict()
+    for path in tree:
+        url = path.replace(src_dir, '') + '/'
+        if not os.path.isdir(path):
+            continue
 
-            urls += build_subdir(path)
-
-            files = set(tree[path][1])
-            index = ({'index.rst', 'index.html'} & files or {None}).pop()
-            if index:
-                meta = ({'meta.ini'} & files or {None}).pop()
-                urls += [(url, Ctx(
-                    url=url,
-                    index=index and url + index,
-                    meta=meta and url + meta
-                ))]
-        return urls
-
-    urls = build_subdir(src_dir)
+        files = set(tree[path][1])
+        index = (index_files & files or {None}).pop()
+        if index:
+            meta = (meta_files & files or {None}).pop()
+            urls[url] = UrlCtx(
+                url=url, child_urls=[],
+                index=index and url + index,
+                meta=meta and url + meta
+            )
+            parent = url
+            for i in range(parent.count('/') - 1):
+                parent = parent.rsplit('/', 2)[0] + '/'
+                if parent in urls:
+                    urls[parent].child_urls.append(url)
     return urls
 
 
@@ -56,21 +56,29 @@ def get_html(ctx, build_dir):
     if path.endswith('.html'):
         return path, None
 
-    if not hasattr(get_html, 'tpl_cache'):
-        with open(build_dir + tpl_file) as f:
-            get_html.tpl_cache = f.read()
-    tpl = get_html.tpl_cache
-
     with open(path) as f:
-        title, body = rst(f.read(), source_path=path)
+        text = f.read()
 
     meta = get_meta(build_dir + ctx.meta) if ctx.meta else {}
-    meta.update(
-        url=ctx.url,
-        title=strip_tags(title),
-        html_title=title,
-        html_body=body
-    )
-    html = Template(tpl).render(meta)
+    meta.update(ctx._asdict())
+
+    if path.endswith('.tpl'):
+        env = Environment(loader=FileSystemLoader(build_dir))
+        tpl = env.get_template(path.replace(build_dir, ''))
+        html = tpl.render(meta=meta)
+    elif path.endswith('.rst'):
+        if not hasattr(get_html, 'tpl_cache'):
+            with open(build_dir + tpl_file) as f:
+                get_html.tpl_cache = f.read()
+        tpl = get_html.tpl_cache
+
+        title, body = rst(text, source_path=path)
+        meta.update(
+            title=strip_tags(title),
+            html_title=title,
+            html_body=body
+        )
+        html = Template(tpl).render(meta)
+
     path = path.rstrip('rst') + 'html'
     return path, html

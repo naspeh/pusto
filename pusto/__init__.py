@@ -27,14 +27,7 @@ def create_app(src_dir):
 
     @Request.application
     def app(request):
-        if request.path == '/l/':
-            html = [
-                '<a href="{0}">{0}</a><br>'.format(u)
-                for u in sorted(urls.keys())
-            ]
-            return Response(html, mimetype='text/html')
-
-        elif request.path in urls:
+        if request.path in urls:
             path, html = data.get_html(urls[request.path], src_dir)
             if not html:
                 with open(path) as f:
