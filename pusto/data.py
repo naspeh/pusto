@@ -10,7 +10,7 @@ from .markup import rst
 strip_tags = lambda t: t and re.sub(r'<.*?[^>]>', '', t)
 UrlCtx = namedtuple('UrlContext', (
     'url children index_file meta_file path meta '
-    'created title html html_title html_body'
+    'aliases created title html html_title html_body'
 ))
 
 meta_files = {'meta.ini'}
@@ -66,6 +66,7 @@ def get_html(src_dir, ctx):
     meta['children'] = ctx['children']
 
     ctx.update(
+        aliases=meta.get('aliases', None),
         title=meta.get('title', None),
         created=meta.get('created', None),
         html_title=None,

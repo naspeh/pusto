@@ -4,6 +4,7 @@ import shutil
 from werkzeug.exceptions import abort
 from werkzeug.serving import run_simple
 from werkzeug.wrappers import Request, Response
+from werkzeug.utils import redirect
 
 from .data import get_pages
 
@@ -23,12 +24,18 @@ def build(src_dir, build_dir):
 def create_app(src_dir):
     '''Create WSGI application'''
     pages = get_pages(src_dir)
+    urls = []
+    for url, page in pages.items():
+        urls += [(url, Response(page.html, mimetype='text/html'))]
+        if page.aliases:
+            urls += [(a, redirect(url)) for a in page.aliases]
+    urls = dict(urls)
 
     @Request.application
     def app(request):
-        if request.path in pages:
-            ctx = pages[request.path]
-            return Response(ctx.html, mimetype='text/html')
+        response = urls.get(request.path, None)
+        if response:
+            return response
 
         abort(404)
     return app
