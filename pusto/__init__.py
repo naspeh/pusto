@@ -14,11 +14,10 @@ def build(src_dir, build_dir):
         shutil.rmtree(build_dir)
     shutil.copytree(src_dir, build_dir)
 
-    for url, ctx in data.get_urls(build_dir):
-        path, html = data.get_html(ctx, build_dir)
-        if html:
-            with open(path, '+w') as f:
-                f.write(html)
+    for ctx in data.get_urls(build_dir).values():
+        if not ctx.index_file.endswith('.html'):
+            with open(ctx.path, '+w') as f:
+                f.write(ctx.html)
 
 
 def create_app(src_dir):
@@ -28,11 +27,8 @@ def create_app(src_dir):
     @Request.application
     def app(request):
         if request.path in urls:
-            path, html = data.get_html(urls[request.path], src_dir)
-            if not html:
-                with open(path) as f:
-                    html = f.read()
-            return Response(html, mimetype='text/html')
+            ctx = urls[request.path]
+            return Response(ctx.html, mimetype='text/html')
 
         abort(404)
     return app
