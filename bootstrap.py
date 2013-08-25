@@ -4,12 +4,10 @@ from subprocess import check_call
 
 import pip
 
-ROOT = dirname(dirname(abspath(__file__)))
-
 
 def sh(cmd):
     print(cmd)
-    return check_call(cmd, shell=True, cwd=ROOT)
+    return check_call(cmd, shell=True, cwd=dirname(abspath(__file__)))
 
 
 def main():
