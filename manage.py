@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 import argparse
+import http
 import os
 
-from pusto import run_server, data
+from pusto import run_server, build
 
 ROOT_DIR = os.path.dirname(__file__)
 SRC_DIR = ROOT_DIR + '/data'
-BUILD_DIR = ROOT_DIR + '/var/data'
+BUILD_DIR = ROOT_DIR + '/build'
 
 
 def process_args():
@@ -23,7 +24,8 @@ def process_args():
         .arg('--host', default='localhost')\
         .arg('--port', type=int, default=5000)
 
-    sub('build', help='build static content from `data` directory')
+    sub('build', help='build static content from `data` directory')\
+        .arg('-s', '--serve', action='store_true', help='run static server')
 
     args = parser.parse_args()
     if not hasattr(args, 'sub'):
@@ -33,7 +35,10 @@ def process_args():
         run_server(args.host, args.port, SRC_DIR)
 
     elif args.sub == 'build':
-        data.build(SRC_DIR, BUILD_DIR)
+        build(SRC_DIR, BUILD_DIR)
+        if args.serve:
+            os.chdir(BUILD_DIR)
+            http.server.test(HandlerClass=http.server.SimpleHTTPRequestHandler)
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ def build(src_dir, build_dir):
 
     for url, ctx in data.get_urls(build_dir):
         path, html = data.get_html(ctx, build_dir)
-        if not html:
+        if html:
             with open(path, '+w') as f:
                 f.write(html)
 
