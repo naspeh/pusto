@@ -31,11 +31,11 @@ def get_pages(src_dir):
 
         files = set(tree[path][1])
         index = (index_files & files or {None}).pop()
-        if index:
-            meta = (meta_files & files or {None}).pop()
-            children = [(k, v) for k, v in pages.items() if k.startswith(url)]
-            children.reverse()
-            children = OrderedDict(children)
+        meta = (meta_files & files or {None}).pop()
+        children = [(k, v) for k, v in pages.items() if k.startswith(url)]
+        children.reverse()
+        children = OrderedDict(children)
+        if index or children:
             ctx = get_html(src_dir, dict(
                 url=url, children=children,
                 index_file=index and url + index,
@@ -73,28 +73,32 @@ def get_html(src_dir, ctx):
         html_body=None
     )
 
-    path = src_dir + ctx['index_file']
-    with open(path) as f:
-        text = f.read()
-
-    if path.endswith('.html'):
-        html = text
-
-    elif path.endswith('.tpl'):
-        tpl = env.get_template(ctx['index_file'])
+    if not ctx['index_file']:
+        tpl = env.get_template('_theme/list.tpl')
         html = tpl.render(meta=meta)
+    else:
+        path = src_dir + ctx['index_file']
+        with open(path) as f:
+            text = f.read()
 
-    elif path.endswith('.rst'):
-        title, body = rst(text, source_path=path)
-        ctx.update(
-            title=strip_tags(title),
-            html_title=title,
-            html_body=body,
-            meta=meta
-        )
-        tpl = env.get_template(tpl_file)
-        html = tpl.render(ctx)
+        if path.endswith('.html'):
+            html = text
 
-    path = os.path.splitext(path)[0] + '.html'
+        elif path.endswith('.tpl'):
+            tpl = env.get_template(ctx['index_file'])
+            html = tpl.render(meta=meta)
+
+        elif path.endswith('.rst'):
+            title, body = rst(text, source_path=path)
+            ctx.update(
+                title=strip_tags(title),
+                html_title=title,
+                html_body=body,
+                meta=meta
+            )
+            tpl = env.get_template(tpl_file)
+            html = tpl.render(ctx)
+
+    path = ctx['url'] + 'index.html'
     ctx.update(html=html, path=path, meta=meta)
     return Page(**ctx)

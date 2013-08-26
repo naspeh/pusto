@@ -15,7 +15,7 @@
             {% if created %}
             <li>Опубликовано: {{ created }}</li>
             {% endif %}
-            <li><a href="{{ github }}{{ index_file }}">смотреть на github</a></li>
+            <li><a href="{{ github }}{{ url }}">смотреть на github</a></li>
         </li>
     </h1>
     {% endif %}
