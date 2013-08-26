@@ -57,10 +57,14 @@ def get_meta(path):
     return meta
 
 
+def get_jinja(src_dir):
+    if not hasattr(get_jinja, 'env'):
+        get_jinja.env = Environment(loader=FileSystemLoader(src_dir))
+    return get_jinja.env
+
+
 def get_html(src_dir, ctx):
-    if not hasattr(get_html, 'env'):
-        get_html.env = Environment(loader=FileSystemLoader(src_dir))
-    env = get_html.env
+    env = get_jinja(src_dir)
 
     meta = get_meta(src_dir + ctx['meta_file']) if ctx['meta_file'] else {}
     meta.update(ctx)

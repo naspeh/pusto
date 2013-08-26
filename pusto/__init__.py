@@ -6,7 +6,7 @@ from werkzeug.serving import run_simple
 from werkzeug.wrappers import Request, Response
 from werkzeug.utils import redirect
 
-from .data import get_pages
+from .data import get_pages, get_jinja
 
 
 def build(src_dir, build_dir):
@@ -43,8 +43,13 @@ def create_app(src_dir):
 
 def run_server(host, port, src_dir):
     '''Dev server with reloader'''
+    extra_files = [
+        os.path.join(src_dir, f)
+        for f in get_jinja(src_dir).list_templates()
+    ]
     run_simple(
         host, port, create_app(src_dir),
         use_reloader=True, use_debugger=True,
-        static_files={'': src_dir}
+        static_files={'': src_dir},
+        extra_files=extra_files
     )
