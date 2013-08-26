@@ -8,7 +8,7 @@ from jinja2 import Environment, FileSystemLoader
 from .markup import rst
 
 strip_tags = lambda t: t and re.sub(r'<.*?[^>]>', '', t)
-UrlCtx = namedtuple('UrlContext', (
+Page = namedtuple('Page', (
     'url children index_file meta_file path meta '
     'aliases created title html html_title html_body'
 ))
@@ -63,7 +63,7 @@ def get_html(src_dir, ctx):
     env = get_html.env
 
     meta = get_meta(src_dir + ctx['meta_file']) if ctx['meta_file'] else {}
-    meta['children'] = ctx['children']
+    meta.update(ctx)
 
     ctx.update(
         aliases=meta.get('aliases', None),
@@ -83,7 +83,6 @@ def get_html(src_dir, ctx):
     elif path.endswith('.tpl'):
         tpl = env.get_template(ctx['index_file'])
         html = tpl.render(meta=meta)
-        path = path.rstrip('tpl') + 'html'
 
     elif path.endswith('.rst'):
         title, body = rst(text, source_path=path)
@@ -95,6 +94,7 @@ def get_html(src_dir, ctx):
         )
         tpl = env.get_template(tpl_file)
         html = tpl.render(ctx)
-        path = path.rstrip('rst') + 'html'
+
+    path = os.path.splitext(path)[0] + '.html'
     ctx.update(html=html, path=path, meta=meta)
-    return UrlCtx(**ctx)
+    return Page(**ctx)

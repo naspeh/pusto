@@ -66,14 +66,22 @@ blockquote {
 
 /* Blocks */
 .title {
-    position: relative;
+    font-size: 1.5em;
 }
-.title .title-created {
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 12px;
+.title ul.title-meta {
+    list-style: none;
+    font-size: 0.5em;
+    color: #999;
+    overflow: hidden;
 }
+.title ul.title-meta li {
+    float: left;
+    margin-left: -6px;
+    padding: 0 5px;
+    margin-right: 5px;
+    border-left: 1px solid #ccc;
+}
+
 .system-message {
     color: red;
     border: 1px dotted red;

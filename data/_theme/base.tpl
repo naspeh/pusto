@@ -6,15 +6,17 @@
     <title>pusto.org: {% block title %}{{ title or url }}{% endblock %}</title>
 </head>
 <body>
+{% set github="https://github.com/naspeh/pusto/tree/master/data" %}
 {% block body %}
     {% if html_title %}
     <h1 class="title">
         {{ html_title }}
-        {% if created %}
-        <div class="title-created" title="Опубликовано: {{ created }}">
-            {{ created }}
-        </div>
-        {% endif %}
+        <ul class="title-meta">
+            {% if created %}
+            <li>Опубликовано: {{ created }}</li>
+            {% endif %}
+            <li><a href="{{ github }}{{ index_file }}">смотреть на github</a></li>
+        </li>
     </h1>
     {% endif %}
     {{ html_body }}
