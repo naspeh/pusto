@@ -2,7 +2,7 @@
 {% block body %}
 <ul class="posts">
 {% for url, child in children.items() %}
-    <li class="post">
+    <li class="post{% if loop.index == 1 %}post-first{% endif %}">
         <h1 class="title">
             <a href="{{ child.url }}">{{ child.title or url }}</a>
             <ul class="title-meta">

@@ -28,8 +28,6 @@ email и jabber: **naspeh(at)gmail.com**
 
 |horosh|_ - проект для публикации отчетов о путешествиях, стартовал 25.11.2009, код доступен на `bitbucket <http://bitbucket.org/naspeh/horosh/src>`_.
 
-.. _bit-2:
-
 Активно использую
 =================
 * python_ с августа 2009 г; работал с `Django <http://www.djangoproject.com/>`_, Pylons_, Werkzeug_;
@@ -41,8 +39,6 @@ email и jabber: **naspeh(at)gmail.com**
 * пользователь GNU/Linux с июля 2008; `Vim <http://www.vim.org/>`_ с августа 2010, `Arch Linux <http://www.archlinux.org/>`_ с января 2012.
 
 Интересуюсь `чистотой <http://www.python.org/dev/peps/pep-0008/>`_ и красотой кода, архитектурой приложений, `паттернами проектирования <http://ru.wikipedia.org/wiki/Шаблон_проектирования>`_, `гибкими методиками разработки <http://ru.wikipedia.org/wiki/Гибкая_методология_разработки>`_, `рефакторингом <http://ru.wikipedia.org/wiki/Рефакторинг>`_, `TDD <http://ru.wikipedia.org/wiki/Разработка_через_тестирование>`_, `свободным ПО <http://ru.wikipedia.org/wiki/Свободное_программное_обеспечение>`_, пользовательскими интерфейсами, `юзабилити <http://ru.wikipedia.org/wiki/Юзабилити>`_. Слежу за новшествами в сфере веб-разработки.
-
-.. _bit-3:
 
 Другие интересы и увлечения
 ===========================

@@ -27,11 +27,13 @@ h3, h4, h5, h6 {
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.5em;
 }
-
 p, dl, dd, hr, ol, ul, pre, blockquote,
 table, address, fieldset,
 div.line-block {
     margin-bottom: 1em;
+}
+.last {
+    margin-bottom: 0;
 }
 ol {
     list-style: decimal;
@@ -86,11 +88,13 @@ blockquote {
 }
 .posts {
     list-style: none;
-    overflow: hidden;
+}
+.posts li.post-first {
+    border: none;
 }
 .posts li.post {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
     margin-bottom: 10px;
 }
 .system-message {
@@ -105,8 +109,8 @@ blockquote {
     font-weight: bold;
 }
 .note {
-    padding: 5px;
     font-style: italic;
+    margin-bottom: 1em;
 }
 .note p {
     background-color: #f9f9f9;

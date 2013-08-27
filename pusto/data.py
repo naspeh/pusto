@@ -122,6 +122,6 @@ def get_html(src_dir, ctx):
         tpl = env.get_template('/_theme/base.tpl')
         html = tpl.render(ctx)
 
-    path = ctx['url'] + 'index.html'
+    path = src_dir + ctx['url'] + 'index.html'
     ctx.update(html=html, path=path)
     return Page(**ctx)
