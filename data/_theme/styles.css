@@ -14,6 +14,7 @@ a {
 }
 a:hover, a:focus, a:active {
     color: #f63;
+    text-decoration: underline;
 }
 h1 {
     font-size: 1.3em;
@@ -70,13 +71,14 @@ blockquote {
 .title {
     font-size: 1.5em;
 }
-.title ul.title-meta {
+.title ul.meta {
     list-style: none;
     font-size: 0.5em;
     color: #999;
     overflow: hidden;
+    margin-top: -5px;
 }
-.title ul.title-meta li {
+.title ul.meta li {
     float: left;
     margin-left: -6px;
     padding: 0 5px;
@@ -111,12 +113,13 @@ blockquote {
 .note {
     font-style: italic;
     margin-bottom: 1em;
-}
-.note p {
     background-color: #f9f9f9;
 }
 .note .admonition-title {
     display: none;
+}
+.highlighttable {
+    margin-bottom: 0;
 }
 .highlighttable .linenodiv pre {
     margin-right: -10px;

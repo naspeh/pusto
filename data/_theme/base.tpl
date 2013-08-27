@@ -11,7 +11,7 @@
     {% if html_title %}
     <h1 class="title">
         {{ html_title }}
-        <ul class="title-meta">
+        <ul class="meta">
             {% if published %}
             <li>Опубликовано: {{ published.strftime('%d.%m.%Y') }}</li>
             {% endif %}
