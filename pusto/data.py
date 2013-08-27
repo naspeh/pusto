@@ -1,3 +1,4 @@
+import datetime as dt
 import os
 import re
 from collections import namedtuple, OrderedDict
@@ -26,14 +27,20 @@ def get_pages(src_dir):
     pages = OrderedDict()
     for path in paths:
         url = path.replace(src_dir, '') + '/'
-        if not os.path.isdir(path):
+        if not os.path.isdir(path) or url.rsplit('/', 2)[1].startswith('_'):
             continue
 
         files = set(tree[path][1])
         index = (index_files & files or {None}).pop()
         meta = (meta_files & files or {None}).pop()
-        children = [(k, v) for k, v in pages.items() if k.startswith(url)]
-        children.reverse()
+        children = [
+            (k, v) for k, v in pages.items()
+            if k.rsplit('/', 2)[0] + '/' == url
+        ]
+        children.sort(
+            key=lambda v: v[1].created and v[1].created or '',
+            reverse=True
+        )
         children = OrderedDict(children)
         if index or children:
             ctx = get_html(src_dir, dict(
@@ -54,6 +61,8 @@ def get_meta(path):
     meta = dict(parser.items('default'))
     if 'aliases' in meta:
         meta['aliases'] = meta['aliases'].strip('\n').split('\n')
+    if 'created' in meta:
+        meta['created'] = dt.datetime.strptime(meta['created'], '%d.%m.%Y')
     return meta
 
 
