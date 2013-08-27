@@ -3,6 +3,7 @@ import json
 import os
 import re
 from collections import namedtuple, OrderedDict
+from xml.etree import ElementTree as ET
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -11,7 +12,7 @@ from .markup import rst
 strip_tags = lambda t: t and re.sub(r'<.*?[^>]>', '', t)
 Page = namedtuple('Page', (
     'url children index_file meta_file path '
-    'aliases published title html html_title html_body'
+    'aliases published title summary html html_title html_body'
 ))
 
 meta_files = {'meta.json'}
@@ -31,6 +32,8 @@ def get_pages(src_dir):
 
         files = set(tree[path][1])
         index = (index_files & files or {None}).pop()
+        if not index:
+            continue
         meta = (meta_files & files or {None}).pop()
         children = [
             (k, v) for k, v in pages.items()
@@ -41,32 +44,39 @@ def get_pages(src_dir):
             reverse=True
         )
         children = OrderedDict(children)
-        if index or children:
-            ctx = get_html(src_dir, dict(
-                url=url, children=children,
-                index_file=index and url + index,
-                meta_file=meta and url + meta,
-            ))
-            pages[url] = ctx
+        ctx = get_html(src_dir, dict(
+            url=url, children=children,
+            index_file=index and url + index,
+            meta_file=meta and url + meta,
+        ))
+        pages[url] = ctx
 
     return pages
 
 
-def bind_meta(ctx, meta, raw=True, parse=False):
-    if parse:
-        meta = re.search('(?s)<!--\s*META(\s*\{.*})\s*-->', meta)
+def bind_meta(ctx, data, method=None):
+    meta = data
+    if method == 'html':
+        meta = re.search('(?s)<!--\s*META(\s*\{.*})\s*-->', data)
         if meta:
             meta = meta.group(1)
+            meta = json.loads(meta)
         else:
-            return
-
-    if raw:
+            meta = {}
+        data = re.sub('(?i)<!DOCTYPE.*?[^>]>', '', data)
+        root = ET.fromstring('<root>%s</root>' % data)
+        summary = root.findall('*[@id="summary"]')
+        if summary:
+            summary = ET.tostring(summary[0], encoding='utf8', method='html')
+            meta['summary'] = summary.decode()
+    elif method == 'json':
         meta = json.loads(meta)
 
     if 'published' in meta:
         meta['published'] = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
 
-    for key in ['published', 'aliases', 'title', 'html_title', 'html_body']:
+    keys = 'published aliases title summary html_title html_body'.split(' ')
+    for key in keys:
         ctx.setdefault(key, None)
         if key in meta:
             ctx[key] = meta[key]
@@ -84,38 +94,33 @@ def get_html(src_dir, ctx):
     if ctx['meta_file']:
         with open(src_dir + ctx['meta_file'], 'r') as f:
             meta = f.read()
-        bind_meta(ctx, meta)
+        bind_meta(ctx, meta, method='json')
     else:
-        bind_meta(ctx, {}, raw=False)
+        bind_meta(ctx, {})
 
-    if not ctx['index_file']:
-        tpl = env.get_template('_theme/list.tpl')
+    path = src_dir + ctx['index_file']
+    with open(path) as f:
+        text = f.read()
+
+    if path.endswith('.html'):
+        html = text
+        bind_meta(ctx, html, method='html')
+
+    elif path.endswith('.tpl'):
+        tpl = env.get_template(ctx['index_file'])
         html = tpl.render(ctx)
+        bind_meta(ctx, html, method='html')
 
-    else:
-        path = src_dir + ctx['index_file']
-        with open(path) as f:
-            text = f.read()
-
-        if path.endswith('.html'):
-            html = text
-            bind_meta(ctx, html, parse=True)
-
-        elif path.endswith('.tpl'):
-            tpl = env.get_template(ctx['index_file'])
-            html = tpl.render(ctx)
-            bind_meta(ctx, html, parse=True)
-
-        elif path.endswith('.rst'):
-            title, body = rst(text, source_path=path)
-            bind_meta(ctx, body, parse=True)
-            ctx.update(
-                title=strip_tags(title),
-                html_title=title,
-                html_body=body
-            )
-            tpl = env.get_template('/_theme/base.tpl')
-            html = tpl.render(ctx)
+    elif path.endswith('.rst'):
+        title, body = rst(text, source_path=path)
+        bind_meta(ctx, body, method='html')
+        ctx.update(
+            title=strip_tags(title),
+            html_title=title,
+            html_body=body
+        )
+        tpl = env.get_template('/_theme/base.tpl')
+        html = tpl.render(ctx)
 
     path = ctx['url'] + 'index.html'
     ctx.update(html=html, path=path)

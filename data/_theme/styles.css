@@ -84,6 +84,15 @@ blockquote {
 .document {
     text-align: justify;
 }
+.posts {
+    list-style: none;
+    overflow: hidden;
+}
+.posts li.post {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
 .system-message {
     color: red;
     border: 1px dotted red;
