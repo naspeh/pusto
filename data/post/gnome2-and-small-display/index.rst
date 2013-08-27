@@ -7,12 +7,15 @@
    http://live.gnome.org/DevilsPie
    http://help.ubuntu.ru/wiki/devilspie (ru)
 
-..   created: 28.09.2011
-
 Gnome2. Оптимизация окон
 ------------------------
+..
+    META{
+        "published": "28.09.2011",
+        "aliases": ["/naspeh/gnome-optimizaciya-okon/"]
+    }
 
-.. _bit-2:
+.. _summary:
 
 В статье покажу как оптимизирую рабочий стол для маленького разрешения ноутбука (1280х800) и рассмотрю пару полезных утилит для работы с окнами в |gnome| **второй** версии:
 

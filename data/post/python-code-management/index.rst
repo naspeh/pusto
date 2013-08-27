@@ -8,12 +8,16 @@
  http://docs.python.org/library/subprocess.html#subprocess.check_output перехват вывода
  https://github.com/neithere/argh вместо opster
 
-.. created: 14.09.2011
-
 Python. Управление кодом из консоли
 -----------------------------------
 
-.. _bit-2:
+..
+    META{
+        "published": "14.09.2011",
+        "aliases": ["/naspeh/python-code-management/"]
+    }
+
+.. _summary:
 
 В разработке с python немалую роль играет консоль. Запуск сервера, запуск тестов, работа с `VCS <http://ru.wikipedia.org/wiki/Система_управления_версиями>`_, развертывание (deployment) и т.д. Есть конечно `IDE <http://ru.wikipedia.org/wiki/Интегрированная_среда_разработки>`_, которые предлагают много "плюшек", достаточно сделать всего лишь пару кликов, но это мы прошли.
 

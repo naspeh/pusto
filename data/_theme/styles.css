@@ -81,7 +81,9 @@ blockquote {
     margin-right: 5px;
     border-left: 1px solid #ccc;
 }
-
+.document {
+    text-align: justify;
+}
 .system-message {
     color: red;
     border: 1px dotted red;

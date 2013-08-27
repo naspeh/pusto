@@ -12,13 +12,15 @@
     <h1 class="title">
         {{ html_title }}
         <ul class="title-meta">
-            {% if created %}
-            <li>Опубликовано: {{ created }}</li>
+            {% if published %}
+            <li>Опубликовано: {{ published.strftime('%d.%m.%Y') }}</li>
             {% endif %}
             <li><a href="{{ github }}{{ index_file or url }}">смотреть на github</a></li>
         </li>
     </h1>
     {% endif %}
-    {{ html_body }}
+    <div class="document">
+        {{ html_body }}
+    </div>
 {% endblock %}
 </body>

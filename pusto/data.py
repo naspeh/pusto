@@ -1,8 +1,8 @@
 import datetime as dt
+import json
 import os
 import re
 from collections import namedtuple, OrderedDict
-from configparser import ConfigParser
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -10,13 +10,12 @@ from .markup import rst
 
 strip_tags = lambda t: t and re.sub(r'<.*?[^>]>', '', t)
 Page = namedtuple('Page', (
-    'url children index_file meta_file path meta '
-    'aliases created title html html_title html_body'
+    'url children index_file meta_file path '
+    'aliases published title html html_title html_body'
 ))
 
-meta_files = {'meta.ini'}
+meta_files = {'meta.json'}
 index_files = {'index.rst', 'index.tpl', 'index.html'}
-tpl_file = '/_theme/base.tpl'
 
 
 def get_pages(src_dir):
@@ -38,7 +37,7 @@ def get_pages(src_dir):
             if k.rsplit('/', 2)[0] + '/' == url
         ]
         children.sort(
-            key=lambda v: v[1].created and v[1].created or '',
+            key=lambda v: v[1].published and v[1].published.isoformat() or '',
             reverse=True
         )
         children = OrderedDict(children)
@@ -46,24 +45,31 @@ def get_pages(src_dir):
             ctx = get_html(src_dir, dict(
                 url=url, children=children,
                 index_file=index and url + index,
-                meta_file=meta and url + meta
+                meta_file=meta and url + meta,
             ))
             pages[url] = ctx
 
     return pages
 
 
-def get_meta(path):
-    with open(path, 'r') as f:
-        meta = f.read()
-    parser = ConfigParser()
-    parser.read_string('[default]\n' + meta)
-    meta = dict(parser.items('default'))
-    if 'aliases' in meta:
-        meta['aliases'] = meta['aliases'].strip('\n').split('\n')
-    if 'created' in meta:
-        meta['created'] = dt.datetime.strptime(meta['created'], '%d.%m.%Y')
-    return meta
+def bind_meta(ctx, meta, raw=True, parse=False):
+    if parse:
+        meta = re.search('(?s)<!--\s*META(\s*\{.*})\s*-->', meta)
+        if meta:
+            meta = meta.group(1)
+        else:
+            return
+
+    if raw:
+        meta = json.loads(meta)
+
+    if 'published' in meta:
+        meta['published'] = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
+
+    for key in ['published', 'aliases', 'title', 'html_title', 'html_body']:
+        ctx.setdefault(key, None)
+        if key in meta:
+            ctx[key] = meta[key]
 
 
 def get_jinja(src_dir):
@@ -75,20 +81,17 @@ def get_jinja(src_dir):
 def get_html(src_dir, ctx):
     env = get_jinja(src_dir)
 
-    meta = get_meta(src_dir + ctx['meta_file']) if ctx['meta_file'] else {}
-    meta.update(ctx)
-
-    ctx.update(
-        aliases=meta.get('aliases', None),
-        title=meta.get('title', None),
-        created=meta.get('created', None),
-        html_title=None,
-        html_body=None
-    )
+    if ctx['meta_file']:
+        with open(src_dir + ctx['meta_file'], 'r') as f:
+            meta = f.read()
+        bind_meta(ctx, meta)
+    else:
+        bind_meta(ctx, {}, raw=False)
 
     if not ctx['index_file']:
         tpl = env.get_template('_theme/list.tpl')
-        html = tpl.render(meta=meta)
+        html = tpl.render(ctx)
+
     else:
         path = src_dir + ctx['index_file']
         with open(path) as f:
@@ -96,22 +99,24 @@ def get_html(src_dir, ctx):
 
         if path.endswith('.html'):
             html = text
+            bind_meta(ctx, html, parse=True)
 
         elif path.endswith('.tpl'):
             tpl = env.get_template(ctx['index_file'])
-            html = tpl.render(meta=meta)
+            html = tpl.render(ctx)
+            bind_meta(ctx, html, parse=True)
 
         elif path.endswith('.rst'):
             title, body = rst(text, source_path=path)
+            bind_meta(ctx, body, parse=True)
             ctx.update(
                 title=strip_tags(title),
                 html_title=title,
-                html_body=body,
-                meta=meta
+                html_body=body
             )
-            tpl = env.get_template(tpl_file)
+            tpl = env.get_template('/_theme/base.tpl')
             html = tpl.render(ctx)
 
     path = ctx['url'] + 'index.html'
-    ctx.update(html=html, path=path, meta=meta)
+    ctx.update(html=html, path=path)
     return Page(**ctx)
