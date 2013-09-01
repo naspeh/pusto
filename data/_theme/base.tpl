@@ -14,15 +14,15 @@
 {% endblock %#}
 {% block body %}
     {% if html_title %}
-    <h1 class="title">
-        {{ html_title }}
+    <div class="title">
+        <h1>{{ html_title }}</h1>
         <ul class="meta">
             {% if published %}
             <li>Опубликовано: {{ published.strftime('%d.%m.%Y') }}</li>
             {% endif %}
             <li><a href="{{ github }}{{ index_file or url }}">смотреть на github</a></li>
         </li>
-    </h1>
+    </div>
     {% endif %}
     <div class="document">
         {{ html_body }}
