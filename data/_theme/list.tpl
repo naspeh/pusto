@@ -5,7 +5,7 @@
     <li class="post{% if loop.index == 1 %}post-first{% endif %}">
         <h1 class="title">
             <a href="{{ child.url }}">{{ child.title or url }}</a>
-            <ul class="title-meta">
+            <ul class="meta">
                 {% if child.published %}
                 <li>Опубликовано: {{ child.published.strftime('%d.%m.%Y') }}</li>
                 {% endif %}

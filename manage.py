@@ -12,7 +12,7 @@ BUILD_DIR = ROOT_DIR + '/build'
 
 def process_args():
     parser = argparse.ArgumentParser()
-    subs = parser.add_subparsers()
+    subs = parser.add_subparsers(title='subcommands')
 
     def sub(name, **kw):
         s = subs.add_parser(name, **kw)

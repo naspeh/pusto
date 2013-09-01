@@ -21,18 +21,26 @@ def build(src_dir, build_dir):
                 f.write(ctx.html)
 
 
-def create_app(src_dir):
+def create_app(src_dir, debug=False):
     '''Create WSGI application'''
-    pages = get_pages(src_dir)
-    urls = []
-    for url, page in pages.items():
-        urls += [(url, Response(page.html, mimetype='text/html'))]
-        if page.aliases:
-            urls += [(a, redirect(url)) for a in page.aliases]
-    urls = dict(urls)
+    def get_urls():
+        if not hasattr(get_urls, 'urls') or debug:
+            pages = get_pages(src_dir)
+            urls = []
+            for url, page in pages.items():
+                urls += [(url, Response(page.html, mimetype='text/html'))]
+                if url.rstrip('/'):
+                    aliases = [url.rstrip('/')] + (page.aliases or [])
+                    urls += [(a, redirect(url)) for a in aliases]
+            get_urls.urls = dict(urls)
+        return get_urls.urls
 
     @Request.application
     def app(request):
+        if debug:
+            get_jinja(src_dir).cache.clear()
+
+        urls = get_urls()
         response = urls.get(request.path, None)
         if response:
             return response
@@ -43,13 +51,8 @@ def create_app(src_dir):
 
 def run_server(host, port, src_dir):
     '''Dev server with reloader'''
-    extra_files = [
-        os.path.join(src_dir, f)
-        for f in get_jinja(src_dir).list_templates()
-    ]
     run_simple(
-        host, port, create_app(src_dir),
+        host, port, create_app(src_dir, debug=True),
         use_reloader=True, use_debugger=True,
-        static_files={'': src_dir},
-        extra_files=extra_files
+        static_files={'': src_dir}
     )

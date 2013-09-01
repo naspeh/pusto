@@ -7,6 +7,11 @@
 </head>
 <body>
 {% set github="https://github.com/naspeh/pusto/tree/master/data" %}
+{#% block header %}
+<div class="header">
+    <a href="/">pusto.org</a>
+</div>
+{% endblock %#}
 {% block body %}
     {% if html_title %}
     <h1 class="title">
