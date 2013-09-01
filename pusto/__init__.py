@@ -3,8 +3,8 @@ import shutil
 
 from werkzeug.exceptions import abort
 from werkzeug.serving import run_simple
-from werkzeug.wrappers import Request, Response
 from werkzeug.utils import redirect
+from werkzeug.wrappers import Request, Response
 
 from .data import get_pages, get_jinja
 
