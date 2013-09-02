@@ -51,8 +51,8 @@ Makefile_
 .. note:: В sphinx_  пошли тем же путем: `раз`__, `два`__
 
 .. _sphinx: http://sphinx.pocoo.org/
-.. __: https://bitbucket.org/birkenfeld/sphinx/src/cf794ec8a096/Makefile
-.. __: https://bitbucket.org/birkenfeld/sphinx/src/cf794ec8a096/doc/Makefile
+__ https://bitbucket.org/birkenfeld/sphinx/src/cf794ec8a096/Makefile
+__ https://bitbucket.org/birkenfeld/sphinx/src/cf794ec8a096/doc/Makefile
 
 Есть с ``Makefile`` пара неприятных моментов:
  - отступы в целях должны быть именно `табами`, а не 4 пробела. А с учетом
@@ -61,7 +61,7 @@ Makefile_
  - в задачу можно передавать параметры только через правку файла или задание
    переменных окружения, это основной минус.
 
-.. __: http://www.python.org/dev/peps/pep-0008/
+__ http://www.python.org/dev/peps/pep-0008/
 
 Но в общем подход по минимизации команд мне нравился. Можно переключится на
 проект, посмотреть ``Makefile`` и понять что используется. Набирать команды
@@ -121,8 +121,8 @@ Fabric_
    совпадает, чтоб задача отработала без паролей по ключам. Хотя этого
    пользователя `можно прописать в настройках`__ или задать через параметры.
 
-.. __: http://docs.fabfile.org/en/1.2.2/usage/fab.html#per-task-arguments
-.. __: http://docs.fabfile.org/en/1.2.2/usage/fab.html#settings-files
+__ http://docs.fabfile.org/en/1.2.2/usage/fab.html#per-task-arguments
+__ http://docs.fabfile.org/en/1.2.2/usage/fab.html#settings-files
 
 В принципе это не критичные моменты, библиотека делает свое дело. Для разработки
 на винде, возможно, это лучшее решение, т.к. тут свой ssh клиент ``paramiko``,
@@ -156,7 +156,7 @@ Fabric_
 свои ``manage.py`` на чистой стандартной библиотеке.
 
 .. _argparse: http://docs.python.org/library/argparse.html
-.. __: http://docs.python.org/library/argparse.html#sub-commands
+__ http://docs.python.org/library/argparse.html#sub-commands
 
 **А что будем делать с деплоем?**
 

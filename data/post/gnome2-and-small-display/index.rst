@@ -36,7 +36,7 @@ Gnome2 и маленький экран
   `тайловый оконный менеджер`__  и debian_ на archlinux_, поэтому решил
   записать этот рецепт, которым пользуюсь уже давно, может кому еще пригодится.
 
-.. __: http://ru.wikipedia.org/wiki/Фреймовый_оконный_менеджер_X_Window_System
+__ http://ru.wikipedia.org/wiki/Фреймовый_оконный_менеджер_X_Window_System
 .. _debian: http://www.debian.org/
 .. _archlinux: http://www.archlinux.org/
 
@@ -96,7 +96,7 @@ Maximus_
 
 Т.е. максимизировать окна буду вручную через ``Alt+F10``.
 
-.. __: http://www.zhart.ru/software/21-gnome-panel-minimize-in-ubuntu-linux
+__ http://www.zhart.ru/software/21-gnome-panel-minimize-in-ubuntu-linux
 
 В общем уже неплохо, но ряд приложений после запуска нужно сразу
 максимизировать, т.к. они не хотят запоминать своих размеров и положения...
@@ -112,9 +112,9 @@ Devilspie_
 соответствие регулярному выражению. `Действия`__ над окнами тоже разные:
 maximize, unmaximize, focus и undecorate даже :).
 
-.. __: http://www.foosel.org/linux/devilspie#matchers
-.. __: http://www.foosel.org/linux/devilspie#string_tests
-.. __: http://www.foosel.org/linux/devilspie#actions
+__ http://www.foosel.org/linux/devilspie#matchers
+__ http://www.foosel.org/linux/devilspie#string_tests
+__ http://www.foosel.org/linux/devilspie#actions
 
 Инструмент нашли, дальше используем.
 
