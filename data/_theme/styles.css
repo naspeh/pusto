@@ -76,9 +76,9 @@ blockquote {
     margin-bottom: 1em;
     font-weight: bold;
     border-top: 2px solid #008000;
+    height: 1em;
 }
 .header a {
-    margin-top: -2px;
     background: #008000;
     padding: 0 10px;
     color: #fff;
@@ -88,13 +88,18 @@ blockquote {
     background: #f63;
     color: #fff;
 }
-ul.nav {
+.header a.logo {
     position: absolute;
-    top: 0;
+    top: -2px;
+    margin-bottom: 1em;
+}
+.header ul.nav {
+    position: absolute;
+    top: -2px;
     right: 0;
     list-style: none;
 }
-ul.nav li {
+.header ul.nav li {
     float: left;
     margin-left: 5px;
 }
@@ -105,21 +110,18 @@ ul.nav li {
     font-size: 1.5em;
     margin-bottom: 0;
 }
-ul.meta {
+.title ul.meta {
     list-style: none;
     font-size: 0.75em;
     color: #777;
     overflow: hidden;
 }
-ul.meta li {
+.title ul.meta li {
     float: left;
     margin-left: -6px;
     padding: 0 5px;
     margin-right: 5px;
     border-left: 1px solid #ccc;
-}
-.document {
-    text-align: justify;
 }
 .posts {
     list-style: none;
@@ -133,6 +135,9 @@ ul.meta li {
 .posts li.post-first {
     border-top: none;
     padding-top: 0;
+}
+.document {
+    text-align: justify;
 }
 .system-message {
     color: red;
