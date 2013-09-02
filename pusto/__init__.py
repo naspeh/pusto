@@ -31,7 +31,9 @@ def create_app(src_dir, debug=False):
                 if page.html:
                     urls += [(url, Response(page.html, mimetype='text/html'))]
                 if url.rstrip('/'):
-                    aliases = [url.rstrip('/')] + (page.aliases or [])
+                    aliases = page.aliases or []
+                    aliases += [a.rstrip('/') for a in (aliases + [url])]
+                    aliases = set(aliases)
                     urls += [(a, redirect(url)) for a in aliases]
             get_urls.urls = dict(urls)
         return get_urls.urls
