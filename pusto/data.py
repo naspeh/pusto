@@ -32,8 +32,6 @@ def get_pages(src_dir):
 
         files = set(tree[path][1])
         index = (index_files & files or {None}).pop()
-        if not index:
-            continue
         meta = (meta_files & files or {None}).pop()
         children = [
             (k, v) for k, v in pages.items()
@@ -98,30 +96,36 @@ def get_html(src_dir, ctx):
     else:
         bind_meta(ctx, {})
 
-    path = src_dir + ctx['index_file']
-    with open(path) as f:
-        text = f.read()
+    index = ctx['index_file']
+    if not index:
+        path = src_dir
+        html = None
+    else:
+        path = src_dir + ctx['index_file']
+        with open(path) as f:
+            text = f.read()
 
-    if path.endswith('.html'):
-        html = text
-        bind_meta(ctx, html, method='html')
+        if index.endswith('.html'):
+            html = text
+            bind_meta(ctx, html, method='html')
 
-    elif path.endswith('.tpl'):
-        tpl = env.get_template(ctx['index_file'])
-        html = tpl.render(ctx)
-        bind_meta(ctx, html, method='html')
+        elif index.endswith('.tpl'):
+            tpl = env.get_template(ctx['index_file'])
+            html = tpl.render(ctx)
+            bind_meta(ctx, html, method='html')
 
-    elif path.endswith('.rst'):
-        title, body = rst(text, source_path=path)
-        bind_meta(ctx, body, method='html')
-        ctx.update(
-            title=strip_tags(title),
-            html_title=title,
-            html_body=body
-        )
-        tpl = env.get_template('/_theme/base.tpl')
-        html = tpl.render(ctx)
+        elif index.endswith('.rst'):
+            title, body = rst(text, source_path=path)
+            bind_meta(ctx, body, method='html')
+            ctx.update(
+                title=strip_tags(title),
+                html_title=title,
+                html_body=body
+            )
+            tpl = env.get_template('/_theme/base.tpl')
+            html = tpl.render(ctx)
 
-    path = src_dir + ctx['url'] + 'index.html'
+        path = src_dir + ctx['url'] + 'index.html'
+
     ctx.update(html=html, path=path)
     return Page(**ctx)

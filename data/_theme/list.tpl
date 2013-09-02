@@ -12,7 +12,7 @@
                 <li><a href="{{ github }}{{ child.index_file or child.url }}">смотреть на github</a></li>
             </ul>
         </div>
-        {{ child.summary }}
+        {% if child.summary %}{{ child.summary }}{% endif %}
     </li>
 {% endfor %}
 </ul>

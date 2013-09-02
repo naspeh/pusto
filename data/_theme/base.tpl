@@ -6,12 +6,17 @@
     <title>pusto.org: {% block title %}{{ title or url }}{% endblock %}</title>
 </head>
 <body>
-{% set github="https://github.com/naspeh/pusto/tree/master/data" %}
-{#% block header %}
+{% set github="https://github.com/naspeh/pusto/" %}
+{% set github_data=github + "tree/master/data" %}
+{% block header %}
 <div class="header">
-    <a href="/">pusto.org</a>
+    <a class="logo" href="/">pusto.org</a>
+    <ul class="nav">
+        <li><a href="{{ github }}">исходники</a></li>
+        <li><a href="/naspeh/">об авторе</a></li>
+    </ul>
 </div>
-{% endblock %#}
+{% endblock %}
 {% block body %}
     {% if html_title %}
     <div class="title">
@@ -20,7 +25,7 @@
             {% if published %}
             <li>Опубликовано: {{ published.strftime('%d.%m.%Y') }}</li>
             {% endif %}
-            <li><a href="{{ github }}{{ index_file or url }}">смотреть на github</a></li>
+            <li><a href="{{ github_data }}{{ index_file or url }}">смотреть на github</a></li>
         </li>
     </div>
     {% endif %}

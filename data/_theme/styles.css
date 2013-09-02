@@ -5,7 +5,7 @@
 body {
     font: 1em/1.4 "PT Sans", sans-serif;
     font-weight: 400;
-    margin: 10px auto;
+    margin: 0 auto;
     padding: 0 10px;
     max-width: 880px;
     min-width: 780px;
@@ -70,6 +70,34 @@ blockquote {
 }
 
 /* Blocks */
+.header {
+    position: relative;
+    margin: 0 -10px;
+    margin-bottom: 1em;
+    font-weight: bold;
+    border-top: 2px solid #008000;
+}
+.header a {
+    margin-top: -2px;
+    background: #008000;
+    padding: 0 10px;
+    color: #fff;
+    border-radius: 0 0 10px 10px;
+}
+.header a:hover {
+    background: #f63;
+    color: #fff;
+}
+ul.nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    list-style: none;
+}
+ul.nav li {
+    float: left;
+    margin-left: 5px;
+}
 .title {
     margin-bottom: 1em;
 }
@@ -77,13 +105,13 @@ blockquote {
     font-size: 1.5em;
     margin-bottom: 0;
 }
-.meta {
+ul.meta {
     list-style: none;
     font-size: 0.75em;
     color: #777;
     overflow: hidden;
 }
-.meta li {
+ul.meta li {
     float: left;
     margin-left: -6px;
     padding: 0 5px;
@@ -97,8 +125,9 @@ blockquote {
     list-style: none;
 }
 .posts li.post {
-    padding: 1em 10px 0 1em;
+    margin: 0 -10px;
     margin-bottom: 1em;
+    padding: 1em 10px 0 1em;
     border-top: 1px solid #ccc;
 }
 .posts li.post-first {

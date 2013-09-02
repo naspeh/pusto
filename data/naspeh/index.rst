@@ -8,7 +8,7 @@
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Pylons: http://pylonshq.com/
 
-Гриша aka `naspeh </naspeh/unique-nick/>`_
+Гриша aka `naspeh </post/unique-nick/>`_
 ------------------------------------------
 .. image:: _img/ava200.jpg
   :align: right

@@ -16,7 +16,7 @@ def build(src_dir, build_dir):
     shutil.copytree(src_dir, build_dir)
 
     for ctx in get_pages(build_dir).values():
-        if not ctx.index_file.endswith('.html'):
+        if ctx.index_file and not ctx.index_file.endswith('.html'):
             with open(ctx.path, '+w') as f:
                 f.write(ctx.html)
 
@@ -28,7 +28,8 @@ def create_app(src_dir, debug=False):
             pages = get_pages(src_dir)
             urls = []
             for url, page in pages.items():
-                urls += [(url, Response(page.html, mimetype='text/html'))]
+                if page.html:
+                    urls += [(url, Response(page.html, mimetype='text/html'))]
                 if url.rstrip('/'):
                     aliases = [url.rstrip('/')] + (page.aliases or [])
                     urls += [(a, redirect(url)) for a in aliases]
