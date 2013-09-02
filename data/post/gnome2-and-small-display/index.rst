@@ -79,7 +79,7 @@ Devilspie_
 
 Создаем файл `~/.devilspie/common.ds`. И помещаем туда что-то типа:
 
-.. code-block:: lua
+.. code-block:: py
     :number:
 
     (begin
@@ -117,7 +117,7 @@ Devilspie_
 
 Раз уж используем devilspie_, можно с его помощью еще что-то замутить.
 
-Например, **Skype** очень жутко ведет себя в **linux**. Один из боков: хочется чтоб окна чатов открывались в одном месте и одинакового размера. Если заниматься этим вручную, то тут нужно подгонять каждое новое окно чата мышкой, изрядно потыкав. И тут на помощь приходит действие `geometry` из devilspie_.
+Например, **Skype** очень жутко ведет себя в **linux**. Один из боков: хочется чтоб окна чатов открывались в одном месте и одинакового размера. Если заниматься этим вручную, то тут нужно подгонять каждое новое окно чата мышкой, изрядно потыкав. И тут на помощь приходит действие ``geometry`` из devilspie_.
 
 Пример debug:
 
@@ -126,21 +126,22 @@ Devilspie_
   Window Title: 'Skype? 2.2 (Beta) for Linux'; Application Name: 'Skype? 2.2 (Beta) for Linux'; Class: 'Skype'; Geometry: 266x487+0+25
   Window Title: 'Anastasie - Skype? Chat'; Application Name: 'Skype'; Class: 'Skype'; Geometry: 824x619+456+95
 
-.. code-block:: lua
-    :number:
+.. code-block:: py
 
     (if
+
         (and
             (contains(window_name) "Skype")
-            (matches(window_name) " Chat$")
+            (matches(window_role) "ConversationsWindow")
         )
-        (begin
-            ;(debug)
-            (geometry "808x674+367-0")
-        )
+        (geometry "800x675+365-0")
     )
 
-С условием пришлось повозится (строки 2-5). Мне нужны были только чаты. Были проблемы со знаком "?" в имени окна `"Anastasie - Skype? Chat"` и `matches`. Поэтому первое условие (строка №3) берет все окна содержащие `skype`, а второе условие (строка №4) выбирает из них только чаты.
+Для получения ``window_role`` использовал xprop__.
+
+.. __: http://www.x.org/archive/X11R7.5/doc/man/man1/xprop.1.html
+..
+    С условием пришлось повозится (строки 2-5). Мне нужны были только чаты. Были проблемы со знаком "?" в имени окна `"Anastasie - Skype? Chat"` и `matches`. Поэтому первое условие (строка №3) берет все окна содержащие `skype`, а второе условие (строка №4) выбирает из них только чаты.
 
 Итого
 =====
