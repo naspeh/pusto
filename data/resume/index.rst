@@ -45,10 +45,6 @@
 |naya|_ - микрофреймворк на базе Werkzeug_.
   Используется на этом сайте. Эксперимент на тему WSGI_ микрофреймвок, 2011 г.
 
-..
-  .. note::
-    Werkzeug_ - это не `фреймворк <http://ru.wikipedia.org/wiki/Фреймворк>`_, а библиотека (инструмент) для разработки WSGI_ приложений. На базе нее построено немало фреймворков: `Flask <http://flask.pocoo.org>`_, `Tipfy <http://www.tipfy.org/>`_, `Svarga <http://bitbucket.org/piranha/svarga/>`_, `Glashammer <http://glashammer.org/>`_.
-
 |horosh|_ - проект для публикации отчетов о путешествиях. Стартовал 25.11.2009.
   Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
 
