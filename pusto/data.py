@@ -89,32 +89,33 @@ def get_jinja(src_dir):
 def get_html(src_dir, ctx):
     env = get_jinja(src_dir)
 
-    if ctx['meta_file']:
-        with open(src_dir + ctx['meta_file'], 'r') as f:
+    meta_file = ctx['meta_file']
+    if meta_file:
+        with open(src_dir + meta_file, 'r') as f:
             meta = f.read()
         bind_meta(ctx, meta, method='json')
     else:
         bind_meta(ctx, {})
 
-    index = ctx['index_file']
-    if not index:
+    index_file = ctx['index_file']
+    if not index_file:
         path = src_dir
         html = None
     else:
-        path = src_dir + ctx['index_file']
+        path = src_dir + index_file
         with open(path) as f:
             text = f.read()
 
-        if index.endswith('.html'):
+        if index_file.endswith('.html'):
             html = text
             bind_meta(ctx, html, method='html')
 
-        elif index.endswith('.tpl'):
-            tpl = env.get_template(ctx['index_file'])
+        elif index_file.endswith('.tpl'):
+            tpl = env.get_template(index_file)
             html = tpl.render(ctx)
             bind_meta(ctx, html, method='html')
 
-        elif index.endswith('.rst'):
+        elif index_file.endswith('.rst'):
             title, body = rst(text, source_path=path)
             bind_meta(ctx, body, method='html')
             ctx.update(
