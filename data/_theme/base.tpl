@@ -3,6 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="/_theme/reset.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
+    <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
     <title>pusto.org: {% block title %}{{ title or url }}{% endblock %}</title>
 </head>
 <body>
@@ -18,9 +19,9 @@
 </div>
 {% endblock %}
 {% block body %}
-    {% if html_title %}
+    {% if html_title or title %}
     <div class="title">
-        <h1>{{ html_title }}</h1>
+        <h1>{{ html_title or title }}</h1>
         <ul class="meta">
             {% if published %}
             <li>Опубликовано: {{ published.strftime('%d.%m.%Y') }}</li>

@@ -7,16 +7,16 @@ from xml.etree import ElementTree as ET
 
 from jinja2 import Environment, FileSystemLoader
 
-from .markup import rst
+from . import markup
 
 strip_tags = lambda t: t and re.sub(r'<.*?[^>]>', '', t)
 Page = namedtuple('Page', (
     'url children index_file meta_file path '
-    'aliases published title summary html html_title html_body'
+    'aliases published hidden title summary html html_title html_body'
 ))
 
 meta_files = {'meta.json'}
-index_files = {'index.rst', 'index.tpl', 'index.html'}
+index_files = {'index.' + t for t in 'rst md tpl html'.split(' ')}
 
 
 def get_pages(src_dir):
@@ -35,7 +35,7 @@ def get_pages(src_dir):
         meta = (meta_files & files or {None}).pop()
         children = [
             (k, v) for k, v in pages.items()
-            if k.rsplit('/', 2)[0] + '/' == url
+            if k.rsplit('/', 2)[0] + '/' == url and not v.hidden
         ]
         children.sort(
             key=lambda v: v[1].published and v[1].published.isoformat() or '',
@@ -73,7 +73,10 @@ def bind_meta(ctx, data, method=None):
     if 'published' in meta:
         meta['published'] = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
 
-    keys = 'published aliases title summary html_title html_body'.split(' ')
+    keys = (
+        'published aliases hidden title summary html_title html_body'
+        .split(' ')
+    )
     for key in keys:
         ctx.setdefault(key, None)
         if key in meta:
@@ -115,8 +118,15 @@ def get_html(src_dir, ctx):
             html = tpl.render(ctx)
             bind_meta(ctx, html, method='html')
 
+        elif index_file.endswith('.md'):
+            body = markup.markdown(text)
+            bind_meta(ctx, body, method='html')
+            ctx.update(html_body=body)
+            tpl = env.get_template('/_theme/base.tpl')
+            html = tpl.render(ctx)
+
         elif index_file.endswith('.rst'):
-            title, body = rst(text, source_path=path)
+            title, body = markup.rst(text, source_path=path)
             bind_meta(ctx, body, method='html')
             ctx.update(
                 title=strip_tags(title),

@@ -62,9 +62,9 @@ pre {
     white-space: pre;
 }
 blockquote {
-    margin-left: 20px;
-    padding: 10px;
-    border-left: 3px solid #f63;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 3px solid #ccc;
     background: #f9f9f9;
     font-style: italic;
 }

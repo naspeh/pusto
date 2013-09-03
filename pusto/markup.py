@@ -1,9 +1,15 @@
 from docutils import core, nodes
 from docutils.parsers.rst import directives, Directive
+from markdown2 import Markdown
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import get_lexer_by_name
 from pygments.lexers.special import TextLexer
+
+
+def markdown(text):
+    md = Markdown(extras=['footnotes', 'code-friendly', 'code-color'])
+    return md.convert(text)
 
 
 def rst(source, source_path=None):
