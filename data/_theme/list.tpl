@@ -4,7 +4,7 @@
 {% for url, child in children.items() %}
     <li class="{% if loop.index == 1 %}post-first {% endif %}post">
         <div class="title">
-            <h1><a href="{{ child.url }}">{{ child.title or url }}</a></h1>
+            <h1><a href="{{ child.url }}">{{ child.title|striptags or url }}</a></h1>
             <ul class="meta">
                 {% if child.published %}
                 <li>Опубликовано: {{ child.published.strftime('%d.%m.%Y') }}</li>

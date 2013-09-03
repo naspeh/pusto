@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="/_theme/reset.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
-    <title>pusto.org: {% block title %}{{ title or url }}{% endblock %}</title>
+    <title>pusto.org: {% block title %}{{ title|striptags or url }}{% endblock %}</title>
 </head>
 <body>
 {% set github="https://github.com/naspeh/pusto/" %}
@@ -19,9 +19,9 @@
 </div>
 {% endblock %}
 {% block body %}
-    {% if html_title or title %}
+    {% if title %}
     <div class="title">
-        <h1>{{ html_title or title }}</h1>
+        <h1>{{ title }}</h1>
         <ul class="meta">
             {% if published %}
             <li>Опубликовано: {{ published.strftime('%d.%m.%Y') }}</li>
@@ -31,7 +31,7 @@
     </div>
     {% endif %}
     <div class="document">
-        {{ html_body }}
+        {{ body }}
     </div>
 {% endblock %}
 </body>

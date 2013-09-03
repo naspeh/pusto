@@ -65,8 +65,7 @@ blockquote {
     margin-left: 10px;
     padding-left: 10px;
     border-left: 3px solid #ccc;
-    background: #f9f9f9;
-    font-style: italic;
+    color: #777;
 }
 
 /* Blocks */
@@ -151,8 +150,8 @@ blockquote {
     font-weight: bold;
 }
 .note {
-    font-style: italic;
     background-color: #f9f9f9;
+    color: #777;
     margin-bottom: 1em;
 }
 .note .admonition-title {

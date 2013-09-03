@@ -9,10 +9,9 @@ from jinja2 import Environment, FileSystemLoader
 
 from . import markup
 
-strip_tags = lambda t: t and re.sub(r'<.*?[^>]>', '', t)
 Page = namedtuple('Page', (
     'url children index_file meta_file path '
-    'aliases published hidden title summary html html_title html_body'
+    'aliases published hidden title summary body html'
 ))
 
 meta_files = {'meta.json'}
@@ -73,10 +72,7 @@ def bind_meta(ctx, data, method=None):
     if 'published' in meta:
         meta['published'] = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
 
-    keys = (
-        'published aliases hidden title summary html_title html_body'
-        .split(' ')
-    )
+    keys = 'published aliases hidden summary title body'.split(' ')
     for key in keys:
         ctx.setdefault(key, None)
         if key in meta:
@@ -121,18 +117,14 @@ def get_html(src_dir, ctx):
         elif index_file.endswith('.md'):
             body = markup.markdown(text)
             bind_meta(ctx, body, method='html')
-            ctx.update(html_body=body)
+            ctx.update(body=body)
             tpl = env.get_template('/_theme/base.tpl')
             html = tpl.render(ctx)
 
         elif index_file.endswith('.rst'):
             title, body = markup.rst(text, source_path=path)
             bind_meta(ctx, body, method='html')
-            ctx.update(
-                title=strip_tags(title),
-                html_title=title,
-                html_body=body
-            )
+            ctx.update(title=title, body=body)
             tpl = env.get_template('/_theme/base.tpl')
             html = tpl.render(ctx)
 
