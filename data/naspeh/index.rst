@@ -1,47 +1,28 @@
-.. |python| replace:: **python**
-.. |horosh| replace:: **horosh.org**
-.. |naya| replace:: **naya**
-.. _python: http://python.org/
-.. _horosh: http://horosh.org/
-.. _naya: http://github.com/naspeh/naya/
-.. _jQuery: http://jquery.com/
-.. _Werkzeug: http://werkzeug.pocoo.org/
-.. _Pylons: http://pylonshq.com/
-
 Гриша aka `naspeh </post/unique-nick/>`_
 ------------------------------------------
 .. image:: _img/ava200.jpg
   :align: right
 
-email и jabber: **naspeh(at)gmail.com**
+email: **naspeh(at)gmail.com**
 
-С августа 2009 веб-разработчик на |python|_.
+| Верю в знание и опыт, подпитанные энтузиазмом и усердной работой.
+| Верю в open source и простые решения.
+| Верю в идеальную команду и идеальный код.
 
-.. С декабря 2009 веб-разработчик на python в `42 Coffee Cups <http://42coffeecups.com>`_.
+Нравится python_, archlinux_, vim, zsh, git. Люблю `все настраивать`__ под себя.
+ - **python** с августа 2009;
+ - **linux** c июля 2008, **archlinux** с января 2012;
+ - **vim** c августа 2010;
+ - |i3|_ с июля 2013.
 
-Личные проекты
-==============
+__ https://github.com/naspeh/dotfiles
+.. _python: http://www.python.org/dev/peps/pep-0020/
+.. _archlinux: https://wiki.archlinux.org/index.php/The_Arch_Way
+.. _i3: http://i3wm.org/
+.. |i3| replace:: **i3**
 
-**pusto.org** - код доступен на `github <http://github.com/naspeh/pusto>`_. Место для эксперементов :)
+Не пью, не курю, женат. Интересуюсь смыслом жизни.
 
-|naya|_ - микрофреймворк на базе Werkzeug_, используется на этом сайте.
-
-|horosh|_ - проект для публикации отчетов о путешествиях, стартовал 25.11.2009, код доступен на `bitbucket <http://bitbucket.org/naspeh/horosh/src>`_.
-
-Активно использую
-=================
-* python_ с августа 2009 г; работал с `Django <http://www.djangoproject.com/>`_, Pylons_, Werkzeug_;
-* AJAX/JavaScript работал с jQuery_, `Prototype <http://www.prototypejs.org/>`_;
-* (X)HTML/CSS; интересуюсь `семантической версткой <http://pepelsbey.net/2008/04/semantic-coding-1/>`_;
-* SQL; работал с PostgreSQL, MySQL, SQLite;
-* `NoSQL <http://ru.wikipedia.org/wiki/NoSQL>`_; работал с `Redis <http://redis.io/>`_, `MongoDB <http://www.mongodb.org/>`_;
-* `распределённые системы контроля версий (DVCS) <http://habrahabr.ru/blogs/development_tools/71115/>`_: `git <http://git-scm.com/>`_, `mercurial <http://mercurial.selenic.com/>`_;
-* пользователь GNU/Linux с июля 2008; `Vim <http://www.vim.org/>`_ с августа 2010, `Arch Linux <http://www.archlinux.org/>`_ с января 2012.
-
-Интересуюсь `чистотой <http://www.python.org/dev/peps/pep-0008/>`_ и красотой кода, архитектурой приложений, `паттернами проектирования <http://ru.wikipedia.org/wiki/Шаблон_проектирования>`_, `гибкими методиками разработки <http://ru.wikipedia.org/wiki/Гибкая_методология_разработки>`_, `рефакторингом <http://ru.wikipedia.org/wiki/Рефакторинг>`_, `TDD <http://ru.wikipedia.org/wiki/Разработка_через_тестирование>`_, `свободным ПО <http://ru.wikipedia.org/wiki/Свободное_программное_обеспечение>`_, пользовательскими интерфейсами, `юзабилити <http://ru.wikipedia.org/wiki/Юзабилити>`_. Слежу за новшествами в сфере веб-разработки.
-
-Другие интересы и увлечения
-===========================
-Творчество, созидание, развитие. Семья. Путешествия, велосипед. Играю на бильярде, в футбол, в настольный теннис.
-
-Не курю, не пью, `женат <http://horosh.org/event-63-karpatyi-chernogorskij-hrebet>`_.
+В разное время.
+ | Любил играть в настольный теннис, в футбол, на бильярде.
+ | Любил ходить в пешие походы, ездить на горном велосипеде.
