@@ -19,12 +19,16 @@
 </div>
 {% endblock %}
 {% block body %}
+<div itemscope="itemscope" itemtype="http://schema.org/Article">
     {% if title %}
-    <div class="title">
+    <div class="title" itemprop="name">
         <h1>{{ title }}</h1>
+        <link itemprop="url" href="{{ url }}" />
         <ul class="meta">
             {% if published %}
-            <li>Опубликовано: {{ published.strftime('%d.%m.%Y') }}</li>
+            <li itemprop="datePublished" datetime="{{ published.strftime('%Y-%m-%d')}}" >
+                Опубликовано: {{ published.strftime('%d.%m.%Y') }}
+            </li>
             {% endif %}
             <li><a href="{{ github_data }}{{ index_file or url }}">смотреть на github</a></li>
         </li>
@@ -33,5 +37,6 @@
     <div class="document">
         {{ body }}
     </div>
+</div>
 {% endblock %}
 </body>

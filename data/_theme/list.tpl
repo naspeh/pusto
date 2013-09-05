@@ -2,17 +2,27 @@
 {% block body %}
 <ul class="posts">
 {% for url, child in children.items() %}
-    <li class="{% if loop.index == 1 %}post-first {% endif %}post">
+    <li class="{% if loop.index == 1 %}post-first {% endif %}post" itemscope="itemscope" itemtype="http://schema.org/Article">
         <div class="title">
-            <h1><a href="{{ child.url }}">{{ child.title|striptags or url }}</a></h1>
+            <h1 itemprop="name">
+                <a href="{{ child.url }}" itemprop="url">
+                    {{ child.title|striptags or url }}
+                </a>
+            </h1>
             <ul class="meta">
                 {% if child.published %}
-                <li>Опубликовано: {{ child.published.strftime('%d.%m.%Y') }}</li>
+                <li itemprop="datePublished" datetime="{{ child.published.strftime('%Y-%m-%d')}}" >
+                    Опубликовано: {{ child.published.strftime('%d.%m.%Y') }}
+                </li>
                 {% endif %}
                 <li><a href="{{ github }}{{ child.index_file or child.url }}">смотреть на github</a></li>
             </ul>
         </div>
-        {% if child.summary %}{{ child.summary }}{% endif %}
+        {% if child.summary %}
+        <div itemprop="description">
+            {{ child.summary }}
+        </div>
+        {% endif %}
     </li>
 {% endfor %}
 </ul>
