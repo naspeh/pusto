@@ -1,8 +1,9 @@
 import os
 import shutil
 
-from werkzeug.exceptions import abort
+from werkzeug.exceptions import NotFound
 from werkzeug.serving import run_simple
+from werkzeug.test import Client
 from werkzeug.utils import redirect
 from werkzeug.wrappers import Request, Response
 
@@ -21,7 +22,7 @@ def build(src_dir, build_dir):
                 f.write(ctx.html)
 
 
-def create_app(src_dir, debug=False):
+def create_app(src_dir, debug=False, test=True):
     '''Create WSGI application'''
     def get_urls():
         if not hasattr(get_urls, 'urls') or debug:
@@ -50,7 +51,9 @@ def create_app(src_dir, debug=False):
         if response:
             return response
 
-        abort(404)
+        return NotFound()
+    if test:
+        app.test = Client(app, Response)
     return app
 
 
