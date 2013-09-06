@@ -2,10 +2,11 @@
 import argparse
 import http
 import os
+import time
+from threading import Thread
+from urllib.request import urlopen
 
 from werkzeug.serving import run_simple
-from werkzeug.test import Client
-from werkzeug.wrappers import Response
 
 from pusto import build, create_app
 
@@ -14,7 +15,7 @@ SRC_DIR = ROOT_DIR + '/data'
 BUILD_DIR = ROOT_DIR + '/build'
 
 
-def process_args():
+def process_args(args=None):
     parser = argparse.ArgumentParser()
     subs = parser.add_subparsers(title='subcommands')
 
@@ -28,19 +29,22 @@ def process_args():
     sub('run', help='start dev server')\
         .arg('--host', default='localhost')\
         .arg('--port', type=int, default=5000)\
+        .arg('--no-reloader', action='store_true')\
         .exe(lambda a: run_simple(
             a.host, a.port, create_app(SRC_DIR, debug=True),
-            use_reloader=True, use_debugger=True,
+            use_reloader=not a.no_reloader, use_debugger=True,
             static_files={'': SRC_DIR}
         ))
 
     sub('build', help='build static content from `data` directory')\
-        .arg('-s', '--serve', action='store_true', help='run static server')
+        .arg('-s', '--serve', action='store_true', help='run static server')\
+        .arg('--port', type=int, default=8000)
 
     sub('test_urls', help='test urls from google')\
-        .exe(lambda a: check_urls(SRC_DIR))
+        .arg('-w', '--use-wsgi', action='store_true', help='use wsgi server')\
+        .exe(lambda a: check_urls(SRC_DIR, use_wsgi=a.use_wsgi))
 
-    args = parser.parse_args()
+    args = parser.parse_args(args)
     if not hasattr(args, 'sub'):
         parser.print_usage()
 
@@ -51,31 +55,43 @@ def process_args():
         build(SRC_DIR, BUILD_DIR)
         if args.serve:
             os.chdir(BUILD_DIR)
-            http.server.test(HandlerClass=http.server.SimpleHTTPRequestHandler)
+            http.server.test(
+                http.server.SimpleHTTPRequestHandler, port=args.port
+            )
     else:
         raise ValueError('Wrong subcommand')
 
 
-def check_urls(src_dir):
-    app = create_app(src_dir)
-    c = Client(app, Response)
+def check_urls(src_dir, use_wsgi=False):
+    if use_wsgi:
+        args = 'run --port=9000 --no-reloader'.split(' ')
+    else:
+        args = 'build -s --port=9000'.split(' ')
+    server = Thread(target=process_args, args=(args,))
+    server.daemon = True
+    server.start()
+    time.sleep(2)
+
     urls = [
         # s.pusto.org/napokaz/
         # s.pusto.org/writing/ru-pycon-2013/
-        ('/resume', 302),
-        ('/naspeh/detail/', 302),
-        ('/naspeh/unikalnyy-nik/', 302),
-        ('/naspeh/gnome-optimizaciya-okon/', 302),
-        ('/naspeh/python-code-management/', 302),
-        ('/naspeh/lakonichnost-testov-v-python/', 302),
-        ('/post/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework', 302),
-        ('/blog/2008/09/25/'
-            'avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/', 302)
+        '/resume',
+        '/naspeh/detail/',
+        '/naspeh/unikalnyy-nik/',
+        '/naspeh/gnome-optimizaciya-okon/',
+        '/naspeh/python-code-management/',
+        '/naspeh/lakonichnost-testov-v-python/',
+        '/post/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework',
+        (
+            '/blog/2008/09/25/'
+            'avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/'
+        )
     ]
     err = []
-    for url, expected_code in urls:
-        code = c.get(url).status_code
-        if code != expected_code:
+    for url in urls:
+        res = urlopen('http://localhost:9000' + url)
+        code = res.status
+        if code != 200:
             err += ['%s (%r != %r)' % (url, code, expected_code)]
     if err:
         print('Errors:')
