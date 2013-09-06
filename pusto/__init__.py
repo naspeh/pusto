@@ -28,8 +28,8 @@ def build(src_dir, build_dir):
             html, path = page.html, page.path
 
         if html and path:
-            with open(path, '+w') as f:
-                f.write(html)
+            with open(path, 'bw') as f:
+                f.write(html.encode())
 
 
 def create_app(src_dir, debug=False):

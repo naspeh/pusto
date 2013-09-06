@@ -105,8 +105,8 @@ def get_html(src_dir, ctx):
 
     meta_file = ctx['meta_file']
     if meta_file:
-        with open(src_dir + meta_file, 'r') as f:
-            meta = f.read()
+        with open(src_dir + meta_file, 'br') as f:
+            meta = f.read().decode()
         bind_meta(ctx, meta, method='json')
     else:
         bind_meta(ctx, {})
@@ -117,8 +117,8 @@ def get_html(src_dir, ctx):
         html = None
     else:
         path = src_dir + index_file
-        with open(path) as f:
-            text = f.read()
+        with open(path, 'br') as f:
+            text = f.read().decode()
 
         if index_file.endswith('.html'):
             html = text
