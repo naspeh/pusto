@@ -5,7 +5,7 @@ from werkzeug.exceptions import NotFound
 from werkzeug.utils import redirect
 from werkzeug.wrappers import Request, Response
 
-from .data import get_pages, get_jinja
+from .data import get_urls, get_jinja
 
 
 def build(src_dir, build_dir):
@@ -14,28 +14,35 @@ def build(src_dir, build_dir):
         shutil.rmtree(build_dir)
     shutil.copytree(src_dir, build_dir)
 
-    for ctx in get_pages(build_dir).values():
-        if ctx.index_file and not ctx.index_file.endswith('.html'):
-            with open(ctx.path, '+w') as f:
-                f.write(ctx.html)
+    env = get_jinja(build_dir)
+    for url, page in get_urls(build_dir):
+        html = path = None
+        if url != page.url:
+            path = build_dir + url.rstrip('/') + '/'
+            if not os.path.exists(path):
+                os.makedirs(path, exist_ok=True)
+                tpl = env.get_template('_theme/redirect.tpl')
+                html = tpl.render(url=page.url)
+                path = path + 'index.html'
+        elif page.index_file and not page.index_file.endswith('.html'):
+            html, path = page.html, page.path
+
+        if html and path:
+            with open(path, '+w') as f:
+                f.write(html)
 
 
 def create_app(src_dir, debug=False):
     '''Create WSGI application'''
     def get_urls():
         if not hasattr(get_urls, 'urls') or debug:
-            pages = get_pages(src_dir)
+            pages = get_urls(src_dir)
             urls = []
-            for url, page in pages.items():
-                if page.html:
+            for url, page in pages:
+                if url == page.url:
                     urls += [(url, Response(page.html, mimetype='text/html'))]
-                    aliases = page.aliases or []
-                    aliases += [
-                        a.rstrip('/') for a in (aliases + [url])
-                        if a.rstrip('/')
-                    ]
-                    aliases = set(aliases)
-                    urls += [(a, redirect(url)) for a in aliases]
+                else:
+                    urls += [(url, redirect(page.url))]
             get_urls.urls = dict(urls)
         return get_urls.urls
 

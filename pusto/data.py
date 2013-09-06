@@ -18,6 +18,21 @@ meta_files = {'meta.json'}
 index_files = {'index.' + t for t in 'rst md tpl html'.split(' ')}
 
 
+def get_urls(src_dir):
+    pages = get_pages(src_dir)
+    urls = []
+    for url, page in pages.items():
+        if page.html:
+            urls += [(url, page)]
+            aliases = page.aliases or []
+            aliases += [
+                a.rstrip('/') for a in (aliases + [url]) if a.rstrip('/')
+            ]
+            aliases = set(aliases)
+            urls += [(a, page) for a in aliases]
+    return urls
+
+
 def get_pages(src_dir):
     tree = OrderedDict((f[0], (f[1], f[2])) for f in os.walk(src_dir))
     paths = list(tree.keys())
