@@ -34,8 +34,8 @@ def build(src_dir, build_dir):
 
 def create_app(src_dir, debug=False):
     '''Create WSGI application'''
-    def get_urls():
-        if not hasattr(get_urls, 'urls') or debug:
+    def _urls():
+        if not hasattr(_urls, 'urls') or debug:
             pages = get_urls(src_dir)
             urls = []
             for url, page in pages:
@@ -43,15 +43,15 @@ def create_app(src_dir, debug=False):
                     urls += [(url, Response(page.html, mimetype='text/html'))]
                 else:
                     urls += [(url, redirect(page.url))]
-            get_urls.urls = dict(urls)
-        return get_urls.urls
+            _urls.urls = dict(urls)
+        return _urls.urls
 
     @Request.application
     def app(request):
         if debug:
             get_jinja(src_dir).cache.clear()
 
-        urls = get_urls()
+        urls = _urls()
         response = urls.get(request.path, None)
         if response:
             return response
