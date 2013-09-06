@@ -2,8 +2,6 @@ import os
 import shutil
 
 from werkzeug.exceptions import NotFound
-from werkzeug.serving import run_simple
-from werkzeug.test import Client
 from werkzeug.utils import redirect
 from werkzeug.wrappers import Request, Response
 
@@ -22,7 +20,7 @@ def build(src_dir, build_dir):
                 f.write(ctx.html)
 
 
-def create_app(src_dir, debug=False, test=True):
+def create_app(src_dir, debug=False):
     '''Create WSGI application'''
     def get_urls():
         if not hasattr(get_urls, 'urls') or debug:
@@ -52,15 +50,4 @@ def create_app(src_dir, debug=False, test=True):
             return response
 
         return NotFound()
-    if test:
-        app.test = Client(app, Response)
     return app
-
-
-def run_server(host, port, src_dir):
-    '''Dev server with reloader'''
-    run_simple(
-        host, port, create_app(src_dir, debug=True),
-        use_reloader=True, use_debugger=True,
-        static_files={'': src_dir}
-    )

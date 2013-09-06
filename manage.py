@@ -3,7 +3,11 @@ import argparse
 import http
 import os
 
-from pusto import run_server, build, create_app
+from werkzeug.serving import run_simple
+from werkzeug.test import Client
+from werkzeug.wrappers import Response
+
+from pusto import build, create_app
 
 ROOT_DIR = os.path.dirname(__file__)
 SRC_DIR = ROOT_DIR + '/data'
@@ -24,13 +28,17 @@ def process_args():
     sub('run', help='start dev server')\
         .arg('--host', default='localhost')\
         .arg('--port', type=int, default=5000)\
-        .exe(lambda a: run_server(a.host, a.port, SRC_DIR))
+        .exe(lambda a: run_simple(
+            a.host, a.port, create_app(SRC_DIR, debug=True),
+            use_reloader=True, use_debugger=True,
+            static_files={'': SRC_DIR}
+        ))
 
     sub('build', help='build static content from `data` directory')\
         .arg('-s', '--serve', action='store_true', help='run static server')
 
     sub('test_urls', help='test urls from google')\
-        .exe(test_urls)
+        .exe(lambda a: check_urls(SRC_DIR))
 
     args = parser.parse_args()
     if not hasattr(args, 'sub'):
@@ -48,8 +56,9 @@ def process_args():
         raise ValueError('Wrong subcommand')
 
 
-def test_urls(args):
-    c = create_app(SRC_DIR, test=True).test
+def check_urls(src_dir):
+    app = create_app(src_dir)
+    c = Client(app, Response)
     urls = [
         # s.pusto.org/napokaz/
         # s.pusto.org/writing/ru-pycon-2013/
@@ -69,9 +78,11 @@ def test_urls(args):
         if code != expected_code:
             err += ['%s (%r != %r)' % (url, code, expected_code)]
     if err:
+        print('Errors:')
         print('\n'.join(err))
     else:
         print('OK')
+
 
 if __name__ == '__main__':
     process_args()
