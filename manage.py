@@ -2,6 +2,7 @@
 import argparse
 import http
 import os
+import subprocess
 import time
 from threading import Thread
 from urllib.request import urlopen
@@ -13,6 +14,10 @@ from pusto import build, create_app
 ROOT_DIR = os.path.dirname(__file__)
 SRC_DIR = ROOT_DIR + '/data'
 BUILD_DIR = ROOT_DIR + '/build'
+ssh = lambda cmd: subprocess.call(
+    'ssh yadro.org "%s"' % cmd.replace('"', '\"').replace('$', '\$'),
+    shell=True
+)
 
 
 def process_args(args=None):
@@ -44,6 +49,8 @@ def process_args(args=None):
         .arg('-w', '--use-wsgi', action='store_true', help='use wsgi server')\
         .exe(lambda a: check_urls(SRC_DIR, use_wsgi=a.use_wsgi))
 
+    sub('deploy')
+
     args = parser.parse_args(args)
     if not hasattr(args, 'sub'):
         parser.print_usage()
@@ -58,6 +65,16 @@ def process_args(args=None):
             http.server.test(
                 http.server.SimpleHTTPRequestHandler, port=args.port
             )
+
+    elif args.sub == 'deploy':
+        ssh(
+            'cd /home/pusto/src'
+            '&& git pull'
+            '&& source $(cat .venv)/bin/activate'
+            '&& ./manage.py build'
+            '&& systemctl restart nginx.service'
+        )
+
     else:
         raise ValueError('Wrong subcommand')
 
@@ -91,7 +108,8 @@ def check_urls(src_dir, use_wsgi=False):
     for url in urls:
         res = urlopen('http://localhost:9000' + url)
         code = res.status
-        if code != 200:
+        expected_code = 200
+        if code != expected_code:
             err += ['%s (%r != %r)' % (url, code, expected_code)]
     if err:
         print('Errors:')
