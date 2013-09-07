@@ -30,6 +30,9 @@
                 Опубликовано: {{ published.strftime('%d.%m.%Y') }}
             </li>
             {% endif %}
+            {% if markup in ['md', 'rst'] %}
+            <li><a href="{{ index_file }}">{{ markup }} текст</a></li>
+            {% endif %}
             <li><a href="{{ github_data }}{{ index_file or url }}">смотреть на github</a></li>
         </li>
     </div>

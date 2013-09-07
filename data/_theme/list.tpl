@@ -15,6 +15,9 @@
                     Опубликовано: {{ child.published.strftime('%d.%m.%Y') }}
                 </li>
                 {% endif %}
+                {% if child.markup in ['md', 'rst'] %}
+                <li><a href="{{ child.index_file }}">{{ child.markup }} текст</a></li>
+                {% endif %}
                 <li><a href="{{ github }}{{ child.index_file or child.url }}">смотреть на github</a></li>
             </ul>
         </div>

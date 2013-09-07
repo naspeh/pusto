@@ -10,7 +10,7 @@ from jinja2 import Environment, FileSystemLoader
 from . import markup
 
 Page = namedtuple('Page', (
-    'url children index_file meta_file path '
+    'url children index_file meta_file markup path '
     'aliases published hidden title summary body html'
 ))
 
@@ -60,6 +60,7 @@ def get_pages(src_dir):
             url=url, children=children,
             index_file=index and url + index,
             meta_file=meta and url + meta,
+            markup=index and index.rsplit('.', 1)[1]
         ))
         pages[url] = ctx
 
@@ -120,23 +121,23 @@ def get_html(src_dir, ctx):
         with open(path, 'br') as f:
             text = f.read().decode()
 
-        if index_file.endswith('.html'):
+        if ctx['markup'] == 'html':
             html = text
             bind_meta(ctx, html, method='html')
 
-        elif index_file.endswith('.tpl'):
+        elif ctx['markup'] == 'tpl':
             tpl = env.get_template(index_file)
             html = tpl.render(ctx)
             bind_meta(ctx, html, method='html')
 
-        elif index_file.endswith('.md'):
+        elif ctx['markup'] == 'md':
             body = markup.markdown(text)
             bind_meta(ctx, body, method='html')
             ctx.update(body=body)
             tpl = env.get_template('/_theme/base.tpl')
             html = tpl.render(ctx)
 
-        elif index_file.endswith('.rst'):
+        elif ctx['markup'] == 'rst':
             title, body = markup.rst(text, source_path=path)
             bind_meta(ctx, body, method='html')
             ctx.update(title=title, body=body)
