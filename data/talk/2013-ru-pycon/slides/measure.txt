@@ -1,0 +1,174 @@
+# transition
+============= slowest 5 test durations =============
+1.13s call     tt/tests/test_v1.py::TestV1::test_v0
+0.40s call     tt/tests/test_v1.py::TestV1::test_v4
+0.36s call     tt/tests/test_v1.py::TestV1::test_v1
+0.36s call     tt/tests/test_v1.py::TestV1::test_v2
+0.36s call     tt/tests/test_v1.py::TestV1::test_v9
+============ 10 passed in 4.54 seconds =============
+
+# django flush
+============= slowest 5 test durations =============
+5.04s call     tt/tests/test_v1.py::TestV1::test_v0
+4.20s call     tt/tests/test_v1.py::TestV1::test_v5
+4.19s call     tt/tests/test_v1.py::TestV1::test_v8
+4.17s call     tt/tests/test_v1.py::TestV1::test_v2
+4.17s call     tt/tests/test_v1.py::TestV1::test_v3
+============ 10 passed in 42.17 seconds ============
+
+# unique db
+============= slowest 5 test durations =============
+1.65s call     tt/tests/test_v1.py::TestV1::test_v0
+0.88s call     tt/tests/test_v1.py::TestV1::test_v8
+0.78s call     tt/tests/test_v1.py::TestV1::test_v1
+0.78s call     tt/tests/test_v1.py::TestV1::test_v9
+0.78s call     tt/tests/test_v1.py::TestV1::test_v3
+============ 10 passed in 8.97 seconds =============
+
+
+###############################
+# New tests
+###############################
+
+#### django flush
+============= 20 passed in 89.30 seconds =============
+./manage.py test --runner=testing.runner.run_pytest tt/tests/test_v{1,2}.py
+62.35s user 1.84s system 70% cpu 1:31.12 total
+
+============= slowest 10 test durations ==============
+5.10s call     tt/tests/test_v1.py::TestV2::test_v4
+4.97s call     tt/tests/test_v1.py::TestV1::test_v4
+4.77s call     tt/tests/test_v1.py::TestV2::test_v3
+4.72s call     tt/tests/test_v1.py::TestV1::test_v3
+4.67s call     tt/tests/test_v1.py::TestV1::test_v0
+4.44s call     tt/tests/test_v1.py::TestV2::test_v2
+4.35s call     tt/tests/test_v1.py::TestV1::test_v2
+4.15s call     tt/tests/test_v1.py::TestV1::test_v1
+4.13s call     tt/tests/test_v1.py::TestV2::test_v1
+3.86s call     tt/tests/test_v1.py::TestV2::test_v0
+============= 10 passed in 45.41 seconds =============
+./manage.py test --runner=testing.runner.run_pytest tt/tests/test_v1.py
+32.33s user 1.00s system 70% cpu 47.142 total
+
+#### transition
+============= 20 passed in 14.49 seconds =============
+./manage.py test --runner=testing.runner.run_pytest tt/tests/test_v{1,2}.py
+14.10s user 0.35s system 88% cpu 16.333 total
+
+============= slowest 10 test durations ==============
+1.34s call     tt/tests/test_v1.py::TestV2::test_v4
+1.29s call     tt/tests/test_v1.py::TestV1::test_v4
+0.96s call     tt/tests/test_v1.py::TestV1::test_v3
+0.96s call     tt/tests/test_v1.py::TestV2::test_v3
+0.89s call     tt/tests/test_v1.py::TestV1::test_v0
+0.66s call     tt/tests/test_v1.py::TestV1::test_v2
+0.66s call     tt/tests/test_v1.py::TestV2::test_v2
+0.35s call     tt/tests/test_v1.py::TestV1::test_v1
+0.34s call     tt/tests/test_v1.py::TestV2::test_v1
+0.04s call     tt/tests/test_v1.py::TestV2::test_v0
+============= 10 passed in 7.74 seconds ==============
+./manage.py test --runner=testing.runner.run_pytest tt/tests/test_v1.py
+7.82s user 0.36s system 86% cpu 9.492 total
+
+## pytest -n4
+============= 20 passed in 20.80 seconds =============
+
+./manage.py test --runner=testing.runner.run_pytest tt/tests/test_v{1,2}.py
+18.78s user 0.77s system 77% cpu 25.317 total
+
+#2
+============= 90 passed in 77.71 seconds =============
+./manage.py test --runner=testing.runner.run_pytest  --duration=10 -n4
+71.55s user 1.21s system 88% cpu 1:21.83 total
+
+## nose --processes=4
+----------------------------------------------------------------------
+Ran 20 tests in 7.046s
+
+OK
+./manage.py test tt/tests/test_v{1,2}.py --processes=4
+24.93s user 1.02s system 206% cpu 12.562 total
+
+#2
+----------------------------------------------------------------------
+Ran 90 tests in 26.157s
+
+OK
+./manage.py test tt/tests/test_v{1,2,3,4,5,6,7,8,9}.py --processes=4  
+86.54s user 1.37s system 288% cpu 30.507 total
+
+#### unique db
+============= 20 passed in 22.48 seconds =============
+./manage.py test --runner=testing.runner.run_pytest tt/tests/test_v{1,2}.py
+13.99s user 0.43s system 59% cpu 24.221 total
+
+============= slowest 10 test durations ==============
+1.76s call     tt/tests/test_v1.py::TestV2::test_v4
+1.73s call     tt/tests/test_v1.py::TestV1::test_v4
+1.39s call     tt/tests/test_v1.py::TestV2::test_v3
+1.35s call     tt/tests/test_v1.py::TestV1::test_v3
+1.30s call     tt/tests/test_v1.py::TestV1::test_v0
+1.17s call     tt/tests/test_v1.py::TestV2::test_v2
+1.08s call     tt/tests/test_v1.py::TestV1::test_v2
+0.97s call     tt/tests/test_v1.py::TestV1::test_v1
+0.76s call     tt/tests/test_v1.py::TestV2::test_v1
+0.45s call     tt/tests/test_v1.py::TestV2::test_v0
+============= 10 passed in 12.20 seconds =============
+./manage.py test --runner=testing.runner.run_pytest tt/tests/test_v1.py
+7.88s user 0.31s system 58% cpu 13.945 total
+
+## pytest -n4
+============= 20 passed in 25.06 seconds =============
+./manage.py test --runner=testing.runner.run_pytest tt/tests/test_v{1,2}.py
+16.88s user 0.68s system 57% cpu 30.503 total
+
+
+## nose --processes=4
+----------------------------------------------------------------------
+Ran 20 tests in 11.051s
+
+OK
+./manage.py test tt/tests/test_v{1,2}.py --processes=4
+22.37s user 1.08s system 128% cpu 18.233 total
+
+###############################
+[('stat.start_transaction', '592'),
+ ('stat.start_unique_db', '353'),
+ ('stat.post_payment', '274')]
+
+
+###############################
+$ ./manage.py test orders
+
+# transition
+----------------------------------------------------------------------
+Ran 144 tests in 257.898s
+
+# both
+----------------------------------------------------------------------
+Ran 144 tests in 315.843s
+
+
+###############################
+$ ./manage.py test orders --processes=3
+
+# unique db
+----------------------------------------------------------------------
+Ran 144 tests in 114.421s
+
+# transition
+----------------------------------------------------------------------
+Ran 144 tests in 85.794s
+
+# both
+----------------------------------------------------------------------
+Ran 144 tests in 113.517s
+
+
+###############################
+# Coverage
+###############################
+----------------------------------------------------------------------------------------------
+TOTAL                                                            36539  13574    63%
+----------------------------------------------------------------------
+Ran 945 tests in 1358.326s

@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/" />
+<meta name="version" content="S5 1.1" />
+<title>Оптимизация тестов</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7514 2012-09-14 14:27:12Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="visible" />
+<!-- style sheet links -->
+<script src="ui/default/slides.js" type="text/javascript"></script>
+<link rel="stylesheet" href="ui/default/slides.css"
+      type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/default/outline.css"
+      type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/default/print.css"
+      type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/default/opera.css"
+      type="text/css" media="projection" id="operaFix" />
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header">
+
+</div>
+<div id="footer">
+<h1>Оптимизация тестов</h1>
+<h2>ru.pycon 2013</h2>
+</div>
+</div>
+<div class="presentation">
+<div class="slide" id="slide0">
+<h1 class="title">Оптимизация тестов</h1>
+
+<!-- Definitions of interpreted text roles (classes) for S5/HTML data. -->
+<!-- This data file has been placed in the public domain. -->
+<!-- Colours
+======= -->
+<!-- Text Sizes
+========== -->
+<!-- Display in Slides (Presentation Mode) Only
+========================================== -->
+<!-- Display in Outline Mode Only
+============================ -->
+<!-- Display in Print Only
+===================== -->
+<!-- Display in Handout Mode Only
+============================ -->
+<!-- Incremental Display
+=================== -->
+<p class="center big"><strong>на примере Django и PostgreSQL</strong></p>
+<table class="small docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Автор:</th><td class="field-body">Гриша aka naspeh</td>
+</tr>
+<tr class="field"><th class="field-name">Команда:</th><td class="field-body"><a class="reference external" href="http://ostrovok.ru">ostrovok.ru</a></td>
+</tr>
+</tbody>
+</table>
+<div class="contents handout topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id2" id="id28">Если тесты медленные...</a></li>
+<li><a class="reference internal" href="#id6" id="id29">Нужны быстрые тесты</a></li>
+<li><a class="reference internal" href="#id7" id="id30">Задача</a></li>
+<li><a class="reference internal" href="#id9" id="id31">Давайте немного позамеряем</a></li>
+<li><a class="reference internal" href="#id10" id="id32">Параметры системы</a></li>
+<li><a class="reference internal" href="#testcase" id="id33">Используемый TestCase</a></li>
+<li><a class="reference internal" href="#id11" id="id34">Тесты в транзакции</a></li>
+<li><a class="reference internal" href="#commit-on-success" id="id35">Тесты с commit_on_success</a></li>
+<li><a class="reference internal" href="#id12" id="id36">Что это значит?</a></li>
+<li><a class="reference internal" href="#id13" id="id37">Уникальная база из шаблона</a></li>
+<li><a class="reference internal" href="#id14" id="id38">Уникальная база, замеряем</a></li>
+<li><a class="reference internal" href="#id15" id="id39">Сводная таблица</a></li>
+<li><a class="reference internal" href="#id16" id="id40">Полгода назад</a></li>
+<li><a class="reference internal" href="#id18" id="id41">3 месяца назад</a></li>
+<li><a class="reference internal" href="#nose-1-x" id="id42">nose(1.x) и плагины</a></li>
+<li><a class="reference internal" href="#id19" id="id43">Рефакторинг тестовой среды</a></li>
+<li><a class="reference internal" href="#id20" id="id44">Запуск тестов в одном процессе</a></li>
+<li><a class="reference internal" href="#id21" id="id45">Запуск тестов в несколько процессов</a></li>
+<li><a class="reference internal" href="#id22" id="id46">Еще пара приемов</a></li>
+<li><a class="reference internal" href="#id23" id="id47">Свой раннер</a></li>
+<li><a class="reference internal" href="#id24" id="id48">Отдельные настройки для тестов</a></li>
+<li><a class="reference internal" href="#redis" id="id49">Изоляция кэшей и redis</a></li>
+<li><a class="reference internal" href="#id25" id="id50">Отдельный шаг создания базы</a></li>
+<li><a class="reference internal" href="#id26" id="id51">Подытожим</a></li>
+<li><a class="reference internal" href="#id27" id="id52">Спасибо за внимание</a></li>
+</ul>
+</div>
+<p class="handout">Люблю три вещи: python, тесты и postgresql, про них и поговорим</p>
+<dl class="handout docutils">
+<dt>Links:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://blog.endpoint.com/2012/06/speeding-up-integration-tests-with.html">http://blog.endpoint.com/2012/06/speeding-up-integration-tests-with.html</a></li>
+<li><a class="reference external" href="http://www.jodal.no/2011/10/19/speeding-up-a-django-web-site-without-touching-the-code/">http://www.jodal.no/2011/10/19/speeding-up-a-django-web-site-without-touching-the-code/</a></li>
+</ul>
+</dd>
+<dt>rst2s5:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://docutils.sourceforge.net/docs/user/slide-shows.html">http://docutils.sourceforge.net/docs/user/slide-shows.html</a></li>
+<li><a class="reference external" href="http://docutils.sourceforge.net/docs/user/slide-shows.txt">http://docutils.sourceforge.net/docs/user/slide-shows.txt</a></li>
+</ul>
+</dd>
+</dl>
+<pre class="handout literal-block">
+Какими должны быть тесты?
+</pre>
+
+</div>
+<div class="slide" id="id2">
+<h1>Если тесты медленные...</h1>
+<ul>
+<li><p class="first">разработчики будут реже запускать</p>
+</li>
+<li><p class="first">будут меньше хотеть писать</p>
+</li>
+<li><p class="first">медленными будут сборки для CI <a class="footnote-reference" href="#id4" id="id3">[*]</a></p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[*]</a></td><td><p class="first last">Continuous integration</p>
+</td></tr>
+</tbody>
+</table>
+</li>
+</ul>
+<div class="handout container">
+<p>Для непрерывной  интеграции у нас используется <a class="reference external" href="http://www.jetbrains.com/teamcity/">TeamCity от JetBrains</a></p>
+<p>Оптимизация тестов - важная задача для практики TDD и Continuous delivery (CD).</p>
+</div>
+</div>
+<div class="slide" id="id6">
+<h1>Нужны быстрые тесты</h1>
+<ul class="simple">
+<li>запуск всех - максимально быстрый</li>
+<li>запуск отдельных - очень быстрый</li>
+<li>... и нужен удобный запуск</li>
+</ul>
+<ul class="handout simple">
+<li>запуск всех - важен в конце фичи и на CI</li>
+<li>запуск отдельных - ежедневная операция</li>
+</ul>
+</div>
+<div class="slide" id="id7">
+<h1>Задача</h1>
+<ul class="simple">
+<li>~1000 тестов</li>
+<li>мы не можем использовать SQLite в памяти</li>
+<li>много тестов <a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/testing/overview/#making-requests">поверх WSGI</a></li>
+<li>~350 тестов с <tt class="docutils literal">commit_on_success</tt></li>
+</ul>
+<ul class="incremental simple">
+<li>нам нужны максимально быстрые тесты...</li>
+</ul>
+<pre class="handout literal-block">
+``stat.start_transaction``: 592
+``stat.start_unique_db``  : 353
+
+У нас используются специфические возможности PostgreSQL: типы, расширения.
+
+Треть использует ручное управление транзакциями (в частности ``commit_on_success``),
+почти все эти тесты связаны с бронированием.
+</pre>
+</div>
+<div class="slide" id="id9">
+<h1>Давайте немного позамеряем</h1>
+<div class="line-block">
+<div class="line">Мерить мы будем стандартное</div>
+<div class="line">поведение django в тестах</div>
+</div>
+<div class="line-block">
+<div class="line">База нашего реального приложения</div>
+<div class="line">с кучей таблиц: <strong>217</strong> штук %)</div>
+</div>
+</div>
+<div class="slide" id="id10">
+<h1>Параметры системы</h1>
+<pre class="literal-block">
+Железо: Intel Core i5-3210M, SSD, Mem~4GB
+Linux: Kernel~3.7.6-1-ARCH
+
+
+PostgreSQL 9.2.3; fsync=off
+Python 2.7.3
+Django 1.4.2
+</pre>
+<p class="handout"><strong>fsync</strong>:</p>
+<pre class="handout literal-block">
+&gt; Смысл параметра: Данный параметр отвечает за сброс данных
+&gt; из кэша на диск при завершении транзакций. Если
+&gt; установить его значение fsync = off то данные не будут
+&gt; записываться на дисковые накопители сразу после завершения
+&gt; операций. Это может существенно повысить скорость
+&gt; операций insert и update, но есть риск повредить базу,
+&gt; если произойдет сбой (неожиданное отключение питания,
+&gt; сбой ОС, сбой дисковой подсистемы).
+</pre>
+</div>
+<div class="slide" id="testcase">
+<h1>Используемый TestCase</h1>
+<pre class="code python f65 literal-block">
+<span class="keyword">class</span> <span class="name class">TestV1</span><span class="punctuation">(</span><span class="name">TestCase</span><span class="punctuation">):</span>
+    <span class="keyword">def</span> <span class="name function">test_v0</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">):</span>
+        <span class="name">res</span> <span class="operator">=</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">client</span><span class="operator">.</span><span class="name">get</span><span class="punctuation">(</span><span class="literal string">'/admin/orders/order/'</span><span class="punctuation">)</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">assertContains</span><span class="punctuation">(</span><span class="name">res</span><span class="punctuation">,</span> <span class="literal string">'this_is_the_login_form'</span><span class="punctuation">)</span>
+
+    <span class="keyword">def</span> <span class="name function">test_v1</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">):</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">go_to_admin</span><span class="punctuation">()</span>
+
+    <span class="keyword">def</span> <span class="name function">test_v2</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">):</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">go_to_admin</span><span class="punctuation">()</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">go_to_admin</span><span class="punctuation">(</span><span class="literal string">'admin2'</span><span class="punctuation">)</span>
+
+    <span class="keyword">def</span> <span class="name function">go_to_admin</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">name</span><span class="operator">=</span><span class="literal string">'admin'</span><span class="punctuation">,</span> <span class="name">password</span><span class="operator">=</span><span class="literal string">'password'</span><span class="punctuation">):</span>
+        <span class="name">User</span><span class="operator">.</span><span class="name">objects</span><span class="operator">.</span><span class="name">create_superuser</span><span class="punctuation">(</span><span class="name">name</span><span class="punctuation">,</span> <span class="name builtin pseudo">None</span><span class="punctuation">,</span> <span class="name">password</span><span class="punctuation">)</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">client</span><span class="operator">.</span><span class="name">login</span><span class="punctuation">(</span><span class="name">username</span><span class="operator">=</span><span class="name">name</span><span class="punctuation">,</span> <span class="name">password</span><span class="operator">=</span><span class="name">password</span><span class="punctuation">)</span>
+        <span class="name">res</span> <span class="operator">=</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">client</span><span class="operator">.</span><span class="name">get</span><span class="punctuation">(</span><span class="literal string">'/admin/orders/order/'</span><span class="punctuation">)</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">assertNotContains</span><span class="punctuation">(</span><span class="name">res</span><span class="punctuation">,</span> <span class="literal string">'this_is_the_login_form'</span><span class="punctuation">)</span>
+</pre>
+<pre class="handout literal-block">
+- v0: мы вообще ничего не меняем в базе (есть несколько select-ов)
+- v1:
+  - мы создаем пользователя
+  - логируем
+  - заходим на страницу в админке
+- в остальных тестах чем больше номер, тем больше повторений шагов из v1
+</pre>
+</div>
+<div class="slide" id="id11">
+<h1>Тесты в транзакции</h1>
+<ul class="small simple">
+<li>перед тестом открываем транзакцию: <tt class="docutils literal">begin</tt></li>
+<li>после - откатываем: <tt class="docutils literal">rollback</tt></li>
+</ul>
+<pre class="tiny literal-block">
+./manage.py test tt/tests/test_v1.py
+1.34s call     tt/tests/test_v1.py::TestV2::test_v4
+1.29s call     tt/tests/test_v1.py::TestV1::test_v4
+0.96s call     tt/tests/test_v1.py::TestV1::test_v3
+0.96s call     tt/tests/test_v1.py::TestV2::test_v3
+0.89s call     tt/tests/test_v1.py::TestV1::test_v0
+0.66s call     tt/tests/test_v1.py::TestV1::test_v2
+0.66s call     tt/tests/test_v1.py::TestV2::test_v2
+0.35s call     tt/tests/test_v1.py::TestV1::test_v1
+0.34s call     tt/tests/test_v1.py::TestV2::test_v1
+0.04s call     tt/tests/test_v1.py::TestV2::test_v0
+============ 10 passed in 7.74 seconds =============
+7.82s user 0.36s system 86% cpu 9.492 total
+</pre>
+<p class="green">Итого: 9.5 секунд, минимум: ~моментально</p>
+<div class="handout container">
+<p>Все хорошо, если бы нам не нужен был <tt class="docutils literal">commit_on_success</tt>,
+т.е. ручное управление транзакциями</p>
+<p>На выполнение теста тоже нужно время.
+Чем больше операций в тесте - тем он дольше.</p>
+</div>
+</div>
+<div class="slide" id="commit-on-success">
+<h1>Тесты с commit_on_success</h1>
+<p class="small">Django подход: очистка базы (flush) перед каждым тестом</p>
+<pre class="tiny literal-block">
+$ ./manage.py test tt/tests/test_v1.py
+5.10s call     tt/tests/test_v1.py::TestV2::test_v4
+4.97s call     tt/tests/test_v1.py::TestV1::test_v4
+4.77s call     tt/tests/test_v1.py::TestV2::test_v3
+4.72s call     tt/tests/test_v1.py::TestV1::test_v3
+4.67s call     tt/tests/test_v1.py::TestV1::test_v0
+4.44s call     tt/tests/test_v1.py::TestV2::test_v2
+4.35s call     tt/tests/test_v1.py::TestV1::test_v2
+4.15s call     tt/tests/test_v1.py::TestV1::test_v1
+4.13s call     tt/tests/test_v1.py::TestV2::test_v1
+3.86s call     tt/tests/test_v1.py::TestV2::test_v0
+============ 10 passed in 45.41 seconds ============
+32.33s user 1.00s system 70% cpu 47.142 total
+</pre>
+<p class="green">Итого: 47 секунд, минимум: ~4 секунд</p>
+<ul class="handout simple">
+<li>./manage.py flush/sqlflush</li>
+<li>TRUNCATE всех таблиц, и сброс всех sequences</li>
+<li>плюс инициализация базы, но фикстур нет - это быстро</li>
+</ul>
+</div>
+<div class="slide" id="id12">
+<h1>Что это значит?</h1>
+<ul class="simple">
+<li>350 из 1000 тестов с <tt class="docutils literal">commit_on_success</tt></li>
+<li>итого: 350 * 4 сек = ~23 мин</li>
+<li>и это только чистый <tt class="docutils literal">flush</tt></li>
+</ul>
+<ul class="incremental simple">
+<li>это отстой</li>
+<li>нужен другой механизм обнуления базы...</li>
+</ul>
+<ul class="handout simple">
+<li>23 мин - это только время на чистый flush, а еще время самих тестов</li>
+</ul>
+</div>
+<div class="slide" id="id13">
+<h1>Уникальная база из шаблона</h1>
+<ul class="small simple">
+<li>первоначальную базу создаем один раз: <tt class="docutils literal">t_base</tt></li>
+<li>для каждого теста создаем уникальную базу из <tt class="docutils literal">t_base</tt></li>
+</ul>
+<pre class="code sql literal-block">
+<span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="literal string symbol">&quot;t_uniq&quot;</span> <span class="keyword">WITH</span> <span class="keyword">TEMPLATE</span> <span class="literal string symbol">&quot;t_base&quot;</span><span class="punctuation">;</span>
+<span class="comment single">-- запуск теста
+</span><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> <span class="literal string symbol">&quot;t_uniq&quot;</span><span class="punctuation">;</span>
+</pre>
+<p class="small"><strong>Ограничение:</strong> к шаблону не должно быть подключений</p>
+<p class="handout">Использовать специфичные возможности вашего движка базы дынных - это выход.</p>
+</div>
+<div class="slide" id="id14">
+<h1>Уникальная база, замеряем</h1>
+<pre class="tiny literal-block">
+./manage.py test tt/tests/test_v1.py
+1.76s call     tt/tests/test_v1.py::TestV2::test_v4
+1.73s call     tt/tests/test_v1.py::TestV1::test_v4
+1.39s call     tt/tests/test_v1.py::TestV2::test_v3
+1.35s call     tt/tests/test_v1.py::TestV1::test_v3
+1.30s call     tt/tests/test_v1.py::TestV1::test_v0
+1.17s call     tt/tests/test_v1.py::TestV2::test_v2
+1.08s call     tt/tests/test_v1.py::TestV1::test_v2
+0.97s call     tt/tests/test_v1.py::TestV1::test_v1
+0.76s call     tt/tests/test_v1.py::TestV2::test_v1
+0.45s call     tt/tests/test_v1.py::TestV2::test_v0
+============ 10 passed in 12.20 seconds ============
+7.88s user 0.31s system 58% cpu 13.945 total
+</pre>
+<p class="green">Итого: 14 секунд, минимум: 0.45 секунды</p>
+<p>350 * 0.45 = <span class="red">2.5 мин</span> (против <span class="red">23 мин</span> для <tt class="docutils literal">flush</tt>)</p>
+</div>
+<div class="slide" id="id15">
+<h1>Сводная таблица</h1>
+<table border="1" class="small docutils">
+<colgroup>
+<col width="49%" />
+<col width="22%" />
+<col width="29%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">метод</th>
+<th class="head">всего, сек</th>
+<th class="head">минимум, сек</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>в транзакции</td>
+<td>9.5</td>
+<td>~0.04</td>
+</tr>
+<tr><td>уникальная база</td>
+<td>14</td>
+<td>~0.45</td>
+</tr>
+<tr><td>очистка базы (<tt class="docutils literal">flush</tt>)</td>
+<td>47</td>
+<td>~4.00</td>
+</tr>
+</tbody>
+</table>
+<ul class="incremental simple">
+<li>flush - отстой</li>
+<li>уникальная база - клёво</li>
+</ul>
+</div>
+<div class="slide" id="id16">
+<h1>Полгода назад</h1>
+<ul class="simple">
+<li>~250 тестов</li>
+<li>проходили за 3-4 минуты</li>
+<li>нас это устраивало</li>
+</ul>
+<ul class="incremental simple">
+<li>... но тестов становилось все больше</li>
+</ul>
+<div class="handout container">
+<p>Полгода назад, во время выхода <a class="reference external" href="http://habrahabr.ru/company/ostrovok/blog/146552/">статьи на хабре</a> (26 июня 2012),
+у нас было ~250 тестов, проходили они за 3-4 минуты
+и мы радовались - это довольно быстро.</p>
+<p>Тогда мы уже использовали уникальную базу вместо flush.</p>
+<p>Время шло, кол-во тестов росло, в приоритете были другие задачи.</p>
+</div>
+</div>
+<div class="slide" id="id18">
+<h1>3 месяца назад</h1>
+<ul class="simple">
+<li>~800 тестов</li>
+<li>ходили минут 15</li>
+<li>половина времени сборки - наши тесты %)</li>
+</ul>
+<ul class="incremental simple">
+<li>... нужно было тесты параллелить</li>
+</ul>
+<div class="handout container">
+<p>3 месяца назад тестов было 800 и ходили они минут 15. Долго.</p>
+<p>Сборки пакете на CI сервере были по 30-40 минут.
+Из них почти половина времени - тесты.</p>
+<p>Оптимизации в однопоточном режиме не давали большого прироста.</p>
+<p>Нужно было что-то делать. Нужен был координальный подход.</p>
+<p>Решение очевидное - распараллелить тесты.</p>
+<p>Правда есть пара сдерживающих моментов...
+С таким количеством тестов задача оптимизации тоже усложняется.
+Дольше ходят тесты - дольше разрабатывать тестовую среду.</p>
+</div>
+</div>
+<div class="slide" id="nose-1-x">
+<h1>nose(1.x) и плагины</h1>
+<p class="handout">Посмотрим на реализацию того времени.</p>
+<p><strong>Первая реализация тестовой среды:</strong></p>
+<ul class="simple">
+<li>свой раннер на базе <tt class="docutils literal">django_nose</tt></li>
+<li>свои плагины</li>
+</ul>
+<ul class="incremental simple">
+<li>наши плагины не совместимы с multiprocess</li>
+<li>нужно рефакторить...</li>
+</ul>
+<div class="handout container">
+<p>nose умеет несколько процессов из коробки.
+В django nose multiprocess работает только для SQLite в памяти.</p>
+<p>В последствии оказалось, что множество плагинов не совместимы с multiprocess.</p>
+<p>Даже Xunit отчет, который нужен для CI.</p>
+<p>Если вы только начинаете проект обратите лучше внимание на nose2 и pytest,
+в них совместимость между multiprocess и плагинами - лучше.</p>
+<p>Но nose2 и pytest до конца несовместимы с nose1.</p>
+</div>
+</div>
+<div class="slide" id="id19">
+<h1>Рефакторинг тестовой среды</h1>
+<ul class="simple">
+<li>логику с изоляцией базы перенесли в TestCase</li>
+<li>появился пул баз по кол-ву процессов</li>
+<li>для каждого теста блокируем базу</li>
+</ul>
+<pre class="handout literal-block">
+Время нашлось нужно было делать рефакторинг.
+
+1.
+  Проверяем, что тест наследуется от нашего TestCase.
+
+  Логика на уровне TestCase нам позволила абстрагироваться от раннера.
+
+  У нас появилась возможность опробовать nose2 и pytest на наших тестах.
+  Но пока мы остаемся на nose1.
+
+  pytest в однопоточном режиме работает отлично, а вот
+  в несколько потоков выходит дольше чем один, на порядок дольше %)...
+
+2.
+  Пулы создаются на уровне раннера.
+
+  Базы для пула создаются тем же методом что и уникальная база.
+  &quot;По шаблону&quot; (``create db ... with template``).
+
+3.
+  Переда запуском блокируем, после - отпускаем.
+</pre>
+</div>
+<div class="slide" id="id20">
+<h1>Запуск тестов в одном процессе</h1>
+<pre class="small literal-block">
+$ ./manage.py test
+----------------------------------------------------------------
+Ran 945 tests in 1049.055s
+
+OK (SKIP=14) (714.72s user 17.35s system 69% cpu 17:31.64 total)
+</pre>
+<p class="green big">17-18 минут, это много...</p>
+</div>
+<div class="slide" id="id21">
+<h1>Запуск тестов в несколько процессов</h1>
+<pre class="small literal-block">
+$ ./manage.py test --processes=4
+----------------------------------------------------------------
+Ran 945 tests in 341.634s
+
+OK (SKIP=14) (917.19s user 15.47s system 267% cpu 5:48.75 total)
+</pre>
+<ul class="green simple">
+<li>меньше 6 минут</li>
+<li>быстрее <span class="red">в 3 раза</span></li>
+<li>или быстрее <span class="red">на 12 минут</span></li>
+</ul>
+<p class="incremental green"><em>... то что надо!</em></p>
+<div class="handout container">
+<p>На CI сервере немного дольше, но можно добавить больше processes.</p>
+<p>Для любителей ультрабуков с их низкочастотными процессорами будет дольше.
+Например: для любителей 11-х MacBook Air.
+Но выбор железа остается за разработчиком.
+Производительность рабочего ноутбука - это важно.</p>
+</div>
+<div class="handout container">
+<p>Тесты мы ускорили</p>
+<dl class="docutils">
+<dt>1000 тестов за 6 минут:</dt>
+<dd><ul class="first last simple">
+<li>можно подождать</li>
+<li>или посмотреть на свои изменения еще раз</li>
+</ul>
+</dd>
+<dt>Заметки:</dt>
+<dd><ul class="first last simple">
+<li>дальнейшая оптимизация скорее всего будет не такой показательной</li>
+<li>привязываться к nose1 - сейчас плохая идея</li>
+</ul>
+</dd>
+</dl>
+<p>Дальнейшая оптимизация нужна, т.к. кол-во тестов обычно только растет.
+У нас есть отдельная команда экстранета, которая занимается админкой для отелей.
+В их проекте ~3200 тестов %).</p>
+</div>
+</div>
+<div class="slide" id="id22">
+<h1>Еще пара приемов</h1>
+<ul class="simple">
+<li>свой раннер со своими параметрами</li>
+<li>отдельные настройки для тестов</li>
+<li>изоляция кэшей и redis</li>
+<li>отдельный шаг создания базы</li>
+</ul>
+<p class="handout">Если хватит времени.</p>
+<p class="handout">Расскажу несколько приемов из нашей практики.</p>
+</div>
+<div class="slide" id="id23">
+<h1>Свой раннер</h1>
+<ul class="simple">
+<li>подготовка начальной среды (multiprocess)</li>
+<li>различные параметры для удобства (bootstrap)</li>
+</ul>
+<p>Так мы переопределили раннер:</p>
+<pre class="code python small literal-block">
+<span class="comment"># testing/management/commands/test.py</span>
+<span class="keyword namespace">from</span> <span class="name namespace">testing.runner</span> <span class="keyword namespace">import</span> <span class="name">run</span>
+
+<span class="keyword">class</span> <span class="name class">Command</span><span class="punctuation">(</span><span class="name builtin">object</span><span class="punctuation">):</span>
+    <span class="keyword">def</span> <span class="name function">run_from_argv</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">argv</span><span class="punctuation">):</span>
+        <span class="name">run</span><span class="punctuation">(</span><span class="name">argv</span><span class="punctuation">)</span>
+</pre>
+<p class="handout">Наш процесс запуска тестов очень изминился,
+нам понадобился свой раннер.</p>
+<p class="handout">Добавляем необходимые параметры,
+а также параметры для удобства.</p>
+<p class="handout">Мы не используем django параметры - они не нужны.</p>
+</div>
+<div class="slide" id="id24">
+<h1>Отдельные настройки для тестов</h1>
+<ul class="simple">
+<li>фиксируем специфические настройки</li>
+<li>... и даже мокаем redis %)</li>
+</ul>
+<p class="small">При запуске <tt class="docutils literal">./manage.py test</tt> подхватываются тестовые настройки:</p>
+<pre class="code python small literal-block">
+<span class="comment"># settings/__init__.py</span>
+<span class="keyword">if</span> <span class="literal string">'test'</span> <span class="operator word">in</span> <span class="name">sys</span><span class="operator">.</span><span class="name">argv</span><span class="punctuation">:</span>
+    <span class="keyword namespace">from</span> <span class="name namespace">.testing</span> <span class="keyword namespace">import</span> <span class="operator">*</span>
+</pre>
+<p class="handout">Фиксируем разные настройки для тестов</p>
+</div>
+<div class="slide" id="redis">
+<h1>Изоляция кэшей и redis</h1>
+<dl class="docutils">
+<dt>Кэши:</dt>
+<dd><ul class="first last simple">
+<li>используем <tt class="docutils literal"><span class="pre">django...LocMemCache</span></tt></li>
+<li>в конце каждого теста - очищаем</li>
+</ul>
+</dd>
+<dt>Redis:</dt>
+<dd><ul class="first last simple">
+<li>пул для многопроцессорного режима</li>
+<li>в начале каждого теста блокируем</li>
+<li>в конце - зачищаем и разблокируем</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="slide" id="id25">
+<h1>Отдельный шаг создания базы</h1>
+<p><strong>Для быстрого запуска отдельных тестов</strong></p>
+<p class="green small">С созданием базы: 1 тест за ~1 секунду, а ждем ~15 секунд</p>
+<pre class="tiny literal-block">
+$ time ./manage.py test tt/tests/test_v1.py:TestV1.test_v0 --create-db
+----------------------------------------------------------------------
+Ran 1 test in 0.719s
+OK (14.616 total)
+</pre>
+<p class="green small">Без создания базы: 1 тест за ~1 секунду, a ждем всего ~3 секунд</p>
+<pre class="tiny literal-block">
+$ time ./manage.py test tt/tests/test_v1.py:TestV1.test_v0
+----------------------------------------------------------------------
+Ran 1 test in 0.810s
+OK (2.641 total)
+</pre>
+<div class="handout container">
+<p>У нас есть один тест, который мы только что починили
+и хотим проверить, что он проходит.</p>
+<p>Кажется это мелочь 15 секунд, но отзывчивость тестов
+очень важно для частых операций.
+При обычном харде (HDD), это время может быть больше.</p>
+<p>Есть неблольшой минус, что база может изменится,
+и нужно пересаздать базу, но плюсов больше.</p>
+</div>
+</div>
+<div class="slide" id="id26">
+<h1>Подытожим</h1>
+<ul class="simple">
+<li>тесты мы ускорили</li>
+<li>сделали удобнее ежедневное использование</li>
+</ul>
+<ul class="incremental simple">
+<li>т.е. уменьшили преграды для их написания</li>
+<li>больше хороших тестов даст больше уверенности в коде</li>
+</ul>
+</div>
+<div class="slide" id="id27">
+<h1>Спасибо за внимание</h1>
+<p class="huge">Вопросы?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">текст читал:</th><td class="field-body">Гриша Костюк</td>
+</tr>
+<tr class="field"><th class="field-name">email:</th><td class="field-body"><a class="reference external" href="mailto:naspeh&#64;gmail.com">naspeh&#64;gmail.com</a></td>
+</tr>
+<tr class="field"><th class="field-name">хомяк:</th><td class="field-body"><a class="reference external" href="http://pusto.org">pusto.org</a></td>
+</tr>
+<tr class="field"><th class="field-name">github:</th><td class="field-body"><a class="reference external" href="https://github.com/naspeh/">github.com/naspeh</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

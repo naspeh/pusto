@@ -14,8 +14,8 @@ Page = namedtuple('Page', (
     'aliases published hidden title summary body html'
 ))
 
-meta_files = {'meta.json'}
-index_files = {'index.' + t for t in 'rst md tpl html'.split(' ')}
+meta_files = ['meta.json']
+index_files = ['index.' + t for t in 'html tpl rst md'.split(' ')]
 
 
 def get_urls(src_dir):
@@ -44,9 +44,9 @@ def get_pages(src_dir):
         if not os.path.isdir(path) or url.rsplit('/', 2)[1].startswith('_'):
             continue
 
-        files = set(tree[path][1])
-        index = (index_files & files or {None}).pop()
-        meta = (meta_files & files or {None}).pop()
+        files = tree[path][1]
+        meta = ([f for f in meta_files if f in files] or [None])[0]
+        index = ([f for f in index_files if f in files] or [None])[0]
         children = [
             (k, v) for k, v in pages.items()
             if k.rsplit('/', 2)[0] + '/' == url and not v.hidden
@@ -76,12 +76,17 @@ def bind_meta(ctx, data, method=None):
             meta = json.loads(meta)
         else:
             meta = {}
-        data = re.sub('(?i)<!DOCTYPE.*?[^>]>', '', data)
-        root = ET.fromstring('<root>%s</root>' % data)
-        summary = root.findall('*[@id="summary"]')
-        if summary:
-            summary = ET.tostring(summary[0], encoding='utf8', method='html')
-            meta['summary'] = summary.decode()
+
+        try:
+            data = re.sub('(?i)<(!DOCTYPE|\?xml).*?[^>]>', '', data)
+            root = ET.fromstring('<root>%s</root>' % data)
+            summary = root.findall('*[@id="summary"]')
+            if summary:
+                summary = ET.tostring(summary[0], 'utf8', 'html')
+                meta['summary'] = summary.decode()
+        except ET.ParseError as e:
+            print('WARN: {}: "{}"'.format(ctx['index_file'], e))
+
     elif method == 'json':
         meta = json.loads(meta)
 
