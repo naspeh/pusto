@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
     <title>pusto.org: {% block title %}{{ title|striptags or url }}{% endblock %}</title>
+    {% block head_extra %}{% endblock %}
 </head>
 <body>
 {% set github="https://github.com/naspeh/pusto/" %}
@@ -13,7 +14,6 @@
 <div class="header">
     <a class="logo" href="/">pusto.org</a>
     <ul class="nav">
-        <li><a href="{{ github }}">исходники</a></li>
         <li><a href="/naspeh/">об авторе</a></li>
     </ul>
 </div>
