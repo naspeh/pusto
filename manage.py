@@ -2,10 +2,12 @@
 import argparse
 import http
 import os
+import re
 import subprocess
 import time
 from threading import Thread
 from urllib.request import urlopen
+from urllib.error import HTTPError
 
 from werkzeug.serving import run_simple
 
@@ -47,7 +49,8 @@ def process_args(args=None):
 
     sub('test_urls', help='test urls from google')\
         .arg('-w', '--use-wsgi', action='store_true', help='use wsgi server')\
-        .exe(lambda a: check_urls(SRC_DIR, use_wsgi=a.use_wsgi))
+        .arg('--host', help='use host for test')\
+        .exe(lambda a: check_urls(SRC_DIR, use_wsgi=a.use_wsgi, host=a.host))
 
     sub('deploy')
 
@@ -79,19 +82,19 @@ def process_args(args=None):
         raise ValueError('Wrong subcommand')
 
 
-def check_urls(src_dir, use_wsgi=False):
-    if use_wsgi:
-        args = 'run --port=9000 --no-reloader'.split(' ')
-    else:
-        args = 'build -s --port=9000'.split(' ')
-    server = Thread(target=process_args, args=(args,))
-    server.daemon = True
-    server.start()
-    time.sleep(2)
+def check_urls(src_dir, use_wsgi=False, host=None):
+    if not host:
+        host = 'http://localhost:9000'
+        if use_wsgi:
+            args = 'run --port=9000 --no-reloader'.split(' ')
+        else:
+            args = 'build -s --port=9000'.split(' ')
+        server = Thread(target=process_args, args=(args,))
+        server.daemon = True
+        server.start()
+        time.sleep(2)
 
     urls = [
-        # s.pusto.org/napokaz/
-        # s.pusto.org/writing/ru-pycon-2013/
         '/resume',
         '/naspeh/detail/',
         '/naspeh/unikalnyy-nik/',
@@ -102,12 +105,34 @@ def check_urls(src_dir, use_wsgi=False):
         (
             '/blog/2008/09/25/'
             'avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/'
-        )
+        ),
+
+        # From s.pusto.org
+        '/napokaz/',
+        '/writing/ru-pycon-2013/',
     ]
+
+    def get(url):
+        comment = ''
+        try:
+            res = urlopen(host + url)
+            text = res.read().decode()
+            new = re.search(r'http-equiv="refresh" content="0;url=(.*)"', text)
+            if new:
+                new_url = new.groups(1)[0]
+                res = urlopen(host + new_url)
+                comment = 'Manual redirect'
+            code = res.status
+            res_url = res.url
+        except HTTPError as e:
+            code = e.code
+            res_url = None
+        return code, res_url, comment
+
     err = []
     for url in urls:
-        res = urlopen('http://localhost:9000' + url)
-        code = res.status
+        code, res_url, comment = get(url)
+        print('%s %s %s # %s' % (url, code, res_url, comment))
         expected_code = 200
         if code != expected_code:
             err += ['%s (%r != %r)' % (url, code, expected_code)]
