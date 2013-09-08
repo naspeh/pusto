@@ -74,11 +74,11 @@ blockquote {
     margin: 0 -10px;
     margin-bottom: 1em;
     font-weight: bold;
-    border-top: 2px solid #008000;
+    border-top: 2px solid #777;
     height: 1em;
 }
 .header a {
-    background: #008000;
+    background: #777;
     padding: 0 10px;
     color: #fff;
     border-radius: 0 0 10px 10px;
