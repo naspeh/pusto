@@ -1,6 +1,19 @@
-| **Свадебное путешествие. Часть первая**
-| **Даты:** 16 - 25 июля 2006г.
-| **Тип отдыха:** активный, пеший поход
+.. _summary:
+.. container::
+
+    .. raw:: html
+
+        <div class="napokaz"
+            data-box-width="7"
+            data-box-thumbsize="100c"
+            data-picasa-ignore="hide"
+            data-picasa-user="naspeh"
+            data-picasa-album="20060716_Karpaty_Chernogorskiy_hrebet">
+        </div>
+
+    | **Свадебное путешествие. Часть первая**
+    | **Даты:** 16 - 25 июля 2006г.
+    | **Тип отдыха:** активный, пеший поход
 
 **Нить маршрута**
  ::
@@ -11,13 +24,3 @@
     оз.Несамовытое (~ 1750 м) - г.Туркул (1933.2 м) -  г.Данциж (1848.5 м) - 
     г.Пожижевска (1822.2 м) - г.Брескул (1911.5 м) - г.Говерла (2060.8 м) -  
     г.Петрос (2020.2 м) - с.Квасы (~800 м) << 23.07
-
-.. raw:: html
-
-    <div class="napokaz"
-        data-box-width="7"
-        data-box-thumbsize="100c"
-        data-picasa-ignore="hide"
-        data-picasa-user="naspeh"
-        data-picasa-album="20060716_Karpaty_Chernogorskiy_hrebet">
-    </div>
