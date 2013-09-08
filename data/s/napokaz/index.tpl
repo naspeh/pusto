@@ -24,10 +24,6 @@
 {% endblock %}
 
 {% block body %}
-    <!--META{
-        "aliases": ["/napokaz/"]
-    }-->
-
     <div class="napokaz"
         data-box-thumbsize='72u'
         data-front-thumbsize='40u'>

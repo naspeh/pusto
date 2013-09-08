@@ -15,6 +15,7 @@ def build(src_dir, build_dir):
     shutil.copytree(src_dir, build_dir)
 
     env = get_jinja(build_dir)
+    nginx = []
     for url, page in get_urls(build_dir):
         html = path = None
         if url != page.url:
@@ -24,12 +25,20 @@ def build(src_dir, build_dir):
                 tpl = env.get_template('_theme/redirect.tpl')
                 html = tpl.render(url=page.url)
                 path = path + 'index.html'
+            if url.endswith('/'):
+                nginx += [
+                    'rewrite .*{}?$ http://$host{} permanent;'
+                    .format(url, page.url)
+                ]
         elif page.index_file and not page.index_file.endswith('.html'):
             html, path = page.html, page.path
 
         if html and path:
             with open(path, 'bw') as f:
                 f.write(html.encode())
+    if nginx:
+        print('Rules for nginx:')
+        print('\n'.join(nginx))
 
 
 def create_app(src_dir, debug=False):
