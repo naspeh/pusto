@@ -103,6 +103,8 @@ def check_urls(src_dir, use_wsgi=False, host=None):
             '/blog/2008/09/25/'
             'avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/'
         ),
+        '/yandex_5ad3ffab17496674.txt',
+        '/googlee71e35f8e9cbd607.html',
 
         # From s.pusto.org
         #'s.pusto.org/napokaz/',

@@ -145,7 +145,10 @@ def get_html(src_dir, ctx):
         elif ctx['markup'] == 'rst':
             title, body = markup.rst(text, source_path=path)
             bind_meta(ctx, body, method='html')
-            ctx.update(title=title, body=body)
+            if title:
+                ctx['title'] = title
+            ctx['body'] = body
+
             tpl = env.get_template('/_theme/base.tpl')
             html = tpl.render(ctx)
 
