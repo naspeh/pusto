@@ -108,8 +108,8 @@ def check_urls(src_dir, use_wsgi=False, host=None):
         ),
 
         # From s.pusto.org
-        '/napokaz/',
-        '/writing/ru-pycon-2013/',
+        #'s.pusto.org/napokaz/',
+        #'s.pusto.org/writing/ru-pycon-2013/',
     ]
 
     def get(url):
