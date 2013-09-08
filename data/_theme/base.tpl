@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <head>
+{% block head %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="/_theme/reset.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
     <title>pusto.org: {% block title %}{{ title|striptags or url }}{% endblock %}</title>
-    {% block head_extra %}{% endblock %}
+{% endblock %}
 </head>
 <body>
 {% set github="https://github.com/naspeh/pusto/" %}
@@ -38,7 +39,9 @@
     </div>
     {% endif %}
     <div class="document">
+        {% block document %}
         {{ body }}
+        {% endblock%}
     </div>
 </div>
 {% endblock %}
