@@ -15,7 +15,7 @@
 .. raw:: html
 
     <div class="napokaz"
-        data-box-width="6"
+        data-box-width="7"
         data-box-thumbsize="100c"
         data-picasa-ignore="hide"
         data-picasa-user="naspeh"

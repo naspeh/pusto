@@ -2,6 +2,12 @@
 =====================================================
 .. include:: ../summary.rst
 
+..
+    META{
+        "aliases": ["/report-67/for/event-63-karpatyi-chernogorskij-hrebet"],
+        "template": "_theme/trip.tpl"
+    }
+
 16.07 Сборы и отъезд из Днепра
 ------------------------------
 
