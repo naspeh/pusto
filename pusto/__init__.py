@@ -51,7 +51,7 @@ def create_app(src_dir, debug=False):
                 if url == page.url:
                     urls += [(url, Response(page.html, mimetype='text/html'))]
                 else:
-                    urls += [(url, redirect(page.url))]
+                    urls += [(url, redirect(page.url, 301))]
             _urls.urls = dict(urls)
         return _urls.urls
 

@@ -52,7 +52,13 @@ def process_args(args=None):
         .arg('--host', help='use host for test')\
         .exe(lambda a: check_urls(SRC_DIR, use_wsgi=a.use_wsgi, host=a.host))
 
-    sub('deploy')
+    sub('deploy').exe(lambda a: ssh(
+        'cd /home/pusto/src'
+        '&& git pull'
+        '&& source $(cat .venv)/bin/activate'
+        '&& ./manage.py build'
+        '&& systemctl restart nginx.service'
+    ))
 
     args = parser.parse_args(args)
     if not hasattr(args, 'sub'):
@@ -68,15 +74,6 @@ def process_args(args=None):
             http.server.test(
                 http.server.SimpleHTTPRequestHandler, port=args.port
             )
-
-    elif args.sub == 'deploy':
-        ssh(
-            'cd /home/pusto/src'
-            '&& git pull'
-            '&& source $(cat .venv)/bin/activate'
-            '&& ./manage.py build'
-            '&& systemctl restart nginx.service'
-        )
 
     else:
         raise ValueError('Wrong subcommand')
