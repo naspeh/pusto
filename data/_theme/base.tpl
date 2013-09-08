@@ -26,6 +26,7 @@
         <h1>{{ title }}</h1>
         <link itemprop="url" href="{{ url }}" />
         <ul class="meta">
+            {% block meta %}
             {% if published %}
             <li itemprop="datePublished" datetime="{{ published.strftime('%Y-%m-%d')}}" >
                 Опубликовано: {{ published.strftime('%d.%m.%Y') }}
@@ -35,6 +36,7 @@
             <li><a href="{{ index_file }}">{{ markup }} текст</a></li>
             {% endif %}
             <li><a href="{{ github_data }}{{ index_file or url }}">смотреть на github</a></li>
+            {% endblock %}
         </li>
     </div>
     {% endif %}

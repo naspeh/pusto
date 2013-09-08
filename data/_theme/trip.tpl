@@ -5,6 +5,7 @@
     {% include '_theme/napokaz.tpl' %}
 {% endblock %}
 
-{% block document %}
+{% block meta %}
+    <li><a href="/trip/">наверх</a></li>
     {{ super() }}
 {% endblock %}

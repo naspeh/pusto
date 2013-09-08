@@ -4,6 +4,7 @@
 
 ..
     META{
+        "published": "04.12.2009",
         "aliases": ["/report-67/for/event-63-karpatyi-chernogorskij-hrebet"],
         "template": "_theme/trip.tpl"
     }
