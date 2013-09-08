@@ -5,6 +5,11 @@
 <script src="{{ repo }}napokaz.js"></script>
 <script>
     $(document).ready(function() {
+        $.fn.napokaz.defaults.set({
+            frontCount: 10,
+            frontThumbsize: '60c',
+            picasaIgnore: 'hide'
+        });
         $('.napokaz').napokaz();
     });
 </script>
