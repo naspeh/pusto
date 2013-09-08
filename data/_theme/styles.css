@@ -79,15 +79,13 @@ blockquote {
 }
 .header a {
     background: #777;
-    border: 2px solid #777;
-    margin: -2px;
     padding: 0 10px;
     color: #fff;
     border-radius: 0 0 10px 10px;
 }
 .header a:hover {
-    background: #fff;
-    color: #777;
+    background: #777;
+    color: #eee;
 }
 .header a.logo {
     position: absolute;
