@@ -11,7 +11,7 @@ from . import markup
 
 Page = namedtuple('Page', (
     'url children index_file meta_file markup path '
-    'aliases published hidden title summary body html'
+    'aliases published hidden template title summary body html'
 ))
 
 meta_files = ['meta.json']
@@ -93,7 +93,7 @@ def bind_meta(ctx, data, method=None):
     if 'published' in meta:
         meta['published'] = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
 
-    keys = 'published aliases hidden summary title body'.split(' ')
+    keys = 'published aliases hidden template summary title body'.split(' ')
     for key in keys:
         ctx.setdefault(key, None)
         if key in meta:
@@ -149,7 +149,8 @@ def get_html(src_dir, ctx):
                 ctx['title'] = title
             ctx['body'] = body
 
-            tpl = env.get_template('/_theme/base.tpl')
+            tpl = ctx.get('template', None) or '/_theme/base.tpl'
+            tpl = env.get_template(tpl)
             html = tpl.render(ctx)
 
         path = src_dir + ctx['url'] + 'index.html'

@@ -1,0 +1,47 @@
+{
+    "aliases": [
+        "/event-63",
+        "/event-63-karpatyi-chernogorskij-hrebet",
+        "/report-66/for/event-63-karpatyi-chernogorskij-hrebet"
+    ],
+    "extra": {
+        "albums": [
+            "http://picasaweb.google.com/naspeh/20060716_Karpaty_Chernogorskiy_hrebet"
+        ],
+        "event": {
+            "created": "2009-12-04 11:40:03.772677",
+            "finish": "2006-07-25",
+            "id": 63,
+            "published": "2009-12-04 23:43:26.484379",
+            "start": "2006-07-16",
+            "summary": null,
+            "title": "Карпаты. Черногорский хребет",
+            "updated": "2009-12-04 23:11:48.097559"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2009-12-04 12:17:55.556527",
+                "event_id": 63,
+                "filter": "reStrucuredText",
+                "id": 66,
+                "published": null,
+                "title": "Технический",
+                "updated": "2009-12-04 23:11:48.098252"
+            },
+            {
+                "content": null,
+                "created": "2009-12-04 16:53:28.182738",
+                "event_id": 63,
+                "filter": "reStrucuredText",
+                "id": 67,
+                "published": null,
+                "title": "Более подробно",
+                "updated": "2010-06-01 19:47:52.094261"
+            }
+        ]
+    },
+    "published": "04.12.2009",
+    "title": "2006г. Карпаты. Черногорский хребет",
+    "template": "_theme/trip.tpl"
+}

@@ -1,26 +1,9 @@
-{% extends "_theme/base.tpl" %}
+{% extends '_theme/base.tpl' %}
 {% block title %}napokaz{% endblock %}
 
-{% set repo="https://rawgithub.com/naspeh/napokaz/master/"%}
-{% block head_extra %}
-    <link rel="stylesheet" href="{{ repo }}napokaz.css" />
-
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="{{ repo }}napokaz.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.napokaz').napokaz();
-        });
-    </script>
-    <style>
-        .napokaz {
-            display: inline-block;
-            *display: inline;
-            *zoom: 1;
-            margin: 5px;
-            vertical-align: top;
-        }
-    </style>
+{% block head %}
+    {{ super() }}
+    {% include '_theme/napokaz.tpl' %}
 {% endblock %}
 
 {% block body %}
