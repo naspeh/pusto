@@ -114,6 +114,7 @@ blockquote {
     font-size: 0.75em;
     color: #777;
     overflow: hidden;
+    text-transform: lowercase;
 }
 .title ul.meta li {
     float: left;

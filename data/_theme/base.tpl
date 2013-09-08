@@ -27,6 +27,11 @@
         <link itemprop="url" href="{{ url }}" />
         <ul class="meta">
             {% block meta %}
+            {% if url.startswith('/post/')%}
+            <li><a href="/">Главная</a></li>
+            {% elif url.startswith('/trip/') %}
+            <li><a href="/trip/">Наши поездки</a></li>
+            {% endif %}
             {% if published %}
             <li itemprop="datePublished" datetime="{{ published.strftime('%Y-%m-%d')}}" >
                 Опубликовано: {{ published.strftime('%d.%m.%Y') }}
@@ -35,7 +40,7 @@
             {% if markup in ['md', 'rst'] %}
             <li><a href="{{ index_file }}">{{ markup }} текст</a></li>
             {% endif %}
-            <li><a href="{{ github_data }}{{ index_file or url }}">смотреть на github</a></li>
+            <li><a href="{{ github_data }}{{ index_file or url }}">Смотреть на github</a></li>
             {% endblock %}
         </li>
     </div>
