@@ -1,4 +1,4 @@
-{% set repo="https://rawgithub.com/naspeh/napokaz/master/"%}
+{% set repo="/s/napokaz/src/"%}
 <link rel="stylesheet" href="{{ repo }}napokaz.css" />
 
 <script src="http://code.jquery.com/jquery.js"></script>
