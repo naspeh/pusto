@@ -14,24 +14,13 @@ def build(src_dir, build_dir, nginx_file=None):
         shutil.rmtree(build_dir)
     shutil.copytree(src_dir, build_dir)
 
-    env = get_jinja(build_dir)
     nginx = {}
     for url, page in get_urls(build_dir):
-        html = path = None
         if url != page.url and (url + '/') != page.url:
             nginx[url.rstrip('/')] = page.url
-            path = build_dir + url.rstrip('/') + '/'
-            if not os.path.exists(path):
-                os.makedirs(path, exist_ok=True)
-                tpl = env.get_template('_theme/redirect.tpl')
-                html = tpl.render(url=page.url)
-                path = path + 'index.html'
         elif page.index_file and not page.index_file.endswith('.html'):
-            html, path = page.html, page.path
-
-        if html and path:
-            with open(path, 'bw') as f:
-                f.write(html.encode())
+            with open(page.path, 'bw') as f:
+                f.write(page.html.encode())
     if nginx:
         lines = [
             'rewrite ^{}/?$ {} permanent;'.format(u, p)
