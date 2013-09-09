@@ -1,0 +1,36 @@
+{
+    "aliases": [
+        "/event-39",
+        "/event-39-novoalekseevka-sudak-cherez-arabatskuyu-strelku",
+        "/report-47/for/event-39-novoalekseevka-sudak-cherez-arabatskuyu-strelku"
+    ],
+    "extra": {
+        "albums": [
+            "http://picasaweb.google.com/naspeh/20090404_Arabatka"
+        ],
+        "event": {
+            "created": "2009-11-23 22:00:42.353728",
+            "finish": "2009-04-06",
+            "id": 39,
+            "published": "2009-11-23 22:03:23.484340",
+            "start": "2009-04-04",
+            "summary": null,
+            "title": "Новоалексеевка - Судак, через Арабатскую стрелку",
+            "updated": "2010-09-24 01:08:54.089014"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2009-11-23 22:26:48.048627",
+                "event_id": 39,
+                "filter": "reStrucuredText",
+                "id": 47,
+                "published": null,
+                "title": "",
+                "updated": "2009-11-24 23:36:10.449056"
+            }
+        ]
+    },
+    "published": "23.11.2009",
+    "template": "_theme/trip.tpl"
+}

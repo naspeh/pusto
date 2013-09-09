@@ -1,0 +1,36 @@
+{
+    "aliases": [
+        "/event-107",
+        "/event-107-kryim-yalta-bahchisaraj",
+        "/report-108/for/event-107-kryim-yalta-bahchisaraj"
+    ],
+    "extra": {
+        "albums": [
+            "http://picasaweb.google.com/naspeh/20101009_Krym_Yalta_Bahchisaray"
+        ],
+        "event": {
+            "created": "2010-09-24 01:08:54.088957",
+            "finish": "2010-10-03",
+            "id": 107,
+            "published": "2010-10-20 15:06:05.308443",
+            "start": "2010-10-02",
+            "summary": null,
+            "title": "Крым. Ялта - Бахчисарай",
+            "updated": "2010-09-24 01:08:54.089014"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2010-09-24 01:08:54.089495",
+                "event_id": 107,
+                "filter": "reStrucuredText",
+                "id": 108,
+                "published": null,
+                "title": "",
+                "updated": "2010-09-24 01:08:54.089561"
+            }
+        ]
+    },
+    "published": "20.10.2010",
+    "template": "_theme/trip.tpl"
+}

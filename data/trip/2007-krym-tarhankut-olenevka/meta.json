@@ -1,0 +1,36 @@
+{
+    "aliases": [
+        "/event-12",
+        "/event-12-kryim-tarhankut-olenevka",
+        "/report-15/for/event-12-kryim-tarhankut-olenevka"
+    ],
+    "extra": {
+        "albums": [
+            "http://picasaweb.google.com/naspeh/20070824_Krym_Tarhankut"
+        ],
+        "event": {
+            "created": "2009-11-23 16:49:56.804045",
+            "finish": "2007-08-28",
+            "id": 12,
+            "published": "2009-11-23 17:20:20.674433",
+            "start": "2007-08-24",
+            "summary": null,
+            "title": "Крым. Тарханкут. Оленевка",
+            "updated": "2009-11-23 17:24:25.619587"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2009-11-23 16:49:56.808760",
+                "event_id": 12,
+                "filter": "reStrucuredText",
+                "id": 15,
+                "published": null,
+                "title": "",
+                "updated": "2009-11-24 23:12:27.461219"
+            }
+        ]
+    },
+    "published": "23.11.2009",
+    "template": "_theme/trip.tpl"
+}

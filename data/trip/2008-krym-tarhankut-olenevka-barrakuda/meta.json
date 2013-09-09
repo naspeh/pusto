@@ -1,0 +1,36 @@
+{
+    "aliases": [
+        "/event-19",
+        "/event-19-kryim-tarhankut-olenevka-barrakuda",
+        "/report-20/for/event-19-kryim-tarhankut-olenevka-barrakuda"
+    ],
+    "extra": {
+        "albums": [
+            "http://picasaweb.google.com/naspeh/20080814_Krym_Tarhankut_Barrakuda"
+        ],
+        "event": {
+            "created": "2009-11-23 19:19:51.516417",
+            "finish": "2008-08-21",
+            "id": 19,
+            "published": "2009-11-23 20:33:52.405837",
+            "start": "2008-08-14",
+            "summary": null,
+            "title": "Крым. Тарханкут. Оленевка. Барракуда",
+            "updated": "2009-11-23 20:31:22.406408"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2009-11-23 19:19:51.518140",
+                "event_id": 19,
+                "filter": "reStrucuredText",
+                "id": 20,
+                "published": null,
+                "title": "",
+                "updated": "2009-11-24 22:38:58.289683"
+            }
+        ]
+    },
+    "published": "23.11.2009",
+    "template": "_theme/trip.tpl"
+}

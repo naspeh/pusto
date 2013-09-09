@@ -1,0 +1,36 @@
+{
+    "aliases": [
+        "/event-121",
+        "/event-121-kryim-velopohod-simferopol-feodosiya",
+        "/report-122/for/event-121-kryim-velopohod-simferopol-feodosiya"
+    ],
+    "extra": {
+        "albums": [
+            "https://picasaweb.google.com/naspeh/20110513_Krym_Yugo_vostochniy_Velo"
+        ],
+        "event": {
+            "created": "2010-11-06 18:29:18.339063",
+            "finish": "2011-05-20",
+            "id": 121,
+            "published": "2011-07-17 19:14:21.754699",
+            "start": "2011-05-13",
+            "summary": null,
+            "title": "Крым. Велопоход: Симферополь-Феодосия",
+            "updated": "2011-07-26 19:12:23.270073"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2010-11-06 18:29:18.339607",
+                "event_id": 121,
+                "filter": "reStrucuredText",
+                "id": 122,
+                "published": null,
+                "title": "",
+                "updated": "2011-07-26 19:12:23.270616"
+            }
+        ]
+    },
+    "published": "17.07.2011",
+    "template": "_theme/trip.tpl"
+}

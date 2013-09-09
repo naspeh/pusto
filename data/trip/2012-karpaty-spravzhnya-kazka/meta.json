@@ -1,0 +1,36 @@
+{
+    "aliases": [
+        "/event-144",
+        "/event-144-karpatyi-spravzhnya-kazka",
+        "/report-145/for/event-144-karpatyi-spravzhnya-kazka"
+    ],
+    "extra": {
+        "albums": [
+            "https://picasaweb.google.com/115954385615646692819/20121016_Karpaty_Spravzhnya_Kazka"
+        ],
+        "event": {
+            "created": "2012-06-03 14:46:17.630860",
+            "finish": "2012-10-19",
+            "id": 144,
+            "published": "2012-11-06 21:27:16.747500",
+            "start": "2012-10-16",
+            "summary": null,
+            "title": "Карпаты. Справжня Казка",
+            "updated": "2012-06-03 14:46:17.630917"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2012-06-03 14:46:17.631418",
+                "event_id": 144,
+                "filter": "reStrucuredText",
+                "id": 145,
+                "published": null,
+                "title": "",
+                "updated": "2012-06-03 14:46:17.631473"
+            }
+        ]
+    },
+    "published": "06.11.2012",
+    "template": "_theme/trip.tpl"
+}

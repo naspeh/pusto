@@ -1,0 +1,36 @@
+{
+    "aliases": [
+        "/event-51",
+        "/event-51-kryim-tarhankut-olenevka-trejleryi",
+        "/report-52/for/event-51-kryim-tarhankut-olenevka-trejleryi"
+    ],
+    "extra": {
+        "albums": [
+            "http://picasaweb.google.com/naspeh/20090818_Krym_Tarhankut_Treyler"
+        ],
+        "event": {
+            "created": "2009-11-24 08:54:42.222145",
+            "finish": "2009-08-28",
+            "id": 51,
+            "published": "2009-11-24 12:37:54.716219",
+            "start": "2009-08-18",
+            "summary": null,
+            "title": "Крым. Тарханкут. Оленевка. Трейлеры",
+            "updated": "2009-11-24 08:54:42.222204"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2009-11-24 08:54:42.223074",
+                "event_id": 51,
+                "filter": "reStrucuredText",
+                "id": 52,
+                "published": null,
+                "title": "",
+                "updated": "2009-11-24 22:38:58.289683"
+            }
+        ]
+    },
+    "published": "24.11.2009",
+    "template": "_theme/trip.tpl"
+}

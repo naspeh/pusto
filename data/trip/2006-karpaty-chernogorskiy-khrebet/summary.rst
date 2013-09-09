@@ -6,13 +6,12 @@
         <div class="napokaz"
             data-box-width="7"
             data-box-thumbsize="100c"
-            data-picasa-ignore="hide"
             data-picasa-user="naspeh"
             data-picasa-album="20060716_Karpaty_Chernogorskiy_hrebet">
         </div>
 
     | **Свадебное путешествие. Часть первая**
-    | **Даты:** 16 - 25 июля 2006г.
+    | **Даты:** 16-25 июля 2006г
     | **Тип отдыха:** активный, пеший поход
 
 **Нить маршрута**

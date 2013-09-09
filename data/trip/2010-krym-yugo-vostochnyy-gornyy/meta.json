@@ -1,0 +1,37 @@
+{
+    "aliases": [
+        "/event-75",
+        "/event-75-kryim-yugo-vostochnyij-gornyij",
+        "/report-76/for/event-75-kryim-yugo-vostochnyij-gornyij"
+    ],
+    "extra": {
+        "albums": [
+            "http://picasaweb.google.com/naspeh/20100424_Krym_Vostochniy",
+            "http://picasaweb.google.com/naspeh/20100424_Krym_Vostochniy_Marshrut"
+        ],
+        "event": {
+            "created": "2010-06-01 19:47:52.093532",
+            "finish": "2010-05-01",
+            "id": 75,
+            "published": "2010-09-07 18:36:57.936634",
+            "start": "2010-04-24",
+            "summary": null,
+            "title": "Крым. Юго-Восточный. Горный",
+            "updated": "2010-09-05 19:22:57.511616"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2010-06-01 19:47:52.094226",
+                "event_id": 75,
+                "filter": "reStrucuredText",
+                "id": 76,
+                "published": null,
+                "title": "",
+                "updated": "2010-06-01 19:47:52.094261"
+            }
+        ]
+    },
+    "published": "07.09.2010",
+    "template": "_theme/trip.tpl"
+}

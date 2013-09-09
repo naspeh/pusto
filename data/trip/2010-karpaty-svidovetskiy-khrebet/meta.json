@@ -1,0 +1,37 @@
+{
+    "aliases": [
+        "/event-98",
+        "/event-98-karpatyi-svidovetskij-hrebet",
+        "/report-99/for/event-98-karpatyi-svidovetskij-hrebet"
+    ],
+    "extra": {
+        "albums": [
+            "http://picasaweb.google.com/naspeh/20100818_Karpaty_Svidovetskiy_hrebet",
+            "http://picasaweb.google.com/naspeh/20100818_Karpaty_Svidovetskiy_hrebet_Marshrut"
+        ],
+        "event": {
+            "created": "2010-09-05 19:22:57.511568",
+            "finish": "2010-08-23",
+            "id": 98,
+            "published": "2010-09-19 13:05:49.401052",
+            "start": "2010-08-18",
+            "summary": null,
+            "title": "Карпаты. Свидовецкий хребет",
+            "updated": "2010-09-05 19:22:57.511616"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2010-09-05 19:22:57.512101",
+                "event_id": 98,
+                "filter": "reStrucuredText",
+                "id": 99,
+                "published": null,
+                "title": "",
+                "updated": "2010-09-05 19:22:57.512155"
+            }
+        ]
+    },
+    "published": "19.09.2010",
+    "template": "_theme/trip.tpl"
+}

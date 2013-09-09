@@ -1,0 +1,36 @@
+{
+    "aliases": [
+        "/event-32",
+        "/event-32-kryim-novyij-svet",
+        "/report-38/for/event-32-kryim-novyij-svet"
+    ],
+    "extra": {
+        "albums": [
+            "http://picasaweb.google.com/naspeh/20090306_Krym_Noviy_svet"
+        ],
+        "event": {
+            "created": "2009-11-23 20:46:26.379342",
+            "finish": "2009-03-08",
+            "id": 32,
+            "published": "2009-11-23 21:23:01.786558",
+            "start": "2009-03-06",
+            "summary": null,
+            "title": "Крым. Новый Свет",
+            "updated": "2009-11-23 20:46:26.379453"
+        },
+        "reports": [
+            {
+                "content": null,
+                "created": "2009-11-23 20:46:26.381125",
+                "event_id": 32,
+                "filter": "reStrucuredText",
+                "id": 38,
+                "published": null,
+                "title": "",
+                "updated": "2009-11-24 23:12:27.461219"
+            }
+        ]
+    },
+    "published": "23.11.2009",
+    "template": "_theme/trip.tpl"
+}
