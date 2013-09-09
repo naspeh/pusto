@@ -32,5 +32,6 @@
         ]
     },
     "published": "23.11.2009",
+    "sort": 20090404,
     "template": "_theme/trip.tpl"
 }

@@ -11,7 +11,7 @@ from . import markup
 
 Page = namedtuple('Page', (
     'url children index_file meta_file markup path '
-    'aliases published hidden template title summary body html'
+    'aliases published hidden template sort title summary body html'
 ))
 
 meta_files = ['meta.json']
@@ -51,10 +51,7 @@ def get_pages(src_dir):
             (k, v) for k, v in pages.items()
             if k.rsplit('/', 2)[0] + '/' == url and not v.hidden
         ]
-        children.sort(
-            key=lambda v: v[1].published and v[1].published.isoformat() or '',
-            reverse=True
-        )
+        children.sort(key=lambda v: v[1].sort, reverse=True)
         children = OrderedDict(children)
         ctx = get_html(src_dir, dict(
             url=url, children=children,
@@ -90,10 +87,17 @@ def bind_meta(ctx, data, method=None):
     elif method == 'json':
         meta = json.loads(meta)
 
+    published = ''
     if 'published' in meta:
-        meta['published'] = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
+        published = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
+        meta['published'] = published
+    if 'sort' not in meta and 'sort' not in ctx:
+        meta['sort'] = published and published.isoformat()
 
-    keys = 'published aliases hidden template summary title body'.split(' ')
+    keys = (
+        'published aliases hidden template sort summary title body'
+        .split(' ')
+    )
     for key in keys:
         ctx.setdefault(key, None)
         if key in meta:
