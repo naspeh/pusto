@@ -1,5 +1,3 @@
-{% extends '_theme/base.tpl' %}
-{% block body %}
 <ul class="posts">
 {% for url, child in children.items() %}
     <li class="{% if loop.index == 1 %}post-first {% endif %}post" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -29,4 +27,3 @@
     </li>
 {% endfor %}
 </ul>
-{% endblock%}

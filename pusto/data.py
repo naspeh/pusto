@@ -91,8 +91,6 @@ def bind_meta(ctx, data, method=None):
     if 'published' in meta:
         published = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
         meta['published'] = published
-    if 'sort' not in meta and 'sort' not in ctx:
-        meta['sort'] = published and published.isoformat()
 
     keys = (
         'published aliases hidden template sort summary title body'
@@ -102,6 +100,9 @@ def bind_meta(ctx, data, method=None):
         ctx.setdefault(key, None)
         if key in meta:
             ctx[key] = meta[key]
+
+    if 'sort' not in meta and not ctx['sort']:
+        ctx['sort'] = published and published.isoformat()
 
 
 def get_jinja(src_dir):

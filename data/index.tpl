@@ -1,9 +1,9 @@
-{% extends '_theme/list.tpl' %}
-{% set children=children['/post/'].children %}
+{% extends '_theme/base.tpl' %}
 {% block title%}Гриша aka naspeh{% endblock %}
 {% block body %}
 <!--META{
     "aliases": ["/post/"]
 }-->
-{{ super() }}
+{% set children=children['/post/'].children %}
+{% include '_theme/list.tpl' with context %}
 {% endblock %}
