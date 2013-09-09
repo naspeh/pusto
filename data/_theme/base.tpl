@@ -15,7 +15,8 @@
 <div class="header">
     <a class="logo" href="/">pusto.org</a>
     <ul class="nav">
-        <li><a href="/naspeh/">об авторе</a></li>
+        <li><a href="/trip/">Наши поездки</a></li>
+        <li><a href="/naspeh/">Об авторе</a></li>
     </ul>
 </div>
 {% endblock %}

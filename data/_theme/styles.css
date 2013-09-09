@@ -101,6 +101,7 @@ blockquote {
 .header ul.nav li {
     float: left;
     margin-left: 5px;
+    text-transform: lowercase;
 }
 .title {
     margin-bottom: 1em;
