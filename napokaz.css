@@ -1,0 +1,259 @@
+.napokaz-b {
+  white-space: nowrap;
+  background-color: #666;
+  border: 1px solid #666;
+}
+
+.napokaz-b .napokaz-b-thumb {
+  display: None;
+  margin: 1px;
+  cursor: pointer;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: 1px solid #fff;
+}
+
+.napokaz-b .napokaz-b-show {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+.napokaz-f {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  overflow: hidden;
+}
+
+.napokaz-f .napokaz-f-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  background-image: url(data:image/gif;base64,R0lGODlhEAAQAPQAAAAAAP///wYGBsbGxnp6evj4+NjY2CgoKFZWVujo6IiIiJiYmBoaGmZmZjg4OLa2tqioqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAAFUCAgjmRpnqUwFGwhKoRgqq2YFMaRGjWA8AbZiIBbjQQ8AmmFUJEQhQGJhaKOrCksgEla+KIkYvC6SJKQOISoNSYdeIk1ayA8ExTyeR3F749CACH5BAAKAAEALAAAAAAQABAAAAVoICCKR9KMaCoaxeCoqEAkRX3AwMHWxQIIjJSAZWgUEgzBwCBAEQpMwIDwY1FHgwJCtOW2UDWYIDyqNVVkUbYr6CK+o2eUMKgWrqKhj0FrEM8jQQALPFA3MAc8CQSAMA5ZBjgqDQmHIyEAIfkEAAoAAgAsAAAAABAAEAAABWAgII4j85Ao2hRIKgrEUBQJLaSHMe8zgQo6Q8sxS7RIhILhBkgumCTZsXkACBC+0cwF2GoLLoFXREDcDlkAojBICRaFLDCOQtQKjmsQSubtDFU/NXcDBHwkaw1cKQ8MiyEAIfkEAAoAAwAsAAAAABAAEAAABVIgII5kaZ6AIJQCMRTFQKiDQx4GrBfGa4uCnAEhQuRgPwCBtwK+kCNFgjh6QlFYgGO7baJ2CxIioSDpwqNggWCGDVVGphly3BkOpXDrKfNm/4AhACH5BAAKAAQALAAAAAAQABAAAAVgICCOZGmeqEAMRTEQwskYbV0Yx7kYSIzQhtgoBxCKBDQCIOcoLBimRiFhSABYU5gIgW01pLUBYkRItAYAqrlhYiwKjiWAcDMWY8QjsCf4DewiBzQ2N1AmKlgvgCiMjSQhACH5BAAKAAUALAAAAAAQABAAAAVfICCOZGmeqEgUxUAIpkA0AMKyxkEiSZEIsJqhYAg+boUFSTAkiBiNHks3sg1ILAfBiS10gyqCg0UaFBCkwy3RYKiIYMAC+RAxiQgYsJdAjw5DN2gILzEEZgVcKYuMJiEAOwAAAAAAAAAAAA==);
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.93;
+  filter: alpha(opacity=93);
+}
+
+.napokaz-f .napokaz-f-orig {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 100px;
+  left: 0;
+  margin: 30px 40px;
+  text-align: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-close {
+  position: absolute;
+  top: -30px;
+  right: -35px;
+  padding: 0 0 20px 30px;
+  font-size: 25px;
+  color: #eee;
+  cursor: pointer;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-close:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #fff, 0 0 20px #fff;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-prev {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -40px;
+  display: none;
+  width: 40px;
+  padding-right: 50%;
+  font-size: 40px;
+  font-weight: 900;
+  color: #eee;
+  cursor: pointer;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-prev:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #fff, 0 0 20px #fff;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-prev span {
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  display: block;
+  margin-top: -20px;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-prev span {
+  left: 10px;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-next {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  bottom: 0;
+  display: none;
+  width: 40px;
+  padding-left: 50%;
+  font-size: 40px;
+  font-weight: 900;
+  color: #eee;
+  cursor: pointer;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-next:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #fff, 0 0 20px #fff;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-next span {
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  display: block;
+  margin-top: -20px;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-next span {
+  right: 10px;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-title {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #eee;
+  text-decoration: none;
+}
+
+.napokaz-f .napokaz-f-orig .napokaz-f-title:hover {
+  text-decoration: underline;
+}
+
+.napokaz-f .napokaz-f-thumbs {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  margin: 0 40px 20px 40px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-thumb {
+  display: none;
+  padding: 1px;
+  cursor: pointer;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: 1px solid #eee;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-current {
+  opacity: 0.99;
+  filter: alpha(opacity=99);
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-show {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-pprev {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -40px;
+  display: none;
+  width: 40px;
+  padding-right: 50%;
+  font-size: 40px;
+  font-weight: 900;
+  color: #eee;
+  cursor: pointer;
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-pprev:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #fff, 0 0 20px #fff;
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-pprev span {
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  display: block;
+  margin-top: -20px;
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-pprev span {
+  left: 10px;
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-pnext {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  bottom: 0;
+  display: none;
+  width: 40px;
+  padding-left: 50%;
+  font-size: 40px;
+  font-weight: 900;
+  color: #eee;
+  cursor: pointer;
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-pnext:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #fff, 0 0 20px #fff;
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-pnext span {
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  display: block;
+  margin-top: -20px;
+}
+
+.napokaz-f .napokaz-f-thumbs .napokaz-f-pnext span {
+  right: 10px;
+}
+
+.napokaz-f .napokaz-f-ctrls .napokaz-f-pprev,
+.napokaz-f .napokaz-f-ctrls .napokaz-f-pnext {
+  display: block;
+}
+
+.napokaz-f-ctrls .napokaz-f-orig .napokaz-f-prev,
+.napokaz-f-ctrls .napokaz-f-orig .napokaz-f-next {
+  display: block;
+}
+
+.napokaz-f-ctrls .napokaz-f-thumbs {
+  display: block;
+}
+
+/* Mixins */
