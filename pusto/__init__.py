@@ -34,7 +34,7 @@ def build(src_dir, build_dir, nginx_file=None):
                 f.write(html.encode())
     if nginx:
         lines = [
-            'rewrite .*{}/?$ http://$host{} permanent;'.format(u, p)
+            'rewrite ^{}/?$ {} permanent;'.format(u, p)
             for u, p in nginx.items()
         ]
         lines = '\n'.join(lines)
