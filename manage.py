@@ -45,6 +45,7 @@ def process_args(args=None):
 
     sub('build', help='build static content from `data` directory')\
         .arg('-s', '--serve', action='store_true', help='run static server')\
+        .arg('-n', '--nginx-file', help='write nginx rules')\
         .arg('--port', type=int, default=8000)
 
     sub('test_urls', help='test urls from google')\
@@ -68,7 +69,7 @@ def process_args(args=None):
         args.exe(args)
 
     elif args.sub == 'build':
-        build(SRC_DIR, BUILD_DIR)
+        build(SRC_DIR, BUILD_DIR, args.nginx_file)
         if args.serve:
             os.chdir(BUILD_DIR)
             http.server.test(
