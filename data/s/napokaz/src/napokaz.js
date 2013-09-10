@@ -5,6 +5,7 @@
         boxWidth: 3,
         boxHeight: 1,
 
+        frontUseHash: true,
         frontThumbsize: '60c',
         frontCount: 8,
 
@@ -98,7 +99,7 @@
             '{% $.each(items, function(num, item) { %}' +
             '<div class="napokaz-b-thumb"' +
                 'id="{{ item.id }}"' +
-                'data-bg-img="{{ item.boxThumb.url }}"' +
+                'data-img="{{ item.boxThumb.url }}"' +
                 'style="' +
                     'background-image: none;' +
                     'width: {{ item.boxThumb.size }}px;' +
@@ -119,21 +120,23 @@
             '<div class="napokaz-f-thumbs napokaz-f-ctrls">' +
                 '<div class="napokaz-f-pprev"><span>&laquo;</span></div>' +
                 '<div class="napokaz-f-pnext"><span>&raquo;</span></div>' +
-                '{% $.each(items, function(num, item) { %}' +
-                '<div class="napokaz-f-thumb"' +
-                    'id="{{ item.id }}"' +
-                    'data-title="{{ item.title }}"' +
-                    'data-desc="{{ item.desc }}"' +
-                    'data-href="{{ item.orig.url }}"' +
-                    'data-size="[{{ item.orig.width }},{{ item.orig.height }}]"' +
-                    'data-picasa="{{ item.picasa }}"' +
-                    'data-bg-img="{{ item.frontThumb.url }}"' +
-                    'style="' +
-                        'background-image: none;' +
-                        'width: {{ item.frontThumb.size }}px;' +
-                        'height: {{ item.frontThumb.size }}px"' +
-                '>&nbsp;</div>' +
-                '{% }); %}' +
+                '<div class="napokaz-f-page">' +
+                    '{% $.each(items, function(num, item) { %}' +
+                    '<div class="napokaz-f-thumb"' +
+                        'id="{{ item.id }}"' +
+                        'data-title="{{ item.title }}"' +
+                        'data-desc="{{ item.desc }}"' +
+                        'data-href="{{ item.orig.url }}"' +
+                        'data-size="[{{ item.orig.width }},{{ item.orig.height }}]"' +
+                        'data-picasa="{{ item.picasa }}"' +
+                        'data-img="{{ item.frontThumb.url }}"' +
+                        'style="' +
+                            'background-image: none;' +
+                            'width: {{ item.frontThumb.size }}px;' +
+                            'height: {{ item.frontThumb.size }}px"' +
+                    '>&nbsp;</div>' +
+                    '{% }); %}' +
+                '</div>' +
             '</div>' +
         '</div>'
     );
@@ -153,7 +156,7 @@
                 me.selector(box, 'napokaz-b-thumb', 'napokaz-b-show', perPage);
                 box.trigger('page:select', box.find('.napokaz-b-thumb:first'));
                 if (!$('.napokaz-f:visible').length) {
-                    box.find(window.location.hash.replace('-','')).click();
+                    box.find(window.location.hash).click();
                 }
             },
             initFront: function(front, current) {
@@ -177,7 +180,9 @@
                     },
                     'hide': function() {
                         $(this).hide();
-                        window.location.hash = '';
+                        if (opts.frontUseHash) {
+                            window.location.hash = '';
+                        }
                     },
                     'select': function(e, thumb) {
                         thumb = $(thumb);
@@ -194,7 +199,9 @@
                                 me.getImg(front, this, true);
                             }
                         });
-                        window.location.hash = '-' + thumb.attr('id');
+                        if (opts.frontUseHash) {
+                            window.location.hash = thumb.attr('id');
+                        }
                     }
                 });
                 front.find('.napokaz-f-thumb').click(function() {
@@ -265,7 +272,7 @@
                     items = items.slice(current, current + perPage).addClass(currentCls);
                     items.each(function() {
                         var $this = $(this);
-                        var url = $this.data('bg-img');
+                        var url = $this.data('img');
                         if (url) {
                             $this.css({'background-image': 'url(' + url  + ')'});
                         }
