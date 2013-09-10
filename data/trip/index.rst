@@ -3,7 +3,7 @@
 
 ..
     META{
-        "template": "trip/list.tpl"
+        "template": "_theme/trip-list.tpl"
     }
 
 **Авторы:** Гриша и Катя Костюк
