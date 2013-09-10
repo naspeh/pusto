@@ -16,7 +16,7 @@
     }
 }
 .napokaz-f {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
@@ -89,6 +89,10 @@
         text-align: center;
         white-space: nowrap;
 
+        .napokaz-f-page {
+          background: #000;
+          .inline-block;
+        }
         .napokaz-f-thumb {
             display: none;
             padding: 1px;
@@ -135,8 +139,6 @@
     bottom: 0;
     display: none;
     width: 40px;
-    font-size: 40px;
-    font-weight: 900;
     color: #eee;
     cursor: pointer;
     &:hover {
@@ -146,9 +148,11 @@
     span {
         position: absolute;
         top: 50%;
-        bottom:0;
         display: block;
         margin-top: -20px;
+        font-size: 40px;
+        font-weight: 900;
+        line-height: 40px;
     }
 }
 .arrow-right() {
