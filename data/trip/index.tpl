@@ -1,5 +1,8 @@
 {% extends '_theme/base.tpl' %}
 
+{% set title="Отчеты о наших поездках" %}
+{% block title %}{{ title }}{% endblock %}
+
 {% block head %}
     {{ super() }}
     {% include '_theme/napokaz.tpl' %}
@@ -13,7 +16,7 @@
 <div class="title">
     <h1>{{ title }}</h1>
     <div class="intro">
-        {{ body }}
+        <p><b>Авторы:</b> Гриша и Катя Костюк</p>
     </div>
 </div>
 
