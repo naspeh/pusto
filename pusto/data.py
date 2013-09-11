@@ -107,7 +107,15 @@ def bind_meta(ctx, data, method=None):
 
 def get_jinja(src_dir):
     if not hasattr(get_jinja, 'env'):
-        get_jinja.env = Environment(loader=FileSystemLoader(src_dir))
+        env = Environment(
+            loader=FileSystemLoader(src_dir),
+            lstrip_blocks=True, trim_blocks=True
+        )
+        env.filters.update({
+            'rst': lambda text: markup.rst(text)[1],
+            'markdown': markup.markdown
+        })
+        get_jinja.env = env
     return get_jinja.env
 
 

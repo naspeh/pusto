@@ -12,12 +12,18 @@
     </script>
 {% endblock %}
 
+{% macro intro() %}
+{% filter rst %}
+
+**Авторы:** Гриша и Катя Костюк
+
+{% endfilter %}
+{% endmacro %}
+
 {% block body %}
 <div class="title">
     <h1>{{ title }}</h1>
-    <div class="intro">
-        <p><b>Авторы:</b> Гриша и Катя Костюк</p>
-    </div>
+    <div class="intro">{{ intro() }}</div>
 </div>
 
 {% include '_theme/list.tpl' %}
