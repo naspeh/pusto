@@ -83,7 +83,7 @@
 .. |naya| replace:: **naya**
 .. _python: http://python.org/
 .. _horosh: http://horosh.org/
-.. _naya: http://github.com/naspeh/naya/
+.. _naya: http://github.com/naskoro/naya/
 .. _jQuery: http://jquery.com/
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Pylons: http://pylonshq.com/
