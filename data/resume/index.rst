@@ -40,13 +40,15 @@
 Собственные проекты
 ===================
 
-**pusto.org** - код доступен на `github <http://github.com/naspeh/pusto>`_. Место для эксперементов :)
+**pusto.org** - код доступен на `github <https://github.com/naspeh/pusto>`_.
+Персональный сайт и место для эксперементов.
 
 |naya|_ - микрофреймворк на базе Werkzeug_.
   Эксперимент на тему WSGI_ микрофреймвок, 2011 г.
 
-|horosh|_ - проект для публикации отчетов о путешествиях. Стартовал 25.11.2009.
-  Код доступен на `bitbucket.org <http://bitbucket.org/naspeh/horosh/src>`_.
+**Остальные проекты** также доступны на github__.
+
+__ https://github.com/naspeh/
 
 Активно использую
 =================
@@ -83,7 +85,7 @@
 .. |naya| replace:: **naya**
 .. _python: http://python.org/
 .. _horosh: http://horosh.org/
-.. _naya: http://github.com/naskoro/naya/
+.. _naya: https://github.com/naskoro/naya/
 .. _jQuery: http://jquery.com/
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Pylons: http://pylonshq.com/
