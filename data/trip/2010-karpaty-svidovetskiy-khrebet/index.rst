@@ -9,15 +9,17 @@
             data-box-width="5"
             data-box-thumbsize="100c"
             data-picasa-user="naspeh"
-            data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet">
-        </div>
+            data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet"
+            data-picasa-ignore="info"
+        ></div>
 
         <div class="napokaz"
             data-box-width="2"
             data-box-thumbsize="100c"
             data-picasa-user="naspeh"
-            data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet_Marshrut">
-        </div>
+            data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet"
+            data-picasa-filter="info"
+        ></div>
 
     | **Даты:** 18-23 августа 2010г
     | **Тип отдыха:** активный, пеший поход
