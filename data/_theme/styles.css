@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic);
-@import url(http://fonts.googleapis.com/css?family=Cousine:400,700,400italic,700italic&subset=latin,cyrillic);
 @import url(http://fonts.googleapis.com/css?family=Philosopher:700&subset=latin,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=Anonymous+Pro:400,400italic,700,700italic&subset=latin,cyrillic);
 
 body {
     font: 1em/1.4 "PT Sans", sans-serif;
@@ -55,9 +55,9 @@ pre {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     background: #f9f9f9;
-    font-family: "Cousine", monospace;
+    font-family: "Anonymous Pro", monospace;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 0.9em;
     line-height: 1.25em;
     white-space: pre;
 }
