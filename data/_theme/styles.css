@@ -104,7 +104,7 @@ blockquote {
     text-transform: lowercase;
 }
 .title {
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 }
 .title h1 {
     font-size: 1.5em;
@@ -116,6 +116,7 @@ blockquote {
     color: #777;
     overflow: hidden;
     text-transform: lowercase;
+    margin-bottom: 0;
 }
 .title ul.meta li {
     float: left;
