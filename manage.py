@@ -106,10 +106,8 @@ def check_urls(src_dir, use_wsgi=False, host=None):
         ),
         '/yandex_5ad3ffab17496674.txt',
         '/googlee71e35f8e9cbd607.html',
-
-        # From s.pusto.org
-        #'s.pusto.org/napokaz/',
-        #'s.pusto.org/writing/ru-pycon-2013/',
+        '/s/napokaz/',
+        '/s/writing/ru-pycon-2013/',
     ]
 
     def get(url):
