@@ -79,7 +79,9 @@ __ https://github.com/naspeh/
 
 Прочее
 ======
-Не курю, не пью, `женат <http://horosh.org/event-63-karpatyi-chernogorskij-hrebet>`_.
+Не курю, не пью, `женат`__.
+
+__ /trip/2006-karpaty-chernogorskiy-khrebet/
 
 .. |horosh| replace:: **horosh.org**
 .. |naya| replace:: **naya**
