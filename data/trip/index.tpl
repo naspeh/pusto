@@ -7,8 +7,15 @@
     {{ super() }}
     {% include '_theme/napokaz.tpl' %}
     <script>
-        $.fn.napokaz.defaults.frontUseHash = false;
+    $(document).ready(function() {
+        $.fn.napokaz.defaults.set({
+            frontCount: 10,
+            frontThumbsize: '60c',
+            frontUseHash: false,
+            picasaIgnore: 'hide'
+        });
         $('.napokaz').napokaz();
+    });
     </script>
 {% endblock %}
 
