@@ -42,6 +42,7 @@
         ]
     },
     "published": "04.12.2009",
+    "author": "naspeh",
     "sort": 20060716,
     "template": "_theme/trip.tpl"
 }

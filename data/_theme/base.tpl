@@ -38,6 +38,16 @@
                 Опубликовано: {{ published.strftime('%d.%m.%Y') }}
             </li>
             {% endif %}
+            {% if author %}
+            <li>
+                автор:
+                {% if author == 'nayavu' %}
+                    Катя
+                {% elif author == 'naspeh' %}
+                    Гриша
+                {% endif %}
+            </li>
+            {% endif %}
             {% if markup in ['md', 'rst'] %}
             <li><a href="{{ index_file }}">{{ markup }} текст</a></li>
             {% endif %}

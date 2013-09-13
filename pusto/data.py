@@ -11,7 +11,7 @@ from . import markup
 
 Page = namedtuple('Page', (
     'url children index_file meta_file markup path '
-    'aliases published hidden template sort title summary body html'
+    'aliases published author hidden template sort title summary body html'
 ))
 
 meta_files = ['meta.json']
@@ -93,7 +93,7 @@ def bind_meta(ctx, data, method=None):
         meta['published'] = published
 
     keys = (
-        'published aliases hidden template sort summary title body'
+        'published author aliases hidden template sort summary title body'
         .split(' ')
     )
     for key in keys:
