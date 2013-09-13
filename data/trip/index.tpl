@@ -1,4 +1,5 @@
 {% extends '_theme/base.tpl' %}
+{% from '_theme/macros.tpl' import show_children %}
 
 {% set title="Отчеты о наших поездках" %}
 {% block title %}{{ title }}{% endblock %}
@@ -33,5 +34,5 @@
     <div class="intro">{{ intro() }}</div>
 </div>
 
-{% include '_theme/list.tpl' %}
+{{ show_children(children) }}
 {% endblock %}

@@ -1,3 +1,5 @@
+{% from '_theme/macros.tpl' import show_meta %}
+
 <!DOCTYPE HTML>
 <head>
 {% block head %}
@@ -26,25 +28,7 @@
     <div class="title" itemprop="name">
         <h1>{{ title }}</h1>
         <link itemprop="url" href="{{ url }}" />
-        <ul class="meta">
-            {% block meta %}
-            {% if url.startswith('/post/')%}
-            <li><a href="/">Главная</a></li>
-            {% elif url.startswith('/trip/') %}
-            <li><a href="/trip/">Наши поездки</a></li>
-            {% endif %}
-            {% if published %}
-            <li itemprop="datePublished" datetime="{{ published.strftime('%Y-%m-%d')}}" >
-                Опубликовано: {{ published.strftime('%d.%m.%Y') }}
-            </li>
-            {% endif %}
-            {% if author %}<li>{{ author }}</li>{% endif %}
-            {% if markup in ['md', 'rst'] %}
-            <li><a href="{{ index_file }}">{{ markup }} текст</a></li>
-            {% endif %}
-            <li><a href="{{ github_data }}{{ index_file or url }}">Смотреть на github</a></li>
-            {% endblock %}
-        </li>
+        {{ show_meta(page, back_url=True)}}
     </div>
     {% endif %}
     <div class="document">

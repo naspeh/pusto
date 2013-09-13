@@ -157,7 +157,7 @@ def get_html(src_dir, ctx):
 
         elif ctx['markup'] == 'tpl':
             tpl = env.get_template(index_file)
-            html = tpl.render(ctx)
+            html = tpl.render(ctx, page=ctx)
             bind_meta(ctx, html, method='html')
 
         elif ctx['markup'] == 'md':
@@ -165,7 +165,7 @@ def get_html(src_dir, ctx):
             bind_meta(ctx, body, method='html')
             ctx.update(body=body)
             tpl = env.get_template('/_theme/base.tpl')
-            html = tpl.render(ctx)
+            html = tpl.render(ctx, page=ctx)
 
         elif ctx['markup'] == 'rst':
             title, body = markup.rst(text, source_path=path)
@@ -176,7 +176,7 @@ def get_html(src_dir, ctx):
 
             tpl = ctx.get('template', None) or '/_theme/base.tpl'
             tpl = env.get_template(tpl)
-            html = tpl.render(ctx)
+            html = tpl.render(ctx, page=ctx)
         path = src_dir + ctx['url'] + 'index.html'
 
     ctx.update(html=html, path=path)
