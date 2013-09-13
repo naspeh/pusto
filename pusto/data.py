@@ -87,6 +87,18 @@ def bind_meta(ctx, data, method=None):
     elif method == 'json':
         meta = json.loads(meta)
 
+    if 'author' in meta:
+        author = meta['author']
+        author = (
+            (author.count('naspeh') and ['Гриша'] or []) +
+            (author.count('nayavu') and ['Катя'] or [])
+        )
+        author = (
+            ('Автор: ' if len(author) == 1 else 'Авторы: ') +
+            ' и '.join(author)
+        )
+        meta['author'] = author
+
     published = ''
     if 'published' in meta:
         published = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
@@ -165,7 +177,6 @@ def get_html(src_dir, ctx):
             tpl = ctx.get('template', None) or '/_theme/base.tpl'
             tpl = env.get_template(tpl)
             html = tpl.render(ctx)
-
         path = src_dir + ctx['url'] + 'index.html'
 
     ctx.update(html=html, path=path)

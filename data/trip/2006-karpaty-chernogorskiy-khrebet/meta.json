@@ -42,7 +42,7 @@
         ]
     },
     "published": "04.12.2009",
-    "author": "naspeh",
+    "author": ["naspeh", "nayavu"],
     "sort": 20060716,
     "template": "_theme/trip.tpl"
 }

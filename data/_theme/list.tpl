@@ -13,16 +13,7 @@
                     Опубликовано: {{ child.published.strftime('%d.%m.%Y') }}
                 </li>
                 {% endif %}
-                {% if child.author %}
-                <li>
-                    автор:
-                    {% if child.author == 'nayavu' %}
-                        Катя
-                    {% elif child.author == 'naspeh' %}
-                        Гриша
-                    {% endif %}
-                </li>
-                {% endif %}
+                {% if child.author %}<li>{{ child.author }}</li>{% endif %}
                 {% if child.markup in ['md', 'rst'] %}
                 <li><a href="{{ child.index_file }}">{{ child.markup }} текст</a></li>
                 {% endif %}

@@ -32,7 +32,7 @@
         ]
     },
     "published": "16.08.2010",
-    "author": "nayavu",
+    "author": ["nayavu"],
     "sort": 20090426,
     "template": "_theme/trip.tpl"
 }
