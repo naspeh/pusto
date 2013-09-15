@@ -5,7 +5,6 @@
 
         <div class="napokaz"
             data-box-width="7"
-            data-box-thumbsize="100c"
             data-picasa-user="naspeh"
             data-picasa-album="20060716_Karpaty_Chernogorskiy_hrebet">
         </div>

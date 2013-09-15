@@ -7,7 +7,6 @@
 
         <div class="napokaz"
             data-box-width="7"
-            data-box-thumbsize="100c"
             data-picasa-user="naspeh"
             data-picasa-album="20111025_Karpaty_Spravzhnya_Kazka">
         </div>

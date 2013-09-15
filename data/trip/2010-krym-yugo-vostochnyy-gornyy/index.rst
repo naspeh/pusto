@@ -7,7 +7,6 @@
 
         <div class="napokaz"
             data-box-width="5"
-            data-box-thumbsize="100c"
             data-picasa-user="naspeh"
             data-picasa-album="20100424_Krym_Vostochniy"
             data-picasa-ignore="info"
@@ -15,7 +14,6 @@
 
         <div class="napokaz"
             data-box-width="2"
-            data-box-thumbsize="100c"
             data-picasa-user="naspeh"
             data-picasa-album="20100424_Krym_Vostochniy"
             data-picasa-filter="info"
