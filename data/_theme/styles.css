@@ -132,6 +132,7 @@ blockquote {
     border-bottom: 1px solid #ccc;
 }
 .intro h1 {
+    font-size: 1.5em;
     margin-bottom: 0.3em;
 }
 .intro :last-child {
