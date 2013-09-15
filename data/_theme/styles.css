@@ -125,10 +125,10 @@ blockquote {
     margin-right: 5px;
     border-left: 1px solid #ccc;
 }
-.title .intro {
+.intro {
     margin: 0 -10px;
     margin-bottom: 1em;
-    padding: 1em 10px 0 1em;
+    padding: 0 10px 0 1em;
     border-bottom: 1px solid #ccc;
 }
 .posts {
