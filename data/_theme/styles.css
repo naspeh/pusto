@@ -128,8 +128,11 @@ blockquote {
 .intro {
     margin: 0 -10px;
     margin-bottom: 1em;
-    padding: 0 10px 0 1em;
+    padding: 0 10px 0 10px;
     border-bottom: 1px solid #ccc;
+}
+.intro h1 {
+    margin-bottom: 0.3em;
 }
 .posts {
     list-style: none;

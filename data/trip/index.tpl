@@ -30,9 +30,9 @@
 {% endmacro %}
 
 {% block body %}
-<div class="title">
+<div class="intro">
     <h1>{{ title }}</h1>
-    <div class="intro">{{ intro() }}</div>
+    {{ intro() }}
 </div>
 
 {{ show_children(children) }}
