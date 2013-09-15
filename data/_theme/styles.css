@@ -134,6 +134,9 @@ blockquote {
 .intro h1 {
     margin-bottom: 0.3em;
 }
+.intro :last-child {
+    margin-bottom: 0.3em;
+}
 .posts {
     list-style: none;
 }
