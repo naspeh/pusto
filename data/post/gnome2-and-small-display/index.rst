@@ -185,7 +185,7 @@ __ http://www.foosel.org/linux/devilspie#actions
         (geometry "800x675+365-0")
     )
 
-Для получения ``window_role`` использовал xprop__.
+Для получения ``window_role`` использовал xprop__ (содержится в ``x11-utils``).
 
 .. __: http://www.x.org/archive/X11R7.5/doc/man/man1/xprop.1.html
 
