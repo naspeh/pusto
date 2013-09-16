@@ -3,24 +3,21 @@
   background-color: #666;
   border: 1px solid #666;
 }
-
 .napokaz-b .napokaz-b-thumb {
-  display: None;
+  display: none;
   margin: 1px;
   cursor: pointer;
   background-position: center center;
   background-repeat: no-repeat;
   border: 1px solid #fff;
 }
-
 .napokaz-b .napokaz-b-show {
   display: inline-block;
   *display: inline;
   *zoom: 1;
 }
-
 .napokaz-f {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -28,7 +25,6 @@
   display: none;
   overflow: hidden;
 }
-
 .napokaz-f .napokaz-f-overlay {
   position: absolute;
   width: 100%;
@@ -40,7 +36,6 @@
   opacity: 0.93;
   filter: alpha(opacity=93);
 }
-
 .napokaz-f .napokaz-f-orig {
   position: absolute;
   top: 0;
@@ -52,7 +47,6 @@
   background-position: center center;
   background-repeat: no-repeat;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-close {
   position: absolute;
   top: -30px;
@@ -62,91 +56,78 @@
   color: #eee;
   cursor: pointer;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-close:hover {
   color: #fff;
   text-shadow: 0 0 8px #fff, 0 0 20px #fff;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-prev {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -40px;
   display: none;
   width: 40px;
-  padding-right: 50%;
-  font-size: 40px;
-  font-weight: 900;
   color: #eee;
   cursor: pointer;
+  left: -40px;
+  padding-right: 50%;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-prev:hover {
   color: #fff;
   text-shadow: 0 0 8px #fff, 0 0 20px #fff;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-prev span {
   position: absolute;
   top: 50%;
-  bottom: 0;
   display: block;
   margin-top: -20px;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 40px;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-prev span {
   left: 10px;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-next {
   position: absolute;
   top: 0;
-  right: -40px;
   bottom: 0;
   display: none;
   width: 40px;
-  padding-left: 50%;
-  font-size: 40px;
-  font-weight: 900;
   color: #eee;
   cursor: pointer;
+  right: -40px;
+  padding-left: 50%;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-next:hover {
   color: #fff;
   text-shadow: 0 0 8px #fff, 0 0 20px #fff;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-next span {
   position: absolute;
   top: 50%;
-  bottom: 0;
   display: block;
   margin-top: -20px;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 40px;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-next span {
   right: 10px;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-img {
   display: block;
   width: 100%;
   height: 100%;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-title {
   margin-top: 5px;
   font-size: 12px;
   color: #eee;
   text-decoration: none;
 }
-
 .napokaz-f .napokaz-f-orig .napokaz-f-title:hover {
   text-decoration: underline;
 }
-
 .napokaz-f .napokaz-f-thumbs {
   position: absolute;
   right: 0;
@@ -157,7 +138,12 @@
   text-align: center;
   white-space: nowrap;
 }
-
+.napokaz-f .napokaz-f-thumbs .napokaz-f-page {
+  background: #000;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
 .napokaz-f .napokaz-f-thumbs .napokaz-f-thumb {
   display: none;
   padding: 1px;
@@ -168,92 +154,78 @@
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
-
 .napokaz-f .napokaz-f-thumbs .napokaz-f-current {
   opacity: 0.99;
   filter: alpha(opacity=99);
 }
-
 .napokaz-f .napokaz-f-thumbs .napokaz-f-show {
   display: inline-block;
   *display: inline;
   *zoom: 1;
 }
-
 .napokaz-f .napokaz-f-thumbs .napokaz-f-pprev {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -40px;
   display: none;
   width: 40px;
-  padding-right: 50%;
-  font-size: 40px;
-  font-weight: 900;
   color: #eee;
   cursor: pointer;
+  left: -40px;
+  padding-right: 50%;
 }
-
 .napokaz-f .napokaz-f-thumbs .napokaz-f-pprev:hover {
   color: #fff;
   text-shadow: 0 0 8px #fff, 0 0 20px #fff;
 }
-
 .napokaz-f .napokaz-f-thumbs .napokaz-f-pprev span {
   position: absolute;
   top: 50%;
-  bottom: 0;
   display: block;
   margin-top: -20px;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 40px;
 }
-
 .napokaz-f .napokaz-f-thumbs .napokaz-f-pprev span {
   left: 10px;
 }
-
 .napokaz-f .napokaz-f-thumbs .napokaz-f-pnext {
   position: absolute;
   top: 0;
-  right: -40px;
   bottom: 0;
   display: none;
   width: 40px;
-  padding-left: 50%;
-  font-size: 40px;
-  font-weight: 900;
   color: #eee;
   cursor: pointer;
+  right: -40px;
+  padding-left: 50%;
 }
-
 .napokaz-f .napokaz-f-thumbs .napokaz-f-pnext:hover {
   color: #fff;
   text-shadow: 0 0 8px #fff, 0 0 20px #fff;
 }
-
 .napokaz-f .napokaz-f-thumbs .napokaz-f-pnext span {
   position: absolute;
   top: 50%;
-  bottom: 0;
   display: block;
   margin-top: -20px;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 40px;
 }
-
 .napokaz-f .napokaz-f-thumbs .napokaz-f-pnext span {
   right: 10px;
 }
-
 .napokaz-f .napokaz-f-ctrls .napokaz-f-pprev,
 .napokaz-f .napokaz-f-ctrls .napokaz-f-pnext {
   display: block;
 }
-
 .napokaz-f-ctrls .napokaz-f-orig .napokaz-f-prev,
 .napokaz-f-ctrls .napokaz-f-orig .napokaz-f-next {
   display: block;
 }
-
 .napokaz-f-ctrls .napokaz-f-thumbs {
   display: block;
 }
-
 /* Mixins */

@@ -3,9 +3,10 @@
 <head>
     <title>Napokaz</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <link rel="stylesheet/less" href="napokaz.less" />
 
-    <link rel="stylesheet" href="napokaz.css" />
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="http://lesscss.org/js/less.js"></script>
     <script src="napokaz.js"></script>
     <script>
         $(document).ready(function() {
@@ -27,17 +28,19 @@
     </style>
 </head>
 <body>
-    <div class="napokaz"
-        data-box-thumbsize='72u'
-        data-front-thumbsize='40u'>
-    </div>
-    <div class="napokaz"
-        data-box-thumbsize='90c'
-        data-front-thumbsize='60c'>
-    </div>
+    <div>
+        <div class="napokaz"
+            data-box-thumbsize='72u'
+            data-front-thumbsize='40u'>
+        </div>
+        <div class="napokaz"
+            data-box-thumbsize='90c'
+            data-front-thumbsize='60c'>
+        </div>
 
-    <div class="napokaz"
-        data-picasa-album="ProfilePhotos">
+        <div class="napokaz"
+            data-picasa-album="ProfilePhotos03">
+        </div>
     </div>
     <div>
         <div class="napokaz"
@@ -57,11 +60,23 @@
             data-picasa-album="ScrapbookPhotos">
         </div>
     </div>
-
     <div class="napokaz"
         data-front-thumbsize="60c"
         data-box-thumbsize="120c"
         data-picasa-album="20121016_Karpaty_Spravzhnya_Kazka">
+    </div>
+    <div>
+        <div class="napokaz"
+            data-box-width="3"
+            data-box-height="2">
+        </div>
+        <div class="napokaz"
+            data-box-width="1"
+            data-box-height="6">
+        </div>
+    </div>
+    <div>
+        <div class="napokaz"></div>
     </div>
 </body>
 </html>
