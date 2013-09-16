@@ -7,6 +7,7 @@
     $(document).ready(function() {
         $.fn.napokaz.defaults.set({
             boxThumbsize: '100c',
+            boxHeight: 2,
             frontCount: 10,
             frontThumbsize: '60c',
             picasaIgnore: 'hide'
