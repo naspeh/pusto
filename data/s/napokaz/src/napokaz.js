@@ -18,7 +18,7 @@
     var picasa = {
         fetch: function(opts, success) {
             $.ajax({
-                url:'https://picasaweb.google.com/data/feed/api/' +
+                url: 'https://picasaweb.google.com/data/feed/api/' +
                     ['user', opts.picasaUser, 'album', opts.picasaAlbum].join('/'),
                 data: {
                     kind: 'photo',
@@ -73,7 +73,8 @@
             });
             return {
                 items: items,
-                albumId: albumId
+                albumId: albumId,
+                opts: opts
             };
         },
         checkTags: function(opts, tags) {
@@ -82,7 +83,7 @@
             ignore = ignore || opts.picasaIgnore && opts.picasaIgnore.test(tags);
             return !ignore;
         },
-        preTags: function(tags) {
+        parseTags: function(tags) {
             tags = tags ? tags.split(',') : [];
             if ($.isArray(tags) && tags.length) {
                 tags = tags.join(',|,');
@@ -97,6 +98,9 @@
         // Box on page
         '<div class="napokaz-b">' +
             '{% $.each(items, function(num, item) { %}' +
+            '{% if (!num) { %}' +
+                '<div class="napokaz-b-page">' +
+            '{% } %}' +
             '<div class="napokaz-b-thumb"' +
                 'id="{{ item.id }}"' +
                 'data-img="{{ item.boxThumb.url }}"' +
@@ -105,6 +109,11 @@
                     'width: {{ item.boxThumb.size }}px;' +
                     'height: {{ item.boxThumb.size }}px"' +
             '>&nbsp;</div>' +
+            '{% if ((items.length - num) === 1) { %}' +
+                '</div>' +
+            '{% } else if ((num + 1) % opts.boxWidth === 0) { %}' +
+                '</div><div class="napokaz-b-page">' +
+            '{% } %}' +
             '{% }); %}' +
         '</div>' +
         // Front
@@ -330,15 +339,15 @@
     $.fn.napokaz.defaults = defaults;
     $.fn.napokaz.defaults.set = function(options) {
         $.fn.napokaz.defaults = $.extend({}, $.fn.napokaz.defaults, options);
-    }
+    };
     // }}}
 
     // Functions
     function preOptions(o) {
         o.boxThumbsizeInt = parseInt(o.boxThumbsize, 10);
         o.frontThumbsizeInt = parseInt(o.frontThumbsize, 10);
-        o.picasaFilter = picasa.preTags(o.picasaFilter);
-        o.picasaIgnore = picasa.preTags(o.picasaIgnore);
+        o.picasaFilter = picasa.parseTags(o.picasaFilter);
+        o.picasaIgnore = picasa.parseTags(o.picasaIgnore);
         return o;
     }
     // Taken from underscore.js with reformating and another delimiters.
