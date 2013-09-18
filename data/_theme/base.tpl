@@ -25,8 +25,8 @@
 {% block body %}
 <div itemscope="itemscope" itemtype="http://schema.org/Article">
     {% if title %}
-    <div class="title" itemprop="name">
-        <h1>{{ title }}</h1>
+    <div class="title">
+        <h1 itemprop="name">{{ title }}</h1>
         <link itemprop="url" href="{{ url }}" />
         {{ show_meta(page, back_url=True)}}
     </div>
