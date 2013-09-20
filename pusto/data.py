@@ -128,6 +128,7 @@ def get_jinja(src_dir):
             'rst': lambda text: markup.rst(text)[1],
             'markdown': markup.markdown
         })
+        env.globals.update(debug=getattr(get_jinja, 'debug', False))
         get_jinja.env = env
     return get_jinja.env
 

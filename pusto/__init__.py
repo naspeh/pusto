@@ -14,8 +14,9 @@ def build(src_dir, build_dir, nginx_file=None):
         shutil.rmtree(build_dir)
     shutil.copytree(src_dir, build_dir)
 
+    urls = get_urls(build_dir)
     nginx = {}
-    for url, page in get_urls(build_dir):
+    for url, page in urls:
         if url != page.url and (url + '/') != page.url:
             nginx[url.rstrip('/')] = page.url
         elif page.index_file and not page.index_file.endswith('.html'):
@@ -33,32 +34,32 @@ def build(src_dir, build_dir, nginx_file=None):
         else:
             print('Rules for nginx:')
             print(lines)
+    return urls
 
 
 def create_app(src_dir, build_dir, debug=False):
     '''Create WSGI application'''
-    def _urls():
-        if not hasattr(_urls, 'urls') or debug:
-            if os.path.exists(build_dir):
-                shutil.rmtree(build_dir)
-            shutil.copytree(src_dir, build_dir)
-
-            pages = get_urls(build_dir)
+    def _urls(reload=False):
+        if not hasattr(_urls, 'cache') or reload:
+            pages = build(src_dir,  build_dir)
             urls = []
             for url, page in pages:
                 if url == page.url:
                     urls += [(url, Response(page.html, mimetype='text/html'))]
                 else:
                     urls += [(url, redirect(page.url, 301))]
-            _urls.urls = dict(urls)
-        return _urls.urls
+            _urls.cache = dict(urls)
+        return _urls.cache
+
+    get_jinja.debug = debug
 
     @Request.application
     def app(request):
-        if debug:
-            get_jinja(build_dir).cache.clear()
-
         urls = _urls()
+        if '__r' in request.args:
+            get_jinja(build_dir).cache.clear()
+            urls = _urls(reload=True)
+
         response = urls.get(request.path, None)
         if response:
             return response

@@ -40,7 +40,8 @@ def process_args(args=None):
         .exe(lambda a: run_simple(
             a.host, a.port, create_app(SRC_DIR, BUILD_DIR, debug=True),
             use_reloader=not a.no_reloader, use_debugger=True,
-            static_files={'': BUILD_DIR}
+            static_files={'': BUILD_DIR},
+            extra_files=[os.path.join(BUILD_DIR, 'reload')]
         ))
 
     sub('build', help='build static content from `data` directory')\
