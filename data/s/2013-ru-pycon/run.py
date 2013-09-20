@@ -1,17 +1,7 @@
 #!/usr/bin/env python
+import os
 from argparse import ArgumentParser
 from subprocess import call
-
-
-serve = lambda: call('python2 -m SimpleHTTPServer 8000 0.0.0.0', shell=True)
-watch = lambda: call(
-    'watch rst2s5.py '
-    '   --keep-theme-files '
-    '   --current-slide '
-    '   --visible-controls '
-    '   index.rst index.html',
-    shell=True
-)
 
 
 if __name__ == '__main__':
@@ -21,10 +11,20 @@ if __name__ == '__main__':
     parser.add_argument('--serve', '-s', action='store_true', default=False)
     args = parser.parse_args()
     try:
+        os.chdir(os.path.dirname(__file__))
         if args.watch:
-            watch()
+            call(
+                'watch rst2s5.py '
+                '   --keep-theme-files '
+                '   --current-slide '
+                '   --visible-controls '
+                '   index.rst index.html',
+                shell=True
+            )
+
         elif args.serve:
-            serve()
+            call('python2 -m SimpleHTTPServer 8000 0.0.0.0', shell=True)
+
         else:
             print(parser.format_help())
     except KeyboardInterrupt:
