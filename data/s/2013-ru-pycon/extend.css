@@ -1,15 +1,3 @@
-/* This file has been placed in the public domain. */
-
-/* required to make the slide show run at all */
-@import url(s5-core.css);
-
-/* sets basic placement and size of slide components */
-@import url(framing.css);
-
-/* styles that make the slides look good */
-@import url(pretty.css);
-
-/* Extend */
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic);
 @import url(http://fonts.googleapis.com/css?family=Philosopher:700&subset=latin,cyrillic);
 @import url(http://fonts.googleapis.com/css?family=Anonymous+Pro:400,400italic,700,700italic&subset=latin,cyrillic);
@@ -27,3 +15,15 @@ pre {
     font-family: "Anonymous Pro", monospace;
     font-weight: 400;
 }
+.slide .f50 {font-size: 55%;}
+.slide .f55 {font-size: 55%;}
+.slide .f60 {font-size: 60%;}
+.slide .f65 {font-size: 65%;}
+.slide .f70 {font-size: 70%;}
+.slide .f75 {font-size: 75%;}
+.slide .huge {font-family: sans-serif; font-weight: bold; font-size: 150%;}
+.slide .big {font-family: sans-serif; font-weight: bold; font-size: 120%;}
+.slide .small {font-size: 75%;}
+.slide .tiny {font-size: 50%;}
+.slide .huge tt, .big tt, .small tt, .tiny tt {font-size: 115%;}
+.slide .huge pre, .big pre, .small pre, .tiny pre {font-size: 115%;}

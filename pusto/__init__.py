@@ -35,11 +35,15 @@ def build(src_dir, build_dir, nginx_file=None):
             print(lines)
 
 
-def create_app(src_dir, debug=False):
+def create_app(src_dir, build_dir, debug=False):
     '''Create WSGI application'''
     def _urls():
         if not hasattr(_urls, 'urls') or debug:
-            pages = get_urls(src_dir)
+            if os.path.exists(build_dir):
+                shutil.rmtree(build_dir)
+            shutil.copytree(src_dir, build_dir)
+
+            pages = get_urls(build_dir)
             urls = []
             for url, page in pages:
                 if url == page.url:
@@ -52,7 +56,7 @@ def create_app(src_dir, debug=False):
     @Request.application
     def app(request):
         if debug:
-            get_jinja(src_dir).cache.clear()
+            get_jinja(build_dir).cache.clear()
 
         urls = _urls()
         response = urls.get(request.path, None)

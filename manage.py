@@ -38,9 +38,9 @@ def process_args(args=None):
         .arg('--port', type=int, default=5000)\
         .arg('--no-reloader', action='store_true')\
         .exe(lambda a: run_simple(
-            a.host, a.port, create_app(SRC_DIR, debug=True),
+            a.host, a.port, create_app(SRC_DIR, BUILD_DIR, debug=True),
             use_reloader=not a.no_reloader, use_debugger=True,
-            static_files={'': SRC_DIR}
+            static_files={'': BUILD_DIR}
         ))
 
     sub('build', help='build static content from `data` directory')\

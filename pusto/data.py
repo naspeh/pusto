@@ -2,6 +2,7 @@ import datetime as dt
 import json
 import os
 import re
+import subprocess
 from collections import namedtuple, OrderedDict
 from xml.etree import ElementTree as ET
 
@@ -10,12 +11,12 @@ from jinja2 import Environment, FileSystemLoader
 from . import markup
 
 Page = namedtuple('Page', (
-    'url children index_file meta_file markup path '
+    'url children index_file meta_file type path '
     'aliases published author hidden template sort title summary body html'
 ))
 
 meta_files = ['meta.json']
-index_files = ['index.' + t for t in 'html tpl rst md'.split(' ')]
+index_files = ['index.' + t for t in 'py html tpl rst md'.split(' ')]
 
 
 def get_urls(src_dir):
@@ -57,7 +58,7 @@ def get_pages(src_dir):
             url=url, children=children,
             index_file=index and url + index,
             meta_file=meta and url + meta,
-            markup=index and index.rsplit('.', 1)[1]
+            type=index and index.rsplit('.', 1)[1]
         ))
         pages[url] = ctx
 
@@ -151,23 +152,34 @@ def get_html(src_dir, ctx):
         with open(path, 'br') as f:
             text = f.read().decode()
 
-        if ctx['markup'] == 'html':
+        index_html = src_dir + ctx['url'] + 'index.html'
+        if ctx['type'] == 'py':
+            subprocess.call(
+                'cd {} && python index.py'
+                .format(src_dir + ctx['url']),
+                shell=True
+            )
+            with open(index_html, 'br') as f:
+                html = f.read().decode()
+            bind_meta(ctx, html, method='html')
+
+        elif ctx['type'] == 'html':
             html = text
             bind_meta(ctx, html, method='html')
 
-        elif ctx['markup'] == 'tpl':
+        elif ctx['type'] == 'tpl':
             tpl = env.get_template(index_file)
             html = tpl.render(ctx, page=ctx)
             bind_meta(ctx, html, method='html')
 
-        elif ctx['markup'] == 'md':
+        elif ctx['type'] == 'md':
             body = markup.markdown(text)
             bind_meta(ctx, body, method='html')
             ctx.update(body=body)
             tpl = env.get_template('/_theme/base.tpl')
             html = tpl.render(ctx, page=ctx)
 
-        elif ctx['markup'] == 'rst':
+        elif ctx['type'] == 'rst':
             title, body = markup.rst(text, source_path=path)
             bind_meta(ctx, body, method='html')
             if title:
@@ -177,7 +189,7 @@ def get_html(src_dir, ctx):
             tpl = ctx.get('template', None) or '/_theme/base.tpl'
             tpl = env.get_template(tpl)
             html = tpl.render(ctx, page=ctx)
-        path = src_dir + ctx['url'] + 'index.html'
+        path = index_html
 
     ctx.update(html=html, path=path)
     return Page(**ctx)
