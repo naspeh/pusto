@@ -14,10 +14,10 @@
 <script type="text/javascript">
 //<![CDATA[
     $(document).on('keydown.reload', function (e) {
-        // Reload by press "Ctrl+1"
-        if (e.keyCode == 18 && e.ctrlKey) {
+        // Reload by press "Ctrl+~"
+        if (e.keyCode == 192 && e.ctrlKey) {
+            console.log('Reloading...')
             $.get('/', {__r: true}, function(data) {
-                console.log('Reloading...')
                 document.location.reload()
             });
             e.preventDefault();
