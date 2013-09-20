@@ -8,3 +8,22 @@
 
 /* styles that make the slides look good */
 @import url(pretty.css);
+
+/* Extend */
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=Philosopher:700&subset=latin,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=Anonymous+Pro:400,400italic,700,700italic&subset=latin,cyrillic);
+
+body {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 400;
+}
+.slide h1, .slide h2, .slide h3, .slide h4, .slide h5, .slide h6 {
+    font-family: "Philosopher", sans-serif;
+    font-weight: 700;
+    padding-left: 0;
+}
+pre {
+    font-family: "Anonymous Pro", monospace;
+    font-weight: 400;
+}
