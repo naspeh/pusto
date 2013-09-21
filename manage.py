@@ -11,7 +11,7 @@ from urllib.error import HTTPError
 
 from werkzeug.serving import run_simple
 
-from pusto import build, create_app
+from pusto import build, create_app, watch_files
 
 ROOT_DIR = os.path.dirname(__file__)
 SRC_DIR = ROOT_DIR + '/data'
@@ -36,13 +36,7 @@ def process_args(args=None):
     sub('run', help='start dev server')\
         .arg('--host', default='localhost')\
         .arg('--port', type=int, default=5000)\
-        .arg('--no-reloader', action='store_true')\
-        .exe(lambda a: run_simple(
-            a.host, a.port, create_app(SRC_DIR, BUILD_DIR, debug=True),
-            use_reloader=not a.no_reloader, use_debugger=True,
-            static_files={'': BUILD_DIR},
-            extra_files=[os.path.join(BUILD_DIR, 'reload')]
-        ))
+        .arg('--no-reloader', action='store_true')
 
     sub('build', help='build static content from `data` directory')\
         .arg('-s', '--serve', action='store_true', help='run static server')\
@@ -69,6 +63,20 @@ def process_args(args=None):
     elif hasattr(args, 'exe'):
         args.exe(args)
 
+    elif args.sub == 'run':
+        touch_file = os.path.join(BUILD_DIR, '.nginx')
+        if not args.no_reloader:
+            with open(touch_file, 'w') as f:
+                f.write('')
+            watcher = Thread(target=watch_files, args=(SRC_DIR, touch_file))
+            watcher.daemon = True
+            watcher.start()
+
+        run_simple(
+            args.host, args.port, create_app(SRC_DIR, BUILD_DIR, debug=True),
+            use_reloader=not args.no_reloader, use_debugger=True,
+            static_files={'': BUILD_DIR}, extra_files=[touch_file]
+        )
     elif args.sub == 'build':
         build(SRC_DIR, BUILD_DIR, args.nginx_file)
         if args.serve:

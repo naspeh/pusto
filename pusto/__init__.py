@@ -1,5 +1,6 @@
 import os
 import shutil
+import time
 
 from werkzeug.exceptions import NotFound
 from werkzeug.utils import redirect
@@ -33,33 +34,49 @@ def build(src_dir, build_dir, nginx_file=None):
 
         with open(nginx_file, 'bw') as f:
             f.write(lines.encode())
-    print('Build successful')
+    print(' * Build successful')
     return urls
+
+
+def watch_files(src_dir, touch_file, interval=1):
+    mtimes = {}
+    while 1:
+        files = get_jinja(src_dir).list_templates()
+        for filename in files:
+            filename = os.path.join(src_dir, filename)
+            try:
+                mtime = os.stat(filename).st_mtime
+            except OSError:
+                continue
+
+            old_time = mtimes.get(filename)
+            if old_time is None:
+                mtimes[filename] = mtime
+                continue
+            elif mtime > old_time:
+                mtimes[filename] = mtime
+                print(' * Detected change in %r, touch reload file' % filename)
+                with open(touch_file, 'w') as f:
+                    f.write('')
+        time.sleep(interval)
 
 
 def create_app(src_dir, build_dir, debug=False):
     '''Create WSGI application'''
-    def _urls(reload=False):
-        if not hasattr(_urls, 'cache') or reload:
-            pages = build(src_dir,  build_dir)
-            urls = []
-            for url, page in pages:
-                if url == page.url:
-                    urls += [(url, Response(page.html, mimetype='text/html'))]
-                else:
-                    urls += [(url, redirect(page.url, 301))]
-            _urls.cache = dict(urls)
-        return _urls.cache
+    def _urls():
+        pages = build(src_dir,  build_dir)
+        urls = []
+        for url, page in pages:
+            if url == page.url:
+                urls += [(url, Response(page.html, mimetype='text/html'))]
+            else:
+                urls += [(url, redirect(page.url, 301))]
+        return dict(urls)
 
-    get_jinja.debug = debug
+    urls = _urls()
 
     @Request.application
     def app(request):
-        urls = _urls()
-        if '__r' in request.args:
-            get_jinja(build_dir).cache.clear()
-            urls = _urls(reload=True)
-
         response = urls.get(request.path, None)
         if response:
             return response

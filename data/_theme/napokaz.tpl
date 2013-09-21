@@ -1,7 +1,5 @@
 {% set repo="/s/napokaz/src/"%}
 <link rel="stylesheet" href="{{ repo }}napokaz.css" />
-
-<script src="{{ repo }}napokaz.js"></script>
 <style>
     .napokaz {
         display: inline-block;
@@ -12,3 +10,6 @@
         vertical-align: top;
     }
 </style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="{{ repo }}napokaz.js"></script>

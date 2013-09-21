@@ -7,25 +7,8 @@
     <link rel="stylesheet" href="/_theme/reset.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
-    <script src="http://code.jquery.com/jquery.js"></script>
     <title>pusto.org: {% block title %}{{ title|striptags or url }}{% endblock %}</title>
 {% endblock %}
-{% if debug %}
-<script type="text/javascript">
-//<![CDATA[
-    $(document).on('keydown.reload', function (e) {
-        // Reload by press "Ctrl+~"
-        if (e.keyCode == 192 && e.ctrlKey) {
-            console.log('Reloading...')
-            $.get('/', {__r: true}, function(data) {
-                document.location.reload()
-            });
-            e.preventDefault();
-        }
-    });
-//]]>
-</script>
-{% endif %}
 </head>
 
 <body>
