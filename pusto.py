@@ -8,7 +8,9 @@ import shutil
 import subprocess
 import time
 from collections import namedtuple, OrderedDict
+from http.client import HTTPConnection
 from threading import Thread
+from urllib.error import HTTPError
 from xml.etree import ElementTree as ET
 
 from jinja2 import Environment, FileSystemLoader
@@ -321,6 +323,58 @@ def create_app(build_dir, debug=False):
     return app
 
 
+def check_urls(host=None, verbose=False):
+    log = lambda *a: verbose and print(*a)
+
+    if not host:
+        if not os.path.exists(BUILD_DIR):
+            process('build')
+        host = 'localhost:9000'
+        args = 'run --port=9000 --no-reloader'.split(' ')
+        server = Thread(target=process, args=args)
+        server.daemon = True
+        server.start()
+        time.sleep(2)
+
+    with open('data/urls.json', 'br') as f:
+        urls = json.loads(f.read().decode())
+
+    def get(url, expected_code=200, indent=''):
+        comment = ''
+        try:
+            conn = HTTPConnection(host)
+            conn.request('HEAD', url)
+            res = conn.getresponse()
+            code = res.status
+            if code == 200:
+                res_url = url
+            else:
+                res_url = res.info().get('Location', '')
+                res_url = res_url.replace('http://' + host, '')
+        except HTTPError as e:
+            code = e.code
+            res_url = None
+
+        err = []
+        if code != expected_code:
+            err = ['%s (%r != %r)' % (url, code, expected_code)]
+        else:
+            log('%s%s %s %s # %s' % (indent, url, code, res_url, comment))
+        return err
+
+    err = []
+    for url in sorted(urls.keys()):
+        aliases = urls.get(url)
+        err += get(url)
+        for alias in aliases or []:
+            err += get(alias, expected_code=301, indent='  ')
+    if err:
+        print('Errors:')
+        print('\n'.join(err))
+    else:
+        print('OK')
+
+
 def process(*args):
     parser = argparse.ArgumentParser()
     subs = parser.add_subparsers(title='subcommands')
@@ -340,6 +394,10 @@ def process(*args):
         .arg('-b', '--bdir', default=BUILD_DIR, help='build directory')\
         .arg('-n', '--nginx-file', help='file nginx rules')\
         .arg('--port', type=int, default=8000)
+
+    sub('test_urls', help='test url responses')\
+        .arg('-v', '--verbose', action='store_true')\
+        .arg('--host', help='use host for test')\
 
     args = parser.parse_args(args or None)
     if not hasattr(args, 'sub'):
@@ -361,6 +419,8 @@ def process(*args):
     elif args.sub == 'build':
         build(SRC_DIR, args.bdir, args.nginx_file)
 
+    elif args.sub == 'test_urls':
+        check_urls(host=args.host, verbose=args.verbose)
     else:
         raise ValueError('Wrong subcommand')
 
