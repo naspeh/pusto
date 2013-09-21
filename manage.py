@@ -52,7 +52,7 @@ def process_args(args=None):
         'cd /home/pusto/src'
         '&& git pull'
         '&& source $(cat .venv)/bin/activate'
-        '&& ./manage.py build --nginx-file=../nginx-part.conf'
+        '&& ./manage.py build'
         '&& systemctl restart nginx.service'
     ))
 
