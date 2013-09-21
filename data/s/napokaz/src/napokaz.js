@@ -63,9 +63,9 @@
                         url: thumb2.attr('url'),
                         size: opts.frontThumbsizeInt
                     },
-                    'title': media.find('media\\:title').text().replace(/"/g, "&quot;"),
-                    'desc': media.find('media\\:description').text().replace(/"/g, "&quot;"),
-                    'tags': media.find('media\\:keywords').text().replace(/"/g, "&quot;")
+                    'title': escapeHtml(media.find('media\\:title').text()),
+                    'desc': escapeHtml(media.find('media\\:description').text()),
+                    'tags': escapeHtml(media.find('media\\:keywords').text())
                 };
                 if (picasa.checkTags(opts, item.tags)) {
                     items.push(item);
@@ -350,6 +350,22 @@
         o.picasaIgnore = picasa.parseTags(o.picasaIgnore);
         return o;
     }
+
+    // Taken from mustache.js
+    var entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': '&quot;',
+        "'": '&#39;',
+        "/": '&#x2F;'
+    };
+    function escapeHtml(string) {
+        return String(string).replace(/[&<>"'\/]/g, function (s) {
+            return entityMap[s];
+        });
+    }
+
     // Taken from underscore.js with reformating and another delimiters.
     // JavaScript micro-templating, similar to John Resig's implementation.
     // Underscore templating handles arbitrary delimiters, preserves whitespace,
