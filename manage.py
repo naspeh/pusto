@@ -64,7 +64,7 @@ def check_urls(host=None, verbose=False):
     with open('data/urls.json', 'br') as f:
         urls = json.loads(f.read().decode())
 
-    def get(url, expected_code=200):
+    def get(url, expected_code=200, indent=''):
         comment = ''
         try:
             conn = HTTPConnection(host)
@@ -74,8 +74,8 @@ def check_urls(host=None, verbose=False):
             if code == 200:
                 res_url = url
             else:
-                res_url = '/' + res.info().get('Location', '')
-                res_url = res_url.lstrip('http://' + host)
+                res_url = res.info().get('Location', '')
+                res_url = res_url.replace('http://' + host, '')
         except HTTPError as e:
             code = e.code
             res_url = None
@@ -84,7 +84,7 @@ def check_urls(host=None, verbose=False):
         if code != expected_code:
             err = ['%s (%r != %r)' % (url, code, expected_code)]
         else:
-            log('%s %s %s # %s' % (url, code, res_url, comment))
+            log('%s%s %s %s # %s' % (indent, url, code, res_url, comment))
         return err
 
     err = []
@@ -92,7 +92,7 @@ def check_urls(host=None, verbose=False):
         aliases = urls.get(url)
         err += get(url)
         for alias in aliases or []:
-            err += get(alias, expected_code=301)
+            err += get(alias, expected_code=301, indent='  ')
     if err:
         print('Errors:')
         print('\n'.join(err))
