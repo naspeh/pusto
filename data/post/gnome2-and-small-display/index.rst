@@ -124,8 +124,8 @@ __ http://www.foosel.org/linux/devilspie#actions
 
 Создаем файл ``~/.devilspie/common.ds``. И помещаем туда что-то типа:
 
-.. code-block:: py
-    :number:
+.. code:: py
+    :number-lines:
 
     (begin
         ;(debug)
@@ -174,7 +174,7 @@ __ http://www.foosel.org/linux/devilspie#actions
   Window Title: 'Skype? 2.2 (Beta) for Linux'; Application Name: 'Skype? 2.2 (Beta) for Linux'; Class: 'Skype'; Geometry: 266x487+0+25
   Window Title: 'Anastasie - Skype? Chat'; Application Name: 'Skype'; Class: 'Skype'; Geometry: 824x619+456+95
 
-.. code-block:: py
+.. code:: py
 
     (if
 

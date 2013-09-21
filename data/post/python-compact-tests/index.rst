@@ -1,7 +1,6 @@
 .. |nose| replace:: **nose**
 .. _nose: http://packages.python.org/nose/
 .. _nose_alt: http://somethingaboutorange.com/mrl/projects/nose/
-.. |pep8| replace:: :PEP:`8`
 
 Python. Компактные тесты
 ------------------------
@@ -26,7 +25,7 @@ Python. Компактные тесты
 
 .. _unittest: http://docs.python.org/library/unittest.html
 
-.. code-block:: python
+.. code:: python
 
     from unittest import TestCase
 
@@ -45,10 +44,10 @@ Python. Компактные тесты
 
 `Исторически сложилось`__, что ``unittest`` использует `верблюжью нотацию`__
 для ``setUp``, ``tearDown``, ``assert*`` (``assertTrue``, ``assertEquals``...)
-методов. Но в python есть |pep8|, в котором принято использовать подчеркивание
+методов. Но в python есть :PEP:`8`, в котором принято использовать подчеркивание
 в названиях функций (методов), и в ``nose.tools`` можно найти аналогичные
 функции, но с подчеркиванием (``assert_true``, ``assert_equals``) для
-любителей |pep8|.
+любителей :PEP:`8`.
 
 __ http://ru.wikipedia.org/wiki/JUnit
 __ http://ru.wikipedia.org/wiki/CamelCase
@@ -56,7 +55,7 @@ __ http://ru.wikipedia.org/wiki/CamelCase
 Подход 2. Модуль с тестами в виде функций
 =========================================
 
-.. code-block:: python
+.. code:: python
 
     from nose.tools import assert_equal, with_setup
 
@@ -90,7 +89,7 @@ __ http://ru.wikipedia.org/wiki/CamelCase
   втором приходится импортировать декоратор ``with_setup``. Но и тут можно
   выделить плюс, обычно название класса подбираю по содержимым тестам
 
-  .. code-block:: python
+  .. code:: python
 
     class TestAuth(TestCase):
         def test_login()
@@ -118,8 +117,8 @@ __ http://ru.wikipedia.org/wiki/CamelCase
 
 __ http://docs.python.org/library/doctest.html
 
-.. code-block:: python
-    :number:
+.. code:: python
+    :number-lines:
 
     answer = 42
 
@@ -140,7 +139,7 @@ __ http://docs.python.org/library/doctest.html
 Классная вещь assert
 ====================
 
-.. code-block:: python
+.. code:: python
 
     answer = 43
 
@@ -150,7 +149,7 @@ __ http://docs.python.org/library/doctest.html
 
 После запуска, вывод:
 
-.. code-block:: pytb
+.. code:: pytb
 
     $ nosetest
     ======================================================================
@@ -165,7 +164,7 @@ __ http://docs.python.org/library/doctest.html
 не известно какое значение содержит переменная ``answer``. Правда тут может
 порадовать nose_ и даже двумя вариантами:
 
-.. code-block:: pytb
+.. code:: pytb
 
     $ nosetests --pdb-failures
     ...
@@ -177,7 +176,7 @@ __ http://docs.python.org/library/doctest.html
 
 Следующий вариант еще красивее:
 
-.. code-block:: pytb
+.. code:: pytb
 
     $ nosetest -d
     ======================================================================
@@ -195,7 +194,7 @@ __ http://docs.python.org/library/doctest.html
 Более краткие сигнатуры
 =======================
 
-.. code-block:: python
+.. code:: python
 
     from nose.tools import eq_
 
@@ -207,7 +206,7 @@ __ http://docs.python.org/library/doctest.html
 
 После запуска, вывод:
 
-.. code-block:: pytb
+.. code:: pytb
 
     FAIL: test.test_answer
     ----------------------------------------------------------------------
@@ -233,7 +232,7 @@ __ http://docs.python.org/library/doctest.html
 - attest_ - интересный подход (python way) от известной команды Pocoo_.
   Пример из документации:
 
-  .. code-block:: python
+  .. code:: python
 
     from attest import Tests
     math = Tests()
@@ -248,7 +247,7 @@ __ http://docs.python.org/library/doctest.html
 
 - Oktest_ для лаконичности - идея прикольная. Пример из документации:
 
-  .. code-block:: python
+  .. code:: python
 
     from oktest import ok
 

@@ -173,15 +173,8 @@ blockquote {
 .note .admonition-title {
     display: none;
 }
-.highlighttable {
-    margin-bottom: 0;
-}
-.highlighttable .linenodiv pre {
-    margin-right: -10px;
-    border-right: 1px solid #ccc;
-}
-.highlighttable .code {
-    width: 100%;
+.code .ln {
+    color: #999;
 }
 
 /* Custom classes */

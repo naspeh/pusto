@@ -36,7 +36,7 @@ Makefile_
 
 так сказать псевдонимы, а команды на самом деле были примерно такие:
 
-.. code-block:: make
+.. code:: make
 
     clean:
         -rm *~*
@@ -77,7 +77,7 @@ Fabric_
 Решил, что если использовать ``fabric`` для деплоймента, то почему бы не
 использовать ее и для частых локальных команд:
 
-.. code-block:: python
+.. code:: python
 
     from fabric.api import local, run, cd
 
@@ -140,7 +140,7 @@ __ http://docs.fabfile.org/en/1.2.2/usage/fab.html#settings-files
 
 Итак, чтоб сделать ``local`` c перехватом вывода и без, нужно всего-то:
 
-.. code-block:: python
+.. code:: python
 
     from subprocess import call, Popen, PIPE, STDOUT
 
@@ -163,7 +163,7 @@ __ http://docs.python.org/library/argparse.html#sub-commands
 Все просто :) - использовать стандартный клиент ``ssh``.
 
 
-.. code-block:: python
+.. code:: python
 
     from subprocess import call
 

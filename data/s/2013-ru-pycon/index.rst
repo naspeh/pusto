@@ -139,7 +139,7 @@ __ https://docs.djangoproject.com/en/dev/topics/testing/overview/#making-request
 
 .. class:: f65
 
-.. code-block:: python
+.. code:: python
 
     class TestV1(TestCase):
         def test_v0(self):
@@ -270,7 +270,7 @@ Django подход: очистка базы (flush) перед каждым т�
 - первоначальную базу создаем один раз: ``t_base``
 - для каждого теста создаем уникальную базу из ``t_base``
 
-.. code-block:: sql
+.. code:: sql
 
     CREATE DATABASE "t_uniq" WITH TEMPLATE "t_base";
     -- запуск теста
@@ -551,7 +551,7 @@ nose(1.x) и плагины
 
 Так мы переопределили раннер:
 
-.. code-block:: python
+.. code:: python
     :class: small
 
     # testing/management/commands/test.py
@@ -584,7 +584,7 @@ nose(1.x) и плагины
 
     При запуске ``./manage.py test`` подхватываются тестовые настройки:
 
-    .. code-block:: python
+    .. code:: python
 
         # settings/__init__.py
         if 'test' in sys.argv:
