@@ -266,12 +266,19 @@ def build(src_dir, build_dir, nginx_file=None):
         for url, page in pages.items()
         if page.index_file
     )
+    urlmap = json.dumps(
+        urlmap, sort_keys=True, indent=4, separators=(',', ': ')
+    )
     urlmap_file = os.path.join(src_dir, 'urls.json')
-    with open(urlmap_file, 'bw') as f:
-        urlmap = json.dumps(
-            urlmap, sort_keys=True, indent=4, separators=(',', ': ')
-        )
-        f.write(urlmap.encode())
+
+    urlmap_prev = None
+    if os.path.exists(urlmap_file):
+        with open(urlmap_file, 'br') as f:
+            urlmap_prev = f.read().decode()
+
+    if not urlmap_prev or urlmap_prev != urlmap:
+        with open(urlmap_file, 'bw') as f:
+            f.write(urlmap.encode())
 
     print(' * Build successful')
     return urls
@@ -296,6 +303,7 @@ def watch_files(src_dir, build_dir, interval=1):
                 mtimes[filename] = mtime
                 print(' * Detected change in %r, rebuild' % filename)
                 build(src_dir, build_dir)
+                break
         time.sleep(interval)
 
 
@@ -404,7 +412,7 @@ def process(*args):
         parser.print_usage()
 
     elif args.sub == 'run':
-        if not args.no_reloader:
+        if not args.no_reloader and not os.environ.get('WERKZEUG_RUN_MAIN'):
             watcher = Thread(target=watch_files, args=(SRC_DIR, BUILD_DIR))
             watcher.daemon = True
             watcher.start()
