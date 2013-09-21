@@ -1,15 +1,27 @@
+#!/usr/bin/env python
+import argparse
 import datetime as dt
 import json
 import os
 import re
+import shutil
 import subprocess
+import time
 from collections import namedtuple, OrderedDict
+from threading import Thread
 from xml.etree import ElementTree as ET
 
+from docutils.core import publish_parts
 from jinja2 import Environment, FileSystemLoader
+from markdown2 import Markdown
+from werkzeug.exceptions import NotFound
+from werkzeug.serving import run_simple
+from werkzeug.utils import redirect
+from werkzeug.wrappers import Request, Response
 
-from . import markup
-
+ROOT_DIR = os.path.dirname(__file__)
+SRC_DIR = ROOT_DIR + '/data'
+BUILD_DIR = ROOT_DIR + '/build'
 Page = namedtuple('Page', (
     'url children index_file meta_file type path '
     'aliases published author hidden template sort title summary body html'
@@ -125,8 +137,8 @@ def get_jinja(src_dir):
             lstrip_blocks=True, trim_blocks=True
         )
         env.filters.update({
-            'rst': lambda text: markup.rst(text)[1],
-            'markdown': markup.markdown
+            'rst': lambda text: rst(text)[1],
+            'markdown': markdown
         })
         get_jinja.env = env
     return get_jinja.env
@@ -173,14 +185,14 @@ def get_html(src_dir, ctx):
             bind_meta(ctx, html, method='html')
 
         elif ctx['type'] == 'md':
-            body = markup.markdown(text)
+            body = markdown(text)
             bind_meta(ctx, body, method='html')
             ctx.update(body=body)
             tpl = env.get_template('/_theme/base.tpl')
             html = tpl.render(ctx, page=ctx)
 
         elif ctx['type'] == 'rst':
-            title, body = markup.rst(text, source_path=path)
+            title, body = rst(text, source_path=path)
             bind_meta(ctx, body, method='html')
             if title:
                 ctx['title'] = title
@@ -193,3 +205,150 @@ def get_html(src_dir, ctx):
 
     ctx.update(html=html, path=path)
     return Page(**ctx)
+
+
+def markdown(text):
+    md = Markdown(extras=['footnotes', 'code-friendly', 'code-color'])
+    return md.convert(text)
+
+
+def rst(source, source_path=None):
+    parts = publish_parts(
+        source=source,
+        source_path=source_path,
+        writer_name='html',
+        settings_overrides={
+            'footnote_references': 'superscript',
+            'syntax_highlight': 'short',
+            'smart_quotes': 'yes',
+            'cloak_email_addresses': True,
+            'traceback': True
+        }
+    )
+    return parts['title'], parts['body']
+
+
+def build(src_dir, build_dir, nginx_file=None):
+    '''Build static site from `src_dir`'''
+    if os.path.exists(build_dir):
+        shutil.rmtree(build_dir)
+    shutil.copytree(src_dir, build_dir)
+
+    urls = get_urls(build_dir)
+    nginx = {}
+    for url, page in urls:
+        if url != page.url and (url + '/') != page.url:
+            nginx[url.rstrip('/')] = page.url
+        elif page.index_file and not page.index_file.endswith('.html'):
+            with open(page.path, 'bw') as f:
+                f.write(page.html.encode())
+    if nginx:
+        lines = [
+            'rewrite ^{}/?$ {} permanent;'.format(u, p)
+            for u, p in nginx.items()
+        ]
+        lines = '\n'.join(lines)
+        if not nginx_file:
+            nginx_file = os.path.join(build_dir, '.nginx')
+
+        with open(nginx_file, 'bw') as f:
+            f.write(lines.encode())
+    print(' * Build successful')
+    return urls
+
+
+def watch_files(src_dir, touch_file, interval=1):
+    mtimes = {}
+    while 1:
+        files = get_jinja(src_dir).list_templates()
+        for filename in files:
+            filename = os.path.join(src_dir, filename)
+            try:
+                mtime = os.stat(filename).st_mtime
+            except OSError:
+                continue
+
+            old_time = mtimes.get(filename)
+            if old_time is None:
+                mtimes[filename] = mtime
+                continue
+            elif mtime > old_time:
+                mtimes[filename] = mtime
+                print(' * Detected change in %r, touch reload file' % filename)
+                with open(touch_file, 'w') as f:
+                    f.write('')
+        time.sleep(interval)
+
+
+def create_app(src_dir, build_dir, debug=False):
+    '''Create WSGI application'''
+    def _urls():
+        pages = build(src_dir,  build_dir)
+        urls = []
+        for url, page in pages:
+            if url == page.url:
+                urls += [(url, Response(page.html, mimetype='text/html'))]
+            else:
+                urls += [(url, redirect(page.url, 301))]
+        return dict(urls)
+
+    urls = _urls()
+
+    @Request.application
+    def app(request):
+        response = urls.get(request.path, None)
+        if response:
+            return response
+
+        return NotFound()
+    return app
+
+
+def process_args(args=None):
+    parser = argparse.ArgumentParser()
+    subs = parser.add_subparsers(title='subcommands')
+
+    def sub(name, **kw):
+        s = subs.add_parser(name, **kw)
+        s.set_defaults(sub=name)
+        s.arg = lambda *a, **kw: s.add_argument(*a, **kw) and s
+        return s
+
+    sub('run', help='start dev server')\
+        .arg('--host', default='localhost')\
+        .arg('--port', type=int, default=5000)\
+        .arg('--no-reloader', action='store_true')
+
+    sub('build', help='build static content from `data` directory')\
+        .arg('-b', '--bdir', default=BUILD_DIR, help='build directory')\
+        .arg('-n', '--nginx-file', help='file nginx rules')\
+        .arg('--port', type=int, default=8000)
+
+    args = parser.parse_args(args)
+    if not hasattr(args, 'sub'):
+        parser.print_usage()
+
+    elif args.sub == 'run':
+        touch_file = os.path.join(BUILD_DIR, '.nginx')
+        if not args.no_reloader:
+            with open(touch_file, 'w') as f:
+                f.write('')
+            watcher = Thread(target=watch_files, args=(SRC_DIR, touch_file))
+            watcher.daemon = True
+            watcher.start()
+
+        run_simple(
+            args.host, args.port, create_app(SRC_DIR, BUILD_DIR, debug=True),
+            use_reloader=not args.no_reloader, use_debugger=True,
+            static_files={'': BUILD_DIR}, extra_files=[touch_file]
+        )
+
+    elif args.sub == 'build':
+        build(SRC_DIR, args.bdir, args.nginx_file)
+
+    else:
+        raise ValueError('Wrong subcommand')
+
+
+if __name__ == '__main__':
+    process_args()

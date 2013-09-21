@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import argparse
-import http
 import os
 import re
 import subprocess
@@ -9,9 +8,7 @@ from threading import Thread
 from urllib.request import urlopen
 from urllib.error import HTTPError
 
-from werkzeug.serving import run_simple
-
-from pusto import build, create_app, watch_files
+import pusto
 
 ROOT_DIR = os.path.dirname(__file__)
 SRC_DIR = ROOT_DIR + '/data'
@@ -33,21 +30,9 @@ def process_args(args=None):
         s.exe = lambda f: s.set_defaults(exe=f) and s
         return s
 
-    sub('run', help='start dev server')\
-        .arg('--host', default='localhost')\
-        .arg('--port', type=int, default=5000)\
-        .arg('--no-reloader', action='store_true')
-
-    sub('build', help='build static content from `data` directory')\
-        .arg('-b', '--bdir', default=BUILD_DIR, help='build directory')\
-        .arg('-s', '--serve', action='store_true', help='run static server')\
-        .arg('-n', '--nginx-file', help='write nginx rules')\
-        .arg('--port', type=int, default=8000)
-
     sub('test_urls', help='test urls from google')\
-        .arg('-w', '--use-wsgi', action='store_true', help='use wsgi server')\
         .arg('--host', help='use host for test')\
-        .exe(lambda a: check_urls(SRC_DIR, use_wsgi=a.use_wsgi, host=a.host))
+        .exe(lambda a: check_urls(SRC_DIR, host=a.host))
 
     sub('deploy').exe(lambda a: ssh(
         'cd /home/pusto/src'
@@ -62,44 +47,16 @@ def process_args(args=None):
     args = parser.parse_args(args)
     if not hasattr(args, 'sub'):
         parser.print_usage()
-
-    elif hasattr(args, 'exe'):
+    else:
         args.exe(args)
 
-    elif args.sub == 'run':
-        touch_file = os.path.join(BUILD_DIR, '.nginx')
-        if not args.no_reloader:
-            with open(touch_file, 'w') as f:
-                f.write('')
-            watcher = Thread(target=watch_files, args=(SRC_DIR, touch_file))
-            watcher.daemon = True
-            watcher.start()
 
-        run_simple(
-            args.host, args.port, create_app(SRC_DIR, BUILD_DIR, debug=True),
-            use_reloader=not args.no_reloader, use_debugger=True,
-            static_files={'': BUILD_DIR}, extra_files=[touch_file]
-        )
-    elif args.sub == 'build':
-        build(SRC_DIR, args.bdir, args.nginx_file)
-        if args.serve:
-            os.chdir(args.bdir)
-            http.server.test(
-                http.server.SimpleHTTPRequestHandler, port=args.port
-            )
-
-    else:
-        raise ValueError('Wrong subcommand')
-
-
-def check_urls(src_dir, use_wsgi=False, host=None):
+def check_urls(src_dir, host=None):
     if not host:
+        pusto.build()
         host = 'http://localhost:9000'
-        if use_wsgi:
-            args = 'run --port=9000 --no-reloader'.split(' ')
-        else:
-            args = 'build -s --port=9000'.split(' ')
-        server = Thread(target=process_args, args=(args,))
+        args = 'run --port=9000 --no-reloader'.split(' ')
+        server = Thread(target=pusto.process_args, args=(args,))
         server.daemon = True
         server.start()
         time.sleep(2)
