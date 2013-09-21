@@ -39,6 +39,7 @@ def process_args(args=None):
         .arg('--no-reloader', action='store_true')
 
     sub('build', help='build static content from `data` directory')\
+        .arg('-b', '--bdir', default=BUILD_DIR, help='build directory')\
         .arg('-s', '--serve', action='store_true', help='run static server')\
         .arg('-n', '--nginx-file', help='write nginx rules')\
         .arg('--port', type=int, default=8000)
@@ -52,7 +53,9 @@ def process_args(args=None):
         'cd /home/pusto/src'
         '&& git pull'
         '&& source $(cat .venv)/bin/activate'
-        '&& ./manage.py build'
+        '&& ./manage.py build -b build-tmp'
+        '&& rm -rf build'
+        '&& mv build-tmp build'
         '&& systemctl restart nginx.service'
     ))
 
@@ -78,9 +81,9 @@ def process_args(args=None):
             static_files={'': BUILD_DIR}, extra_files=[touch_file]
         )
     elif args.sub == 'build':
-        build(SRC_DIR, BUILD_DIR, args.nginx_file)
+        build(SRC_DIR, args.bdir, args.nginx_file)
         if args.serve:
-            os.chdir(BUILD_DIR)
+            os.chdir(args.bdir)
             http.server.test(
                 http.server.SimpleHTTPRequestHandler, port=args.port
             )
