@@ -61,6 +61,12 @@ pre {
     line-height: 1.25em;
     white-space: pre;
 }
+.code .ln {
+    margin-left: -5px;
+    margin-right: 10px;
+    border-right: 1px solid #ccc;
+    color: #777;
+}
 blockquote {
     margin-left: 10px;
     padding-left: 10px;
@@ -172,9 +178,6 @@ blockquote {
 }
 .note .admonition-title {
     display: none;
-}
-.code .ln {
-    color: #999;
 }
 
 /* Custom classes */
