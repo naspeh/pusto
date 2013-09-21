@@ -28,12 +28,12 @@ def build(src_dir, build_dir, nginx_file=None):
             for u, p in nginx.items()
         ]
         lines = '\n'.join(lines)
-        if nginx_file:
-            with open(nginx_file, 'bw') as f:
-                f.write(lines.encode())
-        else:
-            print('Rules for nginx:')
-            print(lines)
+        if not nginx_file:
+            nginx_file = os.path.join(build_dir, '.nginx')
+
+        with open(nginx_file, 'bw') as f:
+            f.write(lines.encode())
+    print('Build successful')
     return urls
 
 
