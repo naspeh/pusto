@@ -11,9 +11,7 @@ from collections import namedtuple, OrderedDict
 from threading import Thread
 from xml.etree import ElementTree as ET
 
-from docutils.core import publish_parts
 from jinja2 import Environment, FileSystemLoader
-from markdown2 import Markdown
 from werkzeug.exceptions import NotFound
 from werkzeug.serving import run_simple
 from werkzeug.utils import redirect
@@ -160,18 +158,18 @@ def get_html(src_dir, ctx):
         path = src_dir
         html = None
     else:
-        path = src_dir + index_file
-        with open(path, 'br') as f:
+        path = src_dir + ctx['url'] + 'index.html'
+        index_src = src_dir + index_file
+        with open(index_src, 'br') as f:
             text = f.read().decode()
 
-        index_html = src_dir + ctx['url'] + 'index.html'
         if ctx['type'] == 'py':
             subprocess.call(
                 'cd {} && python index.py'
                 .format(src_dir + ctx['url']),
                 shell=True
             )
-            with open(index_html, 'br') as f:
+            with open(path, 'br') as f:
                 html = f.read().decode()
             bind_meta(ctx, html, method='html')
 
@@ -192,7 +190,7 @@ def get_html(src_dir, ctx):
             html = tpl.render(ctx, page=ctx)
 
         elif ctx['type'] == 'rst':
-            title, body = rst(text, source_path=path)
+            title, body = rst(text, source_path=index_src)
             bind_meta(ctx, body, method='html')
             if title:
                 ctx['title'] = title
@@ -201,18 +199,21 @@ def get_html(src_dir, ctx):
             tpl = ctx.get('template', None) or '/_theme/base.tpl'
             tpl = env.get_template(tpl)
             html = tpl.render(ctx, page=ctx)
-        path = index_html
 
     ctx.update(html=html, path=path)
     return Page(**ctx)
 
 
 def markdown(text):
+    from markdown2 import Markdown
+
     md = Markdown(extras=['footnotes', 'code-friendly', 'code-color'])
     return md.convert(text)
 
 
 def rst(source, source_path=None):
+    from docutils.core import publish_parts
+
     parts = publish_parts(
         source=source,
         source_path=source_path,
