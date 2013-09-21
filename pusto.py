@@ -19,16 +19,16 @@ from werkzeug.serving import run_simple
 from werkzeug.utils import redirect
 from werkzeug.wrappers import Request, Response
 
-ROOT_DIR = os.path.dirname(__file__)
-SRC_DIR = ROOT_DIR + '/data'
-BUILD_DIR = ROOT_DIR + '/build'
 Page = namedtuple('Page', (
     'url children index_file meta_file type path '
     'aliases published author hidden template sort title summary body html'
 ))
 
-meta_files = ['meta.json']
-index_files = ['index.' + t for t in 'py html tpl rst md'.split(' ')]
+ROOT_DIR = os.getcwd()
+SRC_DIR = ROOT_DIR + '/data'
+BUILD_DIR = ROOT_DIR + '/build'
+META_FILES = ['meta.json']
+INDEX_FILES = ['index.' + t for t in 'py html tpl rst md'.split(' ')]
 
 
 def get_urls(src_dir):
@@ -58,8 +58,8 @@ def get_pages(src_dir):
             continue
 
         files = tree[path][1]
-        meta = ([f for f in meta_files if f in files] or [None])[0]
-        index = ([f for f in index_files if f in files] or [None])[0]
+        meta = ([f for f in META_FILES if f in files] or [None])[0]
+        index = ([f for f in INDEX_FILES if f in files] or [None])[0]
         children = [
             (k, v) for k, v in pages.items()
             if k.rsplit('/', 2)[0] + '/' == url and not v.hidden
@@ -257,7 +257,7 @@ def build(src_dir, build_dir, nginx_file=None):
     return urls
 
 
-def watch_files(src_dir, touch_file, interval=1):
+def watch_files(src_dir, build_dir, interval=1):
     mtimes = {}
     while 1:
         files = get_jinja(src_dir).list_templates()
@@ -274,16 +274,15 @@ def watch_files(src_dir, touch_file, interval=1):
                 continue
             elif mtime > old_time:
                 mtimes[filename] = mtime
-                print(' * Detected change in %r, touch reload file' % filename)
-                with open(touch_file, 'w') as f:
-                    f.write('')
+                print(' * Detected change in %r, rebuild' % filename)
+                build(src_dir, build_dir)
         time.sleep(interval)
 
 
-def create_app(src_dir, build_dir, debug=False):
+def create_app(build_dir, debug=False):
     '''Create WSGI application'''
     def _urls():
-        pages = build(src_dir,  build_dir)
+        pages = get_urls(build_dir)
         urls = []
         for url, page in pages:
             if url == page.url:
@@ -304,7 +303,7 @@ def create_app(src_dir, build_dir, debug=False):
     return app
 
 
-def process_args(args=None):
+def process(*args):
     parser = argparse.ArgumentParser()
     subs = parser.add_subparsers(title='subcommands')
 
@@ -324,23 +323,21 @@ def process_args(args=None):
         .arg('-n', '--nginx-file', help='file nginx rules')\
         .arg('--port', type=int, default=8000)
 
-    args = parser.parse_args(args)
+    args = parser.parse_args(args or None)
     if not hasattr(args, 'sub'):
         parser.print_usage()
 
     elif args.sub == 'run':
-        touch_file = os.path.join(BUILD_DIR, '.nginx')
         if not args.no_reloader:
-            with open(touch_file, 'w') as f:
-                f.write('')
-            watcher = Thread(target=watch_files, args=(SRC_DIR, touch_file))
+            watcher = Thread(target=watch_files, args=(SRC_DIR, BUILD_DIR))
             watcher.daemon = True
             watcher.start()
 
         run_simple(
-            args.host, args.port, create_app(SRC_DIR, BUILD_DIR, debug=True),
+            args.host, args.port, create_app(BUILD_DIR, debug=True),
             use_reloader=not args.no_reloader, use_debugger=True,
-            static_files={'': BUILD_DIR}, extra_files=[touch_file]
+            static_files={'': BUILD_DIR},
+            extra_files=[os.path.join(BUILD_DIR, '.nginx')]
         )
 
     elif args.sub == 'build':
@@ -351,4 +348,4 @@ def process_args(args=None):
 
 
 if __name__ == '__main__':
-    process_args()
+    process()

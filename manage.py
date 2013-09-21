@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import argparse
-import os
 import re
 import subprocess
 import time
@@ -10,9 +9,6 @@ from urllib.error import HTTPError
 
 import pusto
 
-ROOT_DIR = os.path.dirname(__file__)
-SRC_DIR = ROOT_DIR + '/data'
-BUILD_DIR = ROOT_DIR + '/build'
 ssh = lambda cmd: subprocess.call(
     'ssh yadro.org "%s"' % cmd.replace('"', '\"').replace('$', '\$'),
     shell=True
@@ -32,17 +28,18 @@ def process_args(args=None):
 
     sub('test_urls', help='test urls from google')\
         .arg('--host', help='use host for test')\
-        .exe(lambda a: check_urls(SRC_DIR, host=a.host))
+        .exe(lambda a: check_urls(host=a.host))
 
-    sub('deploy').exe(lambda a: ssh(
-        'cd /home/pusto/src'
-        '&& git pull'
-        '&& source $(cat .venv)/bin/activate'
-        '&& ./manage.py build -b build-tmp'
-        '&& rm -rf build'
-        '&& mv build-tmp build'
-        '&& systemctl restart nginx.service'
-    ))
+    sub('deploy', help='deploy to server')\
+        .exe(lambda a: ssh(
+            'cd /home/pusto/src'
+            '&& git pull'
+            '&& source $(cat .venv)/bin/activate'
+            '&& ./manage.py build -b build-tmp'
+            '&& rm -rf build'
+            '&& mv build-tmp build'
+            '&& systemctl restart nginx.service'
+        ))
 
     args = parser.parse_args(args)
     if not hasattr(args, 'sub'):
@@ -51,12 +48,12 @@ def process_args(args=None):
         args.exe(args)
 
 
-def check_urls(src_dir, host=None):
+def check_urls(host=None):
     if not host:
-        pusto.build()
+        pusto.process('build')
         host = 'http://localhost:9000'
         args = 'run --port=9000 --no-reloader'.split(' ')
-        server = Thread(target=pusto.process_args, args=(args,))
+        server = Thread(target=pusto.process, args=args)
         server.daemon = True
         server.start()
         time.sleep(2)
