@@ -63,9 +63,9 @@
                         url: thumb2.attr('url'),
                         size: opts.frontThumbsizeInt
                     },
-                    'title': media.find('media\\:title').text(),
-                    'desc': media.find('media\\:description').text(),
-                    'tags': media.find('media\\:keywords').text()
+                    'title': media.find('media\\:title').text().replace(/"/g, "&quot;"),
+                    'desc': media.find('media\\:description').text().replace(/"/g, "&quot;"),
+                    'tags': media.find('media\\:keywords').text().replace(/"/g, "&quot;")
                 };
                 if (picasa.checkTags(opts, item.tags)) {
                     items.push(item);
