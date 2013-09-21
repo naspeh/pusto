@@ -14,7 +14,7 @@
 
 {% block body %}
 <!--META{
-    "aliases": ["/post/"]
+    "aliases": ["/post/", "/s/"]
 }-->
 
 <div class="intro">

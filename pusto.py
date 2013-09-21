@@ -29,8 +29,10 @@ META_FILES = ['meta.json']
 INDEX_FILES = ['index.' + t for t in 'py html tpl rst md'.split(' ')]
 
 
-def get_urls(src_dir):
-    pages = get_pages(src_dir)
+def get_urls(src_dir, pages=None):
+    if pages is None:
+        pages = get_pages(src_dir)
+
     urls = []
     for url, page in pages.items():
         if page.html:
@@ -235,8 +237,10 @@ def build(src_dir, build_dir, nginx_file=None):
         shutil.rmtree(build_dir)
     shutil.copytree(src_dir, build_dir)
 
-    urls = get_urls(build_dir)
+    pages = get_pages(build_dir)
+    urls = get_urls(build_dir, pages=pages)
     nginx = {}
+    urlmap = {}
     for url, page in urls:
         if url != page.url and (url + '/') != page.url:
             nginx[url.rstrip('/')] = page.url
@@ -254,6 +258,19 @@ def build(src_dir, build_dir, nginx_file=None):
 
         with open(nginx_file, 'bw') as f:
             f.write(lines.encode())
+
+    urlmap = dict(
+        [url, page.aliases]
+        for url, page in pages.items()
+        if page.index_file
+    )
+    urlmap_file = os.path.join(src_dir, 'urls.json')
+    with open(urlmap_file, 'bw') as f:
+        urlmap = json.dumps(
+            urlmap, sort_keys=True, indent=4, separators=(',', ': ')
+        )
+        f.write(urlmap.encode())
+
     print(' * Build successful')
     return urls
 

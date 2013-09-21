@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 import argparse
-import re
+import json
 import subprocess
 import time
+from http.client import HTTPConnection
 from threading import Thread
-from urllib.request import urlopen
 from urllib.error import HTTPError
 
 import pusto
@@ -26,9 +26,10 @@ def process_args(args=None):
         s.exe = lambda f: s.set_defaults(exe=f) and s
         return s
 
-    sub('test_urls', help='test urls from google')\
+    sub('test_urls', help='test url responses')\
+        .arg('-v', '--verbose', action='store_true')\
         .arg('--host', help='use host for test')\
-        .exe(lambda a: check_urls(host=a.host))
+        .exe(lambda a: check_urls(host=a.host, verbose=a.verbose))
 
     sub('deploy', help='deploy to server')\
         .exe(lambda a: ssh(
@@ -48,58 +49,50 @@ def process_args(args=None):
         args.exe(args)
 
 
-def check_urls(host=None):
+def check_urls(host=None, verbose=False):
+    log = lambda *a: verbose and print(*a)
+
     if not host:
         pusto.process('build')
-        host = 'http://localhost:9000'
+        host = 'localhost:9000'
         args = 'run --port=9000 --no-reloader'.split(' ')
         server = Thread(target=pusto.process, args=args)
         server.daemon = True
         server.start()
         time.sleep(2)
 
-    urls = [
-        '/resume',
-        '/naspeh/detail/',
-        '/naspeh/unikalnyy-nik/',
-        '/naspeh/gnome-optimizaciya-okon/',
-        '/naspeh/python-code-management/',
-        '/naspeh/lakonichnost-testov-v-python/',
-        '/post/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework',
-        (
-            '/blog/2008/09/25/'
-            'avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/'
-        ),
-        '/yandex_5ad3ffab17496674.txt',
-        '/googlee71e35f8e9cbd607.html',
-        '/s/napokaz/',
-        '/s/writing/ru-pycon-2013/',
-    ]
+    with open('data/urls.json', 'br') as f:
+        urls = json.loads(f.read().decode())
 
-    def get(url):
+    def get(url, expected_code=200):
         comment = ''
         try:
-            res = urlopen(host + url)
-            text = res.read().decode()
-            new = re.search(r'http-equiv="refresh" content="0;url=(.*)"', text)
-            if new:
-                new_url = new.groups(1)[0]
-                res = urlopen(host + new_url)
-                comment = 'Manual redirect'
+            conn = HTTPConnection(host)
+            conn.request('HEAD', url)
+            res = conn.getresponse()
             code = res.status
-            res_url = res.url
+            if code == 200:
+                res_url = url
+            else:
+                res_url = '/' + res.info().get('Location', '')
+                res_url = res_url.lstrip('http://' + host)
         except HTTPError as e:
             code = e.code
             res_url = None
-        return code, res_url, comment
+
+        err = []
+        if code != expected_code:
+            err = ['%s (%r != %r)' % (url, code, expected_code)]
+        else:
+            log('%s %s %s # %s' % (url, code, res_url, comment))
+        return err
 
     err = []
-    for url in urls:
-        code, res_url, comment = get(url)
-        print('%s %s %s # %s' % (url, code, res_url, comment))
-        expected_code = 200
-        if code != expected_code:
-            err += ['%s (%r != %r)' % (url, code, expected_code)]
+    for url in sorted(urls.keys()):
+        aliases = urls.get(url)
+        err += get(url)
+        for alias in aliases or []:
+            err += get(alias, expected_code=301)
     if err:
         print('Errors:')
         print('\n'.join(err))

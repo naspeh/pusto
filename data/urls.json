@@ -1,0 +1,171 @@
+{
+    "/": [
+        "/post/",
+        "/s/",
+        "/post",
+        "/s"
+    ],
+    "/naspeh/": [
+        "/naspeh/detail/",
+        "/naspeh/detail",
+        "/naspeh"
+    ],
+    "/post/gnome2-and-small-display/": [
+        "/naspeh/gnome-optimizaciya-okon/",
+        "/naspeh/gnome-optimizaciya-okon",
+        "/post/gnome2-and-small-display"
+    ],
+    "/post/python-code-management/": [
+        "/naspeh/python-code-management/",
+        "/naspeh/python-code-management",
+        "/post/python-code-management"
+    ],
+    "/post/python-compact-tests/": [
+        "/naspeh/lakonichnost-testov-v-python/",
+        "/naspeh/lakonichnost-testov-v-python",
+        "/post/python-compact-tests"
+    ],
+    "/post/unique-nick/": [
+        "/naspeh/unikalnyy-nik/",
+        "/naspeh/unikalnyy-nik",
+        "/post/unique-nick"
+    ],
+    "/post/zf-app-and-autoload/": [
+        "/post/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/",
+        "/blog/2008/09/25/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/",
+        "/post/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework",
+        "/blog/2008/09/25/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework",
+        "/post/zf-app-and-autoload"
+    ],
+    "/resume/": null,
+    "/s/2013-ru-pycon/": [
+        "/s/writing/ru-pycon-2013/",
+        "/s/writing/ru-pycon-2013",
+        "/s/2013-ru-pycon"
+    ],
+    "/s/napokaz/": null,
+    "/s/napokaz/src/": null,
+    "/trip/": null,
+    "/trip/2006-karpaty-chernogorskiy-khrebet/": [
+        "/event-63",
+        "/event-63-karpatyi-chernogorskij-hrebet",
+        "/report-66/for/event-63-karpatyi-chernogorskij-hrebet",
+        "/event-63",
+        "/event-63-karpatyi-chernogorskij-hrebet",
+        "/report-66/for/event-63-karpatyi-chernogorskij-hrebet",
+        "/trip/2006-karpaty-chernogorskiy-khrebet"
+    ],
+    "/trip/2006-karpaty-chernogorskiy-khrebet/detail/": [
+        "/report-67/for/event-63-karpatyi-chernogorskij-hrebet",
+        "/report-67/for/event-63-karpatyi-chernogorskij-hrebet",
+        "/trip/2006-karpaty-chernogorskiy-khrebet/detail"
+    ],
+    "/trip/2007-krym-tarhankut-olenevka/": [
+        "/event-12",
+        "/event-12-kryim-tarhankut-olenevka",
+        "/report-15/for/event-12-kryim-tarhankut-olenevka",
+        "/event-12",
+        "/event-12-kryim-tarhankut-olenevka",
+        "/report-15/for/event-12-kryim-tarhankut-olenevka",
+        "/trip/2007-krym-tarhankut-olenevka"
+    ],
+    "/trip/2008-krym-tarhankut-olenevka-barrakuda/": [
+        "/event-19",
+        "/event-19-kryim-tarhankut-olenevka-barrakuda",
+        "/report-20/for/event-19-kryim-tarhankut-olenevka-barrakuda",
+        "/event-19",
+        "/event-19-kryim-tarhankut-olenevka-barrakuda",
+        "/report-20/for/event-19-kryim-tarhankut-olenevka-barrakuda",
+        "/trip/2008-krym-tarhankut-olenevka-barrakuda"
+    ],
+    "/trip/2009-arabatskaya-strelka-velo/": [
+        "/event-39",
+        "/event-39-novoalekseevka-sudak-cherez-arabatskuyu-strelku",
+        "/report-47/for/event-39-novoalekseevka-sudak-cherez-arabatskuyu-strelku",
+        "/event-39",
+        "/event-39-novoalekseevka-sudak-cherez-arabatskuyu-strelku",
+        "/report-47/for/event-39-novoalekseevka-sudak-cherez-arabatskuyu-strelku",
+        "/trip/2009-arabatskaya-strelka-velo"
+    ],
+    "/trip/2009-karpaty-kosovskiy-rayon/": [
+        "/event-84",
+        "/event-84-karpatyi-kosovskij-rajon",
+        "/report-85/for/event-84-karpatyi-kosovskij-rajon",
+        "/event-84",
+        "/event-84-karpatyi-kosovskij-rajon",
+        "/report-85/for/event-84-karpatyi-kosovskij-rajon",
+        "/trip/2009-karpaty-kosovskiy-rayon"
+    ],
+    "/trip/2009-krym-novyy-svet/": [
+        "/event-32",
+        "/event-32-kryim-novyij-svet",
+        "/report-38/for/event-32-kryim-novyij-svet",
+        "/event-32",
+        "/event-32-kryim-novyij-svet",
+        "/report-38/for/event-32-kryim-novyij-svet",
+        "/trip/2009-krym-novyy-svet"
+    ],
+    "/trip/2009-krym-tarhankut-olenevka-treylery/": [
+        "/event-51",
+        "/event-51-kryim-tarhankut-olenevka-trejleryi",
+        "/report-52/for/event-51-kryim-tarhankut-olenevka-trejleryi",
+        "/event-51",
+        "/event-51-kryim-tarhankut-olenevka-trejleryi",
+        "/report-52/for/event-51-kryim-tarhankut-olenevka-trejleryi",
+        "/trip/2009-krym-tarhankut-olenevka-treylery"
+    ],
+    "/trip/2010-karpaty-svidovetskiy-khrebet/": [
+        "/event-98",
+        "/event-98-karpatyi-svidovetskij-hrebet",
+        "/report-99/for/event-98-karpatyi-svidovetskij-hrebet",
+        "/event-98",
+        "/event-98-karpatyi-svidovetskij-hrebet",
+        "/report-99/for/event-98-karpatyi-svidovetskij-hrebet",
+        "/trip/2010-karpaty-svidovetskiy-khrebet"
+    ],
+    "/trip/2010-krym-yalta-bahchisaray-velo/": [
+        "/event-107",
+        "/event-107-kryim-yalta-bahchisaraj",
+        "/report-108/for/event-107-kryim-yalta-bahchisaraj",
+        "/event-107",
+        "/event-107-kryim-yalta-bahchisaraj",
+        "/report-108/for/event-107-kryim-yalta-bahchisaraj",
+        "/trip/2010-krym-yalta-bahchisaray-velo"
+    ],
+    "/trip/2010-krym-yugo-vostochnyy-gornyy/": [
+        "/event-75",
+        "/event-75-kryim-yugo-vostochnyij-gornyij",
+        "/report-76/for/event-75-kryim-yugo-vostochnyij-gornyij",
+        "/event-75",
+        "/event-75-kryim-yugo-vostochnyij-gornyij",
+        "/report-76/for/event-75-kryim-yugo-vostochnyij-gornyij",
+        "/trip/2010-krym-yugo-vostochnyy-gornyy"
+    ],
+    "/trip/2011-karpaty-spravzhnya-kazka/": [
+        "/event-132",
+        "/event-132-karpatyi-spravzhnya-kazka",
+        "/report-133/for/event-132-karpatyi-spravzhnya-kazka",
+        "/event-132",
+        "/event-132-karpatyi-spravzhnya-kazka",
+        "/report-133/for/event-132-karpatyi-spravzhnya-kazka",
+        "/trip/2011-karpaty-spravzhnya-kazka"
+    ],
+    "/trip/2011-krym-simferopol-feodosiya-velo/": [
+        "/event-121",
+        "/event-121-kryim-velopohod-simferopol-feodosiya",
+        "/report-122/for/event-121-kryim-velopohod-simferopol-feodosiya",
+        "/event-121",
+        "/event-121-kryim-velopohod-simferopol-feodosiya",
+        "/report-122/for/event-121-kryim-velopohod-simferopol-feodosiya",
+        "/trip/2011-krym-simferopol-feodosiya-velo"
+    ],
+    "/trip/2012-karpaty-spravzhnya-kazka/": [
+        "/event-144",
+        "/event-144-karpatyi-spravzhnya-kazka",
+        "/report-145/for/event-144-karpatyi-spravzhnya-kazka",
+        "/event-144",
+        "/event-144-karpatyi-spravzhnya-kazka",
+        "/report-145/for/event-144-karpatyi-spravzhnya-kazka",
+        "/trip/2012-karpaty-spravzhnya-kazka"
+    ]
+}
