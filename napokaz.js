@@ -12,14 +12,20 @@
         // Picasa options
         picasaUser: 'naspeh',
         picasaAlbum: 'Naspeh',
+        picasaAlbumid: '',
         picasaFilter: '',
         picasaIgnore: ''
     };
     var picasa = {
         fetch: function(opts, success) {
+            var parts = ['user', opts.picasaUser];
+            if (opts.picasaAlbumid) {
+                parts = parts.concat(['albumid', opts.picasaAlbumid]);
+            } else {
+                parts = parts.concat(['album', opts.picasaAlbum]);
+            }
             $.ajax({
-                url: 'https://picasaweb.google.com/data/feed/api/' +
-                    ['user', opts.picasaUser, 'album', opts.picasaAlbum].join('/'),
+                url: 'https://picasaweb.google.com/data/feed/api/' + parts.join('/'),
                 data: {
                     kind: 'photo',
                     thumbsize: [opts.boxThumbsize, opts.frontThumbsize].join(',')
@@ -63,9 +69,9 @@
                         url: thumb2.attr('url'),
                         size: opts.frontThumbsizeInt
                     },
-                    'title': media.find('media\\:title').text(),
-                    'desc': media.find('media\\:description').text(),
-                    'tags': media.find('media\\:keywords').text()
+                    'title': escapeHtml(media.find('media\\:title').text()),
+                    'desc': escapeHtml(media.find('media\\:description').text()),
+                    'tags': escapeHtml(media.find('media\\:keywords').text())
                 };
                 if (picasa.checkTags(opts, item.tags)) {
                     items.push(item);
@@ -350,6 +356,22 @@
         o.picasaIgnore = picasa.parseTags(o.picasaIgnore);
         return o;
     }
+
+    // Taken from mustache.js
+    var entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': '&quot;',
+        "'": '&#39;',
+        "/": '&#x2F;'
+    };
+    function escapeHtml(string) {
+        return String(string).replace(/[&<>"'\/]/g, function (s) {
+            return entityMap[s];
+        });
+    }
+
     // Taken from underscore.js with reformating and another delimiters.
     // JavaScript micro-templating, similar to John Resig's implementation.
     // Underscore templating handles arbitrary delimiters, preserves whitespace,
