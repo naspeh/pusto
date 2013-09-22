@@ -12,14 +12,20 @@
         // Picasa options
         picasaUser: 'naspeh',
         picasaAlbum: 'Naspeh',
+        picasaAlbumid: '',
         picasaFilter: '',
         picasaIgnore: ''
     };
     var picasa = {
         fetch: function(opts, success) {
+            var parts = ['user', opts.picasaUser];
+            if (opts.picasaAlbumid) {
+                parts = parts.concat(['albumid', opts.picasaAlbumid]);
+            } else {
+                parts = parts.concat(['album', opts.picasaAlbum]);
+            }
             $.ajax({
-                url: 'https://picasaweb.google.com/data/feed/api/' +
-                    ['user', opts.picasaUser, 'album', opts.picasaAlbum].join('/'),
+                url: 'https://picasaweb.google.com/data/feed/api/' + parts.join('/'),
                 data: {
                     kind: 'photo',
                     thumbsize: [opts.boxThumbsize, opts.frontThumbsize].join(',')
