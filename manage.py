@@ -34,6 +34,16 @@ def process_args(args=None):
     sub('bootstrap', help='install dependencies')\
         .exe(lambda a: sh('pip install -r requirements.txt --no-index'))
 
+    sub('napokaz', help='napokaz updater')\
+        .arg('--push', action='store_true')\
+        .arg('--init', action='store_true')\
+        .exe(lambda a: sh(
+            'git remote add napokaz git@github.com:naspeh/napokaz.git'
+            if a.init else
+            'git subtree %s -P data/s/napokaz/src napokaz master'
+            % ('push' if a.push else 'pull --squash')
+        ))
+
     args = parser.parse_args(args)
     if not hasattr(args, 'sub'):
         parser.print_usage()
