@@ -286,24 +286,34 @@ def build(src_dir, build_dir, nginx_file=None):
 
 def watch_files(src_dir, build_dir, interval=1):
     mtimes = {}
+    old_files = None
     while 1:
         files = get_jinja(src_dir).list_templates()
+        old_files = files if old_files is None else old_files
+        if files != old_files:
+            del_files = set(old_files) - set(files)
+            new_files = set(files) - set(old_files)
+            if del_files:
+                print(' * Detected deleted file(s) %r, rebuild' % del_files)
+            elif new_files:
+                print(' * Detected new file(s) %r, rebuild' % new_files)
+
+            build(src_dir, build_dir)
+
         for filename in files:
-            filename = os.path.join(src_dir, filename)
+            filename_ = os.path.join(src_dir, filename)
             try:
-                mtime = os.stat(filename).st_mtime
+                mtime = os.stat(filename_).st_mtime
             except OSError:
                 continue
 
             old_time = mtimes.get(filename)
-            if old_time is None:
-                mtimes[filename] = mtime
-                continue
-            elif mtime > old_time:
-                mtimes[filename] = mtime
+            mtimes[filename] = mtime
+            if old_time and mtime > old_time:
                 print(' * Detected change in %r, rebuild' % filename)
                 build(src_dir, build_dir)
                 break
+        old_files = files
         time.sleep(interval)
 
 
@@ -412,7 +422,7 @@ def process(*args):
         parser.print_usage()
 
     elif args.sub == 'run':
-        if not args.no_reloader and not os.environ.get('WERKZEUG_RUN_MAIN'):
+        if not args.no_reloader and os.environ.get('WERKZEUG_RUN_MAIN'):
             watcher = Thread(target=watch_files, args=(SRC_DIR, BUILD_DIR))
             watcher.daemon = True
             watcher.start()
