@@ -5,6 +5,9 @@
         "/post",
         "/s"
     ],
+    "/draft/": null,
+    "/draft/django-tests-in-ostrovok/": null,
+    "/draft/django-tests-in-ostrovok/habr/": null,
     "/naspeh/": [
         "/naspeh/detail/",
         "/naspeh/detail",
