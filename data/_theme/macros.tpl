@@ -13,8 +13,8 @@
         Опубликовано: {{ c.published.strftime('%d.%m.%Y') }}
     </li>
     {% endif %}
-    {% if c.markup in ['md', 'rst'] %}
-    <li><a href="{{ c.index_file }}">{{ c.markup }} текст</a></li>
+    {% if c.type in ['md', 'rst'] %}
+    <li><a href="{{ c.index_file }}">{{ c.type }} текст</a></li>
     {% endif %}
     <li><a href="{{ github }}{{ c.index_file or c.url }}">Смотреть на github</a></li>
 </ul>
