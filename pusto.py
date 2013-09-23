@@ -320,20 +320,20 @@ def watch_files(src_dir, build_dir, interval=1):
 def create_app(build_dir, debug=False):
     '''Create WSGI application'''
     def _urls():
-        pages = get_urls(build_dir)
-        urls = []
-        for url, page in pages:
-            if url == page.url:
-                urls += [(url, Response(page.html, mimetype='text/html'))]
-            else:
-                urls += [(url, redirect(page.url, 301))]
-        return dict(urls)
-
-    urls = _urls()
+        if not hasattr(_urls, 'cache'):
+            pages = get_urls(build_dir)
+            urls = []
+            for url, page in pages:
+                if url == page.url:
+                    urls += [(url, Response(page.html, mimetype='text/html'))]
+                else:
+                    urls += [(url, redirect(page.url, 301))]
+            _urls.cache = dict(urls)
+        return _urls.cache
 
     @Request.application
     def app(request):
-        response = urls.get(request.path, None)
+        response = _urls().get(request.path, None)
         if response:
             return response
 
@@ -352,7 +352,7 @@ def check_urls(host=None, verbose=False):
         server = Thread(target=process, args=args)
         server.daemon = True
         server.start()
-        time.sleep(5)
+        time.sleep(1)
 
     with open('data/urls.json', 'br') as f:
         urls = json.loads(f.read().decode())
