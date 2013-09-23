@@ -348,11 +348,11 @@ def check_urls(host=None, verbose=False):
         if not os.path.exists(BUILD_DIR):
             process('build')
         host = 'localhost:9000'
-        args = 'run --port=9000 --no-reloader'.split(' ')
+        args = 'run --port=9000 --no-reloader --no-build'.split(' ')
         server = Thread(target=process, args=args)
         server.daemon = True
         server.start()
-        time.sleep(2)
+        time.sleep(5)
 
     with open('data/urls.json', 'br') as f:
         urls = json.loads(f.read().decode())
@@ -406,7 +406,8 @@ def process(*args):
     sub('run', help='start dev server')\
         .arg('--host', default='localhost')\
         .arg('--port', type=int, default=5000)\
-        .arg('--no-reloader', action='store_true')
+        .arg('--no-reloader', action='store_true')\
+        .arg('--no-build', action='store_true')
 
     sub('build', help='build static content from `data` directory')\
         .arg('-b', '--bdir', default=BUILD_DIR, help='build directory')\
@@ -422,6 +423,9 @@ def process(*args):
         parser.print_usage()
 
     elif args.sub == 'run':
+        if not args.no_build:
+            build(SRC_DIR, BUILD_DIR)
+
         if not args.no_reloader and os.environ.get('WERKZEUG_RUN_MAIN'):
             watcher = Thread(target=watch_files, args=(SRC_DIR, BUILD_DIR))
             watcher.daemon = True
