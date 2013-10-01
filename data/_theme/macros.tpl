@@ -1,3 +1,5 @@
+{% set github="https://github.com/naspeh/pusto/tree/master/data" %}
+
 {% macro show_meta(c, back_url=False) %}
 <ul class="meta">
     {% if back_url %}

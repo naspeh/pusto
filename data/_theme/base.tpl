@@ -12,8 +12,6 @@
 </head>
 
 <body>
-{% set github="https://github.com/naspeh/pusto/" %}
-{% set github_data=github + "tree/master/data" %}
 {% block header %}
 <div class="header">
     <a class="logo" href="/">pusto.org</a>
