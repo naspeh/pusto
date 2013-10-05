@@ -25,6 +25,7 @@ def process_args(args=None):
             'cd /home/pusto/src'
             '&& git pull'
             '&& source $(cat .venv)/bin/activate'
+            '&& ./manage.py bootstrap'
             '&& ./pusto.py build -b build-tmp'
             '&& rm -rf build'
             '&& mv build-tmp build'
