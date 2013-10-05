@@ -1,0 +1,4 @@
+{
+    "noindex": "(^/s/$|^/draft/)",
+    "host": "http://pusto.org"
+}

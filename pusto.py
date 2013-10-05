@@ -13,7 +13,7 @@ from threading import Thread
 from urllib.error import HTTPError
 from xml.etree import ElementTree as ET
 
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, Template
 from werkzeug.exceptions import NotFound
 from werkzeug.serving import run_simple
 from werkzeug.utils import redirect
@@ -239,10 +239,15 @@ def build(src_dir, build_dir, nginx_file=None):
         shutil.rmtree(build_dir)
     shutil.copytree(src_dir, build_dir)
 
+    config = {'noindex': None, 'host': 'http://example.com'}
+    config_file = os.path.join(build_dir, 'config.json')
+    if os.path.exists(config_file):
+        with open(config_file, 'br') as f:
+            config.update(json.loads(f.read().decode()))
+
     pages = get_pages(build_dir)
     urls = get_urls(build_dir, pages=pages)
     nginx = {}
-    urlmap = {}
     for url, page in urls:
         if url != page.url and (url + '/') != page.url:
             nginx[url.rstrip('/')] = page.url
@@ -261,6 +266,35 @@ def build(src_dir, build_dir, nginx_file=None):
         with open(nginx_file, 'bw') as f:
             f.write(lines.encode())
 
+    save_urls(pages, os.path.join(src_dir, 'urls.json'))
+    save_sitemap(pages, os.path.join(build_dir, 'sitemap.xml'), config)
+    print(' * Build successful')
+    return urls
+
+
+def save_sitemap(pages, filename, config):
+    if config['noindex']:
+        pages = [
+            p for p in pages.values()
+            if not re.match(config['noindex'], p.url)
+        ]
+    tpl = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        '    {% for page in pages %}'
+        '    <url>'
+        '        <loc>{{ host }}{{ page.url }}</loc>'
+        '    </url>'
+        '    {% endfor %}'
+        '</urlset>'
+    )
+    tpl = Template(tpl)
+    sitemap = tpl.render(pages=pages, host=config['host'])
+    with open(filename, 'bw') as f:
+        f.write(sitemap.encode())
+
+
+def save_urls(pages, filename):
     urlmap = dict(
         [url, page.aliases]
         for url, page in pages.items()
@@ -269,19 +303,15 @@ def build(src_dir, build_dir, nginx_file=None):
     urlmap = json.dumps(
         urlmap, sort_keys=True, indent=4, separators=(',', ': ')
     )
-    urlmap_file = os.path.join(src_dir, 'urls.json')
 
     urlmap_prev = None
-    if os.path.exists(urlmap_file):
-        with open(urlmap_file, 'br') as f:
+    if os.path.exists(filename):
+        with open(filename, 'br') as f:
             urlmap_prev = f.read().decode()
 
     if not urlmap_prev or urlmap_prev != urlmap:
-        with open(urlmap_file, 'bw') as f:
+        with open(filename, 'bw') as f:
             f.write(urlmap.encode())
-
-    print(' * Build successful')
-    return urls
 
 
 def watch_files(src_dir, build_dir, interval=1):
@@ -424,7 +454,7 @@ def process(*args):
 
     elif args.sub == 'run':
         run_main = os.environ.get('WERKZEUG_RUN_MAIN')
-        if not args.no_build and not run_main:
+        if not args.no_build and run_main:
             build(SRC_DIR, BUILD_DIR)
 
         if not args.no_reloader and run_main:
