@@ -26,7 +26,8 @@ i   </script>
     </div>
 
     <div class="napokaz"
-        data-picasa-album="ProfilePhotos">
+        data-picasa-user="115954385615646692819"
+        data-picasa-albumid="5923049200824375969">
     </div>
     <div>
         <div class="napokaz"
@@ -51,5 +52,21 @@ i   </script>
         data-front-thumbsize="60c"
         data-box-thumbsize="120c"
         data-picasa-album="20121016_Karpaty_Spravzhnya_Kazka">
+    </div>
+    <div>
+        <div class="napokaz"
+            data-box-width="3"
+            data-box-height="2">
+        </div>
+        <div class="napokaz"
+            data-box-width="1"
+            data-box-height="6">
+        </div>
+    </div>
+    <div>
+        <div class="napokaz"
+            data-picasa-user="115954385615646692819"
+            data-picasa-albumid="5220591610866623377">
+        </div>
     </div>
 {% endblock %}
