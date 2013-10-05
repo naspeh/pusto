@@ -423,10 +423,11 @@ def process(*args):
         parser.print_usage()
 
     elif args.sub == 'run':
-        if not args.no_build:
+        run_main = os.environ.get('WERKZEUG_RUN_MAIN')
+        if not args.no_build and not run_main:
             build(SRC_DIR, BUILD_DIR)
 
-        if not args.no_reloader and os.environ.get('WERKZEUG_RUN_MAIN'):
+        if not args.no_reloader and run_main:
             watcher = Thread(target=watch_files, args=(SRC_DIR, BUILD_DIR))
             watcher.daemon = True
             watcher.start()
