@@ -34,6 +34,12 @@ def process_args(args=None):
     sub('bootstrap', help='install dependencies')\
         .exe(lambda a: sh('pip install -r requirements.txt --no-index'))
 
+    sub('wheels', help='prepare wheels')\
+        .exe(lambda a: sh(
+            'pip wheel -r requirements.txt -w wheels'
+            '&& pip install --no-install -d wheels wheel'
+        ))
+
     sub('napokaz', help='napokaz updater')\
         .arg('--push', action='store_true')\
         .arg('--init', action='store_true')\
