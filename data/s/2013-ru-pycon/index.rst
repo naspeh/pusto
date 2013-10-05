@@ -60,7 +60,7 @@
 
     __ http://www.jetbrains.com/teamcity/
 
-    Оптимизация тестов - важная задача для практики TDD и Continuous delivery (CD).
+    Оптимизация тестов - важная задача для практик TDD и Continuous integration.
 
 
 Нужны быстрые тесты
