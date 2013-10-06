@@ -223,9 +223,9 @@ def rst(source, source_path=None):
         source_path=source_path,
         writer_name='html',
         settings_overrides={
-            'footnote_references': 'superscript',
             'syntax_highlight': 'short',
-            'smart_quotes': 'yes',
+            'trim_footnote_reference_space': True,
+            'smart_quotes': True,
             'cloak_email_addresses': True,
             'traceback': True
         }

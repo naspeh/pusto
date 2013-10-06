@@ -49,6 +49,12 @@ li, dd {
 dt {
     font-weight: bold;
 }
+sup {
+    vertical-align: super;
+}
+sub {
+    vertical-align: sub;
+}
 pre {
     overflow: auto;
     padding: 5px;
