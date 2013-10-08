@@ -41,7 +41,8 @@ def get_urls(src_dir, pages=None):
             urls += [(url, page)]
             aliases = page.aliases or []
             aliases += [
-                a.rstrip('/') for a in (aliases + [url]) if a.rstrip('/')
+                a.rstrip('/') for a in (aliases + [url])
+                if a.rstrip('/') and a.rstrip('/') != a
             ]
             aliases = set(aliases)
             urls += [(a, page) for a in aliases]
