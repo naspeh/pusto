@@ -21,9 +21,14 @@ def process_args(args=None):
         return s
 
     sub('deploy', help='deploy to server')\
+        .arg('--last', action='store_true', help='deploy last version')\
         .exe(lambda a: ssh(
-            'cd /home/pusto/src'
-            '&& git pull'
+            'cd /home/pusto/src' + (
+                '&& git checkout $(cat .last)'
+                if a.last else
+                '&& git log -n1 --pretty=format:%H > .last'
+                '&& git pull'
+            ) +
             '&& source $(cat .venv)/bin/activate'
             '&& ./manage.py bootstrap'
             '&& ./pusto.py build -b build-tmp'
