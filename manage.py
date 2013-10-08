@@ -26,7 +26,7 @@ def process_args(args=None):
             'cd /home/pusto/src' + (
                 '&& git checkout $(cat .last)'
                 if a.last else
-                '&& git checkout origin master'
+                '&& git checkout master'
                 '&& git log -n1 --pretty=format:%H > .last'
                 '&& git pull'
             ) +
