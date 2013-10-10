@@ -21,11 +21,13 @@ def process_args(args=None):
         return s
 
     sub('deploy', help='deploy to server')\
-        .arg('-t', '--target', default='master', help='target for checkout')\
+        .arg(
+            '-t', '--target', default='origin/master',
+            help='target for checkout'
+        )\
         .exe(lambda a: ssh(
             'cd /home/pusto/src'
             '&& git checkout {target}'
-            '&& git pull'
             '&& source $(cat .venv)/bin/activate'
             '&& ./manage.py bootstrap'
             '&& ./pusto.py build -b build-tmp'
