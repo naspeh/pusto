@@ -21,21 +21,18 @@ def process_args(args=None):
         return s
 
     sub('deploy', help='deploy to server')\
-        .arg('--last', action='store_true', help='deploy last version')\
+        .arg('-t', '--target', default='master', help='target for checkout')\
         .exe(lambda a: ssh(
-            'cd /home/pusto/src' + (
-                '&& git checkout $(cat .last)'
-                if a.last else
-                '&& git checkout master'
-                '&& git log -n1 --pretty=format:%H > .last'
-                '&& git pull'
-            ) +
+            'cd /home/pusto/src'
+            '&& git checkout {target}'
+            '&& git pull'
             '&& source $(cat .venv)/bin/activate'
             '&& ./manage.py bootstrap'
             '&& ./pusto.py build -b build-tmp'
             '&& rm -rf build'
             '&& mv build-tmp build'
             '&& systemctl restart nginx.service'
+            .format(target=a.target)
         ))
 
     sub('bootstrap', help='install dependencies')\
