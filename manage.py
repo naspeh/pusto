@@ -27,6 +27,7 @@ def process_args(args=None):
         )\
         .exe(lambda a: ssh(
             'cd /home/pusto/src'
+            '&& git fetch origin'
             '&& git checkout {target}'
             '&& source $(cat .venv)/bin/activate'
             '&& ./manage.py bootstrap'
