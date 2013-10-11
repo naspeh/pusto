@@ -204,6 +204,10 @@ def get_html(src_dir, ctx):
             tpl = env.get_template(tpl)
             html = tpl.render(ctx, page=ctx)
 
+        if ctx['type'] not in ['py', 'html']:
+            with open(path, 'bw') as f:
+                f.write(html.encode())
+
     ctx.update(html=html, path=path)
     return Page(**ctx)
 
@@ -246,13 +250,6 @@ def build(src_dir, build_dir, nginx_file=None):
             config.update(json.loads(f.read().decode()))
 
     urls, pages = get_urls(build_dir)
-    for url, page, is_alias in urls:
-        if is_alias:
-            continue
-        elif url == page.index_file and not page.index_file.endswith('.html'):
-            with open(page.path, 'bw') as f:
-                f.write(page.html.encode())
-
     save_rules(urls, nginx_file or os.path.join(build_dir, '.nginx'))
     save_urls(pages, os.path.join(src_dir, 'urls.json'))
     save_sitemap(pages, os.path.join(build_dir, 'sitemap.xml'), config)
