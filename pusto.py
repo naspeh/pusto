@@ -315,24 +315,37 @@ def save_urls(pages, filename):
             f.write(urlmap.encode())
 
 
+def list_files(path):
+    files = set()
+    for dirpath, dirnames, filenames in os.walk(path):
+        for filename in filenames:
+            filename = os.path.join(dirpath, filename)
+            if filename not in files:
+                files.add(filename)
+    return sorted(files)
+
+
 def watch_files(src_dir, build_dir, interval=1):
+    ignore = [os.path.join(src_dir, 'urls.json')]
     mtimes = {}
     old_files = None
     while 1:
-        files = get_jinja(src_dir).list_templates()
+        changes = []
+        files = list_files(src_dir)
         old_files = files if old_files is None else old_files
         if files != old_files:
             del_files = set(old_files) - set(files)
             new_files = set(files) - set(old_files)
-            if del_files:
-                print(' * Detected deleted file(s) %r, rebuild' % del_files)
-            elif new_files:
-                print(' * Detected new file(s) %r, rebuild' % new_files)
-
-            build(src_dir, build_dir)
+            if del_files or new_files:
+                if del_files:
+                    changes += ['    deleted file(s) %r' % del_files]
+                if new_files:
+                    changes += ['    new file(s) %r' % new_files]
 
         for filename in files:
             filename_ = os.path.join(src_dir, filename)
+            if filename_ in ignore:
+                continue
             try:
                 mtime = os.stat(filename_).st_mtime
             except OSError:
@@ -341,9 +354,12 @@ def watch_files(src_dir, build_dir, interval=1):
             old_time = mtimes.get(filename)
             mtimes[filename] = mtime
             if old_time and mtime > old_time:
-                print(' * Detected change in %r, rebuild' % filename)
-                build(src_dir, build_dir)
-                break
+                changes += ['    modified file %r' % filename]
+
+        if changes:
+            print(' * Detected changes, rebuild\n' + '\n'.join(changes))
+            build(src_dir, build_dir)
+
         old_files = files
         time.sleep(interval)
 
@@ -455,7 +471,7 @@ def process(*args):
 
     elif args.sub == 'run':
         run_main = os.environ.get('WERKZEUG_RUN_MAIN')
-        if not args.no_build and run_main:
+        if not args.no_build and not run_main:
             build(SRC_DIR, BUILD_DIR)
 
         if not args.no_reloader and run_main:
