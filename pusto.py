@@ -338,9 +338,9 @@ def watch_files(src_dir, build_dir, interval=1):
             new_files = set(files) - set(old_files)
             if del_files or new_files:
                 if del_files:
-                    changes += ['    deleted file(s) %r' % list(del_files)]
+                    changes += ['deleted file(s) %s' % ', '.join(del_files)]
                 if new_files:
-                    changes += ['    new file(s) %r' % list(new_files)]
+                    changes += ['new file(s) %s' % ', '.join(new_files)]
 
         mod_files = []
         for filename in files:
@@ -357,10 +357,11 @@ def watch_files(src_dir, build_dir, interval=1):
             if old_time and mtime > old_time:
                 mod_files += [filename]
         if mod_files:
-            changes += ['    modified file(s) %r' % mod_files]
+            changes += ['modified file(s) %s' % ', '.join(mod_files)]
 
         if changes:
-            print(' * Detected changes, rebuild\n' + '\n'.join(changes))
+            changes = [' * Detected changes, rebuild'] + changes
+            print('\n    '.join(changes))
             build(src_dir, build_dir)
 
         old_files = files
