@@ -31,22 +31,21 @@ META_FILES = ['meta.json']
 INDEX_FILES = ['index.' + t for t in 'py html tpl rst md'.split(' ')]
 
 
-def get_urls(src_dir, pages=None):
-    if pages is None:
-        pages = get_pages(src_dir)
+def get_urls(src_dir):
+    pages = get_pages(src_dir)
 
     urls = []
     for url, page in pages.items():
         if page.html:
-            urls += [(url, page)]
+            urls += [(url, page, False)]
             aliases = page.aliases or []
             aliases += [
                 a.rstrip('/') for a in (aliases + [url])
                 if a.rstrip('/') and a.rstrip('/') != a
             ]
             aliases = set(aliases)
-            urls += [(a, page) for a in aliases]
-    return urls
+            urls += [(a, page, True) for a in aliases]
+    return urls, pages
 
 
 def get_pages(src_dir):
@@ -246,31 +245,29 @@ def build(src_dir, build_dir, nginx_file=None):
         with open(config_file, 'br') as f:
             config.update(json.loads(f.read().decode()))
 
-    pages = get_pages(build_dir)
-    urls = get_urls(build_dir, pages=pages)
-    nginx = {}
-    for url, page in urls:
-        if url != page.url and (url + '/') != page.url:
-            nginx[url.rstrip('/')] = page.url
-        elif page.index_file and not page.index_file.endswith('.html'):
+    urls, pages = get_urls(build_dir)
+    for url, page, is_alias in urls:
+        if is_alias:
+            continue
+        elif url == page.index_file and not page.index_file.endswith('.html'):
             with open(page.path, 'bw') as f:
                 f.write(page.html.encode())
-    if nginx:
-        lines = [
-            'rewrite ^{}/?$ {} permanent;'.format(u, p)
-            for u, p in nginx.items()
-        ]
-        lines = '\n'.join(lines)
-        if not nginx_file:
-            nginx_file = os.path.join(build_dir, '.nginx')
 
-        with open(nginx_file, 'bw') as f:
-            f.write(lines.encode())
-
+    save_rules(urls, nginx_file or os.path.join(build_dir, '.nginx'))
     save_urls(pages, os.path.join(src_dir, 'urls.json'))
     save_sitemap(pages, os.path.join(build_dir, 'sitemap.xml'), config)
     print(' * Build successful')
     return urls
+
+
+def save_rules(urls, nginx_file):
+    '''Save rewrite rules for nginx'''
+    rules = set((u.rstrip('/'), u) for u, _, is_alias in urls if is_alias)
+    if rules:
+        rules = ['rewrite ^{}/?$ {} permanent;'.format(u, p) for u, p in rules]
+        rules = '\n'.join(rules)
+        with open(nginx_file, 'bw') as f:
+            f.write(rules.encode())
 
 
 def save_sitemap(pages, filename, config):
@@ -372,13 +369,13 @@ def create_app(build_dir, debug=False):
     '''Create WSGI application'''
     def _urls():
         if not hasattr(_urls, 'cache'):
-            pages = get_urls(build_dir)
+            pages, _ = get_urls(build_dir)
             urls = []
-            for url, page in pages:
-                if url == page.url:
-                    urls += [(url, Response(page.html, mimetype='text/html'))]
-                else:
+            for url, page, is_alias in pages:
+                if is_alias:
                     urls += [(url, redirect(page.url, 301))]
+                else:
+                    urls += [(url, Response(page.html, mimetype='text/html'))]
             _urls.cache = dict(urls)
         return _urls.cache
 
