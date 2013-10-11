@@ -259,7 +259,10 @@ def build(src_dir, build_dir, nginx_file=None):
 
 def save_rules(urls, nginx_file):
     '''Save rewrite rules for nginx'''
-    rules = set((u.rstrip('/'), u) for u, _, is_alias in urls if is_alias)
+    rules = set(
+        (u.rstrip('/'), p.url) for u, p, is_alias in urls
+        if is_alias and u.rstrip('/') != p.url.rstrip('/')
+    )
     if rules:
         rules = ['rewrite ^{}/?$ {} permanent;'.format(u, p) for u, p in rules]
         rules = '\n'.join(rules)
