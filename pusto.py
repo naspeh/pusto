@@ -412,11 +412,9 @@ def get_parser():
         return s
 
     cmd('run', help='start dev server')\
-        .arg('--port', type=int, default=5000)\
         .arg('--no-build', action='store_true')\
-        .exe(lambda a: (
-            run(SRC_DIR, BUILD_DIR, no_build=a.no_build, port=a.port)
-        ))
+        .arg('--port', type=int, default=5000)\
+        .exe(lambda a: run(SRC_DIR, BUILD_DIR, a.no_build, a.port))
 
     cmd('build', help='build static content from `data` directory')\
         .arg('-b', '--bdir', default=BUILD_DIR, help='build directory')\
@@ -439,10 +437,8 @@ def process(*args, parser=None):
     args = parser.parse_args(args or None)
     if not hasattr(args, 'cmd'):
         parser.print_usage()
-
     elif hasattr(args, 'exe'):
         args.exe(args)
-
     else:
         raise ValueError('Wrong subcommand')
 
