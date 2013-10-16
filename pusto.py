@@ -14,7 +14,7 @@ from threading import Thread
 from urllib.error import HTTPError
 from xml.etree import ElementTree as ET
 
-from jinja2 import Environment, FileSystemLoader, Template
+from jinja2 import Environment, FileSystemLoader
 
 Page = namedtuple('Page', (
     'url children index_file meta_file type path '
@@ -65,13 +65,22 @@ def get_pages(src_dir):
         ]
         children.sort(key=lambda v: v[1].sort, reverse=True)
         children = OrderedDict(children)
-        ctx = get_html(src_dir, dict(
-            url=url, children=children,
-            index_file=index and url + index,
-            meta_file=meta and url + meta,
-            type=index and index.rsplit('.', 1)[1]
-        ))
+        ctx = get_html(src_dir, {
+            'url': url, 'children': children,
+            'index_file': index and url + index,
+            'meta_file': meta and url + meta,
+            'type': index and index.rsplit('.', 1)[1]
+        })
         pages[url] = ctx
+
+    env = get_jinja(src_dir)
+    for page in pages.values():
+        if page.template:
+            tpl = env.get_template(page.template)
+            html = tpl.render(page._asdict(), page=page, pages=pages)
+            with open(page.path, 'bw') as f:
+                f.write(html.encode())
+            pages[page.url] = page._replace(html=html)
 
     return pages
 
@@ -137,15 +146,14 @@ def get_jinja(src_dir):
         )
         env.filters.update({
             'rst': lambda text: rst(text)[1],
-            'markdown': markdown
+            'markdown': markdown,
+            'match': lambda value, pattern: re.match(pattern, value)
         })
         get_jinja.env = env
     return get_jinja.env
 
 
 def get_html(src_dir, ctx):
-    env = get_jinja(src_dir)
-
     meta_file = ctx['meta_file']
     if meta_file:
         with open(src_dir + meta_file, 'br') as f:
@@ -156,10 +164,12 @@ def get_html(src_dir, ctx):
 
     index_file = ctx['index_file']
     if not index_file:
-        path = src_dir
         html = None
+        path = src_dir
     else:
+        html = None
         path = src_dir + ctx['url'] + 'index.html'
+        template = ctx.get('template') or '_theme/base.tpl'
         index_src = src_dir + index_file
         with open(index_src, 'br') as f:
             text = f.read().decode()
@@ -179,31 +189,20 @@ def get_html(src_dir, ctx):
             bind_meta(ctx, html, method='html')
 
         elif ctx['type'] == 'tpl':
-            tpl = env.get_template(index_file)
-            html = tpl.render(ctx, page=ctx)
-            bind_meta(ctx, html, method='html')
+            bind_meta(ctx, text, method='html')
+            ctx.update(template=index_file)
 
         elif ctx['type'] == 'md':
             body = markdown(text)
             bind_meta(ctx, body, method='html')
-            ctx.update(body=body)
-            tpl = env.get_template('/_theme/base.tpl')
-            html = tpl.render(ctx, page=ctx)
+            ctx.update(body=body, template=template)
 
         elif ctx['type'] == 'rst':
             title, body = rst(text, source_path=index_src)
             bind_meta(ctx, body, method='html')
             if title:
                 ctx['title'] = title
-            ctx['body'] = body
-
-            tpl = ctx.get('template', None) or '/_theme/base.tpl'
-            tpl = env.get_template(tpl)
-            html = tpl.render(ctx, page=ctx)
-
-        if ctx['type'] not in ['py', 'html']:
-            with open(path, 'bw') as f:
-                f.write(html.encode())
+            ctx.update(body=body, template=template)
 
     ctx.update(html=html, path=path)
     return Page(**ctx)
@@ -262,7 +261,6 @@ def build(src_dir, build_dir, nginx_file=None):
     urls, pages = get_urls(build_dir)
     save_rules(urls, nginx_file or os.path.join(build_dir, '.nginx'))
     save_urls(pages, os.path.join(src_dir, 'urls.json'))
-    save_sitemap(pages, os.path.join(build_dir, 'sitemap.xml'), config)
     print(' * Build successful')
     return urls
 
@@ -278,28 +276,6 @@ def save_rules(urls, nginx_file):
         rules = '\n'.join(rules)
         with open(nginx_file, 'bw') as f:
             f.write(rules.encode())
-
-
-def save_sitemap(pages, filename, config):
-    if config['noindex']:
-        pages = [
-            p for p in pages.values()
-            if not re.match(config['noindex'], p.url)
-        ]
-    tpl = (
-        '<?xml version="1.0" encoding="UTF-8"?>'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-        '    {% for page in pages %}'
-        '    <url>'
-        '        <loc>{{ host }}{{ page.url }}</loc>'
-        '    </url>'
-        '    {% endfor %}'
-        '</urlset>'
-    )
-    tpl = Template(tpl)
-    sitemap = tpl.render(pages=pages, host=config['host'])
-    with open(filename, 'bw') as f:
-        f.write(sitemap.encode())
 
 
 def save_urls(pages, filename):
