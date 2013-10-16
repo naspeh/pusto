@@ -20,7 +20,7 @@ def process_args():
         .exe(lambda a: ssh(
             'cd /home/pusto/src'
             '&& git fetch origin' +
-            '&& git checkout {target}'.format(a.target) +
+            '&& git checkout {}'.format(a.target) +
             '&& source $(cat .venv)/bin/activate' +
             ('&& virtualenv --clear $(echo $VIRTUAL_ENV)' if a.clear else '') +
             '&& ./bootstrap'
