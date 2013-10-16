@@ -24,6 +24,7 @@ def process_args():
             '&& git fetch origin'
             '&& git checkout {target}'
             '&& source $(cat .venv)/bin/activate'
+            '&& virtualenv --clear $(echo $VIRTUAL_ENV)'
             '&& ./bootstrap'
             '&& ./pusto.py build -b build-tmp'
             '&& rm -rf build'
