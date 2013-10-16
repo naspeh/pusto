@@ -2,22 +2,19 @@
 import argparse
 import datetime as dt
 import json
+import http.client
+import http.server
 import os
 import re
 import shutil
 import subprocess
 import time
 from collections import namedtuple, OrderedDict
-from http.client import HTTPConnection
 from threading import Thread
 from urllib.error import HTTPError
 from xml.etree import ElementTree as ET
 
 from jinja2 import Environment, FileSystemLoader, Template
-from werkzeug.exceptions import NotFound
-from werkzeug.serving import run_simple
-from werkzeug.utils import redirect
-from werkzeug.wrappers import Request, Response
 
 Page = namedtuple('Page', (
     'url children index_file meta_file type path '
@@ -240,8 +237,21 @@ def rst(source, source_path=None):
 def build(src_dir, build_dir, nginx_file=None):
     '''Build static site from `src_dir`'''
     if os.path.exists(build_dir):
-        shutil.rmtree(build_dir)
-    shutil.copytree(src_dir, build_dir)
+        for path in os.listdir(build_dir):
+            path = os.path.join(build_dir, path)
+            if os.path.isdir(path):
+                shutil.rmtree(path)
+            else:
+                os.unlink(path)
+        for path in os.listdir(src_dir):
+            src_path = os.path.join(src_dir, path)
+            build_path = os.path.join(build_dir, path)
+            if os.path.isdir(src_path):
+                shutil.copytree(src_path, build_path)
+            else:
+                shutil.copy2(src_path, build_path)
+    else:
+        shutil.copytree(src_dir, build_dir)
 
     config = {'noindex': None, 'host': 'http://example.com'}
     config_file = os.path.join(build_dir, 'config.json')
@@ -365,30 +375,6 @@ def watch_files(src_dir, build_dir, interval=1):
         time.sleep(interval)
 
 
-def create_app(build_dir, debug=False):
-    '''Create WSGI application'''
-    def _urls():
-        if not hasattr(_urls, 'cache'):
-            pages, _ = get_urls(build_dir)
-            urls = []
-            for url, page, is_alias in pages:
-                if is_alias:
-                    urls += [(url, redirect(page.url, 301))]
-                else:
-                    urls += [(url, Response(page.html, mimetype='text/html'))]
-            _urls.cache = dict(urls)
-        return _urls.cache
-
-    @Request.application
-    def app(request):
-        response = _urls().get(request.path, None)
-        if response:
-            return response
-
-        return NotFound()
-    return app
-
-
 def check_urls(host=None, verbose=False):
     log = lambda *a: verbose and print(*a)
 
@@ -396,19 +382,19 @@ def check_urls(host=None, verbose=False):
         if not os.path.exists(BUILD_DIR):
             process('build')
         host = 'localhost:9000'
-        args = 'run --port=9000 --no-reloader --no-build'.split(' ')
+        args = 'run --port=9000 --no-build'.split(' ')
         server = Thread(target=process, args=args)
         server.daemon = True
         server.start()
         time.sleep(1)
 
-    with open('data/urls.json', 'br') as f:
+    with open(os.path.join(SRC_DIR, 'urls.json'), 'br') as f:
         urls = json.loads(f.read().decode())
 
     def get(url, expected_code=200, indent=''):
         comment = ''
         try:
-            conn = HTTPConnection(host)
+            conn = http.client.HTTPConnection(host)
             conn.request('HEAD', url)
             res = conn.getresponse()
             code = res.status
@@ -452,9 +438,7 @@ def process(*args):
         return s
 
     sub('run', help='start dev server')\
-        .arg('--host', default='localhost')\
         .arg('--port', type=int, default=5000)\
-        .arg('--no-reloader', action='store_true')\
         .arg('--no-build', action='store_true')
 
     sub('build', help='build static content from `data` directory')\
@@ -471,20 +455,17 @@ def process(*args):
         parser.print_usage()
 
     elif args.sub == 'run':
-        run_main = os.environ.get('WERKZEUG_RUN_MAIN')
-        if not args.no_build and not run_main:
+        if not args.no_build:
             build(SRC_DIR, BUILD_DIR)
 
-        if not args.no_reloader and run_main:
-            watcher = Thread(target=watch_files, args=(SRC_DIR, BUILD_DIR))
-            watcher.daemon = True
-            watcher.start()
+        watcher = Thread(target=watch_files, args=(SRC_DIR, BUILD_DIR))
+        watcher.daemon = True
+        watcher.start()
 
-        run_simple(
-            args.host, args.port, create_app(BUILD_DIR, debug=True),
-            use_reloader=not args.no_reloader, use_debugger=True,
-            static_files={'': BUILD_DIR},
-            extra_files=[os.path.join(BUILD_DIR, '.nginx')]
+        os.chdir(BUILD_DIR)
+        http.server.test(
+            port=args.port,
+            HandlerClass=http.server.SimpleHTTPRequestHandler
         )
 
     elif args.sub == 'build':
