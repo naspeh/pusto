@@ -24,7 +24,7 @@
 {% macro intro() %}
 {% filter rst %}
 
-**Авторы:** Гриша и Катя Костюк
+**Авторы:** Гриша и Катя Костюк (naspeh и nayavu соответственно)
 
 {% endfilter %}
 {% endmacro %}

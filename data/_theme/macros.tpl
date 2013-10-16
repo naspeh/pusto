@@ -9,7 +9,15 @@
         <li><a href="/trip/">Наши поездки</a></li>
         {% endif %}
     {% endif %}
-    {% if c.author %}<li>{{ c.author }}</li>{% endif %}
+    {% if c.author %}
+    <li>
+        {% if c.author|length == 1 %}
+        Автор: {{ c.author[0] }}
+        {% else %}
+        Авторы: {{ ', '.join(c.author)}}
+        {% endif %}
+    </li>
+    {% endif %}
     {% if c.published %}
     <li itemprop="datePublished" datetime="{{ c.published.strftime('%Y-%m-%d')}}" >
         Опубликовано: {{ c.published.strftime('%d.%m.%Y') }}

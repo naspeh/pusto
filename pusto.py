@@ -18,7 +18,8 @@ from jinja2 import Environment, FileSystemLoader
 
 Page = namedtuple('Page', (
     'url children index_file meta_file type path '
-    'aliases published author hidden template sort title summary body html'
+    'aliases published author archive template sort '
+    'title summary body html'
 ))
 
 ROOT_DIR = os.getcwd()
@@ -61,7 +62,7 @@ def get_pages(src_dir):
         index = ([f for f in INDEX_FILES if f in files] or [None])[0]
         children = [
             (k, v) for k, v in pages.items()
-            if k.rsplit('/', 2)[0] + '/' == url and not v.hidden
+            if k.rsplit('/', 2)[0] + '/' == url and not v.archive
         ]
         children.sort(key=lambda v: v[1].sort, reverse=True)
         children = OrderedDict(children)
@@ -108,25 +109,13 @@ def bind_meta(ctx, data, method=None):
     elif method == 'json':
         meta = json.loads(meta)
 
-    if 'author' in meta:
-        author = meta['author']
-        author = (
-            (author.count('naspeh') and ['Гриша'] or []) +
-            (author.count('nayavu') and ['Катя'] or [])
-        )
-        author = (
-            ('Автор: ' if len(author) == 1 else 'Авторы: ') +
-            ' и '.join(author)
-        )
-        meta['author'] = author
-
     published = ''
     if 'published' in meta:
         published = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
         meta['published'] = published
 
     keys = (
-        'published author aliases hidden template sort summary title body'
+        'published author aliases archive template sort summary title body'
         .split(' ')
     )
     for key in keys:
@@ -134,7 +123,7 @@ def bind_meta(ctx, data, method=None):
         if key in meta:
             ctx[key] = meta[key]
 
-    if 'sort' not in meta and not ctx['sort']:
+    if not ctx['sort'] and 'sort' not in meta:
         ctx['sort'] = published and published.isoformat()
 
 
