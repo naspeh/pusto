@@ -6,7 +6,7 @@ Requires:
 
 Steps:
  - create virtualenv and activate it;
- - run ``./manage.py bootsrap``.
+ - run ``./bootsrap``.
 
 
 Usage

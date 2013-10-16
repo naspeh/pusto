@@ -298,6 +298,20 @@ def save_urls(pages, filename):
             f.write(urlmap.encode())
 
 
+def run(src_dir, build_dir, no_build=False, port=5000):
+    if not no_build:
+        build(src_dir, build_dir)
+
+    watcher = Thread(target=watch_files, args=(src_dir, build_dir))
+    watcher.daemon = True
+    watcher.start()
+
+    os.chdir(build_dir)
+    http.server.test(
+        port=port, HandlerClass=http.server.SimpleHTTPRequestHandler
+    )
+
+
 def list_files(path):
     files = set()
     for dirpath, dirnames, filenames in os.walk(path):
@@ -403,7 +417,7 @@ def check_urls(host=None, verbose=False):
         print('OK')
 
 
-def process(*args):
+def get_parser():
     parser = argparse.ArgumentParser()
     subs = parser.add_subparsers(title='subcommands')
 
@@ -411,44 +425,41 @@ def process(*args):
         s = subs.add_parser(name, **kw)
         s.set_defaults(sub=name)
         s.arg = lambda *a, **kw: s.add_argument(*a, **kw) and s
+        s.exe = lambda f: s.set_defaults(exe=f) and s
         return s
 
     sub('run', help='start dev server')\
         .arg('--port', type=int, default=5000)\
-        .arg('--no-build', action='store_true')
+        .arg('--no-build', action='store_true')\
+        .exe(lambda a: (
+            run(SRC_DIR, BUILD_DIR, no_build=a.no_build, port=a.port)
+        ))
 
     sub('build', help='build static content from `data` directory')\
         .arg('-b', '--bdir', default=BUILD_DIR, help='build directory')\
         .arg('-n', '--nginx-file', help='file nginx rules')\
-        .arg('--port', type=int, default=8000)
+        .arg('--port', type=int, default=8000)\
+        .exe(lambda a: build(SRC_DIR, a.bdir, a.nginx_file))
 
     sub('test_urls', help='test url responses')\
         .arg('-v', '--verbose', action='store_true')\
         .arg('--host', help='use host for test')\
+        .exe(lambda a: check_urls(host=a.host, verbose=a.verbose))
+
+    parser.sub = sub
+    return parser
+
+
+def process(*args, parser=None):
+    if parser is None:
+        parser = get_parser()
 
     args = parser.parse_args(args or None)
     if not hasattr(args, 'sub'):
         parser.print_usage()
 
-    elif args.sub == 'run':
-        if not args.no_build:
-            build(SRC_DIR, BUILD_DIR)
-
-        watcher = Thread(target=watch_files, args=(SRC_DIR, BUILD_DIR))
-        watcher.daemon = True
-        watcher.start()
-
-        os.chdir(BUILD_DIR)
-        http.server.test(
-            port=args.port,
-            HandlerClass=http.server.SimpleHTTPRequestHandler
-        )
-
-    elif args.sub == 'build':
-        build(SRC_DIR, args.bdir, args.nginx_file)
-
-    elif args.sub == 'test_urls':
-        check_urls(host=args.host, verbose=args.verbose)
+    elif hasattr(args, 'exe'):
+        args.exe(args)
     else:
         raise ValueError('Wrong subcommand')
 

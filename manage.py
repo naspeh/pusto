@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-import argparse
 import subprocess
+
+import pusto
 
 sh = lambda cmd: print(cmd) or subprocess.call(cmd, shell=True)
 ssh = lambda cmd: sh(
@@ -9,16 +10,9 @@ ssh = lambda cmd: sh(
 )
 
 
-def process_args(args=None):
-    parser = argparse.ArgumentParser()
-    subs = parser.add_subparsers(title='subcommands')
-
-    def sub(name, **kw):
-        s = subs.add_parser(name, **kw)
-        s.set_defaults(sub=name)
-        s.arg = lambda *a, **kw: s.add_argument(*a, **kw) and s
-        s.exe = lambda f: s.set_defaults(exe=f) and s
-        return s
+def process_args():
+    parser = pusto.get_parser()
+    sub = parser.sub
 
     sub('deploy', help='deploy to server')\
         .arg(
@@ -30,16 +24,13 @@ def process_args(args=None):
             '&& git fetch origin'
             '&& git checkout {target}'
             '&& source $(cat .venv)/bin/activate'
-            '&& ./manage.py bootstrap'
+            '&& ./bootstrap'
             '&& ./pusto.py build -b build-tmp'
             '&& rm -rf build'
             '&& mv build-tmp build'
             '&& systemctl restart nginx.service'
             .format(target=a.target)
         ))
-
-    sub('bootstrap', help='install dependencies')\
-        .exe(lambda a: sh('pip install -r requirements.txt --no-index'))
 
     sub('wheels', help='prepare wheels')\
         .exe(lambda a: sh(
@@ -57,11 +48,7 @@ def process_args(args=None):
             % ('push' if a.push else 'pull --squash')
         ))
 
-    args = parser.parse_args(args)
-    if not hasattr(args, 'sub'):
-        parser.print_usage()
-    else:
-        args.exe(args)
+    pusto.process(parser=parser)
 
 
 if __name__ == '__main__':
