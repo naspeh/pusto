@@ -11,10 +11,9 @@ ssh = lambda cmd: sh(
 
 
 def process_args():
-    parser = pusto.get_parser()
-    sub = parser.sub
+    parser, cmd = pusto.get_parser()
 
-    sub('deploy', help='deploy to server')\
+    cmd('deploy', help='deploy to server')\
         .arg('-c', '--clear', action='store_true', help='clear virtualenv')\
         .arg('-t', '--target', default='origin/master', help='checkout it')\
         .exe(lambda a: ssh(
@@ -30,13 +29,13 @@ def process_args():
             '&& systemctl restart nginx.service'
         ))
 
-    sub('wheels', help='prepare wheels')\
+    cmd('wheels', help='prepare wheels')\
         .exe(lambda a: sh(
             'pip wheel -r requirements.txt -w wheels'
             '&& pip install --no-install -d wheels wheel'
         ))
 
-    sub('napokaz', help='napokaz updater')\
+    cmd('napokaz', help='napokaz updater')\
         .arg('--push', action='store_true')\
         .arg('--init', action='store_true')\
         .exe(lambda a: sh(

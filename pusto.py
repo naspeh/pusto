@@ -421,33 +421,32 @@ def get_parser():
     parser = argparse.ArgumentParser()
     subs = parser.add_subparsers(title='subcommands')
 
-    def sub(name, **kw):
+    def cmd(name, **kw):
         s = subs.add_parser(name, **kw)
-        s.set_defaults(sub=name)
+        s.set_defaults(cmd=name)
         s.arg = lambda *a, **kw: s.add_argument(*a, **kw) and s
         s.exe = lambda f: s.set_defaults(exe=f) and s
         return s
 
-    sub('run', help='start dev server')\
+    cmd('run', help='start dev server')\
         .arg('--port', type=int, default=5000)\
         .arg('--no-build', action='store_true')\
         .exe(lambda a: (
             run(SRC_DIR, BUILD_DIR, no_build=a.no_build, port=a.port)
         ))
 
-    sub('build', help='build static content from `data` directory')\
+    cmd('build', help='build static content from `data` directory')\
         .arg('-b', '--bdir', default=BUILD_DIR, help='build directory')\
         .arg('-n', '--nginx-file', help='file nginx rules')\
         .arg('--port', type=int, default=8000)\
         .exe(lambda a: build(SRC_DIR, a.bdir, a.nginx_file))
 
-    sub('test_urls', help='test url responses')\
+    cmd('test_urls', help='test url responses')\
         .arg('-v', '--verbose', action='store_true')\
         .arg('--host', help='use host for test')\
         .exe(lambda a: check_urls(host=a.host, verbose=a.verbose))
 
-    parser.sub = sub
-    return parser
+    return parser, cmd
 
 
 def process(*args, parser=None):
@@ -455,11 +454,12 @@ def process(*args, parser=None):
         parser = get_parser()
 
     args = parser.parse_args(args or None)
-    if not hasattr(args, 'sub'):
+    if not hasattr(args, 'cmd'):
         parser.print_usage()
 
     elif hasattr(args, 'exe'):
         args.exe(args)
+
     else:
         raise ValueError('Wrong subcommand')
 
