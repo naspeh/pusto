@@ -252,12 +252,6 @@ def build(src_dir, build_dir, nginx_file=None):
     else:
         shutil.copytree(src_dir, build_dir)
 
-    config = {'noindex': None, 'host': 'http://example.com'}
-    config_file = os.path.join(build_dir, 'config.json')
-    if os.path.exists(config_file):
-        with open(config_file, 'br') as f:
-            config.update(json.loads(f.read().decode()))
-
     urls, pages = get_urls(build_dir)
     save_rules(urls, nginx_file or os.path.join(build_dir, '.nginx'))
     save_urls(pages, os.path.join(src_dir, 'urls.json'))
