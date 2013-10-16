@@ -434,7 +434,7 @@ def get_parser():
 
 def process(*args, parser=None):
     if parser is None:
-        parser = get_parser()
+        parser, _ = get_parser()
 
     args = parser.parse_args(args or None)
     if not hasattr(args, 'cmd'):
