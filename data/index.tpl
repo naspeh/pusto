@@ -13,9 +13,11 @@
 {% endmacro %}
 
 {% block body %}
-<!--META{
+<!--
+META{
     "aliases": ["/post/", "/s/"]
-}-->
+}
+-->
 
 <div class="intro">
     <h1>{{ title }}</h1>
