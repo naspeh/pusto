@@ -18,15 +18,15 @@ def process_args():
         .arg('-c', '--clear', action='store_true', help='clear virtualenv')\
         .arg('-t', '--target', default='origin/master', help='checkout it')\
         .exe(lambda a: ssh(
-            'cd /home/pusto/src'
+            'cd /home/pusto/src' +
             '&& git fetch origin' +
             '&& git checkout {target}'.format(a.target) +
             '&& source $(cat .venv)/bin/activate' +
             '&& virtualenv --clear $(echo $VIRTUAL_ENV)' if a.clear else '' +
-            '&& ./bootstrap'
-            '&& ./pusto.py build -b build-tmp'
-            '&& rm -rf build'
-            '&& mv build-tmp build'
+            '&& ./bootstrap' +
+            '&& ./pusto.py build -b build-tmp' +
+            '&& rm -rf build' +
+            '&& mv build-tmp build' +
             '&& systemctl restart nginx.service'
         ))
 
