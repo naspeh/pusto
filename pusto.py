@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import argparse
 import datetime as dt
-import json
 import http.client
 import http.server
+import json
 import os
 import re
 import shutil
