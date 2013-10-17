@@ -1,20 +1,19 @@
 2011г. Крым. Симферополь-Феодосия
 =================================
-.. _summary:
-.. container::
+.. raw:: html
 
-    .. raw:: html
+    <div class="napokaz"
+        data-box-width="7"
+        data-picasa-user="naspeh"
+        data-picasa-album="20110513_Krym_Yugo_vostochniy_Velo">
+    </div>
 
-        <div class="napokaz"
-            data-box-width="7"
-            data-picasa-user="naspeh"
-            data-picasa-album="20110513_Krym_Yugo_vostochniy_Velo">
-        </div>
+| **Даты:** 13-20 мая 2011г
+| **Участники:** Гриша, Катя, Игорь, Лена
+| **Тип отдыха:** активный, велопоход
+| **Трек:** `тут <http://www.gpsies.com/map.do?fileId=otsfiymqtmudpzgt>`_
 
-    | **Даты:** 13-20 мая 2011г
-    | **Участники:** Гриша, Катя, Игорь, Лена
-    | **Тип отдыха:** активный, велопоход
-    | **Трек:** `тут <http://www.gpsies.com/map.do?fileId=otsfiymqtmudpzgt>`_
+.. MORE
 
 **Нить маршрута**
  ::

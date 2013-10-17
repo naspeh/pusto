@@ -1,27 +1,26 @@
 2010г. Карпаты. Свидовецкий хребет
 ==================================
-.. _summary:
-.. container::
+.. raw:: html
 
-    .. raw:: html
+    <div class="napokaz"
+        data-box-width="5"
+        data-picasa-user="naspeh"
+        data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet"
+        data-picasa-ignore="info"
+    ></div>
 
-        <div class="napokaz"
-            data-box-width="5"
-            data-picasa-user="naspeh"
-            data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet"
-            data-picasa-ignore="info"
-        ></div>
+    <div class="napokaz"
+        data-box-width="2"
+        data-picasa-user="naspeh"
+        data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet"
+        data-picasa-filter="info"
+    ></div>
 
-        <div class="napokaz"
-            data-box-width="2"
-            data-picasa-user="naspeh"
-            data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet"
-            data-picasa-filter="info"
-        ></div>
+| **Даты:** 18-23 августа 2010г
+| **Участники:** Гриша, Катя, Андрей, Оля
+| **Тип отдыха:** активный, пеший поход
 
-    | **Даты:** 18-23 августа 2010г
-    | **Участники:** Гриша, Катя, Андрей, Оля
-    | **Тип отдыха:** активный, пеший поход
+.. MORE
 
 **Нить маршрута**
  ::

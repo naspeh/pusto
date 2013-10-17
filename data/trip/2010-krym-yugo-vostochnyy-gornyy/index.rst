@@ -1,27 +1,26 @@
 2010г. Крым. Юго-Восточный. Горный
 ==================================
-.. _summary:
-.. container::
+.. raw:: html
 
-    .. raw:: html
+    <div class="napokaz"
+        data-box-width="5"
+        data-picasa-user="naspeh"
+        data-picasa-album="20100424_Krym_Vostochniy"
+        data-picasa-ignore="info"
+    ></div>
 
-        <div class="napokaz"
-            data-box-width="5"
-            data-picasa-user="naspeh"
-            data-picasa-album="20100424_Krym_Vostochniy"
-            data-picasa-ignore="info"
-        ></div>
+    <div class="napokaz"
+        data-box-width="2"
+        data-picasa-user="naspeh"
+        data-picasa-album="20100424_Krym_Vostochniy"
+        data-picasa-filter="info"
+    ></div>
 
-        <div class="napokaz"
-            data-box-width="2"
-            data-picasa-user="naspeh"
-            data-picasa-album="20100424_Krym_Vostochniy"
-            data-picasa-filter="info"
-        ></div>
+| **Даты:** 24 апреля - 1 мая 2010г
+| **Участники:** Гриша, Катя, Андрей, Оля, Галя
+| **Тип отдыха:** активный, пеший поход
 
-    | **Даты:** 24 апреля - 1 мая 2010г
-    | **Участники:** Гриша, Катя, Андрей, Оля, Галя
-    | **Тип отдыха:** активный, пеший поход
+.. MORE
 
 **Нить маршрута**
  ::

@@ -1,23 +1,22 @@
 2010г. Крым. Ялта - Бахчисарай
 ==============================
-.. _summary:
-.. container::
+.. raw:: html
 
-    .. raw:: html
+    <div class="napokaz"
+        data-box-width="7"
+        data-picasa-user="naspeh"
+        data-picasa-album="20101009_Krym_Yalta_Bahchisaray">
+    </div>
 
-        <div class="napokaz"
-            data-box-width="7"
-            data-picasa-user="naspeh"
-            data-picasa-album="20101009_Krym_Yalta_Bahchisaray">
-        </div>
+| **Даты:** 2-3 октября 2010г
+| **Участники:** Гриша, Катя, Игорь
+| **Тип отдыха:** активный, велопоход выходного дня
+| **Треки:**  `наш`__ и `оригинал`__
 
-    | **Даты:** 2-3 октября 2010г
-    | **Участники:** Гриша, Катя, Игорь
-    | **Тип отдыха:** активный, велопоход выходного дня
-    | **Треки:**  `наш`__ и `оригинал`__
+__ http://gpsies.com/map.do?fileId=ldnchxxlnydpsavo
+__ http://www.gpsies.com/map.do?fileId=ykdeztnhimjewqex
 
-    __ http://gpsies.com/map.do?fileId=ldnchxxlnydpsavo
-    __ http://www.gpsies.com/map.do?fileId=ykdeztnhimjewqex
+.. MORE
 
 | **Нить маршрута:** ``Ялта - Мисхор - г.Ай-Петри - Бахчисарай``
 | **Полезные ссылки:** `канатная дорога`__, `расписание электричек Бахчисарай-Симферополь`__

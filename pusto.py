@@ -96,15 +96,11 @@ def bind_meta(ctx, data, method=None):
         else:
             meta = {}
 
-        try:
-            data = re.sub('(?i)<(!DOCTYPE|\?xml).*?[^>]>', '', data)
-            root = ET.fromstring('<root>%s</root>' % data)
-            summary = root.findall('*[@id="summary"]')
-            if summary:
-                summary = ET.tostring(summary[0], 'utf8', 'html')
-                meta['summary'] = summary.decode()
-        except ET.ParseError as e:
-            print('WARN: {}: "{}"'.format(ctx['index_file'], e))
+        summary = re.search('(?s)^(.*?)<!--\s*MORE\s*-->', data)
+        if summary:
+            summary = summary.group(1)
+            summary = re.sub('(?s)<!--.*?-->', '', summary)
+            meta['summary'] = summary
 
     elif method == 'json':
         meta = json.loads(meta)
@@ -244,8 +240,21 @@ def build(src_dir, build_dir, nginx_file=None):
     urls, pages = get_urls(build_dir)
     save_rules(urls, nginx_file or os.path.join(build_dir, '.nginx'))
     save_urls(pages, os.path.join(src_dir, 'urls.json'))
+    check_xml(pages)
     print(' * Build successful')
     return urls
+
+
+def check_xml(pages):
+    for page in pages.values():
+        if not page.html:
+            continue
+
+        try:
+            data = re.sub('(?i)<(!DOCTYPE|\?xml).*?[^>]>', '', page.html)
+            ET.fromstring('<root>%s</root>' % data)
+        except ET.ParseError as e:
+            print(' * WARN: {}: "{}"'.format(page.index_file, e))
 
 
 def save_rules(urls, nginx_file):

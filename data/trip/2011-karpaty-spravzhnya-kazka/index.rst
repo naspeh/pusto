@@ -1,19 +1,18 @@
 2011г. Карпаты. Справжня Казка
 ==============================
-.. _summary:
-.. container::
+.. raw:: html
 
-    .. raw:: html
+    <div class="napokaz"
+        data-box-width="7"
+        data-picasa-user="naspeh"
+        data-picasa-album="20111025_Karpaty_Spravzhnya_Kazka">
+    </div>
 
-        <div class="napokaz"
-            data-box-width="7"
-            data-picasa-user="naspeh"
-            data-picasa-album="20111025_Karpaty_Spravzhnya_Kazka">
-        </div>
+| **Даты:** 25-30 октября 2011г
+| **Участники:** Гриша, Катя, Дима, Аня
+| **Тип отдыха:** совмещен с работой; проживание, питание на турбазе.
 
-    | **Даты:** 25-30 октября 2011г
-    | **Участники:** Гриша, Катя, Дима, Аня
-    | **Тип отдыха:** совмещен с работой; проживание, питание на турбазе.
+.. MORE
 
 **Фото:** наши и `Димы`__ (за что ему большое спасибо)
 

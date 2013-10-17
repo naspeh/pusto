@@ -1,18 +1,17 @@
-.. _summary:
-.. container::
+.. raw:: html
 
-    .. raw:: html
+    <div class="napokaz"
+        data-box-width="7"
+        data-picasa-user="naspeh"
+        data-picasa-album="20060716_Karpaty_Chernogorskiy_hrebet">
+    </div>
 
-        <div class="napokaz"
-            data-box-width="7"
-            data-picasa-user="naspeh"
-            data-picasa-album="20060716_Karpaty_Chernogorskiy_hrebet">
-        </div>
+| **Свадебное путешествие. Часть первая**
+| **Даты:** 16-25 июля 2006г
+| **Участники:** Гриша, Катя
+| **Тип отдыха:** активный, пеший поход
 
-    | **Свадебное путешествие. Часть первая**
-    | **Даты:** 16-25 июля 2006г
-    | **Участники:** Гриша, Катя
-    | **Тип отдыха:** активный, пеший поход
+.. MORE
 
 **Нить маршрута**
  ::

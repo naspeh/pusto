@@ -1,19 +1,18 @@
 2009г. Карпаты. Косовский район
 ===============================
-.. _summary:
-.. container::
+.. raw:: html
 
-    .. raw:: html
+    <div class="napokaz"
+        data-box-width="7"
+        data-picasa-user="naspeh"
+        data-picasa-album="20090426_Karpaty_Kosovskiy_rayon">
+    </div>
 
-        <div class="napokaz"
-            data-box-width="7"
-            data-picasa-user="naspeh"
-            data-picasa-album="20090426_Karpaty_Kosovskiy_rayon">
-        </div>
+| **Даты:** 24 апреля - 1 мая 2009г
+| **Участники:** Гриша, Катя
+| **Тип отдыха:** активный, пеший поход
 
-    | **Даты:** 24 апреля - 1 мая 2009г
-    | **Участники:** Гриша, Катя
-    | **Тип отдыха:** активный, пеший поход
+.. MORE
 
 **Нить маршрута**
  ::

@@ -1,19 +1,18 @@
 2008г. Крым. Тарханкут. Оленевка. Барракуда
 ===========================================
-.. _summary:
-.. container::
+.. raw:: html
 
-    .. raw:: html
+    <div class="napokaz"
+        data-box-width="7"
+        data-picasa-user="naspeh"
+        data-picasa-album="20080814_Krym_Tarhankut_Barrakuda">
+    </div>
 
-        <div class="napokaz"
-            data-box-width="7"
-            data-picasa-user="naspeh"
-            data-picasa-album="20080814_Krym_Tarhankut_Barrakuda">
-        </div>
+| **Даты:** 14-21 августа 2008г
+| **Участники:** Гриша, Катя
+| **Тип отдыха:** цивильный, эконом класс
 
-    | **Даты:** 14-21 августа 2008г
-    | **Участники:** Гриша, Катя
-    | **Тип отдыха:** цивильный, эконом класс
+.. MORE
 
 Ехать решено было на п-ов Тарханкут, понравился в `прошлый раз </event-12-kryim-tarhankut-olenevka>`_. В выборе между с.Оленевка и с.Черноморское, остановились на Оленевке.
 

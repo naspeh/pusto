@@ -1,20 +1,19 @@
 2012г. Карпаты. Справжня Казка
 ==============================
-.. _summary:
-.. container::
+.. raw:: html
 
-    .. raw:: html
+    <div class="napokaz"
+        data-box-width="7"
+        data-picasa-user="naspeh"
+        data-picasa-album="20121016_Karpaty_Spravzhnya_Kazka">
+    </div>
 
-        <div class="napokaz"
-            data-box-width="7"
-            data-picasa-user="naspeh"
-            data-picasa-album="20121016_Karpaty_Spravzhnya_Kazka">
-        </div>
+| **Даты:** 16-19 октября 2012г
+| **Участники:** Гриша, Катя, Андрей, Оля, Дима
+| **Тип отдыха**: 100% "матрас", проживание и питание на турбазе
+| **Местонахождение**: село Подобовец
 
-    | **Даты:** 16-19 октября 2012г
-    | **Участники:** Гриша, Катя, Андрей, Оля, Дима
-    | **Тип отдыха**: 100% "матрас", проживание и питание на турбазе
-    | **Местонахождение**: село Подобовец
+.. MORE
 
 .. _skazka: http://skazka.com.ua/
 
