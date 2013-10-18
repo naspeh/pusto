@@ -411,7 +411,7 @@ def check_urls(host=None, verbose=False):
 
 def get_parser():
     parser = argparse.ArgumentParser()
-    subs = parser.add_subparsers(title='subcommands')
+    subs = parser.add_subparsers(title='commands')
 
     def cmd(name, **kw):
         s = subs.add_parser(name, **kw)
