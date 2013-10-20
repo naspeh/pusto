@@ -8,16 +8,12 @@
   xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   >
 <channel>
-    <title xml:lang="ru">Статьи наспех :)</title>
+    {% set root=pages['/post/'] %}
+    <title xml:lang="ru">{{ root.title }}</title>
     <atom:link type="application/atom+xml" href="{{ host }}{{ pages['/post.rss/'].url }}" rel="self"/>
     <link>{{ host }}</link>
-    {#
-    <pubDate>{{ site.time | date("%a, %d %b %Y %H:%M:%S %z") }}</pubDate>
-    <lastBuildDate>{{ site.time | date("%a, %d %b %Y %H:%M:%S %z") }}</lastBuildDate>
-    #}
     <language>ru-RU</language>
-    <description>Статьи про linux, python, web</description>
-    {% for page in pages['/post/'].children.values() %}
+    {% for page in root.children.values() %}
     <item>
         <title>{{ page.title | striptags }}</title>
         <link>{{ host }}{{ page.url }}</link>
