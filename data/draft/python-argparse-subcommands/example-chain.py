@@ -12,10 +12,10 @@ def run_server(host, port, no_reload=False, settings=None):
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser(prog='app')
-    subparsers = parser.add_subparsers(help='commands')
+    cmds = parser.add_subparsers(help='commands')
 
     def cmd(name, **kw):
-        s = subparsers.add_parser(name, **kw)
+        s = cmds.add_parser(name, **kw)
         s.set_defaults(cmd=name)
         s.arg = lambda *a, **kw: s.add_argument(*a, **kw) and s
         s.exe = lambda f: s.set_defaults(exe=f) and s
