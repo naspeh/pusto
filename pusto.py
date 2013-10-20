@@ -13,6 +13,7 @@ import traceback
 from collections import namedtuple, OrderedDict
 from threading import Thread
 from urllib.error import HTTPError
+from urllib.parse import urljoin
 from xml.etree import ElementTree as ET
 
 from jinja2 import Environment, FileSystemLoader
@@ -62,7 +63,7 @@ def get_pages(src_dir):
         meta = ([f for f in META_FILES if f in files] or [None])[0]
         index = ([f for f in INDEX_FILES if f in files] or [None])[0]
         children = [
-            (k, v) for k, v in pages.items()
+            (k, fix_urls(v)) for k, v in pages.items()
             if k.rsplit('/', 2)[0] + '/' == url and not v.archive
         ]
         children.sort(key=lambda v: v[1].sort, reverse=True)
@@ -83,7 +84,6 @@ def get_pages(src_dir):
             with open(page.path, 'bw') as f:
                 f.write(html.encode())
             pages[page.url] = page._replace(html=html)
-
     return pages
 
 
@@ -193,6 +193,40 @@ def get_html(src_dir, ctx):
     return Page(**ctx)
 
 
+def parse_xml(text, base_file):
+    try:
+        data = re.sub('(?i)<(!DOCTYPE|\?xml).*?[^>]>', '', text)
+        root = ET.fromstring('<root>%s</root>' % data)
+    except ET.ParseError as e:
+        print(' * WARN: {}: "{}"'.format(base_file, e))
+    return root
+
+
+def fix_urls(page):
+    def fix_url(element, attr):
+        url = element.attrib.get(attr)
+        if not url.startswith('http://'):
+            element.attrib[attr] = urljoin('http://pusto.org' + page.url, url)
+
+    def fix_urls(text):
+        root = parse_xml(text, page.index_file)
+        for img in root.findall('.//img'):
+            fix_url(img, 'src')
+        for link in root.findall('.//a'):
+            fix_url(link, 'href')
+        text = '\n'.join(
+            ET.tostring(el, encoding="UTF-8").decode()
+            for el in root.findall('./*')
+        )
+        return text
+
+    for part in ['title', 'summary', 'body']:
+        text = getattr(page, part)
+        if text:
+            page = page._replace(**{part: fix_urls(text)})
+    return page
+
+
 def markdown(text):
     from markdown2 import Markdown
 
@@ -247,14 +281,8 @@ def build(src_dir, build_dir, nginx_file=None):
 
 def check_xml(pages):
     for page in pages.values():
-        if not page.html:
-            continue
-
-        try:
-            data = re.sub('(?i)<(!DOCTYPE|\?xml).*?[^>]>', '', page.html)
-            ET.fromstring('<root>%s</root>' % data)
-        except ET.ParseError as e:
-            print(' * WARN: {}: "{}"'.format(page.index_file, e))
+        if page.html:
+            parse_xml(page.html, page.index_file)
 
 
 def save_rules(urls, nginx_file):
