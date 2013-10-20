@@ -20,6 +20,7 @@ def parse_args(args=None):
         s.arg = lambda *a, **kw: s.add_argument(*a, **kw) and s
         s.exe = lambda f: s.set_defaults(exe=f) and s
 
+        # global options
         s.arg('-s', '--settings', help='application settings')
         return s
 
