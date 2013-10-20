@@ -8,7 +8,7 @@
   xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   >
 <channel>
-    <title xml:lang="ru">naspeh</title>
+    <title xml:lang="ru">Статьи наспех :)</title>
     <atom:link type="application/atom+xml" href="{{ host }}{{ pages['/post.rss/'].url }}" rel="self"/>
     <link>{{ host }}</link>
     {#

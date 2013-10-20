@@ -230,10 +230,8 @@ def fix_urls(page, host):
             fix_url(img, 'src')
         for link in root.findall('.//a'):
             fix_url(link, 'href')
-        text = '\n'.join(
-            ET.tostring(el, encoding="UTF-8").decode()
-            for el in root.findall('./*')
-        )
+        text = ET.tostring(root, encoding="UTF-8").decode()
+        text = text[6: -7]
         return text
 
     for part in ['title', 'summary', 'body']:
