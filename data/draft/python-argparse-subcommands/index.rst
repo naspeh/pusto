@@ -33,7 +33,7 @@ __ http://docs.python.org/2.7/library/argparse.html
 
 .. code:: py
 
-    subparsers.add_parser('run').add_argument('port').set_defaults(func=run_server)
+    cmds.add_parser('run').add_argument('port').set_defaults(func=run_server)
 
 На чистом argparse цепочек вызовов не получится, хотя может в каких-то случаях 
 использования они не нужны. В моей практике чаще хочется цепочек.
