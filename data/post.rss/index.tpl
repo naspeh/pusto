@@ -8,7 +8,6 @@
   xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   >
 <channel>
-    {% set host='http://pusto.org' %}
     <title xml:lang="ru">naspeh</title>
     <atom:link type="application/atom+xml" href="{{ host }}{{ pages['/post.rss/'].url }}" rel="self"/>
     <link>{{ host }}</link>

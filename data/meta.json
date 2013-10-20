@@ -1,3 +1,6 @@
 {
+    "globals": {
+        "host": "http://pusto.org"
+    },
     "aliases": ["/post/", "/s/"]
 }

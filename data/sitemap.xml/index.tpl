@@ -3,7 +3,7 @@
     {% for page in pages.values() %}
     {% if not page.url | match('^/s/$|^/draft|^/sitemap\.xml/') %}
     <url>
-        <loc>http://pusto.org{{ page.url }}</loc>
+        <loc>{{ host }}{{ page.url }}</loc>
     </url>
     {% endif %}
     {% endfor %}

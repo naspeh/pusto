@@ -53,6 +53,7 @@ def get_pages(src_dir):
     paths = list(tree.keys())
     paths.reverse()
 
+    host = get_globals(src_dir, 'host')
     pages = OrderedDict()
     for path in paths:
         url = path.replace(src_dir, '') + '/'
@@ -63,7 +64,7 @@ def get_pages(src_dir):
         meta = ([f for f in META_FILES if f in files] or [None])[0]
         index = ([f for f in INDEX_FILES if f in files] or [None])[0]
         children = [
-            (k, fix_urls(v)) for k, v in pages.items()
+            (k, fix_urls(v, host)) for k, v in pages.items()
             if k.rsplit('/', 2)[0] + '/' == url and not v.archive
         ]
         children.sort(key=lambda v: v[1].sort, reverse=True)
@@ -124,8 +125,22 @@ def bind_meta(ctx, data, method=None):
         ctx['sort'] = published and published.isoformat()
 
 
+def get_globals(src_dir, key=None):
+    if not hasattr(get_globals, 'cache'):
+        meta = {}
+        meta_file = os.path.join(src_dir, META_FILES[0])
+        if os.path.exists(meta_file):
+            with open(meta_file, 'br') as f:
+                meta = json.loads(f.read().decode())
+            meta = meta.get('globals') or {}
+        get_globals.cache = meta
+    if key is not None:
+        return get_globals.cache.get(key)
+    return get_globals.cache
+
+
 def get_jinja(src_dir):
-    if not hasattr(get_jinja, 'env'):
+    if not hasattr(get_jinja, 'cache'):
         env = Environment(
             loader=FileSystemLoader(src_dir),
             lstrip_blocks=True, trim_blocks=True
@@ -135,8 +150,9 @@ def get_jinja(src_dir):
             'markdown': markdown,
             'match': lambda value, pattern: re.match(pattern, value)
         })
-        get_jinja.env = env
-    return get_jinja.env
+        env.globals.update(get_globals(src_dir))
+        get_jinja.cache = env
+    return get_jinja.cache
 
 
 def get_html(src_dir, ctx):
@@ -202,11 +218,11 @@ def parse_xml(text, base_file):
     return root
 
 
-def fix_urls(page):
+def fix_urls(page, host):
     def fix_url(element, attr):
         url = element.attrib.get(attr)
         if not url.startswith('http://'):
-            element.attrib[attr] = urljoin('http://pusto.org' + page.url, url)
+            element.attrib[attr] = urljoin(host + page.url, url)
 
     def fix_urls(text):
         root = parse_xml(text, page.index_file)
