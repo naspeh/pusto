@@ -430,7 +430,7 @@ def check_urls(host=None, verbose=False):
     all_aliases = []
     for aliases in urls.values():
         all_aliases += aliases or []
-    print('\n'.join(all_aliases))
+
     err = []
     for url in sorted(urls.keys()):
         aliases = urls.get(url)
