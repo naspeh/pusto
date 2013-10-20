@@ -174,20 +174,19 @@ def get_html(src_dir, ctx):
             bind_meta(ctx, html, method='html')
 
         elif ctx['type'] == 'tpl':
-            bind_meta(ctx, text, method='html')
             ctx.update(template=index_file)
 
         elif ctx['type'] == 'md':
             body = markdown(text)
             bind_meta(ctx, body, method='html')
-            ctx.update(body=body, template=template)
+            ctx.update(body=body, template=ctx.get('template') or template)
 
         elif ctx['type'] == 'rst':
             title, body = rst(text, source_path=index_src)
             bind_meta(ctx, body, method='html')
             if title:
                 ctx['title'] = title
-            ctx.update(body=body, template=template)
+            ctx.update(body=body, template=ctx.get('template') or template)
 
     ctx.update(html=html, path=path)
     return Page(**ctx)
@@ -396,10 +395,14 @@ def check_urls(host=None, verbose=False):
             log('%s%s %s %s # %s' % (indent, url, code, res_url, comment))
         return err
 
+    all_aliases = []
+    for aliases in urls.values():
+        all_aliases += aliases or []
+    print('\n'.join(all_aliases))
     err = []
     for url in sorted(urls.keys()):
         aliases = urls.get(url)
-        err += get(url)
+        err += get(url, expected_code=301 if url in all_aliases else 200)
         for alias in aliases or []:
             err += get(alias, expected_code=301, indent='  ')
     if err:
