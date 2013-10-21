@@ -5,5 +5,6 @@
 
 ..
     META{
-        "template": "_theme/list.tpl"
+        "template": "_theme/list.tpl",
+        "children_path": "/post/"
     }

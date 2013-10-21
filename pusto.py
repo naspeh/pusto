@@ -19,7 +19,7 @@ from xml.etree import ElementTree as ET
 from jinja2 import Environment, FileSystemLoader
 
 Page = namedtuple('Page', (
-    'url children index_file meta_file type path '
+    'url children children_path index_file meta_file type path '
     'aliases published author archive template sort '
     'title summary body html'
 ))
@@ -113,7 +113,8 @@ def bind_meta(ctx, data, method=None):
         meta['published'] = published
 
     keys = (
-        'published author aliases archive template sort summary title body'
+        'published author aliases archive template children_path sort '
+        'summary title body'
         .split(' ')
     )
     for key in keys:

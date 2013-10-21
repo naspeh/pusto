@@ -7,5 +7,9 @@
     {{ body }}
 </div>
 
+{% if children_path %}
+    {% set children=pages[children_path].children %}
+{% endif %}
+
 {{ show_children(children) }}
 {% endblock %}
