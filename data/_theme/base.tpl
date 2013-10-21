@@ -1,5 +1,4 @@
 {% from '_theme/macros.tpl' import show_meta %}
-
 <!DOCTYPE HTML>
 <head>
 {% block head %}

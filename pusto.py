@@ -9,7 +9,6 @@ import re
 import shutil
 import subprocess
 import time
-import traceback
 from collections import namedtuple, OrderedDict
 from threading import Thread
 from urllib.error import HTTPError
@@ -393,10 +392,8 @@ def watch_files(src_dir, build_dir, interval=1):
         if changes:
             changes = [' * Detected changes, rebuild'] + changes
             print('\n    '.join(changes))
-            try:
-                build(src_dir, build_dir)
-            except Exception:
-                traceback.print_exc()
+            os.chdir(ROOT_DIR)
+            subprocess.call('{} build'.format(__file__), shell=True)
 
         old_files = files
         time.sleep(interval)
