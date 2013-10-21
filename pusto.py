@@ -19,7 +19,7 @@ from jinja2 import Environment, FileSystemLoader
 from pytz import timezone, utc
 
 Page = namedtuple('Page', (
-    'url children root template index_file meta_file type path '
+    'url children root template index_file meta_file type path mtime '
     'aliases published author archive sort title summary body html'
 ))
 
@@ -173,7 +173,8 @@ def get_jinja(src_dir):
         env.filters.update({
             'rst': lambda text: rst(text)[1],
             'markdown': markdown,
-            'match': lambda value, pattern: re.match(pattern, value)
+            'match': lambda value, pattern: re.match(pattern, value),
+            'rfc3339': lambda t: t.isoformat() + (t.strftime('%z') or 'Z')
         })
         env.globals.update(get_globals())
         get_jinja.cache = env
@@ -192,10 +193,12 @@ def get_html(src_dir, ctx):
     index_file = ctx['index_file']
     if not index_file:
         html = None
+        mtime = None
     else:
         html = None
         template = ctx.get('template') or '_theme/base.tpl'
         index_src = src_dir + index_file
+        mtime = dt.datetime.fromtimestamp(os.stat(index_src).st_mtime)
         with open(index_src, 'br') as f:
             text = f.read().decode()
 
@@ -228,7 +231,7 @@ def get_html(src_dir, ctx):
                 ctx['title'] = title
             ctx.update(body=body, template=ctx.get('template') or template)
 
-    ctx.update(html=html)
+    ctx.update(html=html, mtime=mtime)
     return Page(**ctx)
 
 

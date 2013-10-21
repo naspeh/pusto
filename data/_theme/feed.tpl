@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"
-  xmlns:content="http://purl.org/rss/1.0/modules/content/"
-  xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-  xmlns:dc="http://purl.org/dc/elements/1.1/"
-  xmlns:atom="http://www.w3.org/2005/Atom"
-  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-  xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
->
-<channel>
-    <title xml:lang="ru">{{ title|striptags }}</title>
-    <lastBuildDate>{{ now.strftime('%a, %d %b %Y %H:%M:%S %Z') }}</lastBuildDate>
-    <atom:link type="application/atom+xml" href="{{ host }}{{ url }}" rel="self"/>
-    <link>{{ host }}</link>
-    <language>ru-RU</language>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>{{ url }}</id>
+    <link href="{{ host }}"/>
+    <title>{{ title|striptags }}</title>
+    <updated>{{ now | rfc3339 }}</updated>
+    <author>
+        <name>{{ author }}</name>
+    </author>
+
     {% for page in children.values() %}
-    <item>
+    <entry>
         <title>{{ page.title | striptags }}</title>
-        <link>{{ host }}{{ page.url }}</link>
-        <pubDate>{{ page.published.strftime('%a, %d %b %Y %H:%M:%S %Z') }}</pubDate>
-        <dc:creator>{{ ', '.join(page.author or []) or author }}</dc:creator>
-        <description><![CDATA[ {{ page.summary if shorten else page.body }} ]]></description>
-    </item>
+        <link href="{{ host }}{{ page.url }}"/>
+        <id>{{ page.url }}</id>
+        <updated>{{ page.mtime | rfc3339 }}</updated>
+        <published>{{ page.published | rfc3339 }}</published>
+        <author>
+            <name>{{ ', '.join(page.author or []) or author }}</name>
+        </author>
+        {% if shorten %}
+        <summary><![CDATA[ {{ page.summary}} ]]></summary>
+        {% else %}
+        <content type="html"><![CDATA[ {{ page.body }} ]]></content>
+        {% endif %}
+    </entry>
     {% endfor %}
-</channel>
-</rss>
+</feed>
