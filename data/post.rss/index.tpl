@@ -10,6 +10,7 @@
 <channel>
     {% set root=pages['/post/'] %}
     <title xml:lang="ru">{{ root.title }}</title>
+    <lastBuildDate>{{ now.strftime('%a, %d %b %Y %H:%M:%S %z') }}</lastBuildDate>
     <atom:link type="application/atom+xml" href="{{ host }}{{ pages['/post.rss/'].url }}" rel="self"/>
     <link>{{ host }}</link>
     <language>ru-RU</language>

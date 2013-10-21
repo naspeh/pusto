@@ -1,6 +1,7 @@
 {
     "globals": {
-        "host": "http://pusto.org"
+        "host": "http://pusto.org",
+        "timezone": "Europe/Kiev"
     },
     "aliases": ["/post/", "/s/"]
 }

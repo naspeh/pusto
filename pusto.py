@@ -16,6 +16,7 @@ from urllib.parse import urljoin
 from xml.etree import ElementTree as ET
 
 from jinja2 import Environment, FileSystemLoader
+from pytz import timezone, utc
 
 Page = namedtuple('Page', (
     'url children root template index_file meta_file type path '
@@ -51,7 +52,7 @@ def get_pages(src_dir):
     paths = list(tree.keys())
     paths.reverse()
 
-    host = get_globals(src_dir, 'host')
+    host = get_globals('host')
     pages = OrderedDict()
     for path in paths:
         url = path.replace(src_dir, '') + '/'
@@ -108,6 +109,7 @@ def bind_meta(ctx, data, method=None):
     published = ''
     if 'published' in meta:
         published = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
+        published = get_globals('tz').localize(published)
         meta['published'] = published
 
     keys = (
@@ -124,14 +126,21 @@ def bind_meta(ctx, data, method=None):
         ctx['sort'] = published and published.isoformat()
 
 
-def get_globals(src_dir, key=None):
+def get_globals(key=None):
     if not hasattr(get_globals, 'cache'):
         meta = {}
-        meta_file = os.path.join(src_dir, META_FILES[0])
+        meta_file = os.path.join(SRC_DIR, META_FILES[0])
         if os.path.exists(meta_file):
             with open(meta_file, 'br') as f:
                 meta = json.loads(f.read().decode())
             meta = meta.get('globals') or {}
+            if 'timezone' in meta:
+                tz = timezone(meta['timezone'])
+            else:
+                tz = utc
+            meta['tz'] = tz
+            meta['now'] = utc.localize(dt.datetime.utcnow()).astimezone(tz)
+
         get_globals.cache = meta
     if key is not None:
         return get_globals.cache.get(key)
@@ -149,7 +158,7 @@ def get_jinja(src_dir):
             'markdown': markdown,
             'match': lambda value, pattern: re.match(pattern, value)
         })
-        env.globals.update(get_globals(src_dir))
+        env.globals.update(get_globals())
         get_jinja.cache = env
     return get_jinja.cache
 
