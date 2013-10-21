@@ -8,7 +8,7 @@
   xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
 >
 <channel>
-    <title xml:lang="ru">{{ title }}</title>
+    <title xml:lang="ru">{{ title|striptags }}</title>
     <lastBuildDate>{{ now.strftime('%a, %d %b %Y %H:%M:%S %z') }}</lastBuildDate>
     <atom:link type="application/atom+xml" href="{{ host }}{{ url }}" rel="self"/>
     <link>{{ host }}</link>
