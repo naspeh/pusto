@@ -85,7 +85,7 @@ def get_pages(src_dir):
         path, type_ = path.rsplit('.', 1)
         url = path.replace(src_dir, '')
         page = get_html(src_dir, {
-            'url': url, 'children': [],
+            'url': url, 'children': {},
             'index_file': index_file,
             'meta_file': None,
             'type': type_,

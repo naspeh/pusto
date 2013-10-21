@@ -19,7 +19,7 @@
         <link>{{ host }}{{ page.url }}</link>
         <pubDate>{{ page.published.strftime('%a, %d %b %Y %H:%M:%S %z') }}</pubDate>
         <dc:creator>{{ ', '.join(page.author or []) or author }}</dc:creator>
-        <description><![CDATA[ {{ page.body }} ]]></description>
+        <description><![CDATA[ {{ page.summary if shorten else page.body }} ]]></description>
     </item>
     {% endfor %}
 </channel>
