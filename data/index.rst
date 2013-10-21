@@ -1,5 +1,8 @@
-Статьи о python, linux, web
----------------------------
+Статьи о python, linux, web |RSS|
+---------------------------------
+
+.. |RSS| image:: rss.png
+    :target: /post/feed.xml
 
 **Автор:** Гриша Костюк
 
