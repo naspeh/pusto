@@ -1,1 +1,1 @@
-Sitemap: http://pusto.org/sitemap.xml/
+Sitemap: http://pusto.org/sitemap.xml
