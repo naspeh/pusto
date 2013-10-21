@@ -416,8 +416,7 @@ def watch_files(src_dir, build_dir, interval=1):
         if changes:
             changes = [' * Detected changes, rebuild'] + changes
             print('\n    '.join(changes))
-            os.chdir(ROOT_DIR)
-            subprocess.call('{} build'.format(__file__), shell=True)
+            subprocess.call('%s build' % __file__, shell=True, cwd=ROOT_DIR)
 
         old_files = files
         time.sleep(interval)
@@ -481,14 +480,14 @@ def check_urls(host=None, verbose=False):
 
 def get_parser():
     parser = argparse.ArgumentParser()
-    subs = parser.add_subparsers(title='commands')
+    cmds = parser.add_subparsers(title='commands')
 
     def cmd(name, **kw):
-        s = subs.add_parser(name, **kw)
-        s.set_defaults(cmd=name)
-        s.arg = lambda *a, **kw: s.add_argument(*a, **kw) and s
-        s.exe = lambda f: s.set_defaults(exe=f) and s
-        return s
+        p = cmds.add_parser(name, **kw)
+        p.set_defaults(cmd=name)
+        p.arg = lambda *a, **kw: p.add_argument(*a, **kw) and p
+        p.exe = lambda f: p.set_defaults(exe=f) and p
+        return p
 
     cmd('run', help='start dev server')\
         .arg('--no-build', action='store_true')\
