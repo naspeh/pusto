@@ -9,7 +9,7 @@
 >
 <channel>
     <title xml:lang="ru">{{ title|striptags }}</title>
-    <lastBuildDate>{{ now.strftime('%a, %d %b %Y %H:%M:%S %z') }}</lastBuildDate>
+    <lastBuildDate>{{ now.strftime('%a, %d %b %Y %H:%M:%S %Z') }}</lastBuildDate>
     <atom:link type="application/atom+xml" href="{{ host }}{{ url }}" rel="self"/>
     <link>{{ host }}</link>
     <language>ru-RU</language>
@@ -17,7 +17,7 @@
     <item>
         <title>{{ page.title | striptags }}</title>
         <link>{{ host }}{{ page.url }}</link>
-        <pubDate>{{ page.published.strftime('%a, %d %b %Y %H:%M:%S %z') }}</pubDate>
+        <pubDate>{{ page.published.strftime('%a, %d %b %Y %H:%M:%S %Z') }}</pubDate>
         <dc:creator>{{ ', '.join(page.author or []) or author }}</dc:creator>
         <description><![CDATA[ {{ page.summary if shorten else page.body }} ]]></description>
     </item>
