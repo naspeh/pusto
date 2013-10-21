@@ -14,7 +14,7 @@
         "/naspeh/detail",
         "/naspeh"
     ],
-    "/post.rss/": null,
+    "/post/feed.xml": null,
     "/post/gnome2-and-small-display/": [
         "/naspeh/gnome-optimizaciya-okon/",
         "/naspeh/gnome-optimizaciya-okon",
@@ -50,7 +50,7 @@
     ],
     "/s/napokaz/": null,
     "/s/napokaz/src/": null,
-    "/sitemap.xml/": null,
+    "/sitemap.xml": null,
     "/trip/": null,
     "/trip/2006-karpaty-chernogorskiy-khrebet/": [
         "/event-63",

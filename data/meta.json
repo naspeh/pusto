@@ -1,7 +1,11 @@
 {
     "globals": {
         "host": "http://pusto.org",
-        "timezone": "Europe/Kiev"
+        "timezone": "Europe/Kiev",
+        "url-files": [
+            "/sitemap.xml.tpl",
+            "/post/feed.xml.tpl"
+        ]
     },
     "aliases": ["/post/", "/s/"]
 }

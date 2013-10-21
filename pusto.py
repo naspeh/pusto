@@ -68,13 +68,30 @@ def get_pages(src_dir):
         ]
         children.sort(key=lambda v: v[1].sort, reverse=True)
         children = OrderedDict(children)
-        ctx = get_html(src_dir, {
+        page = get_html(src_dir, {
             'url': url, 'children': children,
             'index_file': index and url + index,
             'meta_file': meta and url + meta,
-            'type': index and index.rsplit('.', 1)[1]
+            'type': index and index.rsplit('.', 1)[1],
+            'path': (src_dir + url + 'index.html') if index else src_dir
         })
-        pages[url] = ctx
+        pages[url] = page
+
+    for index_file in get_globals('url-files'):
+        path = src_dir + index_file
+        if not os.path.exists(path):
+            print(' * WARN. File not exists - {}'.format(path))
+            continue
+        path, type_ = path.rsplit('.', 1)
+        url = path.replace(src_dir, '')
+        page = get_html(src_dir, {
+            'url': url, 'children': [],
+            'index_file': index_file,
+            'meta_file': None,
+            'type': type_,
+            'path': path
+        })
+        pages[url] = page
 
     env = get_jinja(src_dir)
     for page in pages.values():
@@ -175,10 +192,8 @@ def get_html(src_dir, ctx):
     index_file = ctx['index_file']
     if not index_file:
         html = None
-        path = src_dir
     else:
         html = None
-        path = src_dir + ctx['url'] + 'index.html'
         template = ctx.get('template') or '_theme/base.tpl'
         index_src = src_dir + index_file
         with open(index_src, 'br') as f:
@@ -190,7 +205,7 @@ def get_html(src_dir, ctx):
                 .format(src_dir + ctx['url']),
                 shell=True
             )
-            with open(path, 'br') as f:
+            with open(ctx['path'], 'br') as f:
                 html = f.read().decode()
             bind_meta(ctx, html, method='html')
 
@@ -213,7 +228,7 @@ def get_html(src_dir, ctx):
                 ctx['title'] = title
             ctx.update(body=body, template=ctx.get('template') or template)
 
-    ctx.update(html=html, path=path)
+    ctx.update(html=html)
     return Page(**ctx)
 
 
@@ -222,7 +237,7 @@ def parse_xml(text, base_file):
         data = re.sub('(?i)<(!DOCTYPE|\?xml).*?[^>]>', '', text)
         root = ET.fromstring('<root>%s</root>' % data)
     except ET.ParseError as e:
-        print(' * WARN: {}: "{}"'.format(base_file, e))
+        print(' * WARN. {}: "{}"'.format(base_file, e))
     return root
 
 
