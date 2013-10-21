@@ -2,3 +2,4 @@
 
 {% set title=pages['/trip/'].title %}
 {% set children=pages['/trip/'].children %}
+{% set author='naspeh и nayavu' %}
