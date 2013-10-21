@@ -55,12 +55,12 @@
     "/trip/2006-karpaty-chernogorskiy-khrebet/": [
         "/event-63",
         "/event-63-karpatyi-chernogorskij-hrebet",
-        "/report-66/for/event-63-karpatyi-chernogorskij-hrebet",
+        "/report-67/for/event-63-karpatyi-chernogorskij-hrebet",
         "/trip/2006-karpaty-chernogorskiy-khrebet"
     ],
-    "/trip/2006-karpaty-chernogorskiy-khrebet/detail/": [
-        "/report-67/for/event-63-karpatyi-chernogorskij-hrebet",
-        "/trip/2006-karpaty-chernogorskiy-khrebet/detail"
+    "/trip/2006-karpaty-chernogorskiy-khrebet/short/": [
+        "/report-66/for/event-63-karpatyi-chernogorskij-hrebet",
+        "/trip/2006-karpaty-chernogorskiy-khrebet/short"
     ],
     "/trip/2007-krym-tarhankut-olenevka/": [
         "/event-12",
@@ -133,5 +133,6 @@
         "/event-144-karpatyi-spravzhnya-kazka",
         "/report-145/for/event-144-karpatyi-spravzhnya-kazka",
         "/trip/2012-karpaty-spravzhnya-kazka"
-    ]
+    ],
+    "/trip/feed.xml": null
 }

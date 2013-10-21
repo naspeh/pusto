@@ -3,8 +3,9 @@
         "host": "http://pusto.org",
         "timezone": "Europe/Kiev",
         "url-files": [
-            "/sitemap.xml.tpl",
-            "/post/feed.xml.tpl"
+            "/post/feed.xml.tpl",
+            "/trip/feed.xml.tpl",
+            "/sitemap.xml.tpl"
         ]
     },
     "aliases": ["/post/", "/s/"]
