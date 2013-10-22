@@ -5,8 +5,6 @@
         "url-files": [
             "/post/feed.xml.tpl",
             "/trip/feed.xml.tpl",
-            "/post/atom.xml.tpl",
-            "/trip/atom.xml.tpl",
             "/sitemap.xml.tpl"
         ]
     },
