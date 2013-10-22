@@ -19,7 +19,7 @@ from jinja2 import Environment, FileSystemLoader
 from pytz import timezone, utc
 
 Page = namedtuple('Page', (
-    'url children root template index_file meta_file type path mtime '
+    'url children template params index_file meta_file type path mtime '
     'aliases published author archive sort title summary body html'
 ))
 
@@ -130,7 +130,7 @@ def bind_meta(ctx, data, method=None):
         meta['published'] = published
 
     keys = (
-        'published author aliases archive template root sort '
+        'published author aliases archive template params sort '
         'summary title body'
         .split(' ')
     )

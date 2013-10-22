@@ -8,5 +8,8 @@
 
 ..
     META{
-        "template": "_theme/trips.tpl"
+        "template": "_theme/trips.tpl",
+        "params": {
+            "feed": "feed.xml"
+        }
     }

@@ -9,5 +9,8 @@
 ..
     META{
         "template": "_theme/list.tpl",
-        "root": "/post/"
+        "params": {
+            "root": "/post/",
+            "feed": "/post/feed.xml"
+        }
     }
