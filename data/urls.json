@@ -14,6 +14,7 @@
         "/naspeh/detail",
         "/naspeh"
     ],
+    "/post/atom.xml": null,
     "/post/feed.xml": null,
     "/post/gnome2-and-small-display/": [
         "/naspeh/gnome-optimizaciya-okon/",
@@ -134,5 +135,6 @@
         "/report-145/for/event-144-karpatyi-spravzhnya-kazka",
         "/trip/2012-karpaty-spravzhnya-kazka"
     ],
+    "/trip/atom.xml": null,
     "/trip/feed.xml": null
 }
