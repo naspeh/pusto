@@ -30,9 +30,11 @@ def process_args():
         ))
 
     cmd('wheels', help='prepare wheels')\
+        .arg('--init', action='store_true')\
         .exe(lambda a: sh(
+            'pip install -U wheel'
+            if a.init else
             'pip wheel -r requirements.txt -w wheels'
-            '&& pip install --no-install -d wheels wheel'
         ))
 
     cmd('napokaz', help='napokaz updater')\
