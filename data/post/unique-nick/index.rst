@@ -8,7 +8,8 @@
         "published": "27.12.2010",
         "aliases": [
             "/naspeh/unikalnyy-nik/",
-            "/post/unikalniy-nick/"
+            "/post/unikalniy-nick/",
+            "/unikalniy-nick/"
         ]
     }
 
