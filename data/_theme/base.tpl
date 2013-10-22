@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/_theme/reset.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
-    <title>{{ host }}: {% block title %}{{ title|striptags or url }}{% endblock %}</title>
+    <title>pusto.org: {% block title %}{{ title|striptags or url }}{% endblock %}</title>
 {% endblock %}
 </head>
 

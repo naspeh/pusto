@@ -34,8 +34,10 @@
     "/post/unique-nick/": [
         "/naspeh/unikalnyy-nik/",
         "/post/unikalniy-nick/",
+        "/unikalniy-nick/",
         "/naspeh/unikalnyy-nik",
         "/post/unikalniy-nick",
+        "/unikalniy-nick",
         "/post/unique-nick"
     ],
     "/post/zf-app-and-autoload/": [
