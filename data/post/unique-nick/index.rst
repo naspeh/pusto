@@ -6,7 +6,10 @@
 ..
     META{
         "published": "27.12.2010",
-        "aliases": ["/naspeh/unikalnyy-nik/"]
+        "aliases": [
+            "/naspeh/unikalnyy-nik/",
+            "/post/unikalniy-nick/"
+        ]
     }
 
 **Или почему naspeh**
