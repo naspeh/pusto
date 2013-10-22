@@ -40,7 +40,7 @@ __ http://docs.python.org/2.7/library/argparse.html
 
 В примере, в самом начале объявлены пара функций и есть проекты, которые превращают эти
 функции в подкоманды, типа: opster__, argh__, komandr__. Последние два основаны на
-argparse, а opster использует getopt__
+argparse, а opster использует `getopt.`__
 
 __ https://pypi.python.org/pypi/opster
 __ https://pypi.python.org/pypi/argh
