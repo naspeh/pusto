@@ -12,15 +12,15 @@
     {% if c.author %}
     <li>
         {% if c.author|length == 1 %}
-        Автор: {{ c.author[0] }}
+        Автор: <b>{{ c.author[0] }}</b>
         {% else %}
-        Авторы: {{ ', '.join(c.author)}}
+        Авторы: <b>{{ ', '.join(c.author)}}</b>
         {% endif %}
     </li>
     {% endif %}
     {% if c.published %}
     <li itemprop="datePublished" datetime="{{ c.published.strftime('%Y-%m-%d')}}" >
-        Опубликовано: {{ c.published.strftime('%d.%m.%Y') }}
+        Опубликовано: <b>{{ c.published.strftime('%d.%m.%Y') }}</b>
     </li>
     {% endif %}
     {% if c.type in ['md', 'rst'] %}

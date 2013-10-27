@@ -151,11 +151,10 @@ __ http://docs.fabfile.org/en/1.2.2/usage/fab.html#settings-files
     call('ls -la', shell=True)
 
 
-Теперь можно вспомнить про argparse_ и `его сабкоманды`__ и уже можно создавать
+Теперь можно вспомнить про `argparse и его сабкоманды`__ и уже можно создавать
 свои ``manage.py`` на чистой стандартной библиотеке.
 
-.. _argparse: http://docs.python.org/library/argparse.html
-__ http://docs.python.org/library/argparse.html#sub-commands
+__ /post/python-argparse-subcommands/
 
 **А что будем делать с деплоем?**
 
