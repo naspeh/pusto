@@ -8,7 +8,6 @@
     "/draft/": null,
     "/draft/django-tests-in-ostrovok/": null,
     "/draft/django-tests-in-ostrovok/habr/": null,
-    "/draft/python-argparse-subcommands/": null,
     "/naspeh/": [
         "/naspeh/detail/",
         "/naspeh/detail",
@@ -20,6 +19,7 @@
         "/naspeh/gnome-optimizaciya-okon",
         "/post/gnome2-and-small-display"
     ],
+    "/post/python-argparse-subcommands/": null,
     "/post/python-code-management/": [
         "/naspeh/python-code-management/",
         "/naspeh/python-code-management",
