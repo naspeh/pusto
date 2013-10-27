@@ -13,7 +13,7 @@
         <title>{{ page.title | striptags }}</title>
         <link href="{{ host }}{{ page.url }}"/>
         <id>{{ page.url }}</id>
-        <updated>{{ page.mtime | rfc3339 }}</updated>
+        {#<updated>{{ page.mtime | rfc3339 }}</updated>#}
         <published>{{ page.published | rfc3339 }}</published>
         <author>
             <name>{{ ', '.join(page.author or []) or author }}</name>
