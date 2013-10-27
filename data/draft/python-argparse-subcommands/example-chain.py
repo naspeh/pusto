@@ -15,14 +15,14 @@ def parse_args(args=None):
     cmds = parser.add_subparsers(help='commands')
 
     def cmd(name, **kw):
-        s = cmds.add_parser(name, **kw)
-        s.set_defaults(cmd=name)
-        s.arg = lambda *a, **kw: s.add_argument(*a, **kw) and s
-        s.exe = lambda f: s.set_defaults(exe=f) and s
+        p = cmds.add_parser(name, **kw)
+        p.set_defaults(cmd=name)
+        p.arg = lambda *a, **kw: p.add_argument(*a, **kw) and p
+        p.exe = lambda f: p.set_defaults(exe=f) and p
 
         # global options
-        s.arg('-s', '--settings', help='application settings')
-        return s
+        p.arg('-s', '--settings', help='application settings')
+        return p
 
     cmd('run', help='start dev server')\
         .arg('-P', '--port', type=int, default=8000, help='server port')\
@@ -33,8 +33,8 @@ def parse_args(args=None):
         ))
 
     cmd('test', aliases=['t', 'te'], help='run tests')\
-        .arg('target', default='.', help='python module or file')\
-        .exe(lambda a: run_test(a.module, settings=a.settings))
+        .arg('target', default='.', nargs='?', help='python module or file')\
+        .exe(lambda a: run_test(a.target, settings=a.settings))
 
     args = parser.parse_args(args)
     if not hasattr(args, 'exe'):
