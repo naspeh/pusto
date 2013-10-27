@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>{{ url }}</id>
+    <id>{{ host }}{{ url }}</id>
     <link href="{{ host }}"/>
+    <link href="{{ host }}{{ url }}" ref="self"/>
     <title>{{ title|striptags }}</title>
     <updated>{{ now | rfc3339 }}</updated>
     <author>
@@ -9,10 +10,10 @@
     </author>
 
     {% for page in children.values() %}
-    <entry>
-        <title>{{ page.title | striptags }}</title>
+    <entry xml:base="{{ host }}{{ url }}">
+        <title type="text">{{ page.title | striptags }}</title>
         <link href="{{ host }}{{ page.url }}"/>
-        <id>{{ page.url }}</id>
+        <id>{{ host}}{{ page.url }}</id>
         {#<updated>{{ page.mtime | rfc3339 }}</updated>#}
         <published>{{ page.published | rfc3339 }}</published>
         <author>
