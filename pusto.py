@@ -126,6 +126,7 @@ def bind_meta(ctx, data, method=None):
     published = ''
     if 'published' in meta:
         published = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
+        published = published.replace(hour=8)
         published = get_globals('tz').localize(published)
         meta['published'] = published
 
@@ -173,8 +174,7 @@ def get_jinja(src_dir):
         env.filters.update({
             'rst': lambda text: rst(text)[1],
             'markdown': markdown,
-            'match': lambda value, pattern: re.match(pattern, value),
-            'rfc3339': lambda t: t.isoformat() + (t.strftime('%z') or 'Z')
+            'match': lambda value, pattern: re.match(pattern, value)
         })
         env.globals.update(get_globals())
         get_jinja.cache = env

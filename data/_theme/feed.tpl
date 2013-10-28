@@ -4,7 +4,7 @@
     <link href="{{ host }}"/>
     <link href="{{ host }}{{ url }}" ref="self"/>
     <title>{{ title|striptags }}</title>
-    <updated>{{ now | rfc3339 }}</updated>
+    <updated>{{ now.isoformat() }}</updated>
     <author>
         <name>{{ author }}</name>
     </author>
@@ -14,7 +14,7 @@
         <title type="text">{{ page.title | striptags }}</title>
         <link href="{{ host }}{{ page.url }}"/>
         <id>{{ host}}{{ page.url }}</id>
-        <updated>{{ page.published | rfc3339 }}</updated>
+        <updated>{{ page.published.isoformat() }}</updated>
         <author>
             <name>{{ ', '.join(page.author or []) or author }}</name>
         </author>
