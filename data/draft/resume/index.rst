@@ -6,13 +6,26 @@
 | email: **naspeh(at)gmail.com**
 | г. Днепропетровск (с апреля 2013)
 
-Цель
-====
-| Делать хороший веб-сервис, в небольшой команде профессионалов.
+| **Цель:** делать хороший веб-сервис, в небольшой команде профессионалов.
 | Желательно удаленно (полный рабочий день).
 | Хотелось бы Werkzeug__, PostgreSQL, Redis.
 
 __ http://werkzeug.pocoo.org/
+
+
+| Нравится python и `его дзен`__.
+| Любимые принципы KISS__ и DRY__.
+| Нравится linux вместе с `философией UNIX`__ и `The Arch Way`__.
+
+__ http://www.python.org/dev/peps/pep-0020/
+__ http://en.wikipedia.org/wiki/KISS_principle
+__ http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
+__ http://ru.wikipedia.org/wiki/Философия_UNIX
+__ https://wiki.archlinux.org/index.php/The_Arch_Way
+
+**Все мои проекты** доступны `на github.`__
+
+__ https://github.com/naspeh/
 
 Образование: законченное высшее
 ===============================
@@ -34,8 +47,8 @@ __ http://ru.wikipedia.org/wiki/Разработка_через_тестиров
 
 02.2011 -- 01.2012 `odesk.com`__ (распределенная команда)
   участвовал в разработке нескольких сервисов (стек: Django, Flask, PostgresSQL, MongoDB, 
-  Redis); в одном из проектов был в качестве главного javascript-разработчика 
-  (google-chrome плагин).
+  Redis); в одном из проектов был в качестве главного javascript-разработчика (плагин 
+  google-chrome).
 
 __ http://odesk.com
 
@@ -54,4 +67,3 @@ __ http://42coffeecups.com
 | 02.2005 -- 04.2006 ТК «Сальве»; оператор 1С.
 
 __ http://www.ardas.dp.ua
-
