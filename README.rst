@@ -1,6 +1,7 @@
-Это исходники сайта `pusto.org <http://pusto.org>`_, на котором обкатывается naya_.
+Old version of `pusto.org`__ site with reStructuredText editor. Powered by `naya.`__
 
-.. _naya: http://github.com/naspeh/naya
+__ http://pusto.org
+__ http://github.com/naskoro/naya
 
 **Screenshot:**
 
