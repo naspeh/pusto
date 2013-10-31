@@ -27,8 +27,8 @@ __ http://werkzeug.pocoo.org/
 
 Education
 =========
-| Dnipropetrovsk National University
-| Master, Mechanics and Mathematics
+2000 -- 2005 Dnipropetrovsk National University
+  Master, Mechanical Mathematics
 
 Python developer since October 2009
 ===================================
