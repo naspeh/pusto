@@ -10,7 +10,7 @@ __ https://github.com/naspeh/
 
 I am a passionate web developer, living in Dnepropetrovsk, Ukraine. I like mimimalism and 
 simplicity. My favorite principles KISS__ and DRY__.  I love python and his Zen__. I am 
-working on `Arch Linux`__ and like `The Arch Way`__ and also `UNIX phillosophy.`__ 
+working on `Arch Linux`__ and like `The Arch Way`__ and also `Unix phillosophy.`__ 
 
 __ http://en.wikipedia.org/wiki/KISS_principle
 __ http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
