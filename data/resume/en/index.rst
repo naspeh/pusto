@@ -48,7 +48,7 @@ __ http://ostrovok.ru
 
 __ http://odesk.com
 
-02.2009 -- 01.2011 `42coffeecups.com`__ (remote work)
+12.2009 -- 01.2011 `42coffeecups.com`__ (remote work)
   developed several services in small teams with TDD practice.
 
   Technologies: preferably Django, MySQL, jQuery

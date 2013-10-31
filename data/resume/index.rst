@@ -16,13 +16,14 @@ __ http://werkzeug.pocoo.org/
 
 | Нравится python и `его дзен`__.
 | Любимые принципы KISS__ и DRY__.
-| Нравится linux вместе с `философией UNIX`__ и `The Arch Way`__.
+| Работаю на `Arch Linux`__, нравятся `The Arch Way`__ и `философия Unix.`__
 
 __ http://www.python.org/dev/peps/pep-0020/
 __ http://en.wikipedia.org/wiki/KISS_principle
 __ http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
-__ http://ru.wikipedia.org/wiki/Философия_UNIX
+__ https://www.archlinux.org/
 __ https://wiki.archlinux.org/index.php/The_Arch_Way
+__ http://ru.wikipedia.org/wiki/Философия_UNIX
 
 **Все мои проекты** доступны `на github.`__
 
