@@ -5,8 +5,10 @@ Grisha Kostyuk, python developer
 
 | email: **naspeh(at)gmail.com**
 | `My code on github.`__
+| `Profile in LinkedIn.`__
 
 __ https://github.com/naspeh/
+__ http://www.linkedin.com/in/naspeh
 
 I am a passionate web developer, living in Dnepropetrovsk, Ukraine. I like minimalism and 
 simplicity. My favorite principles KISS__ and DRY__. I love python and his Zen__. I work 
@@ -34,7 +36,7 @@ Python developer since October 2009
 ===================================
 01.2012 -- 04.2013 `ostrovok.ru`__ (hotel booking service)
   improved booking process, reworked database of orders and payments; implemented and 
-  optimized environment for unit tests; propagate TDD.
+  optimized environment for unit tests; propagated TDD.
 
   Technologies: Django, PostgreSQL, Redis.
 
