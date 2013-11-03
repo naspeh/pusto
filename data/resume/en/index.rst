@@ -25,13 +25,6 @@ I prefer Werkzeug__, PostgreSQL, Redis for web development.
 
 __ http://werkzeug.pocoo.org/
 
-**English:** good tech reading, normal writing and bad verbal.
-
-Education
-=========
-2000 -- 2005 Dnipropetrovsk National University
-  Master, Mechanical Mathematics
-
 Python developer since October 2009
 ===================================
 01.2012 -- 04.2013 `ostrovok.ru`__ (hotel booking service)
@@ -53,7 +46,7 @@ __ http://odesk.com
 12.2009 -- 01.2011 `42coffeecups.com`__ (remote work)
   developed several services in small teams with TDD practice.
 
-  Technologies: preferably Django, MySQL, jQuery
+  Technologies: Django, MySQL, jQuery
 
 __ http://42coffeecups.com
 
@@ -61,6 +54,13 @@ Other Employment History
 ========================
 | 02.2009 -- 09.2009 `Ardas Group`__; Java web developer.
 | 03.2007 -- 02.2009 ArtLab (remote work); PHP developer.
-| 11.2006 -- 10.2006 Zebra; PHP developer.
+| 11.2006 -- 03.2007 Zebra; PHP developer.
 
 __ http://www.ardas.dp.ua
+
+Education
+=========
+2000 -- 2005 Dnipropetrovsk National University
+  Master, Mechanical Mathematics
+
+**English:** good tech reading, normal writing and bad verbal.
