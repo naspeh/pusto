@@ -10,7 +10,7 @@ Grisha Kostyuk, python developer
 __ https://github.com/naspeh/
 __ http://www.linkedin.com/in/naspeh
 
-I am a passionate web developer, living in Dnepropetrovsk, Ukraine. I like minimalism and 
+I'm a passionate web developer based in Dnepropetrovsk, Ukraine. I like minimalism and 
 simplicity. My favorite principles KISS__ and DRY__. I love python and his Zen__. I work 
 on `Arch Linux`__ and like `The Arch Way`__ and also `Unix phillosophy.`__ 
 
