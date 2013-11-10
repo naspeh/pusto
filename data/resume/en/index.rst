@@ -63,4 +63,4 @@ Education
 2000 -- 2005 Dnipropetrovsk National University
   Master, Mechanical Mathematics
 
-**English:** good tech reading, normal writing and bad verbal.
+**English:** good reading, normal writing and poor oral.
