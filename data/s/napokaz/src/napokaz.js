@@ -42,7 +42,6 @@
             });
         },
         parse: function(opts, data) {
-            //data = $($.parseXML(data)); //Work in IE7 %)
             data = $(data);
             var albumId = data.find('gphoto\\:albumid:first').text();
             var items = [];
@@ -237,6 +236,13 @@
                     });
                 });
 
+                swipe(front.find('.napokaz-f-next, .napokaz-f-prev'), function(delta) {
+                    front.trigger((delta && delta < 0) ? 'prev': 'next');
+                });
+                swipe(front.find('.napokaz-f-thumb'), function(delta) {
+                    front.trigger((delta && delta < 0) ? 'page:prev': 'page:next');
+                });
+
                 // Set navigation key bindings
                 $(document).on('keydown.napokaz-f', function (e) {
                     if (front.is(':hidden')) {
@@ -355,6 +361,53 @@
         o.picasaFilter = picasa.parseTags(o.picasaFilter);
         o.picasaIgnore = picasa.parseTags(o.picasaIgnore);
         return o;
+    }
+
+    function swipe(elements, callback) {
+        $.each(elements, function(i, element) {
+            var x, delta,
+            check = function(callback) {
+                return function(event) {
+                    if (event.touches.length == 1 || event.scale && event.scale !== 1) {
+                        callback(event);
+                    }
+                    event.preventDefault();
+                };
+            },
+            handler = {
+                handleEvent: function(event) {
+                    switch (event.type) {
+                        case 'touchstart': this.start(event); break;
+                        case 'touchmove': this.move(event); break;
+                        case 'touchend': this.end(event); break;
+                    }
+                },
+                start: check(function(event) {
+                    x = event.touches[0].pageX;
+                    element.addEventListener('touchmove', handler, false);
+                    element.addEventListener('touchend', handler, false);
+                }),
+                move: check(function(event) {
+                    delta = x - event.touches[0].pageX;
+                }),
+                end: function(event) {
+                    if (x && delta === undefined) {
+                        $(element).click();
+                    } else if (Math.abs(delta) > 50) {
+                        callback(delta);
+                    } else {
+                        event.preventDefault();
+                    }
+                    x = undefined;
+                    delta = undefined;
+                    element.removeEventListener('touchmove', handler, false);
+                    element.removeEventListener('touchend', handler, false);
+                }
+            };
+            if (!!window.addEventListener) {
+                element.addEventListener('touchstart', handler, false);
+            }
+        });
     }
 
     // Taken from mustache.js
