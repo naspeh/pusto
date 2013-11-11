@@ -28,8 +28,8 @@ __ http://werkzeug.pocoo.org/
 Python developer since October 2009
 ===================================
 01.2012 -- 04.2013 `ostrovok.ru`__ (hotel booking service)
-  improved booking process, reworked database of orders and payments; implemented and 
-  optimized environment for unit tests; propagated TDD.
+  improved booking process, reworked database of orders and payments; implemented and then
+  optimized environment for unit tests; preached TDD.
 
   Technologies: Django, PostgreSQL, Redis.
 
