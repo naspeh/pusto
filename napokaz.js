@@ -1,4 +1,4 @@
-(function ($) {
+(function($) {
     'use strict';
     var defaults = {
         boxThumbsize: '72c',
@@ -155,183 +155,212 @@
         '</div>'
     );
     var main = function(opts, container) {
-        var me = {
-            process: function() {
-                var box = container.find('.napokaz-b');
-                var perPage = opts.boxWidth * opts.boxHeight;
-                box.find('.napokaz-b-thumb').click(function() {
-                    var front = container.find('.napokaz-f');
-                    var current = front.find('#' + $(this).attr('id'));
-                    me.initFront(front, current);
-                    front.trigger('show');
-                    front.trigger('select', current);
-                    return false;
-                });
-                me.selector(box, 'napokaz-b-thumb', 'napokaz-b-show', perPage);
-                box.trigger('page:select', box.find('.napokaz-b-thumb:first'));
-                if (!$('.napokaz-f:visible').length) {
-                    box.find(window.location.hash).click();
-                }
-            },
-            initFront: function(front, current) {
-                if (front.data('initOnce')) {
-                    return;
-                }
-                front.data('initOnce', true);
+        var $window = $(window);
 
-                var count = front.find('.napokaz-f-thumb').length;
-                if (count === 1) {
-                    front.removeClass('napokaz-f-ctrls');
-                } else if (count <= opts.frontCount) {
-                    front.find('.napokaz-f-thumbs').removeClass('napokaz-f-ctrls');
-                }
-
-                me.selector(front, 'napokaz-f-thumb', 'napokaz-f-current');
-                me.selector(front, 'napokaz-f-thumb', 'napokaz-f-show', opts.frontCount);
-                front.on({
-                    'show': function() {
-                        $(this).show();
-                    },
-                    'hide': function() {
-                        $(this).hide();
-                        if (opts.frontUseHash) {
-                            window.location.hash = '';
-                        }
-                    },
-                    'select': function(e, thumb) {
-                        thumb = $(thumb);
-                        if (!thumb.hasClass('napokaz-f-show')) {
-                            front.trigger('page:select', thumb);
-                        }
-                        me.getImg(front, thumb);
-                        var preloads = [
-                            thumb.next('.napokaz-f-thumb'),
-                            thumb.prev('.napokaz-f-thumb')
-                        ];
-                        $.each(preloads, function() {
-                            if (this.length) {
-                                me.getImg(front, this, true);
-                            }
-                        });
-                        if (opts.frontUseHash) {
-                            window.location.hash = thumb.attr('id');
-                        }
-                    }
-                });
-                front.find('.napokaz-f-thumb').click(function() {
-                    front.trigger('select', this);
-                    return false;
-                });
-                var events = [
-                    ['.napokaz-f-close', 'hide'],
-                    ['.napokaz-f-prev', 'prev'],
-                    ['.napokaz-f-next', 'next'],
-                    ['.napokaz-f-pprev', 'page:prev'],
-                    ['.napokaz-f-pnext', 'page:next']
-                ];
-                $.each(events, function(i, item) {
-                    front.find(item[0]).on('click', function() {
-                        front.trigger(item[1]);
-                        return false;
-                    });
-                });
-
-                swipe(front.find('.napokaz-f-next, .napokaz-f-prev'), function(delta) {
-                    front.trigger((delta && delta < 0) ? 'prev': 'next');
-                });
-                swipe(front.find('.napokaz-f-thumb'), function(delta) {
-                    front.trigger((delta && delta < 0) ? 'page:prev': 'page:next');
-                });
-
-                // Set navigation key bindings
-                $(document).on('keydown.napokaz-f', function (e) {
-                    if (front.is(':hidden')) {
-                        return;
-                    }
-                    var events = {
-                        8: 'hide', // Backspace
-                        27: 'hide', // Esc
-                        46: 'hide', // Delete
-                        37: 'prev', // <=
-                        39: 'next', // =>
-                        33: 'page:prev', // PageUp
-                        34: 'page:next' // PageDown
-                    };
-                    if (events.hasOwnProperty(e.keyCode)) {
-                        e.preventDefault();
-                        front.trigger(events[e.keyCode]);
-                    }
-                });
-            },
-            selector: function(box, elementCls, currentCls, perPage) {
-                perPage = !perPage ? 0 : perPage;
-                var prefix = perPage > 1 ? 'page:' : '';
-                var elementSel = '.' + elementCls;
-                var currentSel = '.' + currentCls;
-                var selector = function(e) {
-                    var cur, el, isNext;
-                    isNext = e.data.isNext;
-                    cur = box.find(currentSel + (isNext ? ':last': ':first'));
-                    el = cur[isNext ? 'next': 'prev'](elementSel);
-                    if (!el.length) {
-                        el = box.find(elementSel + (isNext ? ':first': ':last'));
-                    }
-                    box.trigger(prefix + 'select', el);
-                };
-                box.on(prefix + 'prev', {isNext: false}, selector);
-                box.on(prefix + 'next', {isNext: true}, selector);
-                box.on(prefix + 'select', function(e, element) {
-                    element = $(element);
-                    box.find(currentSel).removeClass(currentCls);
-                    if (perPage <= 1) {
-                        element.addClass(currentCls);
-                        return;
-                    }
-                    var items = box.find(elementSel);
-                    var current = items.index(element);
-                    current = Math.floor(current / perPage) * perPage;
-                    items = items.slice(current, current + perPage).addClass(currentCls);
-                    items.each(function() {
-                        var $this = $(this);
-                        var url = $this.data('img');
-                        if (url) {
-                            $this.css({'background-image': 'url(' + url  + ')'});
-                        }
-                    });
-                });
-            },
-            getImg: function(front, thumb, preloadOnly) {
-                var box = front.find('.napokaz-f-orig');
-                box.css({
-                    'bottom': front.find('.napokaz-f-thumbs').outerHeight(true)
-                });
-                var img = thumb.data();
-                var url = (
-                    img.href + '?imgmax=' +
-                    me.getImgMax(img.size, [box.width(), box.height()])
-                );
-                if (preloadOnly) {
-                    $('<img/>').attr('src', url);
-                    return;
-                }
-                box.css({'background-image': 'url(' + url  + ')'});
-                front.find('.napokaz-f-title')
-                    .html(img.desc || img.title)
-                    .attr('href', img.picasa);
-            },
-            getImgMax: function(img, win) {
-                img = {w:img[0], h:img[1]};
-                win = {w:win[0], h:win[1]};
-
-                var ratio, result;
-                ratio = img.w / img.h;
-                ratio = ratio > 1 && ratio || 1;
-                result = Math.min(win.h * ratio, win.w);
-                result = Math.round(result);
-                return result;
+        function process() {
+            var box = container.find('.napokaz-b');
+            var perPage = opts.boxWidth * opts.boxHeight;
+            box.find('.napokaz-b-thumb').click(function() {
+                var front = container.find('.napokaz-f');
+                var current = front.find('#' + $(this).attr('id'));
+                initFront(front, current);
+                front.trigger('show');
+                front.trigger('select', current);
+                return false;
+            });
+            selector(box, 'napokaz-b-thumb', 'napokaz-b-show', perPage);
+            box.trigger('page:select', box.find('.napokaz-b-thumb:first'));
+            if (!$('.napokaz-f:visible').length) {
+                box.find(window.location.hash).click();
             }
-        };
-        return me;
+        }
+        function initFront(front, current) {
+            if (front.data('initOnce')) {
+                return;
+            }
+            front.data('initOnce', true);
+
+            var count = front.find('.napokaz-f-thumb').length;
+            if (count === 1) {
+                front.removeClass('napokaz-f-ctrls');
+            } else if (count <= opts.frontCount) {
+                front.find('.napokaz-f-thumbs').removeClass('napokaz-f-ctrls');
+            }
+
+            selector(front, 'napokaz-f-thumb', 'napokaz-f-current');
+            selector(front, 'napokaz-f-thumb', 'napokaz-f-show', opts.frontCount);
+            front.on({
+                'show': function() {
+                    $(this).show();
+                },
+                'hide': function() {
+                    $(this).hide();
+                    if (opts.frontUseHash) {
+                        window.location.hash = '';
+                    }
+                },
+                'select': function(e, thumb) {
+                    thumb = $(thumb);
+                    if (!thumb.hasClass('napokaz-f-show')) {
+                        front.trigger('page:select', thumb);
+                    }
+                    getImg(front, thumb, true);
+                    var preloads = [
+                        thumb.next('.napokaz-f-thumb'),
+                        thumb.prev('.napokaz-f-thumb')
+                    ];
+                    $.each(preloads, function() {
+                        if (this.length) {
+                            getImg(front, this);
+                        }
+                    });
+                    if (opts.frontUseHash) {
+                        window.location.hash = thumb.attr('id');
+                    }
+                }
+            });
+            front.find('.napokaz-f-thumb').click(function() {
+                front.trigger('select', this);
+                return false;
+            });
+            var events = [
+                ['.napokaz-f-close', 'hide'],
+                ['.napokaz-f-prev', 'prev'],
+                ['.napokaz-f-next', 'next'],
+                ['.napokaz-f-pprev', 'page:prev'],
+                ['.napokaz-f-pnext', 'page:next']
+            ];
+            $.each(events, function(i, item) {
+                front.find(item[0]).on('click', function() {
+                    front.trigger(item[1]);
+                    return false;
+                });
+            });
+
+            swipe(front.find('.napokaz-f-next, .napokaz-f-prev'), function(delta) {
+                front.trigger((delta && delta < 0) ? 'prev' : 'next');
+            });
+            swipe(front.find('.napokaz-f-thumb'), function(delta) {
+                front.trigger((delta && delta < 0) ? 'page:prev' : 'page:next');
+            });
+
+            // Set navigation key bindings
+            $(document).on('keydown.napokaz-f', function (e) {
+                if (front.is(':hidden')) {
+                    return;
+                }
+                var events = {
+                    8: 'hide', // Backspace
+                    27: 'hide', // Esc
+                    46: 'hide', // Delete
+                    37: 'prev', // <=
+                    39: 'next', // =>
+                    33: 'page:prev', // PageUp
+                    34: 'page:next' // PageDown
+                };
+                if (events.hasOwnProperty(e.keyCode)) {
+                    e.preventDefault();
+                    front.trigger(events[e.keyCode]);
+                }
+            });
+        }
+        function selector(box, elementCls, currentCls, perPage) {
+            perPage = !perPage ? 0 : perPage;
+            var prefix = perPage > 1 ? 'page:' : '';
+            var elementSel = '.' + elementCls;
+            var currentSel = '.' + currentCls;
+            var select = function(e) {
+                var cur, el, isNext;
+                isNext = e.data.isNext;
+                cur = box.find(currentSel + (isNext ? ':last': ':first'));
+                el = cur[isNext ? 'next': 'prev'](elementSel);
+                if (!el.length) {
+                    el = box.find(elementSel + (isNext ? ':first': ':last'));
+                }
+                box.trigger(prefix + 'select', el);
+            };
+            box.on(prefix + 'prev', {isNext: false}, select);
+            box.on(prefix + 'next', {isNext: true}, select);
+            box.on(prefix + 'select', function(e, element) {
+                element = $(element);
+                box.find(currentSel).removeClass(currentCls);
+                if (perPage <= 1) {
+                    element.addClass(currentCls);
+                    return;
+                }
+                var items = box.find(elementSel);
+                var current = items.index(element);
+                current = Math.floor(current / perPage) * perPage;
+                items = items.slice(current, current + perPage).addClass(currentCls);
+                items.each(function() {
+                    var $this = $(this);
+                    if ($this.css('background-image') != 'none') return;
+
+                    var url = $this.data('img');
+                    if (url) {
+                        $this.one('show', function() {
+                            $this.css({'background-image': 'url(' + url  + ')'});
+                        });
+                        showImg($this, 'show');
+                    }
+                });
+            });
+        }
+        function getImg(front, thumb, current) {
+            var box = front.find('.napokaz-f-orig');
+            box.css({
+                'bottom': front.find('.napokaz-f-thumbs').outerHeight(true)
+            });
+            box.one('show', function() {
+                box.css({'background-image': 'url(' + url  + ')'});
+            });
+            var img = thumb.data();
+            var url = (
+                img.href + '?imgmax=' +
+                getImgMax(img.size, [box.width(), box.height()])
+            );
+            if (current) {
+                box.trigger('show');
+                var title = front.find('.napokaz-f-title');
+                title.html(img.desc || img.title).attr('href', img.picasa);
+            } else {
+                $('<img/>').attr('src', url);
+            }
+        }
+        function getImgMax(img, win) {
+            img = {w: img[0], h: img[1]};
+            win = {w: win[0], h: win[1]};
+
+            var ratio, result;
+            ratio = img.w / img.h;
+            ratio = ratio > 1 && ratio || 1;
+            result = Math.min(win.h * ratio, win.w);
+            result = Math.round(result);
+            return result;
+        }
+
+        function showImg(items, trigger) {
+            function update() {
+                var toShow = items.filter(function() {
+                    var $element = $(this);
+                    if ($element.is(":hidden")) return;
+
+                    var wt = $window.scrollTop(),
+                        wb = wt + $window.height(),
+                        et = $element.offset().top,
+                        eb = et + $element.height();
+
+                    return eb >= wt && et <= wb;
+                });
+
+                items = items.not(toShow.trigger(trigger));
+            }
+
+            update();
+            $window.scroll(update);
+            $window.resize(update);
+        }
+        return process();
     };
 
     // Public {{{
@@ -343,7 +372,7 @@
             picasa.fetch(opts, function(data) {
                 console.log(data);
                 container.html(tmpl(template, data));
-                main(opts, container).process();
+                main(opts, container);
             });
 
         });
@@ -364,49 +393,42 @@
     }
 
     function swipe(elements, callback) {
-        $.each(elements, function(i, element) {
-            var x, delta,
-            check = function(callback) {
-                return function(event) {
-                    if (event.touches.length == 1 || event.scale && event.scale !== 1) {
-                        callback(event);
-                    }
-                    event.preventDefault();
-                };
-            },
-            handler = {
-                handleEvent: function(event) {
-                    switch (event.type) {
-                        case 'touchstart': this.start(event); break;
-                        case 'touchmove': this.move(event); break;
-                        case 'touchend': this.end(event); break;
-                    }
-                },
-                start: check(function(event) {
-                    x = event.touches[0].pageX;
-                    element.addEventListener('touchmove', handler, false);
-                    element.addEventListener('touchend', handler, false);
-                }),
-                move: check(function(event) {
-                    delta = x - event.touches[0].pageX;
-                }),
-                end: function(event) {
-                    if (x && delta === undefined) {
-                        $(element).click();
-                    } else if (Math.abs(delta) > 50) {
-                        callback(delta);
-                    } else {
-                        event.preventDefault();
-                    }
-                    x = undefined;
-                    delta = undefined;
-                    element.removeEventListener('touchmove', handler, false);
-                    element.removeEventListener('touchend', handler, false);
+        if (!('ontouchstart' in window)) {
+            return;
+        }
+
+        var check = function(callback) {
+            return function($event) {
+                $event.preventDefault();
+                event = $event.originalEvent;
+                if (event.touches.length == 1 || event.scale && event.scale !== 1) {
+                    callback(event.touches[0], $($event.target));
                 }
             };
-            if (!!window.addEventListener) {
-                element.addEventListener('touchstart', handler, false);
-            }
+        };
+        var start = check(function(touch, element) {
+            var delta, x = touch.pageX;
+            var move = check(function(touch) {
+                delta = x - touch.pageX;
+            });
+            var end = function(event) {
+                event.preventDefault();
+                if (x && delta === undefined) {
+                    $(element).click();
+                } else if (Math.abs(delta) > 50) {
+                    callback(delta);
+                }
+                x = delta = undefined;
+                element.off('touchmove', move);
+                element.off('touchend', end);
+            };
+
+            element.on('touchmove', move);
+            element.on('touchend', end);
+        });
+        $.each(elements, function() {
+            var element = $(this);
+            element.on('touchstart', start);
         });
     }
 
