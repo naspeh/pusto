@@ -1,5 +1,9 @@
 Внедряем TDD с django и postgres
 --------------------------------
+.. container:: original
+
+    `Оригинал <http://pusto.org/post/django-tests-practical-tips/habr/>`_
+
 .. note:: Статья была написана для `habrahabr.`__
 
 __ http://habrahabr.ru/company/ostrovok/blog/146552/
