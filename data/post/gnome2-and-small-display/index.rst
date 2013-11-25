@@ -9,6 +9,9 @@
 
 Gnome2 и маленький экран
 ------------------------
+.. container:: original
+
+    `Оригинал <http://pusto.org/post/gnome2-and-small-display/>`_
 ..
     META{
         "published": "28.09.2011",

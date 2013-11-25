@@ -3,6 +3,9 @@
 
 Уникальный ник
 --------------
+.. container:: original
+
+    `Оригинал <http://pusto.org/post/unique-nick/>`_
 ..
     META{
         "published": "27.12.2010",

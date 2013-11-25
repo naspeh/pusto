@@ -1,5 +1,8 @@
 Django tests. Практические советы
 =================================
+.. container:: original
+
+    `Оригинал <http://pusto.org/post/django-tests-practical-tips/>`_
 ..
     - введение
     - избегайте static fixtures
