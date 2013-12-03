@@ -49,6 +49,9 @@ li, dd {
 dt {
     font-weight: bold;
 }
+strong, b {
+    font-weight: bold;
+}
 sup {
     vertical-align: super;
 }
