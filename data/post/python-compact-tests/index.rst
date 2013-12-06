@@ -4,9 +4,6 @@
 
 Python. Компактные тесты
 ------------------------
-.. container:: original
-
-    `Оригинал <http://pusto.org/post/python-compact-tests/>`_
 ..
     META{
         "published": "15.01.2011",

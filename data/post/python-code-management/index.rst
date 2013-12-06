@@ -1,8 +1,5 @@
 Python. Управление кодом из консоли
 -----------------------------------
-.. container:: original
-
-    `Оригинал <http://pusto.org/post/python-code-management/>`_
 ..
     META{
         "published": "14.09.2011",

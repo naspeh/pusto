@@ -1,8 +1,5 @@
 Python. Подкоманды и argparse
 -----------------------------
-.. container:: original
-
-    `Оригинал <http://pusto.org/post/python-argparse-subcommands/>`_
 ..
   - введение
   - неудобный интерфейс subcommands
