@@ -3,6 +3,8 @@
 .. image:: _img/ava200.jpg
   :align: right
 
+`English version <en/>`_
+
 | email: **naspeh(at)gmail.com**
 | г. Днепропетровск (с апреля 2013)
 | Родился в 1983 году.
