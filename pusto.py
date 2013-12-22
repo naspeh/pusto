@@ -505,7 +505,7 @@ def get_parser():
 
     cmd('test_urls', help='test url responses')\
         .arg('-v', '--verbose', action='store_true')\
-        .arg('--host', help='use host for test')\
+        .arg('-H', '--host', help='use host for test')\
         .exe(lambda a: check_urls(host=a.host, verbose=a.verbose))
 
     return parser, cmd
