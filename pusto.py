@@ -19,8 +19,8 @@ from jinja2 import Environment, FileSystemLoader
 from pytz import timezone, utc
 
 Page = namedtuple('Page', (
-    'url children template params index_file meta_file type path mtime '
-    'aliases published author archive sort title summary body html'
+    'url children parent_url template params index_file meta_file type path '
+    'mtime aliases published author archive sort title summary body html'
 ))
 
 ROOT_DIR = os.getcwd()
@@ -62,14 +62,18 @@ def get_pages(src_dir):
         files = tree[path][1]
         meta = ([f for f in META_FILES if f in files] or [None])[0]
         index = ([f for f in INDEX_FILES if f in files] or [None])[0]
-        children = [
-            (k, fix_urls(v, host)) for k, v in pages.items()
-            if k.rsplit('/', 2)[0] + '/' == url and not v.archive
-        ]
+
+        children = []
+        for url_, page_ in pages.items():
+            if url_.rsplit('/', 2)[0] + '/' != url or page_.archive:
+                continue
+            page_ = page_._replace(parent_url=url)
+            pages[url_] = page_
+            children += [(url_, fix_urls(page_, host))]
         children.sort(key=lambda v: v[1].sort, reverse=True)
         children = OrderedDict(children)
         page = get_html(src_dir, {
-            'url': url, 'children': children,
+            'url': url, 'children': children, 'parent_url': None,
             'index_file': index and url + index,
             'meta_file': meta and url + meta,
             'type': index and index.rsplit('.', 1)[1],
@@ -85,11 +89,11 @@ def get_pages(src_dir):
         path, type_ = path.rsplit('.', 1)
         url = path.replace(src_dir, '')
         page = get_html(src_dir, {
-            'url': url, 'children': {},
+            'url': url, 'children': {}, 'parent_url': None,
             'index_file': index_file,
             'meta_file': None,
             'type': type_,
-            'path': path
+            'path': path,
         })
         pages[url] = page
 

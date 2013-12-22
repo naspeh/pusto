@@ -26,7 +26,7 @@
     <div class="title">
         <h1 itemprop="name">{{ title }}</h1>
         <link itemprop="url" href="{{ url }}" />
-        {{ show_meta(page, back_url=True)}}
+        {{ show_meta(page, pages, back_url=True)}}
     </div>
     {% endif %}
     <div class="document">
