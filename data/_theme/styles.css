@@ -58,6 +58,9 @@ sup {
 sub {
     vertical-align: sub;
 }
+tt {
+    font-family: "Anonymous Pro", monospace;
+}
 pre {
     overflow: auto;
     padding: 5px;
