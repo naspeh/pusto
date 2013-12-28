@@ -147,19 +147,26 @@ LVM. Так как за ноутбуком обычно работаю, то 50G
 
 __ https://wiki.archlinux.org/index.php/UEFI
 
-Режим востановления из неполного бекапа следующий:
-  - гружусь с LiveHard;
-  - ``"mount /dev/pad/root /mnt"``;
-  - ``"mount -L P-BOOT /mnt/boot"``;
-  - ``"pacstrap base base-devel /mnt"``, ставится базовая система;
-  - ``"arch-chroot /mnt"``, переключаемся на новый Arch;
-  - ``"pacman -S $(cat /backups/pad/pkglist.txt)"``, ставим все наши нужные пакеты;
-  - ``rsync`` всех сохраненных данных.
+Режим востановления из неполного бекапа следующий::
+
+    # гружусь с LiveHard
+    $ mount /dev/pad/root /mnt
+    $ mount -L P-BOOT /mnt/boot
+
+    # ставлю базовою систему
+    $ pacstrap base base-devel /mnt
+
+    # переключаюсь на новый Arch и ставлю все нужные пакеты
+    $ arch-chroot /mnt
+    $ pacman -S $(cat /backups/pad/pkglist.txt)"
+
+    # востановление конфигов и т.д.
+    $ rsync -aAXHvhy /backups/pad/latest/ /
 
 Система готова и находится в полном соответствии со старой. В принципе шагов не много, но 
 было бы проще и быстрее с полным бекапом.
 
-**Полный бекап** делаю через LVM снимок плюс опять же rsync::
+**Полный бекап** делаю через LVM снепшот плюс опять же rsync::
 
     $ lvcreate --size 10G --snapshot --name snap /dev/pad/root \
     > && mount /dev/pad/snap /backups/mnt \
