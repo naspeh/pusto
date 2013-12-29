@@ -10,6 +10,8 @@ Arch Linux backup
 удавалось решить на существующей системе. Ну и хотелось этот новенький чистенький Arch 
 забекапить и вообще сделать хорошую регулярную систему бекапов для моих рабочих машин.
 
+.. MORE
+
 До этого уже занимался бекапами. В одной из версий использовал duplicity__. Последняя была 
 основана на ``rsync``, а дельты упаковывались в ``tar``, на Debian Testing у меня эта 
 система работала регулярно по крону, а в Arch Linux использовал нерегулярно вручную, 
@@ -99,14 +101,14 @@ __ http://www.midnight-commander.org/
 две базовые группы пакетов base и base-dev, потому что обе группы обычно ставятся в начале 
 установки нового Arch. В принципе, с pacman это делается несложно::
 
-    $ pacman -Qeq | grep -v "$(pacman -Qqg base base-devel)" > /backup/pkglist.txt
+    $ comm -23 <(pacman -Qeq) <(pacman -Qgq base base-devel|sort) > /backup/pkglist.txt
 
 Полезность этого списка не только в целях бекапа, но и просто посмотреть пакеты, которые 
 не используются и можно удалить, чтоб система была максимально чистой.
 
 Дальше нужно сохранить все важные файлы::
 
-    $ rsync -aAXHvhy --delete \
+    $ rsync -aAXHvh --delete \
     >   --backup --backup-dir=/backup/delta/ \
     >   -f '+ /boot/' -f '+ /etc/' -f '+ /home/' -f '- /**/*.pyc' -f '- /*' \
     >   / /backup/latest/
@@ -157,14 +159,18 @@ __ https://wiki.archlinux.org/index.php/UEFI
     $ mount -L P-BOOT /mnt/boot
 
     # ставлю базовою систему
-    $ pacstrap base base-devel /mnt
+    $ pacstrap /mnt base base-devel
+    $ cp /etc/pacman.conf /mnt/etc/
 
     # переключаюсь на новый Arch и ставлю все нужные пакеты
     $ arch-chroot /mnt
-    $ pacman -S $(cat /backups/pad/pkglist.txt)"
+    $ pacman -S $(cat /backups/pad/pkglist.txt)
+    $ yaourt -S $(cat /backups/pad/pkgaur.txt) --noconfirm
 
-    # восстановление конфигов и т.д.
-    $ rsync -aAXHvhy /backups/pad/latest/ /
+    # восстанавливаю все важные файлы
+    $ rsync -aAXHvh /backups/pad/latest/ /
+
+    # выхожу из chroot, перегружаюсь
 
 Система готова и находится в полном соответствии со старой. В принципе, шагов не много, но 
 было бы проще и быстрее с полным бекапом.
