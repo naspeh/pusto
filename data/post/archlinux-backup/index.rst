@@ -1,9 +1,14 @@
 Arch Linux backup
 -----------------
+..
+    META {
+        "published": "29.12.2013"
+    }
+
 .. container:: note
 
-    Слово **бекап** используется в тексте потому, что оно короче и привычнее русского 
-    аналога "резервная копия".
+    Слово **бекап** использую в тексте потому, что оно короче и привычнее русского аналога 
+    "резервная копия".
 
 В июле купил SSD диск для ноута и решил, что нужно поставить Arch Linux кошерно с нуля. До 
 этого у меня проработала инсталяция около года без переустановки, казусы случались, но их 
@@ -101,7 +106,7 @@ __ http://www.midnight-commander.org/
 две базовые группы пакетов base и base-dev, потому что обе группы обычно ставятся в начале 
 установки нового Arch. В принципе, с pacman это делается несложно::
 
-    $ comm -23 <(pacman -Qeq) <(pacman -Qgq base base-devel|sort) > /backup/pkglist.txt
+    $ comm -23 <(pacman -Qeq) <(pacman -Qgq base base-devel | sort) > /backup/pkglist.txt
 
 Полезность этого списка не только в целях бекапа, но и просто посмотреть пакеты, которые 
 не используются и можно удалить, чтоб система была максимально чистой.
@@ -215,4 +220,3 @@ __ http://fcron.free.fr/doc/en/fcrontab.5.html
 Материалы по теме:
   - https://wiki.archlinux.org/index.php/Backup_Programs
   - https://wiki.archlinux.org/index.php/Full_System_Backup_with_rsync
-  - https://wiki.archlinux.org/index.php/Rsync

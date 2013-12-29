@@ -6,7 +6,6 @@
         "/s"
     ],
     "/draft/": null,
-    "/draft/archlinux-backup/": null,
     "/draft/my-way/": null,
     "/draft/my-way/linux/": null,
     "/naspeh/": [
@@ -14,6 +13,7 @@
         "/naspeh/detail",
         "/naspeh"
     ],
+    "/post/archlinux-backup/": null,
     "/post/django-tests-practical-tips/": null,
     "/post/django-tests-practical-tips/habr/": null,
     "/post/feed.xml": null,
