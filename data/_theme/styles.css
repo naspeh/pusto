@@ -80,10 +80,9 @@ pre {
     color: #777;
 }
 blockquote {
-    margin-left: 10px;
     padding-left: 10px;
     border-left: 3px solid #ccc;
-    color: #777;
+    color: #555;
 }
 
 /* Blocks */
@@ -185,8 +184,19 @@ blockquote {
 }
 .note {
     background-color: #f9f9f9;
-    color: #777;
+    color: #555;
+    padding-left: 20px;
     margin-bottom: 1em;
+}
+.note:before {
+    float: left;
+    margin-left: -20px;
+    vertical-align: super;
+    content: "NB";
+    background-color: #555;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
 }
 .note .admonition-title {
     display: none;
