@@ -31,6 +31,7 @@ class Page(namedtuple('Page', (
     'template params aliases published sort author archive '
     'title summary body html'
 ))):
+    __slots__ = ()
 
     @property
     def parent_url(self):
@@ -70,8 +71,7 @@ def get_urls(src_dir):
 
 def get_pages(src_dir):
     tree = OrderedDict((f[0], (f[1], f[2])) for f in os.walk(src_dir))
-    paths = list(tree.keys())
-    paths.reverse()
+    paths = reversed(list(tree.keys()))
 
     pages = OrderedDict()
     for path in paths:
