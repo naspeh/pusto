@@ -382,7 +382,7 @@ def run(src_dir, build_dir, no_build=False, port=5000):
     if not no_build:
         build(src_dir, build_dir)
 
-    watcher = Thread(target=watch_files, args=(src_dir, build_dir))
+    watcher = Thread(target=watch_files, args=(src_dir,))
     watcher.daemon = True
     watcher.start()
 
@@ -423,7 +423,7 @@ def diff_files(files, old_files):
     return del_, new_, mod_
 
 
-def watch_files(src_dir, build_dir, interval=1):
+def watch_files(src_dir, interval=1):
     old_files = None
     while 1:
         files = list_files(src_dir)
