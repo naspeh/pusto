@@ -313,6 +313,7 @@ def rst(source, source_path=None):
 
 def build(src_dir, build_dir, nginx_file=None):
     '''Build static site from `src_dir`'''
+    start = time.time()
     if os.path.exists(build_dir):
         for path in os.listdir(build_dir):
             path = os.path.join(build_dir, path)
@@ -334,7 +335,7 @@ def build(src_dir, build_dir, nginx_file=None):
     save_rules(urls, nginx_file or os.path.join(build_dir, '.nginx'))
     save_urls(pages, os.path.join(src_dir, 'urls.json'))
     check_xml(pages)
-    print(' * Build successful')
+    print(' * Build successful (during %.3fs)' % (time.time() - start))
     return urls
 
 
@@ -386,9 +387,7 @@ def run(src_dir, build_dir, no_build=False, port=5000):
     watcher.start()
 
     os.chdir(build_dir)
-    http.server.test(
-        port=port, HandlerClass=http.server.SimpleHTTPRequestHandler
-    )
+    http.server.test(http.server.SimpleHTTPRequestHandler, port=port)
 
 
 def list_files(path):
