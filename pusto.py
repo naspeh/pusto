@@ -250,12 +250,16 @@ def get_html(src_dir, ctx):
     return Page(**ctx)
 
 
-def parse_xml(text, base_file):
+def parse_xml(text, base_file, quiet=False):
     try:
         data = re.sub('(?i)<(!DOCTYPE|\?xml).*?[^>]>', '', text)
         root = ET.fromstring('<root>%s</root>' % data)
     except ET.ParseError as e:
-        print(' * WARN. {}: "{}"'.format(base_file, e))
+        if quiet:
+            print(' * WARN. {}: "{}"'.format(base_file, e))
+            root = None
+        else:
+            raise
     return root
 
 
@@ -337,7 +341,7 @@ def build(src_dir, build_dir, nginx_file=None):
 def check_xml(pages):
     for page in pages.values():
         if page.html:
-            parse_xml(page.html, page.index_file)
+            parse_xml(page.html, page.index_file, quiet=True)
 
 
 def save_rules(urls, nginx_file):
