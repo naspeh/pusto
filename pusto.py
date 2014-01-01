@@ -392,48 +392,47 @@ def run(src_dir, build_dir, no_build=False, port=5000):
 
 
 def list_files(path):
-    files = set()
+    ignore = [os.path.join(path, 'urls.json')]
+
+    files = list()
     for dirpath, dirnames, filenames in os.walk(path):
         for filename in filenames:
             filename = os.path.join(dirpath, filename)
-            if filename not in files:
-                files.add(filename)
-    return sorted(files)
+            if filename not in files and filename not in ignore:
+                try:
+                    mtime = os.stat(filename).st_mtime
+                except OSError:
+                    continue
+                files.append([filename, mtime])
+    return OrderedDict(sorted(files, key=lambda v: v[0]))
+
+
+def diff_files(files, old_files):
+    del_, new_, mod_ = [], [], []
+
+    files_ = set(files.keys())
+    old_files_ = set(old_files.keys())
+    if files_ != old_files_:
+        del_ = old_files_ - files_
+        new_ = files_ - old_files_
+
+    for filename, mtime in files.items():
+        if mtime > old_files.get(filename, mtime):
+            mod_ += [filename]
+    return del_, new_, mod_
 
 
 def watch_files(src_dir, build_dir, interval=1):
-    ignore = [os.path.join(src_dir, 'urls.json')]
-    mtimes = {}
     old_files = None
     while 1:
-        changes = []
         files = list_files(src_dir)
         old_files = files if old_files is None else old_files
-        if files != old_files:
-            del_files = set(old_files) - set(files)
-            new_files = set(files) - set(old_files)
-            if del_files or new_files:
-                if del_files:
-                    changes += ['deleted file(s) %s' % ', '.join(del_files)]
-                if new_files:
-                    changes += ['new file(s) %s' % ', '.join(new_files)]
 
-        mod_files = []
-        for filename in files:
-            filename_ = os.path.join(src_dir, filename)
-            if filename_ in ignore:
-                continue
-            try:
-                mtime = os.stat(filename_).st_mtime
-            except OSError:
-                continue
-
-            old_time = mtimes.get(filename)
-            mtimes[filename] = mtime
-            if old_time and mtime > old_time:
-                mod_files += [filename]
-        if mod_files:
-            changes += ['modified file(s) %s' % ', '.join(mod_files)]
+        del_, new_, mod_ = diff_files(files, old_files)
+        changes = []
+        changes += ['deleted file(s) %s' % ', '.join(del_)] if del_ else []
+        changes += ['new file(s) %s' % ', '.join(new_)] if new_ else []
+        changes += ['modified file(s) %s' % ', '.join(mod_)] if mod_ else []
 
         if changes:
             changes = [' * Detected changes, rebuild'] + changes
