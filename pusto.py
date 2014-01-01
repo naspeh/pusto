@@ -397,12 +397,13 @@ def list_files(path):
     for dirpath, dirnames, filenames in os.walk(path):
         for filename in filenames:
             filename = os.path.join(dirpath, filename)
-            if filename not in files and filename not in ignore:
-                try:
-                    mtime = os.stat(filename).st_mtime
-                except OSError:
-                    continue
-                files.append([filename, mtime])
+            if filename in files or filename in ignore:
+                continue
+            try:
+                mtime = os.stat(filename).st_mtime
+            except OSError:
+                continue
+            files.append([filename, mtime])
     return OrderedDict(sorted(files, key=lambda v: v[0]))
 
 
