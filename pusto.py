@@ -5,6 +5,7 @@ import http.client
 import http.server
 import json
 import os
+import pickle
 import re
 import shutil
 import subprocess
@@ -22,6 +23,8 @@ from pytz import timezone, utc
 ROOT_DIR = os.getcwd()
 SRC_DIR = ROOT_DIR + '/data'
 BUILD_DIR = ROOT_DIR + '/build'
+CACHE_FILE = '.last'
+URLS_FILE = 'urls.json'
 META_FILES = ['meta.json']
 INDEX_FILES = ['index.' + t for t in 'py html tpl rst md'.split(' ')]
 
@@ -70,6 +73,36 @@ def get_urls(src_dir):
 
 
 def get_pages(src_dir):
+    cachefile = os.path.join(src_dir, CACHE_FILE)
+    all_files = list_files(src_dir)
+
+    cache = {}
+    if os.path.exists(cachefile):
+        with open(cachefile, 'br') as cf:
+            cache, last_files = pickle.loads(cf.read())
+        del_, new_, mod_ = diff_files(all_files, last_files)
+        changes = del_ + new_ + mod_
+
+        for url in list(cache.keys()):
+            for change in changes:
+                patern = change.replace(src_dir, '').rsplit('/', 1)[0] + '/'
+                url_ = url.rsplit('/', 1)[0]  # remove file in tail
+                if patern.startswith(url_) or url_.startswith(patern):
+                    del cache[url]
+
+    pages = _get_pages(src_dir, cache)
+
+    with open(cachefile, 'bw') as f:
+        cache = dict(
+            (k, v._replace(pages=None)._asdict())
+            for k, v in pages.items()
+        )
+        f.write(pickle.dumps([cache, all_files]))
+
+    return pages
+
+
+def _get_pages(src_dir, cache):
     tree = OrderedDict((f[0], (f[1], f[2])) for f in os.walk(src_dir))
     paths = reversed(list(tree.keys()))
 
@@ -83,7 +116,7 @@ def get_pages(src_dir):
         meta = ([f for f in META_FILES if f in files] or [None])[0]
         index = ([f for f in INDEX_FILES if f in files] or [None])[0]
 
-        page = get_html(src_dir, {
+        page = get_html(src_dir, cache=cache, ctx={
             'pages': pages, 'url': url,
             'index_file': index and url + index,
             'meta_file': meta and url + meta,
@@ -99,7 +132,7 @@ def get_pages(src_dir):
             continue
         path, type_ = path.rsplit('.', 1)
         url = path.replace(src_dir, '')
-        page = get_html(src_dir, {
+        page = get_html(src_dir, cache=cache, ctx={
             'pages': pages, 'url': url,
             'index_file': index_file,
             'meta_file': None,
@@ -196,7 +229,7 @@ def get_jinja(src_dir):
     return get_jinja.cache
 
 
-def get_html(src_dir, ctx):
+def get_html(src_dir, ctx, cache=None):
     meta_file = ctx['meta_file']
     if meta_file:
         with open(src_dir + meta_file, 'br') as f:
@@ -210,6 +243,10 @@ def get_html(src_dir, ctx):
         html = None
         mtime = None
     else:
+        cpage = cache.get(ctx['url'])
+        if cpage:
+            return Page(**dict(cpage, pages=ctx['pages']))
+
         html = None
         template = ctx.get('template') or '_theme/base.tpl'
         index_src = src_dir + index_file
@@ -311,13 +348,16 @@ def rst(source, source_path=None):
     return parts['title'], parts['body']
 
 
-def build(src_dir, build_dir, nginx_file=None):
+def build(src_dir, build_dir, nginx_file=None, with_cache=False):
     '''Build static site from `src_dir`'''
     start = time.time()
     if os.path.exists(build_dir):
+        cachefile = os.path.join(build_dir, CACHE_FILE)
         for path in os.listdir(build_dir):
             path = os.path.join(build_dir, path)
-            if os.path.isdir(path):
+            if with_cache and path == cachefile:
+                continue
+            elif os.path.isdir(path):
                 shutil.rmtree(path)
             else:
                 os.unlink(path)
@@ -333,7 +373,7 @@ def build(src_dir, build_dir, nginx_file=None):
 
     urls, pages = get_urls(build_dir)
     save_rules(urls, nginx_file or os.path.join(build_dir, '.nginx'))
-    save_urls(pages, os.path.join(src_dir, 'urls.json'))
+    save_urls(pages, os.path.join(src_dir, URLS_FILE))
     check_xml(pages)
     print(' * Build successful (during %.3fs)' % (time.time() - start))
     return urls
@@ -391,7 +431,7 @@ def run(src_dir, build_dir, no_build=False, port=5000):
 
 
 def list_files(path):
-    ignore = [os.path.join(path, 'urls.json')]
+    ignore = [os.path.join(path, f) for f in [URLS_FILE, CACHE_FILE]]
 
     files = list()
     for dirpath, dirnames, filenames in os.walk(path):
@@ -414,8 +454,8 @@ def diff_files(files, old_files):
     files_ = set(files.keys())
     old_files_ = set(old_files.keys())
     if files_ != old_files_:
-        del_ = old_files_ - files_
-        new_ = files_ - old_files_
+        del_ = list(old_files_ - files_)
+        new_ = list(files_ - old_files_)
 
     for filename, mtime in files.items():
         if mtime > old_files.get(filename, mtime):
@@ -438,7 +478,7 @@ def watch_files(src_dir, interval=1):
         if changes:
             changes = [' * Detected changes, rebuild'] + changes
             print('\n    '.join(changes))
-            subprocess.call('%s build' % __file__, shell=True, cwd=ROOT_DIR)
+            subprocess.call('%s build -c' % __file__, shell=True, cwd=ROOT_DIR)
 
         old_files = files
         time.sleep(interval)
@@ -457,7 +497,7 @@ def check_urls(host=None, verbose=False):
         server.start()
         time.sleep(1)
 
-    with open(os.path.join(SRC_DIR, 'urls.json'), 'br') as f:
+    with open(os.path.join(SRC_DIR, URLS_FILE), 'br') as f:
         urls = json.loads(f.read().decode())
 
     def get(url, expected_code=200, indent=''):
@@ -519,8 +559,9 @@ def get_parser():
     cmd('build', help='build static content from `data` directory')\
         .arg('-b', '--bdir', default=BUILD_DIR, help='build directory')\
         .arg('-n', '--nginx-file', help='file nginx rules')\
-        .arg('--port', type=int, default=8000)\
-        .exe(lambda a: build(SRC_DIR, a.bdir, a.nginx_file))
+        .arg('-p', '--port', type=int, default=8000)\
+        .arg('-c', '--use-cache', action='store_true')\
+        .exe(lambda a: build(SRC_DIR, a.bdir, a.nginx_file, a.use_cache))
 
     cmd('test_urls', help='test url responses')\
         .arg('-v', '--verbose', action='store_true')\
