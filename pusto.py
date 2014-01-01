@@ -86,7 +86,7 @@ def get_pages(src_dir):
         for url in list(cache.keys()):
             for change in changes:
                 patern = change.replace(src_dir, '').rsplit('/', 1)[0] + '/'
-                url_ = url.rsplit('/', 1)[0]  # remove file in tail
+                url_ = url.rsplit('/', 1)[0]  # remove file in tail if exists
                 if patern.startswith(url_) or url_.startswith(patern):
                     del cache[url]
 
@@ -107,6 +107,7 @@ def _get_pages(src_dir, cache):
     paths = reversed(list(tree.keys()))
 
     pages = OrderedDict()
+    ### Create pages by directories
     for path in paths:
         url = path.replace(src_dir, '') + '/'
         if not os.path.isdir(path) or url.rsplit('/', 2)[1].startswith('_'):
@@ -125,6 +126,7 @@ def _get_pages(src_dir, cache):
         })
         pages[url] = page
 
+    ### Create pages for "url-files"
     for index_file in get_globals('url-files', []):
         path = src_dir + index_file
         if not os.path.exists(path):
@@ -141,6 +143,7 @@ def _get_pages(src_dir, cache):
         })
         pages[url] = page._replace(archive=True)
 
+    ### Generate HTML for pages via jinja2 if template exists
     env = get_jinja(src_dir)
     for page in pages.values():
         if page.template:
