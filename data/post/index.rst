@@ -1,8 +1,8 @@
 Статьи о python, linux, web |RSS|
 ---------------------------------
 
-.. |RSS| image:: rss.png
-    :target: /post/feed.xml
+.. |RSS| image:: ../rss.png
+    :target: feed.xml
 
 **Автор:** Гриша Костюк
 
@@ -10,7 +10,6 @@
     META{
         "template": "_theme/list.tpl",
         "params": {
-            "root": "/post/",
-            "feed": "/post/feed.xml"
+            "feed": "feed.xml"
         }
     }

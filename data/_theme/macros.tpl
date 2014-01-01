@@ -1,14 +1,14 @@
 {% set github="https://github.com/naspeh/pusto/tree/master/data" %}
 
-{% macro show_meta(c, pages, back_url=False) %}
+{% macro show_meta(c, back_url=False) %}
 <ul class="meta">
     {% if back_url %}
-        {% if c.parent_url == '/' %}
+        {% if c.parent.url == '/' %}
         <li><a href="/">Главная</a></li>
-        {% elif c.parent_url == '/post/' %}
-        <li><a href="/">{{ pages['/'].title|striptags }}</a></li>
-        {% elif c.parent_url %}
-        <li><a href="{{ c.parent_url }}">{{ pages[c.parent_url].title|striptags }}</a></li>
+        {% elif c.parent.url == '/post/' %}
+        <li><a href="/">{{ c.parent.title|striptags }}</a></li>
+        {% elif c.parent %}
+        <li><a href="{{ c.parent.url }}">{{ c.parent.title|striptags }}</a></li>
         {% endif %}
     {% endif %}
     {% if c.author %}
@@ -42,7 +42,7 @@
                     {{ child.title|striptags or url }}
                 </a>
             </h1>
-            {{ show_meta(child, pages) }}
+            {{ show_meta(child) }}
         </div>
         {% if child.summary %}
         <div itemprop="description">

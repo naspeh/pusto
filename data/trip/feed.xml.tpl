@@ -1,6 +1,6 @@
 {% extends '_theme/feed.tpl' %}
 
-{% set title=pages['/trip/'].title %}
-{% set children=pages['/trip/'].children %}
+{% set title=p.parent.title %}
+{% set children=p.parent.children %}
 {% set author='naspeh и nayavu' %}
 {% set shorten=True %}

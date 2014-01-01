@@ -4,20 +4,19 @@
 {% block head %}
     {{ super() }}
 
-    {% if params.feed %}
+    {% if p.params and p.params.feed %}
     <link
-        href="{{ params.feed }}" rel="alternate"
-        type="application/atom+xml" title="{{ title | striptags }}"
+        href="{{ p.params.feed }}" rel="alternate"
+        type="application/atom+xml" title="{{ p.title | striptags }}"
     />
     {% endif %}
 {% endblock %}
 
 {% block body %}
 <div class="intro">
-    <h1>{{ title }}</h1>
-    {{ body }}
+    <h1>{{ p.title }}</h1>
+    {{ p.body }}
 </div>
 
-{% if params.root %}{% set children=pages[params.root].children %}{% endif %}
-{{ show_children(children) }}
+{{ show_children(p.children) }}
 {% endblock %}

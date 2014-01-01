@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/_theme/reset.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
-    <title>pusto.org: {% block title %}{{ title|striptags or url }}{% endblock %}</title>
+    <title>pusto.org: {% block title %}{{ p.title|striptags or p.url }}{% endblock %}</title>
 {% endblock %}
 </head>
 
@@ -22,16 +22,16 @@
 {% endblock %}
 {% block body %}
 <div itemscope="itemscope" itemtype="http://schema.org/Article">
-    {% if title %}
+    {% if p.title %}
     <div class="title">
-        <h1 itemprop="name">{{ title }}</h1>
+        <h1 itemprop="name">{{ p.title }}</h1>
         <link itemprop="url" href="{{ url }}" />
-        {{ show_meta(page, pages, back_url=True)}}
+        {{ show_meta(p, back_url=True)}}
     </div>
     {% endif %}
     <div class="document">
         {% block document %}
-        {{ body }}
+        {{ p.body }}
         {% endblock%}
     </div>
 </div>

@@ -18,16 +18,37 @@ from xml.etree import ElementTree as ET
 from jinja2 import Environment, FileSystemLoader
 from pytz import timezone, utc
 
-Page = namedtuple('Page', (
-    'url children parent_url template params index_file meta_file type path '
-    'mtime aliases published author archive sort title summary body html'
-))
 
 ROOT_DIR = os.getcwd()
 SRC_DIR = ROOT_DIR + '/data'
 BUILD_DIR = ROOT_DIR + '/build'
 META_FILES = ['meta.json']
 INDEX_FILES = ['index.' + t for t in 'py html tpl rst md'.split(' ')]
+
+
+class Page(namedtuple('Page', (
+    'pages url path type index_file meta_file mtime '
+    'template params aliases published sort author archive '
+    'title summary body html'
+))):
+
+    @property
+    def parent_url(self):
+        return self.url.rstrip('/').rsplit('/', 1)[0] + '/'
+
+    @property
+    def parent(self):
+        return self.pages[self.parent_url]
+
+    @property
+    def children(self):
+        children = []
+        for page in self.pages.values():
+            if page.archive or page.parent_url != self.url:
+                continue
+            children += [(page.url, fix_urls(page, get_globals('host')))]
+        children.sort(key=lambda v: v[1].sort, reverse=True)
+        return OrderedDict(children)
 
 
 def get_urls(src_dir):
@@ -52,7 +73,6 @@ def get_pages(src_dir):
     paths = list(tree.keys())
     paths.reverse()
 
-    host = get_globals('host')
     pages = OrderedDict()
     for path in paths:
         url = path.replace(src_dir, '') + '/'
@@ -63,17 +83,8 @@ def get_pages(src_dir):
         meta = ([f for f in META_FILES if f in files] or [None])[0]
         index = ([f for f in INDEX_FILES if f in files] or [None])[0]
 
-        children = []
-        for url_, page_ in pages.items():
-            if url_.rsplit('/', 2)[0] + '/' != url or page_.archive:
-                continue
-            page_ = page_._replace(parent_url=url)
-            pages[url_] = page_
-            children += [(url_, fix_urls(page_, host))]
-        children.sort(key=lambda v: v[1].sort, reverse=True)
-        children = OrderedDict(children)
         page = get_html(src_dir, {
-            'url': url, 'children': children, 'parent_url': None,
+            'pages': pages, 'url': url,
             'index_file': index and url + index,
             'meta_file': meta and url + meta,
             'type': index and index.rsplit('.', 1)[1],
@@ -81,7 +92,7 @@ def get_pages(src_dir):
         })
         pages[url] = page
 
-    for index_file in get_globals('url-files'):
+    for index_file in get_globals('url-files', []):
         path = src_dir + index_file
         if not os.path.exists(path):
             print(' * WARN. File not exists - {}'.format(path))
@@ -89,19 +100,19 @@ def get_pages(src_dir):
         path, type_ = path.rsplit('.', 1)
         url = path.replace(src_dir, '')
         page = get_html(src_dir, {
-            'url': url, 'children': {}, 'parent_url': None,
+            'pages': pages, 'url': url,
             'index_file': index_file,
             'meta_file': None,
             'type': type_,
             'path': path,
         })
-        pages[url] = page
+        pages[url] = page._replace(archive=True)
 
     env = get_jinja(src_dir)
     for page in pages.values():
         if page.template:
             tpl = env.get_template(page.template)
-            html = tpl.render(page._asdict(), page=page, pages=pages)
+            html = tpl.render(p=page)
             with open(page.path, 'bw') as f:
                 f.write(html.encode())
             pages[page.url] = page._replace(html=html)
@@ -135,7 +146,7 @@ def bind_meta(ctx, data, method=None):
         meta['published'] = published
 
     keys = (
-        'published author aliases archive template params sort '
+        'published sort author aliases archive template params '
         'summary title body'
         .split(' ')
     )
@@ -148,7 +159,7 @@ def bind_meta(ctx, data, method=None):
         ctx['sort'] = published and published.isoformat()
 
 
-def get_globals(key=None):
+def get_globals(key=None, default=None):
     if not hasattr(get_globals, 'cache'):
         meta = {}
         meta_file = os.path.join(SRC_DIR, META_FILES[0])
@@ -165,7 +176,7 @@ def get_globals(key=None):
 
         get_globals.cache = meta
     if key is not None:
-        return get_globals.cache.get(key)
+        return get_globals.cache.get(key, default)
     return get_globals.cache
 
 
