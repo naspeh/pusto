@@ -56,7 +56,7 @@ class Page(namedtuple('Page', (
 
 
 def get_urls(src_dir):
-    pages = get_pages(src_dir)
+    pages = get_cached_pages(src_dir)
 
     urls = []
     for url, page in pages.items():
@@ -72,7 +72,7 @@ def get_urls(src_dir):
     return urls, pages
 
 
-def get_pages(src_dir):
+def get_cached_pages(src_dir):
     cachefile = os.path.join(src_dir, CACHE_FILE)
     all_files = list_files(src_dir)
 
@@ -89,7 +89,7 @@ def get_pages(src_dir):
                 if patern.startswith(url_) or url_.startswith(patern):
                     del cache[url]
 
-    pages = _get_pages(src_dir, cache)
+    pages = get_pages(src_dir, cache)
 
     with open(cachefile, 'bw') as f:
         cache = dict(
@@ -101,7 +101,9 @@ def get_pages(src_dir):
     return pages
 
 
-def _get_pages(src_dir, cache):
+def get_pages(src_dir, cache=None):
+    cache = cache or {}
+
     tree = OrderedDict((f[0], (f[1], f[2])) for f in os.walk(src_dir))
     paths = reversed(list(tree.keys()))
 
