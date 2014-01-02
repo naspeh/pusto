@@ -4,7 +4,7 @@
 {% block head %}
     {{ super() }}
 
-    {% if p.params and p.params.feed %}
+    {% if p.params.feed %}
     <link
         href="{{ p.params.feed }}" rel="alternate"
         type="application/atom+xml" title="{{ p.title | striptags }}"

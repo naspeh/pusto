@@ -3,9 +3,7 @@
 {% macro show_meta(c, back_url=False) %}
 <ul class="meta">
     {% if back_url %}
-        {% if c.parent.url == '/' %}
-        <li><a href="/">Главная</a></li>
-        {% elif c.parent.url == '/post/' %}
+        {% if c.parent.url == '/post/' %}
         <li><a href="/">{{ c.parent.title|striptags }}</a></li>
         {% elif c.parent %}
         <li><a href="{{ c.parent.url }}">{{ c.parent.title|striptags }}</a></li>

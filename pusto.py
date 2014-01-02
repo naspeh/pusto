@@ -65,11 +65,11 @@ def get_urls(src_dir):
 
     urls = []
     for url, page in pages.items():
-        if page.html:
+        if page.index_file:
             urls += [(url, page, False)]
             aliases = page.aliases or []
             aliases += [
-                a.rstrip('/') for a in (aliases + [url])
+                a.rstrip('/') for a in aliases
                 if a.rstrip('/') and a.rstrip('/') != a
             ]
             aliases = set(aliases)
@@ -132,7 +132,7 @@ def get_pages(src_dir, cache=None):
         })
         pages[url] = page
 
-    ### Create pages for "url-files"
+    ### Create pages for global "url-files"
     for index_file in get_globals('url-files', []):
         path = src_dir + index_file
         if not os.path.exists(path):
@@ -149,15 +149,20 @@ def get_pages(src_dir, cache=None):
         })
         pages[url] = page._replace(archive=True)
 
-    ### Generate HTML for pages via jinja2 if template exists
+    ### Save HTML to index_file
     env = get_jinja(src_dir)
     for page in pages.values():
-        if page.index_file and not page.html:
+        if not page.index_file:
+            continue
+
+        html = page.html
+        if not html:
             tpl = env.get_template(page.template)
             html = tpl.render(p=page)
-            with open(page.path, 'bw') as f:
-                f.write(html.encode())
-            pages[page.url] = page._replace(html=html)
+
+        with open(page.path, 'bw') as f:
+            f.write(html.encode())
+
     return pages
 
 

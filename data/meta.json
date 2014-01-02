@@ -11,5 +11,6 @@
             "/trip/feed.xml.tpl",
             "/sitemap.xml.tpl"
         ]
-    }
+    },
+    "title": "Главная"
 }
