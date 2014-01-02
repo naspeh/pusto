@@ -7,11 +7,6 @@ Python. Подкоманды и argparse
   - любимый метод
   - выводы
 
-..
-    META{
-        "published": "27.10.2013"
-    }
-
 Поговорим об улучшении использования argparse__ и подкоманд в повседневной жизни.
 
 __ http://docs.python.org/2.7/library/argparse.html

@@ -3,17 +3,6 @@
 
 Уникальный ник
 --------------
-..
-    META{
-        "published": "27.12.2010",
-        "aliases": [
-            "/naspeh/unikalnyy-nik/",
-            "/post/unikalniy-nick/",
-            "/unikalniy-nick/"
-        ],
-        "archive": true
-    }
-
 **Или почему naspeh**
 
 **Ник** - каким хочется его видеть?

@@ -5,11 +5,3 @@
     :target: feed.xml
 
 **Авторы:** Гриша и Катя Костюк (naspeh и nayavu соответственно)
-
-..
-    META{
-        "template": "_theme/trips.tpl",
-        "params": {
-            "feed": "feed.xml"
-        }
-    }

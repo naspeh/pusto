@@ -11,8 +11,3 @@
 
 Live:
   - Москва, гипер-город.
-
-..
-    META{
-        "template": "_theme/list.tpl"
-    }

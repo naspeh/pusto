@@ -4,6 +4,9 @@
         "/event-84-karpatyi-kosovskij-rajon",
         "/report-85/for/event-84-karpatyi-kosovskij-rajon"
     ],
+    "author": [
+        "nayavu"
+    ],
     "extra": {
         "albums": [
             "http://picasaweb.google.com/naspeh/20090426_Karpaty_Kosovskiy_rayon"
@@ -31,8 +34,7 @@
             }
         ]
     },
-    "published": "16.08.2010",
-    "author": ["nayavu"],
+    "published": "2010-08-16 08:00",
     "sort": 20090426,
     "template": "_theme/trip.tpl"
 }

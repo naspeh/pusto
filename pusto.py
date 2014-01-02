@@ -25,16 +25,21 @@ SRC_DIR = ROOT_DIR + '/data'
 BUILD_DIR = ROOT_DIR + '/build'
 CACHE_FILE = '.last'
 URLS_FILE = 'urls.json'
-META_FILES = ['meta.json']
+META_FILE = 'meta.json'
 INDEX_FILES = ['index.' + t for t in 'py html tpl rst md'.split(' ')]
 
+_Page = namedtuple('Page', (
+    # meta fields
+    'template params aliases published sort archive author title '
 
-class Page(namedtuple('Page', (
-    'pages url path type index_file meta_file mtime '
-    'template params aliases published sort author archive '
-    'title summary body html'
-))):
+    # other fields
+    'pages url path type index_file meta_file mtime summary body html'
+))
+
+
+class Page(_Page):
     __slots__ = ()
+    meta_fields = _Page._fields[:8]
 
     @property
     def parent_url(self):
@@ -115,7 +120,7 @@ def get_pages(src_dir, cache=None):
             continue
 
         files = tree[path][1]
-        meta = ([f for f in META_FILES if f in files] or [None])[0]
+        meta = META_FILE if META_FILE in files else None
         index = ([f for f in INDEX_FILES if f in files] or [None])[0]
 
         page = get_html(src_dir, cache=cache, ctx={
@@ -147,7 +152,7 @@ def get_pages(src_dir, cache=None):
     ### Generate HTML for pages via jinja2 if template exists
     env = get_jinja(src_dir)
     for page in pages.values():
-        if page.template:
+        if page.index_file and not page.html:
             tpl = env.get_template(page.template)
             html = tpl.render(p=page)
             with open(page.path, 'bw') as f:
@@ -156,50 +161,33 @@ def get_pages(src_dir, cache=None):
     return pages
 
 
-def bind_meta(ctx, data, method=None):
-    meta = data
-    if method == 'html':
-        meta = re.search('(?s)<!--\s*META(\s*\{.*})\s*-->', data)
-        if meta:
-            meta = meta.group(1)
-            meta = json.loads(meta)
-        else:
-            meta = {}
+def get_summary(data):
+    summary = re.search('(?s)^(.*?)<!--\s*MORE\s*-->', data)
+    if summary:
+        summary = summary.group(1)
+    return summary or None
 
-        summary = re.search('(?s)^(.*?)<!--\s*MORE\s*-->', data)
-        if summary:
-            summary = summary.group(1)
-            summary = re.sub('(?s)<!--.*?-->', '', summary)
-            meta['summary'] = summary
 
-    elif method == 'json':
-        meta = json.loads(meta)
-
-    published = ''
-    if 'published' in meta:
-        published = dt.datetime.strptime(meta['published'], '%d.%m.%Y')
-        published = published.replace(hour=8)
-        published = get_globals('tz').localize(published)
-        meta['published'] = published
-
-    keys = (
-        'published sort author aliases archive template params '
-        'summary title body'
-        .split(' ')
-    )
-    for key in keys:
-        ctx.setdefault(key, None)
+def bind_meta(ctx, meta):
+    for key in Page.meta_fields:
         if key in meta:
             ctx[key] = meta[key]
 
-    if not ctx['sort'] and 'sort' not in meta:
+    published = ''
+    if 'published' in meta:
+        published = dt.datetime.strptime(meta['published'], '%Y-%m-%d %H:%M')
+        published = published.replace(hour=8)
+        published = get_globals('tz').localize(published)
+        ctx['published'] = published
+
+    if 'sort' not in meta:
         ctx['sort'] = published and published.isoformat()
 
 
 def get_globals(key=None, default=None):
     if not hasattr(get_globals, 'cache'):
         meta = {}
-        meta_file = os.path.join(SRC_DIR, META_FILES[0])
+        meta_file = os.path.join(SRC_DIR, META_FILE)
         if os.path.exists(meta_file):
             with open(meta_file, 'br') as f:
                 meta = json.loads(f.read().decode())
@@ -234,27 +222,24 @@ def get_jinja(src_dir):
 
 
 def get_html(src_dir, ctx, cache=None):
+    defaults = {'sort': '', 'params': {}, 'template': '_theme/base.tpl'}
+    for key in Page._fields:
+        ctx.setdefault(key, defaults.get(key))
+
     meta_file = ctx['meta_file']
     if meta_file:
         with open(src_dir + meta_file, 'br') as f:
-            meta = f.read().decode()
-        bind_meta(ctx, meta, method='json')
-    else:
-        bind_meta(ctx, {})
+            meta = json.loads(f.read().decode())
+        bind_meta(ctx, meta)
 
     index_file = ctx['index_file']
-    if not index_file:
-        html = None
-        mtime = None
-    else:
+    if index_file:
         cpage = cache.get(ctx['url'])
         if cpage:
             return Page(**dict(cpage, pages=ctx['pages']))
 
-        html = None
-        template = ctx.get('template') or '_theme/base.tpl'
         index_src = src_dir + index_file
-        mtime = dt.datetime.fromtimestamp(os.stat(index_src).st_mtime)
+        ctx['mtime'] = dt.datetime.fromtimestamp(os.stat(index_src).st_mtime)
         with open(index_src, 'br') as f:
             text = f.read().decode()
 
@@ -265,29 +250,25 @@ def get_html(src_dir, ctx, cache=None):
                 shell=True
             )
             with open(ctx['path'], 'br') as f:
-                html = f.read().decode()
-            bind_meta(ctx, html, method='html')
+                text = f.read().decode()
+            ctx.update(html=text, summary=get_summary(text))
 
         elif ctx['type'] == 'html':
-            html = text
-            bind_meta(ctx, html, method='html')
+            ctx.update(html=text, summary=get_summary(text))
 
         elif ctx['type'] == 'tpl':
             ctx.update(template=index_file)
 
         elif ctx['type'] == 'md':
             body = markdown(text)
-            bind_meta(ctx, body, method='html')
-            ctx.update(body=body, template=ctx.get('template') or template)
+            ctx.update(body=body, summary=get_summary(body))
 
         elif ctx['type'] == 'rst':
             title, body = rst(text, source_path=index_src)
-            bind_meta(ctx, body, method='html')
             if title:
                 ctx['title'] = title
-            ctx.update(body=body, template=ctx.get('template') or template)
+            ctx.update(body=body, summary=get_summary(body))
 
-    ctx.update(html=html, mtime=mtime)
     return Page(**ctx)
 
 

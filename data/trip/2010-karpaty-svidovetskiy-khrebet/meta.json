@@ -4,6 +4,9 @@
         "/event-98-karpatyi-svidovetskij-hrebet",
         "/report-99/for/event-98-karpatyi-svidovetskij-hrebet"
     ],
+    "author": [
+        "nayavu"
+    ],
     "extra": {
         "albums": [
             "http://picasaweb.google.com/naspeh/20100818_Karpaty_Svidovetskiy_hrebet",
@@ -32,8 +35,7 @@
             }
         ]
     },
-    "published": "19.09.2010",
-    "author": ["nayavu"],
+    "published": "2010-09-19 08:00",
     "sort": 20100818,
     "template": "_theme/trip.tpl"
 }

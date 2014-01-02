@@ -5,11 +5,3 @@
     :target: feed.xml
 
 **Автор:** Гриша Костюк
-
-..
-    META{
-        "template": "_theme/list.tpl",
-        "params": {
-            "feed": "feed.xml"
-        }
-    }

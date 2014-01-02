@@ -4,6 +4,9 @@
         "/event-107-kryim-yalta-bahchisaraj",
         "/report-108/for/event-107-kryim-yalta-bahchisaraj"
     ],
+    "author": [
+        "nayavu"
+    ],
     "extra": {
         "albums": [
             "http://picasaweb.google.com/naspeh/20101009_Krym_Yalta_Bahchisaray"
@@ -31,8 +34,7 @@
             }
         ]
     },
-    "published": "20.10.2010",
-    "author": ["nayavu"],
+    "published": "2010-10-20 08:00",
     "sort": 20101002,
     "template": "_theme/trip.tpl"
 }

@@ -4,6 +4,9 @@
         "/event-144-karpatyi-spravzhnya-kazka",
         "/report-145/for/event-144-karpatyi-spravzhnya-kazka"
     ],
+    "author": [
+        "nayavu"
+    ],
     "extra": {
         "albums": [
             "https://picasaweb.google.com/115954385615646692819/20121016_Karpaty_Spravzhnya_Kazka"
@@ -31,8 +34,7 @@
             }
         ]
     },
-    "published": "06.11.2012",
-    "author": ["nayavu"],
+    "published": "2012-11-06 08:00",
     "sort": 20121016,
     "template": "_theme/trip.tpl"
 }

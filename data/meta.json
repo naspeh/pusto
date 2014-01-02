@@ -1,4 +1,8 @@
 {
+    "aliases": [
+        "/post/",
+        "/s/"
+    ],
     "globals": {
         "host": "http://pusto.org",
         "timezone": "Europe/Kiev",
@@ -7,6 +11,5 @@
             "/trip/feed.xml.tpl",
             "/sitemap.xml.tpl"
         ]
-    },
-    "aliases": ["/post/", "/s/"]
+    }
 }

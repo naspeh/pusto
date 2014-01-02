@@ -5,6 +5,10 @@
         "/report-67/for/event-63-karpatyi-chernogorskij-hrebet",
         "/trip/2006-karpaty-chernogorskiy-khrebet/detail"
     ],
+    "author": [
+        "naspeh",
+        "nayavu"
+    ],
     "extra": {
         "albums": [
             "http://picasaweb.google.com/naspeh/20060716_Karpaty_Chernogorskiy_hrebet"
@@ -42,8 +46,7 @@
             }
         ]
     },
-    "published": "04.12.2009",
-    "author": ["naspeh", "nayavu"],
+    "published": "2009-12-04 08:00",
     "sort": 20060716,
     "template": "_theme/trip.tpl"
 }

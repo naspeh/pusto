@@ -1,15 +1,3 @@
-<!--
-META{
-    "title": "Автозагрузка классов в приложениях на Zend Framework",
-    "published": "25.09.2008",
-    "archive": true,
-    "aliases": [
-        "/post/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/",
-        "/blog/2008/09/25/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/"
-    ]
-}
--->
-
 **Статья была написана во времена Zend Framework 1.6.0**
 
 Статья связана с [Zend Framework](http://framework.zend.com) (далее **ZF**). Но так же она будет полезна, если вы используете похожие с ZF [соглашения по именованию классов](http://framework.zend.com/manual/ru/coding-standard.naming-conventions.html).

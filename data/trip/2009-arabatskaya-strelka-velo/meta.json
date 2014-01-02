@@ -4,6 +4,9 @@
         "/event-39-novoalekseevka-sudak-cherez-arabatskuyu-strelku",
         "/report-47/for/event-39-novoalekseevka-sudak-cherez-arabatskuyu-strelku"
     ],
+    "author": [
+        "naspeh"
+    ],
     "extra": {
         "albums": [
             "http://picasaweb.google.com/naspeh/20090404_Arabatka"
@@ -31,8 +34,7 @@
             }
         ]
     },
-    "published": "23.11.2009",
-    "author": ["naspeh"],
+    "published": "2009-11-23 08:00",
     "sort": 20090404,
     "template": "_theme/trip.tpl"
 }

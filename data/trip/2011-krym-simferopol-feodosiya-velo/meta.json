@@ -4,6 +4,9 @@
         "/event-121-kryim-velopohod-simferopol-feodosiya",
         "/report-122/for/event-121-kryim-velopohod-simferopol-feodosiya"
     ],
+    "author": [
+        "nayavu"
+    ],
     "extra": {
         "albums": [
             "https://picasaweb.google.com/naspeh/20110513_Krym_Yugo_vostochniy_Velo"
@@ -31,8 +34,7 @@
             }
         ]
     },
-    "published": "17.07.2011",
-    "author": ["nayavu"],
+    "published": "2011-07-17 08:00",
     "sort": 20110513,
     "template": "_theme/trip.tpl"
 }

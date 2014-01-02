@@ -1,10 +1,5 @@
 Гриша aka `naspeh </post/unique-nick/>`_
 ------------------------------------------
-..
-    META{
-        "aliases": ["/naspeh/detail/"]
-    }
-
 .. image:: _img/ava200.jpg
   :align: right
 

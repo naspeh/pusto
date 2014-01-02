@@ -4,6 +4,9 @@
         "/event-51-kryim-tarhankut-olenevka-trejleryi",
         "/report-52/for/event-51-kryim-tarhankut-olenevka-trejleryi"
     ],
+    "author": [
+        "naspeh"
+    ],
     "extra": {
         "albums": [
             "http://picasaweb.google.com/naspeh/20090818_Krym_Tarhankut_Treyler"
@@ -31,8 +34,7 @@
             }
         ]
     },
-    "published": "24.11.2009",
-    "author": ["naspeh"],
+    "published": "2009-11-24 08:00",
     "sort": 20090818,
     "template": "_theme/trip.tpl"
 }
