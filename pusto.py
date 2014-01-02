@@ -23,10 +23,10 @@ from pytz import timezone, utc
 ROOT_DIR = os.getcwd()
 SRC_DIR = ROOT_DIR + '/data'
 BUILD_DIR = ROOT_DIR + '/build'
-CACHE_FILE = '.last'
+CACHE_FILE = '.cache'
 URLS_FILE = 'urls.json'
 META_FILE = 'meta.json'
-INDEX_FILES = ['index.' + t for t in 'py html tpl rst md'.split(' ')]
+INDEX_FILES = ['index.' + t for t in 'py tpl rst md html'.split(' ')]
 
 _Page = namedtuple('Page', (
     # meta fields
@@ -60,37 +60,8 @@ class Page(_Page):
         return OrderedDict(children)
 
 
-def get_cached_pages(src_dir):
-    cachefile = os.path.join(src_dir, CACHE_FILE)
-    all_files = list_files(src_dir)
-
-    cache = {}
-    if os.path.exists(cachefile):
-        with open(cachefile, 'br') as cf:
-            cache, last_files = pickle.loads(cf.read())
-        changes = sum(diff_files(all_files, last_files), [])
-
-        for url in list(cache.keys()):
-            for change in changes:
-                patern = change.replace(src_dir, '').rsplit('/', 1)[0] + '/'
-                url_ = url.rsplit('/', 1)[0]  # remove file in tail if exists
-                if patern.startswith(url_) or url_.startswith(patern):
-                    del cache[url]
-
-    pages = get_pages(src_dir, cache)
-
-    with open(cachefile, 'bw') as f:
-        cache = dict(
-            (k, v._replace(pages=None)._asdict())
-            for k, v in pages.items()
-        )
-        f.write(pickle.dumps([cache, all_files]))
-
-    return pages
-
-
-def get_pages(src_dir, cache=None):
-    cache = cache or {}
+def get_pages(src_dir, use_cache=False):
+    get_html_ = use_cache and get_cached_html or get_html
 
     tree = OrderedDict((f[0], (f[1], f[2])) for f in os.walk(src_dir))
     paths = reversed(list(tree.keys()))
@@ -106,7 +77,7 @@ def get_pages(src_dir, cache=None):
         meta = META_FILE if META_FILE in files else None
         index = ([f for f in INDEX_FILES if f in files] or [None])[0]
 
-        page = get_html(src_dir, cache=cache, ctx={
+        page = get_html_(src_dir, {
             'pages': pages, 'url': url,
             'index_file': index and url + index,
             'meta_file': meta and url + meta,
@@ -123,7 +94,7 @@ def get_pages(src_dir, cache=None):
             continue
         path, type_ = path.rsplit('.', 1)
         url = path.replace(src_dir, '')
-        page = get_html(src_dir, cache=cache, ctx={
+        page = get_html_(src_dir, {
             'pages': pages, 'url': url,
             'index_file': index_file,
             'meta_file': None,
@@ -209,7 +180,20 @@ def get_jinja(src_dir):
     return get_jinja.cache
 
 
-def get_html(src_dir, ctx, cache=None):
+def get_cached_html(src_dir, ctx):
+    cache_file = src_dir + (ctx['index_file'] or ctx['url']) + CACHE_FILE
+    if os.path.exists(cache_file):
+        with open(cache_file, 'br') as f:
+            page = pickle.loads(f.read())
+            return Page(**dict(page, pages=ctx['pages']))
+    else:
+        page = get_html(src_dir, ctx)
+        with open(cache_file, 'bw') as f:
+            f.write(pickle.dumps(dict(page._asdict(), pages=None)))
+    return page
+
+
+def get_html(src_dir, ctx):
     defaults = {'sort': '', 'params': {}}
     for key in Page._fields:
         ctx.setdefault(key, defaults.get(key))
@@ -222,10 +206,6 @@ def get_html(src_dir, ctx, cache=None):
 
     index_file = ctx['index_file']
     if index_file:
-        cpage = cache.get(ctx['url'])
-        if cpage and ctx['type'] != 'py':
-            return Page(**dict(cpage, pages=ctx['pages']))
-
         index_src = src_dir + index_file
         ctx['mtime'] = dt.datetime.fromtimestamp(os.stat(index_src).st_mtime)
         with open(index_src, 'br') as f:
@@ -325,30 +305,62 @@ def rst(source, source_path=None):
     return parts['title'], parts['body']
 
 
-def build(src_dir, build_dir, nginx_file=None, with_cache=False):
+def clean_dir(dest_dir, skip_dir=False):
+    for path in os.listdir(dest_dir):
+        path = os.path.join(dest_dir, path)
+        if os.path.isdir(path):
+            if not skip_dir:
+                shutil.rmtree(path)
+        else:
+            os.unlink(path)
+
+
+def copy_dir(src_dir, dest_dir):
+    for path in os.listdir(src_dir):
+        src_path = os.path.join(src_dir, path)
+        dest_path = os.path.join(dest_dir, path)
+        if os.path.isdir(src_path):
+            if not os.path.exists(dest_path):
+                shutil.copytree(src_path, dest_path)
+        else:
+            shutil.copy2(src_path, dest_path)
+
+
+def build(src_dir, build_dir, nginx_file=None, use_cache=False):
     '''Build static site from `src_dir`'''
     start = time.time()
-    if os.path.exists(build_dir):
-        cachefile = os.path.join(build_dir, CACHE_FILE)
-        for path in os.listdir(build_dir):
-            path = os.path.join(build_dir, path)
-            if with_cache and path == cachefile:
-                continue
-            elif os.path.isdir(path):
-                shutil.rmtree(path)
-            else:
-                os.unlink(path)
-        for path in os.listdir(src_dir):
-            src_path = os.path.join(src_dir, path)
-            build_path = os.path.join(build_dir, path)
-            if os.path.isdir(src_path):
-                shutil.copytree(src_path, build_path)
-            else:
-                shutil.copy2(src_path, build_path)
-    else:
-        shutil.copytree(src_dir, build_dir)
 
-    pages = get_cached_pages(build_dir)
+    if not os.path.exists(build_dir):
+        os.mkdir(build_dir)
+
+    if use_cache:
+        all_files = list_files(src_dir)
+        cache_file = os.path.join(build_dir, CACHE_FILE)
+        if os.path.exists(cache_file):
+            with open(cache_file, 'br') as f:
+                last_files = pickle.loads(f.read())
+            del_, new_, mod_, changes = diff_files(all_files, last_files)
+            if changes:
+                print('\n -- '.join([' * Detected changes'] + changes))
+
+                _dir = lambda f: f.replace(src_dir, '').rsplit('/', 1)[0] + '/'
+                for file in set(del_ + mod_):
+                    path = build_dir + _dir(file)
+                    clean_dir(path, skip_dir=True)
+
+                for file in set(new_ + mod_):
+                    paths = [d + _dir(file) for d in [src_dir, build_dir]]
+                    copy_dir(*paths)
+            else:
+                print(' * No changes')
+
+        with open(cache_file, 'bw') as f:
+            f.write(pickle.dumps(all_files))
+    else:
+        clean_dir(build_dir)
+        copy_dir(src_dir, build_dir)
+
+    pages = get_pages(build_dir, use_cache)
     save_rules(pages, nginx_file or os.path.join(build_dir, '.nginx'))
     save_urls(pages, os.path.join(src_dir, URLS_FILE))
     check_xml(pages)
@@ -408,7 +420,7 @@ def save_urls(pages, filename):
 
 def run(src_dir, build_dir, no_build=False, port=5000):
     if not no_build:
-        build(src_dir, build_dir)
+        build(src_dir, build_dir, use_cache=True)
 
     watcher = Thread(target=watch_files, args=(src_dir,))
     watcher.daemon = True
@@ -448,7 +460,12 @@ def diff_files(files, old_files):
     for filename, mtime in files.items():
         if mtime > old_files.get(filename, mtime):
             mod_ += [filename]
-    return del_, new_, mod_
+
+    changes = []
+    changes += ['deleted file(s) %s' % ', '.join(del_)] if del_ else []
+    changes += ['new file(s) %s' % ', '.join(new_)] if new_ else []
+    changes += ['modified file(s) %s' % ', '.join(mod_)] if mod_ else []
+    return del_, new_, mod_, changes
 
 
 def watch_files(src_dir, interval=1):
@@ -457,15 +474,9 @@ def watch_files(src_dir, interval=1):
         files = list_files(src_dir)
         old_files = files if old_files is None else old_files
 
-        del_, new_, mod_ = diff_files(files, old_files)
-        changes = []
-        changes += ['deleted file(s) %s' % ', '.join(del_)] if del_ else []
-        changes += ['new file(s) %s' % ', '.join(new_)] if new_ else []
-        changes += ['modified file(s) %s' % ', '.join(mod_)] if mod_ else []
-
+        changes = diff_files(files, old_files)[-1]
         if changes:
-            changes = [' * Detected changes, rebuild'] + changes
-            print('\n    '.join(changes))
+            print(' * Rebuild...')
             subprocess.call('%s build -c' % __file__, shell=True, cwd=ROOT_DIR)
 
         old_files = files
