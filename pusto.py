@@ -80,8 +80,7 @@ def get_pages(src_dir):
     if os.path.exists(cachefile):
         with open(cachefile, 'br') as cf:
             cache, last_files = pickle.loads(cf.read())
-        del_, new_, mod_ = diff_files(all_files, last_files)
-        changes = del_ + new_ + mod_
+        changes = sum(diff_files(all_files, last_files), [])
 
         for url in list(cache.keys()):
             for change in changes:
