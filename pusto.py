@@ -65,7 +65,7 @@ def get_urls(src_dir):
 
     urls = []
     for url, page in pages.items():
-        if page.index_file:
+        if page.html:
             urls += [(url, page, False)]
             aliases = page.aliases or []
             aliases += [
@@ -155,13 +155,13 @@ def get_pages(src_dir, cache=None):
         if not page.index_file:
             continue
 
-        html = page.html
-        if not html:
+        if page.template:
             tpl = env.get_template(page.template)
-            html = tpl.render(p=page)
+            page = page._replace(html=tpl.render(p=page))
+            pages[page.url] = page
 
         with open(page.path, 'bw') as f:
-            f.write(html.encode())
+            f.write(page.html.encode())
 
     return pages
 
@@ -227,7 +227,7 @@ def get_jinja(src_dir):
 
 
 def get_html(src_dir, ctx, cache=None):
-    defaults = {'sort': '', 'params': {}, 'template': '_theme/base.tpl'}
+    defaults = {'sort': '', 'params': {}}
     for key in Page._fields:
         ctx.setdefault(key, defaults.get(key))
 
@@ -240,7 +240,7 @@ def get_html(src_dir, ctx, cache=None):
     index_file = ctx['index_file']
     if index_file:
         cpage = cache.get(ctx['url'])
-        if cpage:
+        if cpage and ctx['type'] != 'py':
             return Page(**dict(cpage, pages=ctx['pages']))
 
         index_src = src_dir + index_file
@@ -273,6 +273,10 @@ def get_html(src_dir, ctx, cache=None):
             if title:
                 ctx['title'] = title
             ctx.update(body=body, summary=get_summary(body))
+
+        # Need template render
+        if ctx['type'] in ['rst', 'md']:
+            ctx['template'] = ctx.get('template') or '_theme/base.tpl'
 
     return Page(**ctx)
 
@@ -392,7 +396,7 @@ def save_urls(pages, filename):
     urlmap = dict(
         [url, page.aliases]
         for url, page in pages.items()
-        if page.index_file
+        if page.html
     )
     urlmap = json.dumps(
         urlmap, sort_keys=True, indent=4, separators=(',', ': ')
