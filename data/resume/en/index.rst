@@ -5,10 +5,8 @@ Grisha Kostyuk, python developer
 
 | email: **naspeh(at)gmail.com**
 | `My code on github.`__
-| `Profile in LinkedIn.`__
 
 __ https://github.com/naspeh/
-__ http://www.linkedin.com/in/naspeh
 
 I'm a passionate web developer based in Dnepropetrovsk, Ukraine. I like minimalism and 
 simplicity. My favorite principles KISS__ and DRY__. I love python and his Zen__. I work 
