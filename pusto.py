@@ -60,23 +60,6 @@ class Page(_Page):
         return OrderedDict(children)
 
 
-def get_urls(src_dir):
-    pages = get_cached_pages(src_dir)
-
-    urls = []
-    for url, page in pages.items():
-        if page.html:
-            urls += [(url, page, False)]
-            aliases = page.aliases or []
-            aliases += [
-                a.rstrip('/') for a in aliases
-                if a.rstrip('/') and a.rstrip('/') != a
-            ]
-            aliases = set(aliases)
-            urls += [(a, page, True) for a in aliases]
-    return urls, pages
-
-
 def get_cached_pages(src_dir):
     cachefile = os.path.join(src_dir, CACHE_FILE)
     all_files = list_files(src_dir)
@@ -365,12 +348,11 @@ def build(src_dir, build_dir, nginx_file=None, with_cache=False):
     else:
         shutil.copytree(src_dir, build_dir)
 
-    urls, pages = get_urls(build_dir)
-    save_rules(urls, nginx_file or os.path.join(build_dir, '.nginx'))
+    pages = get_cached_pages(build_dir)
+    save_rules(pages, nginx_file or os.path.join(build_dir, '.nginx'))
     save_urls(pages, os.path.join(src_dir, URLS_FILE))
     check_xml(pages)
     print(' * Build successful (during %.3fs)' % (time.time() - start))
-    return urls
 
 
 def check_xml(pages):
@@ -379,8 +361,20 @@ def check_xml(pages):
             parse_xml(page.html, page.index_file, quiet=True)
 
 
-def save_rules(urls, nginx_file):
+def save_rules(pages, nginx_file):
     '''Save rewrite rules for nginx'''
+    urls = []
+    for url, page in pages.items():
+        if page.html:
+            urls += [(url, page, False)]
+            aliases = page.aliases or []
+            aliases += [
+                a.rstrip('/') for a in aliases
+                if a.rstrip('/') and a.rstrip('/') != a
+            ]
+            aliases = set(aliases)
+            urls += [(a, page, True) for a in aliases]
+
     rules = set(
         (u.rstrip('/'), p.url) for u, p, is_alias in urls
         if is_alias and u.rstrip('/') != p.url.rstrip('/')
