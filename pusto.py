@@ -127,20 +127,25 @@ def get_summary(data):
     return summary or None
 
 
-def bind_meta(ctx, meta):
+def get_meta(meta_file):
+    with open(meta_file, 'br') as f:
+        raw = json.loads(f.read().decode())
+
+    meta = {}
     for key in Page.meta_fields:
-        if key in meta:
-            ctx[key] = meta[key]
+        if key in raw:
+            meta[key] = raw[key]
 
     published = ''
     if 'published' in meta:
         published = dt.datetime.strptime(meta['published'], '%Y-%m-%d %H:%M')
         published = published.replace(hour=8)
         published = get_globals('tz').localize(published)
-        ctx['published'] = published
+        meta['published'] = published
 
     if 'sort' not in meta:
-        ctx['sort'] = published and published.isoformat()
+        meta['sort'] = published and published.isoformat()
+    return meta
 
 
 def get_globals(key=None, default=None):
@@ -200,9 +205,7 @@ def get_html(src_dir, ctx):
 
     meta_file = ctx['meta_file']
     if meta_file:
-        with open(src_dir + meta_file, 'br') as f:
-            meta = json.loads(f.read().decode())
-        bind_meta(ctx, meta)
+        ctx.update(get_meta(src_dir + meta_file))
 
     index_file = ctx['index_file']
     if index_file:
