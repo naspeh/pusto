@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/_theme/reset.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/qtip2/2.2.0/jquery.qtip.min.css" type="text/css" />
     <title>pusto.org: {% block title %}{{ p.title|striptags or p.url }}{% endblock %}</title>
 {% endblock %}
 </head>
@@ -36,7 +37,35 @@
     </div>
 </div>
 {% endblock %}
-<script type="text/javascript">
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://cdn.jsdelivr.net/qtip2/2.2.0/jquery.qtip.min.js"></script>
+<script>
+    var cache = null;
+    $.get('/terms.html').then(function(data) {
+        cache = $(data);
+    }).then(function() {
+        $('a[href^="/terms.html"]').each(function() {
+            var $this = $(this);
+            $this.click(function(event) {
+                event.preventDefault();
+            });
+
+            var term = $this.attr('href').replace('/terms.html#', '');
+            term = cache.find('#' + term);
+            $this.qtip({
+                content: {
+                    title: term.find('dt').html(),
+                    text: term.find('dd').html(),
+                    button: true
+                },
+                show: 'click',
+                hide: 'unfocus'
+            });
+        });
+    });
+</script>
+
+<script>
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-6254112-1']);
     _gaq.push(['_trackPageview']);

@@ -11,5 +11,4 @@
     }
 </style>
 
-<script src="http://code.jquery.com/jquery.js"></script>
 <script src="{{ repo }}napokaz.js"></script>

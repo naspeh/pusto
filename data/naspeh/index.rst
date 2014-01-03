@@ -16,7 +16,7 @@ email: **naspeh(at)gmail.com**
  - |i3|_ с июля 2013.
 
 __ https://github.com/naspeh/dotfiles
-.. _python: http://www.python.org/dev/peps/pep-0020/
+.. _python: /terms.html#python
 .. _archlinux: https://wiki.archlinux.org/index.php/The_Arch_Way
 .. _i3: http://i3wm.org/
 .. |i3| replace:: **i3**
