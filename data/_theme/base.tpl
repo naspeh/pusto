@@ -73,6 +73,12 @@
             hide: 'unfocus'
         });
     });
+    if (location.hash.indexOf('#term-') == 0) {
+        var term = location.hash
+        $('.terms').addClass('terms-show');
+        $(term).addClass('term-active');
+
+    }
 </script>
 
 <script>
