@@ -10,7 +10,7 @@ import re
 import shutil
 import subprocess
 import time
-from collections import OrderedDict
+from collections import namedtuple, OrderedDict
 from threading import Thread
 from urllib.error import HTTPError
 from urllib.parse import urljoin
@@ -37,27 +37,30 @@ class Page:
     fields = meta_fields + (
         'pages url src_dir index_file meta_file summary body html'.split()
     )
+    Data = namedtuple('Data', fields)
 
     def __init__(self, data):
         defaults = {'sort': '', 'params': {}}
         for key in self.fields:
             data.setdefault(key, defaults.get(key))
 
-        self._data = data
+        self._data = self.Data(**data)
 
     def __getattr__(self, key):
-        if key in self._data:
-            return self._data[key]
+        if key in self._data._fields:
+            return getattr(self._data, key)
         raise AttributeError
 
     def copy(self):
-        return self.__class__(self._data.copy())
+        return self.__class__(self.get())
 
-    def get(self, *a, **kw):
-        return self._data.get(*a, **kw)
+    def get(self, key=None):
+        if not key:
+            return self._data._asdict()
+        return getattr(self._data, key)
 
-    def update(self, *a, **kw):
-        self._data.update(*a, **kw)
+    def update(self, **kw):
+        self._data = self._data._replace(**kw)
 
     def src(self, file):
         assert file in ['meta_file', 'index_file']
@@ -124,7 +127,7 @@ class Page:
 
 
 def get_pages(src_dir, use_cache=False, check_xml=False):
-    fill_page = use_cache and get_cached_html or get_html
+    get = lambda **d: get_page(d, use_cache)
 
     tree = OrderedDict((f[0], (f[1], f[2])) for f in os.walk(src_dir))
     paths = reversed(list(tree.keys()))
@@ -140,13 +143,13 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
         meta = META_FILE if META_FILE in files else None
         index = ([f for f in INDEX_FILES if f in files] or [None])[0]
 
-        pages[url] = fill_page(Page({
-            'pages': pages, 'url': url,
-            'url': url,
-            'src_dir': src_dir,
-            'index_file': index and url + index,
-            'meta_file': meta and url + meta
-        }))
+        pages[url] = get(
+            pages=pages,
+            url=url,
+            src_dir=src_dir,
+            index_file=index and url + index,
+            meta_file=meta and url + meta
+        )
 
     ### Create pages for global "url-files"
     for index_file in get_globals(src_dir, 'url-files', []):
@@ -155,14 +158,13 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
             print(' * WARN. File not exists - {}'.format(path))
             continue
         url = index_file.rsplit('.', 1)[0]
-        pages[url] = fill_page(Page({
-            'pages': pages,
-            'url': url,
-            'src_dir': src_dir,
-            'index_file': index_file,
-            'meta_file': None,
-            'archive': True
-        }))
+        pages[url] = get(
+            pages=pages,
+            url=url,
+            src_dir=src_dir,
+            index_file=index_file,
+            archive=True
+        )
 
     ### Save HTML to index_file
     env = get_jinja(src_dir)
@@ -227,22 +229,26 @@ def get_jinja(src_dir):
     return get_jinja.cache
 
 
-def get_cached_html(page):
+def get_page(data, use_cache=False):
+    page = Page(data)
+    if not use_cache:
+        return fill_page(page)
+
     cache_file = page.path + CACHE_FILE
     if os.path.exists(cache_file):
         with open(cache_file, 'br') as f:
             data = pickle.loads(f.read())
             page.update(**dict(data, pages=page.pages))
     else:
-        page = get_html(page)
+        page = fill_page(page)
         with open(cache_file, 'bw') as f:
-            f.write(pickle.dumps(dict(page._data, pages=None)))
+            f.write(pickle.dumps(dict(page.get(), pages=None)))
     return page
 
 
-def get_html(page):
+def fill_page(page):
     if page.meta_file:
-        page.update(page.get_meta())
+        page.update(**page.get_meta())
 
     if page.index_file:
         with open(page.src('index_file'), 'br') as f:
