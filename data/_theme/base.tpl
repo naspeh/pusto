@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/qtip2/2.2.0/jquery.qtip.min.css" type="text/css" />
+    <script src="http://code.jquery.com/jquery.js"></script>
     <title>pusto.org: {% block title %}{{ p.title|striptags or p.url }}{% endblock %}</title>
 {% endblock %}
 </head>
@@ -35,32 +36,41 @@
         {{ p.body }}
         {% endblock%}
     </div>
+    {% if p.terms %}
+    <hr />
+    <div class="terms">
+        <h3 class="terms-title"><a href="#">Используемые термины</a></h3>
+        <div class="terms-body">
+            {{ p.terms }}
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
-<script src="http://code.jquery.com/jquery.js"></script>
 <script src="http://cdn.jsdelivr.net/qtip2/2.2.0/jquery.qtip.min.js"></script>
 <script>
-    var cache = null;
-    $.get('/terms.html').then(function(data) {
-        cache = $(data);
-    }).then(function() {
-        $('a[href^="/terms.html"]').each(function() {
-            var $this = $(this);
-            $this.click(function(event) {
-                event.preventDefault();
-            });
+    $('.terms').click(function() {
+        $(this).toggleClass('terms-show');
+    });
+    $('a[href^="#term-"]').each(function() {
+        var $this = $(this);
+        var term = $($this.attr('href'));
 
-            var term = $this.attr('href').replace('/terms.html#', '');
-            term = cache.find('#' + term);
-            $this.qtip({
-                content: {
-                    title: term.find('dt').html(),
-                    text: term.find('dd').html(),
-                    button: true
-                },
-                show: 'click',
-                hide: 'unfocus'
-            });
+        $this.addClass('term')
+        $this.click(function(event) {
+            event.preventDefault();
+            var cls = 'term-active';
+            $('.terms .' + cls).removeClass(cls)
+            term.addClass(cls);
+        });
+        $this.qtip({
+            content: {
+                title: term.find('dt').html(),
+                text: term.find('dd').html(),
+                button: true
+            },
+            show: 'click',
+            hide: 'unfocus'
         });
     });
 </script>

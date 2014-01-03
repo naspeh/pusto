@@ -13,10 +13,11 @@ body {
 a {
     color: #008000;
     text-decoration: none;
+    border-bottom: 1px solid transparent;
 }
 a:hover, a:focus, a:active {
     color: #f63;
-    text-decoration: underline;
+    border-bottom-color: #f63;
 }
 h1, h2, h3, h4, h5, h6 {
     font: 1.1em "Philosopher", sans-serif;
@@ -36,6 +37,10 @@ table, address, fieldset,
 }
 .last {
     margin-bottom: 0;
+}
+hr {
+    border: none;
+    border-top: 1px dotted #ccc;
 }
 ol {
     list-style: decimal;
@@ -98,11 +103,13 @@ blockquote {
     background: #777;
     padding: 0 10px;
     color: #fff;
+    border: none;
     border-radius: 0 0 10px 10px;
 }
 .header a:hover {
     background: #777;
     color: #eee;
+    text-decoration: underline;
 }
 .header a.logo {
     position: absolute;
@@ -200,6 +207,31 @@ blockquote {
 }
 .note .admonition-title {
     display: none;
+}
+.terms {
+    padding-left: 20px;
+    font-size: 90%;
+}
+.terms h3 {
+    margin-left: -20px;
+}
+.terms-body {
+    display: none;
+}
+.terms-show .terms-body {
+    display: block;
+}
+.term-active {
+    margin-left: -20px;
+    padding-left: 15px;
+    border-left: 5px dotted #ccc;
+}
+a.term, .terms h3 a {
+    border-style: dashed;
+    border-color: #008000;
+}
+a.term:hover, .terms h3 a:hover {
+    border-color: #f63;
 }
 
 /* Custom classes */

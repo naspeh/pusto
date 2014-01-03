@@ -16,8 +16,8 @@ email: **naspeh(at)gmail.com**
  - |i3|_ с июля 2013.
 
 __ https://github.com/naspeh/dotfiles
-.. _python: /terms.html#python
-.. _archlinux: https://wiki.archlinux.org/index.php/The_Arch_Way
+.. _python: #term-python
+.. _archlinux: #term-archlinux
 .. _i3: http://i3wm.org/
 .. |i3| replace:: **i3**
 

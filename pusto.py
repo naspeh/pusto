@@ -14,9 +14,9 @@ from collections import namedtuple, OrderedDict
 from threading import Thread
 from urllib.error import HTTPError
 from urllib.parse import urljoin
-from xml.etree import ElementTree as ET
 
 from jinja2 import Environment, FileSystemLoader
+from lxml import etree
 from pytz import timezone, utc
 
 
@@ -49,7 +49,6 @@ class Page:
     def __getattr__(self, key):
         if key in self._data._fields:
             return getattr(self._data, key)
-        raise AttributeError
 
     def get(self, key=None):
         if not key:
@@ -113,6 +112,33 @@ class Page:
         children.sort(key=lambda v: v[1].sort, reverse=True)
         return OrderedDict(children)
 
+    @property
+    def terms(self):
+        if not self.body:
+            return
+
+        terms = self.pages.get('/terms.html')
+        if not terms:
+            return
+
+        root = parse_xml(self.body, self.index_file)
+        links = root.xpath('//a[starts-with(@href, "#term-")]')
+        if not links:
+            return
+
+        result = []
+        terms = parse_xml(terms.body, terms.src('index_file'))
+        for link in links:
+            id = link.get('href')[1:]
+            term = terms.xpath('//*[@id=\'%s\']' % id)
+            if not term:
+                print(' * WARN. No term "{}" for "{}"' % (id, self.index_file))
+                continue
+            result += term[:1]
+
+        result = [etree.tostring(t, encoding='utf8').decode() for t in result]
+        return '\n'.join(result)
+
 
 def get_pages(src_dir, use_cache=False, check_xml=False):
     get = lambda **d: get_page(d, use_cache)
@@ -157,6 +183,8 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
     ### Save HTML to index_file
     env = get_jinja(src_dir)
     for page in pages.values():
+        if page.url == '/naspeh/':
+            page.terms
         if not page.index_file:
             continue
 
@@ -278,8 +306,8 @@ def fill_page(page):
 def parse_xml(text, base_file, quiet=False):
     try:
         data = re.sub('(?i)<(!DOCTYPE|\?xml).*?[^>]>', '', text)
-        root = ET.fromstring('<root>%s</root>' % data)
-    except ET.ParseError as e:
+        root = etree.fromstring('<root>%s</root>' % data)
+    except etree.ParseError as e:
         if quiet:
             print(' * WARN. {}: "{}"'.format(base_file, e))
             root = None
@@ -302,7 +330,7 @@ def fix_urls(page):
             fix_url(img, 'src')
         for link in root.findall('.//a'):
             fix_url(link, 'href')
-        text = ET.tostring(root, encoding="UTF-8").decode()
+        text = etree.tostring(root, encoding="UTF-8").decode()
         text = text[6: -7]
         return text
 
