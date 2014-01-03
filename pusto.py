@@ -51,9 +51,6 @@ class Page:
             return getattr(self._data, key)
         raise AttributeError
 
-    def copy(self):
-        return self.__class__(self.get())
-
     def get(self, key=None):
         if not key:
             return self._data._asdict()
@@ -87,24 +84,15 @@ class Page:
         return meta
 
     @property
-    def is_file(self):
-        return not self.url.endswith('/')
-
-    @property
     def type(self):
         return self.index_file and self.index_file.rsplit('.', 1)[1]
 
     @property
     def path(self):
         path = self.src_dir + self.url
-        if self.is_file:
+        if not self.url.endswith('/'):
             return path
         return path + ('index.html' if self.index_file else '')
-
-    @property
-    def mtime(self):
-        mtime = os.stat(self.src('index_file')).st_mtime
-        return dt.datetime.fromtimestamp(mtime)
 
     @property
     def parent_url(self):
@@ -120,7 +108,7 @@ class Page:
         for page in self.pages.values():
             if page.archive or page.parent_url != self.url:
                 continue
-            page = fix_urls(page.copy(), get_globals(page.src_dir, 'host'))
+            page = fix_urls(Page(page.get()))
             children += [(page.url, page)]
         children.sort(key=lambda v: v[1].sort, reverse=True)
         return OrderedDict(children)
@@ -300,7 +288,9 @@ def parse_xml(text, base_file, quiet=False):
     return root
 
 
-def fix_urls(page, host):
+def fix_urls(page):
+    host = get_globals(page.src_dir, 'host')
+
     def fix_url(element, attr):
         url = element.attrib.get(attr)
         if not url.startswith('http://'):
