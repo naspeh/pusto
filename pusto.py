@@ -10,7 +10,7 @@ import re
 import shutil
 import subprocess
 import time
-from collections import namedtuple, OrderedDict
+from collections import OrderedDict
 from threading import Thread
 from urllib.error import HTTPError
 from urllib.parse import urljoin
@@ -28,18 +28,80 @@ URLS_FILE = 'urls.json'
 META_FILE = 'meta.json'
 INDEX_FILES = ['index.' + t for t in 'py tpl rst md html'.split(' ')]
 
-_Page = namedtuple('Page', (
-    # meta fields
-    'template params aliases published sort archive author title '
 
-    # other fields
-    'pages url path type index_file meta_file mtime summary body html'
-))
+class Page:
+    __slots__ = ('_data',)
+    meta_fields = (
+        'template params aliases published sort archive author title'.split()
+    )
+    fields = meta_fields + (
+        'pages url src_dir index_file meta_file summary body html'.split()
+    )
 
+    def __init__(self, data):
+        defaults = {'sort': '', 'params': {}}
+        for key in self.fields:
+            data.setdefault(key, defaults.get(key))
 
-class Page(_Page):
-    __slots__ = ()
-    meta_fields = _Page._fields[:8]
+        self._data = data
+
+    def __getattr__(self, key):
+        if key in self._data:
+            return self._data[key]
+        raise AttributeError
+
+    def copy(self):
+        return self.__class__(self._data.copy())
+
+    def get(self, *a, **kw):
+        return self._data.get(*a, **kw)
+
+    def update(self, *a, **kw):
+        self._data.update(*a, **kw)
+
+    def src(self, file):
+        assert file in ['meta_file', 'index_file']
+        return self.src_dir + getattr(self, file)
+
+    def get_meta(self):
+        with open(self.src_dir + self.meta_file, 'br') as f:
+            raw = json.loads(f.read().decode())
+
+        meta = {}
+        for key in Page.meta_fields:
+            if key in raw:
+                meta[key] = raw[key]
+
+        pub = ''
+        if 'published' in meta:
+            pub = dt.datetime.strptime(meta['published'], '%Y-%m-%d %H:%M')
+            pub = pub.replace(hour=8)
+            pub = get_globals(self.src_dir, 'tz').localize(pub)
+            meta['published'] = pub
+
+        if 'sort' not in meta:
+            meta['sort'] = pub and pub.isoformat()
+        return meta
+
+    @property
+    def is_file(self):
+        return not self.url.endswith('/')
+
+    @property
+    def type(self):
+        return self.index_file and self.index_file.rsplit('.', 1)[1]
+
+    @property
+    def path(self):
+        path = self.src_dir + self.url
+        if self.is_file:
+            return path
+        return path + ('index.html' if self.index_file else '')
+
+    @property
+    def mtime(self):
+        mtime = os.stat(self.src('index_file')).st_mtime
+        return dt.datetime.fromtimestamp(mtime)
 
     @property
     def parent_url(self):
@@ -55,13 +117,14 @@ class Page(_Page):
         for page in self.pages.values():
             if page.archive or page.parent_url != self.url:
                 continue
-            children += [(page.url, fix_urls(page, get_globals('host')))]
+            page = fix_urls(page.copy(), get_globals(page.src_dir, 'host'))
+            children += [(page.url, page)]
         children.sort(key=lambda v: v[1].sort, reverse=True)
         return OrderedDict(children)
 
 
-def get_pages(src_dir, use_cache=False):
-    get_html_ = use_cache and get_cached_html or get_html
+def get_pages(src_dir, use_cache=False, check_xml=False):
+    fill_page = use_cache and get_cached_html or get_html
 
     tree = OrderedDict((f[0], (f[1], f[2])) for f in os.walk(src_dir))
     paths = reversed(list(tree.keys()))
@@ -77,31 +140,29 @@ def get_pages(src_dir, use_cache=False):
         meta = META_FILE if META_FILE in files else None
         index = ([f for f in INDEX_FILES if f in files] or [None])[0]
 
-        page = get_html_(src_dir, {
+        pages[url] = fill_page(Page({
             'pages': pages, 'url': url,
+            'url': url,
+            'src_dir': src_dir,
             'index_file': index and url + index,
-            'meta_file': meta and url + meta,
-            'type': index and index.rsplit('.', 1)[1],
-            'path': (src_dir + url + 'index.html') if index else src_dir
-        })
-        pages[url] = page
+            'meta_file': meta and url + meta
+        }))
 
     ### Create pages for global "url-files"
-    for index_file in get_globals('url-files', []):
+    for index_file in get_globals(src_dir, 'url-files', []):
         path = src_dir + index_file
         if not os.path.exists(path):
             print(' * WARN. File not exists - {}'.format(path))
             continue
-        path, type_ = path.rsplit('.', 1)
-        url = path.replace(src_dir, '')
-        page = get_html_(src_dir, {
-            'pages': pages, 'url': url,
+        url = index_file.rsplit('.', 1)[0]
+        pages[url] = fill_page(Page({
+            'pages': pages,
+            'url': url,
+            'src_dir': src_dir,
             'index_file': index_file,
             'meta_file': None,
-            'type': type_,
-            'path': path,
-        })
-        pages[url] = page._replace(archive=True)
+            'archive': True
+        }))
 
     ### Save HTML to index_file
     env = get_jinja(src_dir)
@@ -111,11 +172,13 @@ def get_pages(src_dir, use_cache=False):
 
         if page.template:
             tpl = env.get_template(page.template)
-            page = page._replace(html=tpl.render(p=page))
-            pages[page.url] = page
+            page.update(html=tpl.render(p=page))
 
         with open(page.path, 'bw') as f:
             f.write(page.html.encode())
+
+        if check_xml:
+            parse_xml(page.html, page.index_file, quiet=True)
 
     return pages
 
@@ -127,31 +190,10 @@ def get_summary(data):
     return summary or None
 
 
-def get_meta(meta_file):
-    with open(meta_file, 'br') as f:
-        raw = json.loads(f.read().decode())
-
-    meta = {}
-    for key in Page.meta_fields:
-        if key in raw:
-            meta[key] = raw[key]
-
-    published = ''
-    if 'published' in meta:
-        published = dt.datetime.strptime(meta['published'], '%Y-%m-%d %H:%M')
-        published = published.replace(hour=8)
-        published = get_globals('tz').localize(published)
-        meta['published'] = published
-
-    if 'sort' not in meta:
-        meta['sort'] = published and published.isoformat()
-    return meta
-
-
-def get_globals(key=None, default=None):
+def get_globals(src_dir, key=None, default=None):
     if not hasattr(get_globals, 'cache'):
         meta = {}
-        meta_file = os.path.join(SRC_DIR, META_FILE)
+        meta_file = os.path.join(src_dir, META_FILE)
         if os.path.exists(meta_file):
             with open(meta_file, 'br') as f:
                 meta = json.loads(f.read().decode())
@@ -180,71 +222,63 @@ def get_jinja(src_dir):
             'markdown': markdown,
             'match': lambda value, pattern: re.match(pattern, value)
         })
-        env.globals.update(get_globals())
+        env.globals.update(get_globals(src_dir))
         get_jinja.cache = env
     return get_jinja.cache
 
 
-def get_cached_html(src_dir, ctx):
-    cache_file = src_dir + (ctx['index_file'] or ctx['url']) + CACHE_FILE
+def get_cached_html(page):
+    cache_file = page.path + CACHE_FILE
     if os.path.exists(cache_file):
         with open(cache_file, 'br') as f:
-            page = pickle.loads(f.read())
-            return Page(**dict(page, pages=ctx['pages']))
+            data = pickle.loads(f.read())
+            page.update(**dict(data, pages=page.pages))
     else:
-        page = get_html(src_dir, ctx)
+        page = get_html(page)
         with open(cache_file, 'bw') as f:
-            f.write(pickle.dumps(dict(page._asdict(), pages=None)))
+            f.write(pickle.dumps(dict(page._data, pages=None)))
     return page
 
 
-def get_html(src_dir, ctx):
-    defaults = {'sort': '', 'params': {}}
-    for key in Page._fields:
-        ctx.setdefault(key, defaults.get(key))
+def get_html(page):
+    if page.meta_file:
+        page.update(page.get_meta())
 
-    meta_file = ctx['meta_file']
-    if meta_file:
-        ctx.update(get_meta(src_dir + meta_file))
-
-    index_file = ctx['index_file']
-    if index_file:
-        index_src = src_dir + index_file
-        ctx['mtime'] = dt.datetime.fromtimestamp(os.stat(index_src).st_mtime)
-        with open(index_src, 'br') as f:
+    if page.index_file:
+        with open(page.src('index_file'), 'br') as f:
             text = f.read().decode()
 
-        if ctx['type'] == 'py':
+        if page.type == 'py':
             subprocess.call(
                 'cd {} && python index.py'
-                .format(src_dir + ctx['url']),
+                .format(page.src_dir + page.url),
                 shell=True
             )
-            with open(ctx['path'], 'br') as f:
+            with open(page.path, 'br') as f:
                 text = f.read().decode()
-            ctx.update(html=text, summary=get_summary(text))
+            page.update(html=text)
 
-        elif ctx['type'] == 'html':
-            ctx.update(html=text, summary=get_summary(text))
+        elif page.type == 'html':
+            page.update(html=text)
 
-        elif ctx['type'] == 'tpl':
-            ctx.update(template=index_file)
+        elif page.type == 'tpl':
+            page.update(template=page.index_file)
 
-        elif ctx['type'] == 'md':
+        elif page.type == 'md':
             body = markdown(text)
-            ctx.update(body=body, summary=get_summary(body))
+            page.update(body=body, summary=get_summary(body))
 
-        elif ctx['type'] == 'rst':
-            title, body = rst(text, source_path=index_src)
+        elif page.type == 'rst':
+            title, body = rst(text, source_path=page.src('index_file'))
             if title:
-                ctx['title'] = title
-            ctx.update(body=body, summary=get_summary(body))
+                page.update(title=title)
+            page.update(body=body, summary=get_summary(body))
 
         # Need template render
-        if ctx['type'] in ['rst', 'md']:
-            ctx['template'] = ctx.get('template') or '_theme/base.tpl'
+        if page.type in ['rst', 'md']:
+            page.update(template=page.get('template') or '_theme/base.tpl')
 
-    return Page(**ctx)
+    return page
 
 
 def parse_xml(text, base_file, quiet=False):
@@ -279,7 +313,7 @@ def fix_urls(page, host):
     for part in ['title', 'summary', 'body']:
         text = getattr(page, part)
         if text:
-            page = page._replace(**{part: fix_urls(text)})
+            page.update(**{part: fix_urls(text)})
     return page
 
 
@@ -363,17 +397,10 @@ def build(src_dir, build_dir, nginx_file=None, use_cache=False):
         clean_dir(build_dir)
         copy_dir(src_dir, build_dir)
 
-    pages = get_pages(build_dir, use_cache)
+    pages = get_pages(build_dir, use_cache, check_xml=True)
     save_rules(pages, nginx_file or os.path.join(build_dir, '.nginx'))
     save_urls(pages, os.path.join(src_dir, URLS_FILE))
-    check_xml(pages)
     print(' * Build successful (during %.3fs)' % (time.time() - start))
-
-
-def check_xml(pages):
-    for page in pages.values():
-        if page.html:
-            parse_xml(page.html, page.index_file, quiet=True)
 
 
 def save_rules(pages, nginx_file):
