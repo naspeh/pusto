@@ -40,9 +40,7 @@ Makefile_
     test:
         PYTHONPATH=$(PYTHONPATH) nosetests --with-django --django-settings=$(test_settings) $(module)
 
-.. container:: note
-
-    В sphinx__  пошли тем же путем: `раз`__, `два`__
+.. note:: В sphinx__  пошли тем же путем: `раз`__, `два`__
 
 __ http://sphinx.pocoo.org/
 __ https://bitbucket.org/birkenfeld/sphinx/src/cf794ec8a096/Makefile
