@@ -4,9 +4,9 @@
 {% block head %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="/_theme/reset.css" type="text/css" />
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/qtip2/2.2.0/jquery.qtip.min.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/qtip2/2.2.0/jquery.qtip.min.css" type="text/css" />
     <script src="http://code.jquery.com/jquery.js"></script>
     <title>pusto.org: {% block title %}{{ p.title|striptags or p.url }}{% endblock %}</title>
 {% endblock %}

@@ -233,7 +233,10 @@ a.term, .terms h3 a {
 a.term:hover, .terms h3 a:hover {
     border-color: #f63;
 }
-
+.qtip {
+    font-size: 12px;
+    line-height: 14px;
+}
 /* Custom classes */
 img.align-right {
     float: right;
