@@ -221,7 +221,7 @@ blockquote {
 .term-active {
     margin-left: -20px;
     padding-left: 15px;
-    border-left: 5px dotted #ccc;
+    border-left: 5px dotted #f63;
 }
 a.term, .terms h3 a {
     border-style: dashed;

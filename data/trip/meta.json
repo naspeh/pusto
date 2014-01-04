@@ -2,5 +2,5 @@
     "params": {
         "feed": "feed.xml"
     },
-    "template": "_theme/trips.tpl"
+    "template": "_theme/list.tpl"
 }

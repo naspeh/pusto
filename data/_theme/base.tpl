@@ -8,6 +8,33 @@
     <link rel="stylesheet" href="/_theme/styles.css" type="text/css" />
     <link rel="stylesheet" href="/_theme/syntax.css" type="text/css" />
     <script src="http://code.jquery.com/jquery.js"></script>
+
+    <link rel="stylesheet" href="/s/napokaz/src/napokaz.css" />
+    <style>
+        .napokaz {
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+            margin: 0 5px;
+            margin-bottom: 1em;
+            vertical-align: top;
+        }
+    </style>
+    <script src="/s/napokaz/src/napokaz.js"></script>
+    {% if not napokaz_skip %}
+    <script>
+    $(document).ready(function() {
+        $.fn.napokaz.defaults.set({
+            boxThumbsize: '100c',
+            frontCount: 10,
+            frontThumbsize: '60c',
+            frontUseHash: false,
+            picasaIgnore: 'hide'
+        });
+        $('.napokaz').napokaz();
+    });
+    </script>
+    {% endif %}
     <title>pusto.org: {% block title %}{{ p.title|striptags or p.url }}{% endblock %}</title>
 {% endblock %}
 </head>
@@ -66,13 +93,30 @@
             term.addClass(cls);
         });
         $this.qtip({
+            overwrite: true,
             content: {
                 title: term.find('dt').html(),
                 text: term.find('dd').html(),
                 button: true
             },
-            show: 'click',
-            hide: 'unfocus'
+            show: {
+                event: 'mouseenter click',
+                effect: function(api) {
+                    $this = $(this);
+                    $this.show();
+                    $this.find('.napokaz').napokaz();
+                    $this.find('.napokaz-b-thumb').click(function () {
+                        var tooltip = api.elements.tooltip;
+                        tooltip.hide();
+                        $('.terms').removeClass('terms-hide');
+                        term.find('#' + $(this).attr('id')).click();
+                    });
+                }
+            },
+            hide: {
+                fixed: true,
+                delay: 300
+            }
         });
     });
     if (location.hash.indexOf('#term-') == 0) {

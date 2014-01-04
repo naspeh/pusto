@@ -29,3 +29,36 @@ __ https://wiki.archlinux.org/index.php/pacman#Usage
 __ https://github.com/naspeh/tider/blob/master/PKGBUILD
 __ https://aur.archlinux.org/
 __ /post/archlinux-backup/
+
+
+.. _term-hike:
+
+Пешие походы, например
+    `Карпаты, Свидовецкйи хребет`__
+
+    .. raw:: html
+
+        <div class="napokaz"
+            data-box-width="2"
+            data-picasa-user="naspeh"
+            data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet"
+            data-picasa-ignore="info">
+        </div>
+
+__ /trip/2010-karpaty-svidovetskiy-khrebet/
+
+
+.. _term-bike:
+
+Велопоходы, например
+    `Крым,  Симферополь-Феодосия`__
+
+    .. raw:: html
+
+        <div class="napokaz"
+            data-box-width="2"
+            data-picasa-user="naspeh"
+            data-picasa-album="20110513_Krym_Yugo_vostochniy_Velo">
+        </div>
+
+__ /trip/2011-krym-simferopol-feodosiya-velo/

@@ -1,8 +1,8 @@
 {% extends '_theme/base.tpl' %}
 
+{% set napokaz_skip=True %}
 {% block head %}
     {{ super() }}
-    {% include '_theme/napokaz.tpl' %}
     <script>
     $(document).ready(function() {
         $.fn.napokaz.defaults.set({
