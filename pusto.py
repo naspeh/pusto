@@ -138,17 +138,18 @@ class Page:
             return
 
         result = []
-        terms = parse_xml(terms.body, terms.src('index_file'))
+        terms_ = parse_xml(terms.body, terms.src('index_file'))
         for link in links:
             id = link.get('href')[1:]
-            term = terms.xpath('//*[@id=\'%s\']' % id)
+            term = terms_.xpath('//*[@id=\'%s\']' % id)
             if not term:
                 print(' * WARN. No term "%s" for "%s"' % (id, self.index_file))
                 continue
             result += term[:1]
 
         result = [etree.tostring(t, encoding='utf8').decode() for t in result]
-        return '\n'.join(result)
+        Terms = namedtuple('Terms', 'title body')
+        return Terms(terms.title, '\n'.join(result))
 
 
 def get_pages(src_dir, use_cache=False, check_xml=False):
