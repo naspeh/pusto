@@ -35,7 +35,7 @@ class Page:
         'template params aliases published sort archive author title'.split()
     )
     fields = meta_fields + (
-        'pages url src_dir index_file meta_file summary body html'.split()
+        'pages url src_dir index_file meta_file summary body text'.split()
     )
     Data = namedtuple('Data', fields)
 
@@ -190,13 +190,17 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
 
         if page.template:
             tpl = env.get_template(page.template)
-            page.update(html=tpl.render(p=page))
+            page.update(text=tpl.render(p=page))
+
+        if page.type == 'inc':
+            text = do_includes(page.index_file, src_dir)
+            page.update(text=text)
 
         with open(page.path, 'bw') as f:
-            f.write(page.html.encode())
+            f.write(page.text.encode())
 
         if check_xml and page.path.rsplit('.', 1)[1] in ('html', 'xml'):
-            parse_xml(page.html, page.template or page.index_file, quiet=True)
+            parse_xml(page.text, page.template or page.index_file, quiet=True)
 
     return pages
 
@@ -229,32 +233,37 @@ def get_globals(src_dir, key=None, default=None):
     return get_globals.cache
 
 
-def get_jinja(src_dir):
-    def load_file(*names):
-        if isinstance(names, str):
-            names = [names]
-        content = []
-        for name in names:
-            with open(os.path.join(src_dir, name), 'br') as f:
-                content += [f.read().decode()]
-        return '\n'.join(content)
+def do_includes(filename, src_dir):
+    '''Process includes for css and javascript files'''
+    def load(match):
+        filename = match.groups(1)[0]
+        filename = os.path.join(src_dir, filename)
+        if not os.path.exists(filename):
+            print(' * ERROR. no file: "%s"' % filename)
+            return match.group()
 
-    if not hasattr(get_jinja, 'cache'):
-        env = Environment(
-            loader=FileSystemLoader(src_dir),
-            lstrip_blocks=True, trim_blocks=True
-        )
-        env.filters.update({
-            'rst': lambda text: rst(text)[1],
-            'markdown': markdown,
-            'match': lambda value, pattern: re.match(pattern, value)
-        })
-        env.globals.update(
-            get_globals(src_dir),
-            load_file=load_file
-        )
-        get_jinja.cache = env
-    return get_jinja.cache
+        with open(filename, 'br') as f:
+            text = f.read().decode()
+        return text
+
+    with open(src_dir + filename, 'br') as f:
+        text = f.read().decode()
+    text = re.sub(r'\/\* @include ([^ ]*) \*\/', load, text)
+    return text
+
+
+def get_jinja(src_dir):
+    env = Environment(
+        loader=FileSystemLoader(src_dir),
+        lstrip_blocks=True, trim_blocks=True
+    )
+    env.filters.update({
+        'rst': lambda text: rst(text)[1],
+        'markdown': markdown,
+        'match': lambda value, pattern: re.match(pattern, value)
+    })
+    env.globals.update(get_globals(src_dir))
+    return env
 
 
 def get_page(data, use_cache=False):
@@ -290,10 +299,10 @@ def fill_page(page):
             )
             with open(page.path, 'br') as f:
                 text = f.read().decode()
-            page.update(html=text)
+            page.update(text=text)
 
         elif page.type == 'html':
-            page.update(html=text)
+            page.update(text=text)
 
         elif page.type == 'tpl':
             page.update(template=page.index_file)
@@ -443,7 +452,7 @@ def save_rules(pages, nginx_file):
     '''Save rewrite rules for nginx'''
     urls = []
     for url, page in pages.items():
-        if page.html:
+        if page.text:
             urls += [(url, page, False)]
             aliases = page.aliases or []
             aliases += [
@@ -468,7 +477,7 @@ def save_urls(pages, filename):
     urlmap = dict(
         [url, page.aliases]
         for url, page in pages.items()
-        if page.html
+        if page.text
     )
     urlmap = json.dumps(
         urlmap, sort_keys=True, indent=4, separators=(',', ': ')

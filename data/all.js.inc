@@ -1,7 +1,7 @@
-// {{ '\n' + load_file('_theme/libs/jquery.min.js') }}
+/* @include _theme/libs/jquery.min.js */
 
 // Init napokaz.js
-// {{ '\n' + load_file('s/napokaz/src/napokaz.js') }}
+/* @include s/napokaz/src/napokaz.js */
 (function($) {
     $.fn.napokaz.defaults.set({
         boxThumbsize: '100c',
@@ -14,7 +14,7 @@
 
 
 // Terms stuff
-// {{ '\n' + load_file('_theme/libs/jquery.qtip.min.js') }}
+/* @include _theme/libs/jquery.qtip.min.js */
 (function($) {
     $('.napokaz-term').napokaz();
     $('.terms').click(function() {
