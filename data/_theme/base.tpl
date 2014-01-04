@@ -50,7 +50,9 @@
 <script src="http://cdn.jsdelivr.net/qtip2/2.2.0/jquery.qtip.min.js"></script>
 <script>
     $('.terms').click(function() {
-        $(this).toggleClass('terms-show');
+        $(this)
+            .toggleClass('terms-hide')
+            .find('.term-active').removeClass('term-active');
     });
     $('a[href^="#term-"]').each(function() {
         var $this = $(this);
@@ -75,9 +77,9 @@
     });
     if (location.hash.indexOf('#term-') == 0) {
         var term = location.hash
-        $('.terms').addClass('terms-show');
         $(term).addClass('term-active');
-
+    } else {
+        $('.terms').addClass('terms-hide')
     }
 </script>
 

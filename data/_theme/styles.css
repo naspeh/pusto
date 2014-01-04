@@ -215,11 +215,8 @@ blockquote {
 .terms h3 {
     margin-left: -20px;
 }
-.terms-body {
+.terms-hide .terms-body {
     display: none;
-}
-.terms-show .terms-body {
-    display: block;
 }
 .term-active {
     margin-left: -20px;

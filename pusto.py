@@ -196,7 +196,7 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
             f.write(page.html.encode())
 
         if check_xml:
-            parse_xml(page.html, page.index_file, quiet=True)
+            parse_xml(page.html, page.template or page.index_file, quiet=True)
 
     return pages
 
