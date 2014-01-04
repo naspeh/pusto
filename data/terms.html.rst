@@ -38,7 +38,7 @@ __ /post/archlinux-backup/
 
     .. raw:: html
 
-        <div class="napokaz"
+        <div class="napokaz-term"
             data-box-width="2"
             data-picasa-user="naspeh"
             data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet"
@@ -55,7 +55,7 @@ __ /trip/2010-karpaty-svidovetskiy-khrebet/
 
     .. raw:: html
 
-        <div class="napokaz"
+        <div class="napokaz-term"
             data-box-width="2"
             data-picasa-user="naspeh"
             data-picasa-album="20110513_Krym_Yugo_vostochniy_Velo">

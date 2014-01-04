@@ -1,7 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic);
-@import url(http://fonts.googleapis.com/css?family=Philosopher:700&subset=latin,cyrillic);
-@import url(http://fonts.googleapis.com/css?family=Anonymous+Pro:400,400italic,700,700italic&subset=latin,cyrillic);
-
 body {
     font: 1em/1.4 "PT Sans", sans-serif;
     font-weight: 400;
@@ -229,10 +225,6 @@ a.term, .terms h3 a {
 }
 a.term:hover, .terms h3 a:hover {
     border-color: #f63;
-}
-.qtip {
-    font-size: 12px;
-    line-height: 14px;
 }
 /* Custom classes */
 img.align-right {

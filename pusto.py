@@ -195,7 +195,7 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
         with open(page.path, 'bw') as f:
             f.write(page.html.encode())
 
-        if check_xml:
+        if check_xml and page.path.rsplit('.', 1)[1] in ('html', 'xml'):
             parse_xml(page.html, page.template or page.index_file, quiet=True)
 
     return pages
@@ -230,6 +230,15 @@ def get_globals(src_dir, key=None, default=None):
 
 
 def get_jinja(src_dir):
+    def load_file(*names):
+        if isinstance(names, str):
+            names = [names]
+        content = []
+        for name in names:
+            with open(os.path.join(src_dir, name), 'br') as f:
+                content += [f.read().decode()]
+        return '\n'.join(content)
+
     if not hasattr(get_jinja, 'cache'):
         env = Environment(
             loader=FileSystemLoader(src_dir),
@@ -240,7 +249,10 @@ def get_jinja(src_dir):
             'markdown': markdown,
             'match': lambda value, pattern: re.match(pattern, value)
         })
-        env.globals.update(get_globals(src_dir))
+        env.globals.update(
+            get_globals(src_dir),
+            load_file=load_file
+        )
         get_jinja.cache = env
     return get_jinja.cache
 
@@ -409,7 +421,7 @@ def build(src_dir, build_dir, nginx_file=None, use_cache=False):
                     path = build_dir + _dir(file)
                     clean_dir(path, skip_dir=True)
 
-                for file in set(new_ + mod_):
+                for file in set(new_ + mod_ + del_):
                     paths = [d + _dir(file) for d in [src_dir, build_dir]]
                     copy_dir(*paths)
             else:

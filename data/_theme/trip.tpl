@@ -1,7 +1,6 @@
 {% extends '_theme/base.tpl' %}
 
-{% set napokaz_skip=True %}
-{% block head %}
+{% block js %}
     {{ super() }}
     <script>
     $(document).ready(function() {
@@ -9,6 +8,7 @@
             boxThumbsize: '100c',
             frontCount: 10,
             frontThumbsize: '60c',
+            frontUseHash: true,
             picasaIgnore: 'hide'
         });
         $('.napokaz').napokaz();

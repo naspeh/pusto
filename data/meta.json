@@ -7,6 +7,8 @@
         "host": "http://pusto.org",
         "timezone": "Europe/Kiev",
         "url-files": [
+            "/all.js.tpl",
+            "/all.css.tpl",
             "/terms.html.rst",
             "/post/feed.xml.tpl",
             "/trip/feed.xml.tpl",
