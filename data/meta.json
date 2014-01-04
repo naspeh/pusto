@@ -10,6 +10,7 @@
             "/all.js.inc",
             "/all.css.inc",
             "/terms.html.rst",
+            "/trip/members.html.rst",
             "/post/feed.xml.tpl",
             "/trip/feed.xml.tpl",
             "/sitemap.xml.tpl"

@@ -45,7 +45,9 @@
                 effect: function(api) {
                     $this = $(this);
                     $this.show();
-                    $this.find('.napokaz-term').napokaz();
+                    $this.find('.napokaz-term').napokaz({
+                        'frontUseHash': false
+                    });
                     $this.find('.napokaz-b-thumb').click(function () {
                         api.elements.tooltip.hide();
                         $('.terms').removeClass('terms-hide');

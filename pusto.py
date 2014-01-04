@@ -32,7 +32,8 @@ INDEX_FILES = ['index.' + t for t in 'py tpl rst md html'.split(' ')]
 class Page:
     __slots__ = ('_data',)
     meta_fields = (
-        'template params aliases published sort archive author title'.split()
+        'template params aliases published sort archive author title '
+        'terms_file'.split()
     )
     fields = meta_fields + (
         'pages url src_dir index_file meta_file summary body text'.split()
@@ -40,7 +41,7 @@ class Page:
     Data = namedtuple('Data', fields)
 
     def __init__(self, data):
-        defaults = {'sort': '', 'params': {}}
+        defaults = {'sort': '', 'params': {}, 'terms_file': '/terms.html'}
         for key in self.fields:
             data.setdefault(key, defaults.get(key))
 
@@ -49,6 +50,12 @@ class Page:
     def __getattr__(self, key):
         if key in self._data._fields:
             return getattr(self._data, key)
+
+    def __str__(self):
+        return '<Page "%s">' % self.url
+
+    def __repr__(self):
+        return str(self)
 
     def get(self, key=None):
         if not key:
@@ -80,6 +87,9 @@ class Page:
 
         if 'sort' not in meta:
             meta['sort'] = pub and pub.isoformat()
+
+        if 'terms_file' in meta:
+            meta['terms_file'] = '/' + meta['terms_file'].lstrip('/')
         return meta
 
     @property
@@ -117,8 +127,9 @@ class Page:
         if not self.body:
             return
 
-        terms = self.pages.get('/terms.html')
+        terms = self.pages.get(self.terms_file)
         if not terms:
+            print(' * WARN. No terms file "%s"' % self.terms_file)
             return
 
         root = parse_xml(self.body, self.index_file)
@@ -132,7 +143,7 @@ class Page:
             id = link.get('href')[1:]
             term = terms.xpath('//*[@id=\'%s\']' % id)
             if not term:
-                print(' * WARN. No term "{}" for "{}"' % (id, self.index_file))
+                print(' * WARN. No term "%s" for "%s"' % (id, self.index_file))
                 continue
             result += term[:1]
 

@@ -34,8 +34,8 @@
     </div>
     {% if p.terms %}
     <hr />
-    <div class="terms">
-        <h3 class="terms-title"><a href="#">Используемые термины</a></h3>
+    <div class="terms" id="terms">
+        <h3 class="terms-title"><a href="#terms">Используемые термины</a></h3>
         <div class="terms-body">
             {{ p.terms }}
         </div>
