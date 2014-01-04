@@ -106,8 +106,7 @@
                     $this.show();
                     $this.find('.napokaz').napokaz();
                     $this.find('.napokaz-b-thumb').click(function () {
-                        var tooltip = api.elements.tooltip;
-                        tooltip.hide();
+                        api.elements.tooltip.hide();
                         $('.terms').removeClass('terms-hide');
                         term.find('#' + $(this).attr('id')).click();
                     });
