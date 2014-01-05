@@ -15,8 +15,6 @@
 /* @include s/napokaz/src/napokaz.css */
 .napokaz, .napokaz-term {
     display: inline-block;
-    *display: inline;
-    *zoom: 1;
     margin: 0 5px;
     margin-bottom: 1em;
     vertical-align: top;

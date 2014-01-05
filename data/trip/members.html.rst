@@ -8,7 +8,7 @@
         <div class="napokaz-term"
             data-box-width="2"
             data-picasa-user="naspeh"
-            data-picasa-album="Naspeh"
+            data-picasa-album="Members"
             data-picasa-filter="naspeh">
         </div>
 
@@ -23,6 +23,6 @@ __ /naspeh/
         <div class="napokaz-term"
             data-box-width="2"
             data-picasa-user="naspeh"
-            data-picasa-album="20090818_Krym_Tarhankut_Treyler"
+            data-picasa-album="Members"
             data-picasa-filter="nayavu">
         </div>

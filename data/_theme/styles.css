@@ -26,7 +26,7 @@ h1 {
 h2 {
     font-size: 1.2em;
 }
-p, dl, dd, hr, ol, ul, pre, blockquote,
+p, dl, hr, ol, ul, pre, blockquote,
 table, address, fieldset,
 .line-block {
     margin-bottom: 1em;
@@ -205,25 +205,27 @@ blockquote {
     display: none;
 }
 .terms {
-    padding-left: 20px;
     font-size: 90%;
 }
-.terms h3 {
-    margin-left: -20px;
+.terms > h3 {
+    margin-bottom: 1em;
+}
+.terms-body {
+    white-space: nowrap;
 }
 .terms-hide .terms-body {
     display: none;
 }
-.term-desc {
-    display: inline-block;
-    margin: 0;
-    width: 49%;
+.terms-body > * {
+    float: left;
+    padding: 0 7px;
+    width: 48%;
     vertical-align: top;
 }
 .term-active {
-    margin-left: -20px;
-    padding-left: 19px;
+    padding-left: 6px;
     border-left: 1px solid #f63;
+    border-radius: 7px;
 }
 a.term, .terms h3 a {
     border-style: dashed;
@@ -240,4 +242,9 @@ img.align-right {
 img.align-left {
     float: left;
     margin: 0 20px 20px 0;
+}
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
 }

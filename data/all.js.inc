@@ -24,7 +24,7 @@
     });
     $('a[href^="#term-"]').each(function() {
         var $this = $(this);
-        var term = $($this.attr('href')).parents('.term-desc');
+        var term = $($this.attr('href'));
 
         $this.addClass('term');
         $this.click(function(event) {
@@ -34,13 +34,13 @@
             term.addClass(cls);
         });
         $this.qtip({
-            overwrite: true,
             content: {
                 title: term.find('dt').html(),
                 text: term.find('dd').html(),
                 button: true
             },
             show: {
+                solo: true,
                 event: 'mouseenter click',
                 effect: function(api) {
                     $this = $(this);
@@ -63,7 +63,7 @@
     });
     if (location.hash.indexOf('#term-') === 0) {
         var term = location.hash;
-        $(term).parents('.term-desc').addClass('term-active');
+        $(term).addClass('term-active');
     } else {
         $('.terms').addClass('terms-hide');
     }

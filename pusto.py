@@ -147,11 +147,7 @@ class Page:
                 continue
             result += term[:1]
 
-        result = [
-            '<div class="term-desc">%s</div>' %
-            etree.tostring(t, encoding='utf8').decode()
-            for t in result
-        ]
+        result = [etree.tostring(t, encoding='utf8').decode() for t in result]
         Terms = namedtuple('Terms', 'title body')
         return Terms(terms.title, '\n'.join(result))
 

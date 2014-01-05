@@ -36,7 +36,7 @@
     <hr />
     <div class="terms" id="terms">
         <h3 class="terms-title"><a href="#terms">{{ p.terms.title }}</a></h3>
-        <div class="terms-body">
+        <div class="terms-body group">
             {{ p.terms.body }}
         </div>
     </div>
