@@ -24,7 +24,7 @@
     });
     $('a[href^="#term-"]').each(function() {
         var $this = $(this);
-        var term = $($this.attr('href'));
+        var term = $($this.attr('href')).parents('.term-desc');
 
         $this.addClass('term');
         $this.click(function(event) {
@@ -63,7 +63,7 @@
     });
     if (location.hash.indexOf('#term-') === 0) {
         var term = location.hash;
-        $(term).addClass('term-active');
+        $(term).parents('.term-desc').addClass('term-active');
     } else {
         $('.terms').addClass('terms-hide');
     }
