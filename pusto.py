@@ -435,8 +435,6 @@ def build(src_dir, build_dir, nginx_file=None, use_cache=False):
                 last_files = pickle.loads(f.read())
             del_, new_, mod_, changes = diff_files(all_files, last_files)
             if changes:
-                print('\n -- '.join([' * Detected changes'] + changes))
-
                 _dir = lambda f: f.replace(src_dir, '').rsplit('/', 1)[0] + '/'
                 for file in set(del_ + mod_):
                     path = build_dir + _dir(file)
@@ -505,11 +503,11 @@ def save_urls(pages, filename):
             f.write(urlmap.encode())
 
 
-def run(src_dir, build_dir, no_build=False, port=5000):
+def run(src_dir, build_dir, port=5000, no_build=False, no_cache=False):
     if not no_build:
-        build(src_dir, build_dir, use_cache=True)
+        build(src_dir, build_dir, use_cache=not no_cache)
 
-    watcher = Thread(target=watch_files, args=(src_dir,))
+    watcher = Thread(target=watch_files, args=(src_dir, 1, not no_cache))
     watcher.daemon = True
     watcher.start()
 
@@ -535,7 +533,7 @@ def list_files(path):
     return OrderedDict(sorted(files, key=lambda v: v[0]))
 
 
-def diff_files(files, old_files):
+def diff_files(files, old_files, quiet=False):
     del_, new_, mod_ = [], [], []
 
     files_ = set(files.keys())
@@ -552,19 +550,21 @@ def diff_files(files, old_files):
     changes += ['deleted file(s) %s' % ', '.join(del_)] if del_ else []
     changes += ['new file(s) %s' % ', '.join(new_)] if new_ else []
     changes += ['modified file(s) %s' % ', '.join(mod_)] if mod_ else []
+    if not quiet and changes:
+        print('\n -- '.join([' * Detected changes, rebuild'] + changes))
     return del_, new_, mod_, changes
 
 
-def watch_files(src_dir, interval=1):
+def watch_files(src_dir, interval=1, use_cache=True):
     old_files = None
     while 1:
         files = list_files(src_dir)
         old_files = files if old_files is None else old_files
 
-        changes = diff_files(files, old_files)[-1]
+        changes = diff_files(files, old_files, use_cache)[-1]
         if changes:
-            print(' * Rebuild...')
-            subprocess.call('%s build -c' % __file__, shell=True, cwd=ROOT_DIR)
+            cmd = '%s build%s' % (__file__, ' -c' if use_cache else '')
+            subprocess.call(cmd, shell=True, cwd=ROOT_DIR)
 
         old_files = files
         time.sleep(interval)
@@ -638,9 +638,10 @@ def get_parser():
         return p
 
     cmd('run', help='start dev server')\
+        .arg('-p', '--port', type=int, default=5000)\
         .arg('--no-build', action='store_true')\
-        .arg('--port', type=int, default=5000)\
-        .exe(lambda a: run(SRC_DIR, BUILD_DIR, a.no_build, a.port))
+        .arg('--no-cache', action='store_true')\
+        .exe(lambda a: run(SRC_DIR, BUILD_DIR, a.port, a.no_build, a.no_cache))
 
     cmd('build', help='build static content from `data` directory')\
         .arg('-b', '--bdir', default=BUILD_DIR, help='build directory')\
