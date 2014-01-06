@@ -33,7 +33,7 @@
 {% macro show_children(children) %}
 <ul class="posts">
 {% for url, child in children.items() %}
-    <li class="{% if loop.index == 1 %}post-first {% endif %}post" itemscope="itemscope" itemtype="http://schema.org/Article">
+    <li class="post" itemscope="itemscope" itemtype="http://schema.org/Article">
         <div class="title">
             <h1 itemprop="name">
                 <a href="{{ child.url }}" itemprop="url">
