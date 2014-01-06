@@ -218,6 +218,7 @@ blockquote {
 }
 .terms-body > * {
     float: left;
+    white-space: normal;
     padding: 0 7px;
     width: 48%;
     vertical-align: top;

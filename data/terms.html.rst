@@ -2,39 +2,32 @@
 --------------------
 .. _term-python:
 
-Python__ клёвый язык
-  - с хорошей `документацией`__;
-  - c отличным `The Zen of Python`__;
-  - c `приятным`__ `стандартом`__.
+Python__
+  Клёвый язык с хорошей `документацией`__, своим `Дзеном`__, `приятным стандартом`__.
 
 __ http://www.python.org/
 __ http://docs.python.org/
 __ http://www.python.org/dev/peps/pep-0020/
 __ http://www.python.org/dev/peps/pep-0008/
-__ https://pypi.python.org/pypi/pep8
 
 
 .. _term-archlinux:
 
-`Arch Linux`__ отличный дистрибутив
-  - `правильный путь`__;
-  - крутой `пакетный менеджер pacman`__;
-  - простой формат `PKGBUILD`__;
-  - масса всевозможных пакетов в AUR__;
-  - `моя система бекапов`__.
+`Arch Linux`__
+  Отличный дистрибутив, у которого `верный путь`__, крутой `пакетный менеджер`__,
+  простой формат `PKGBUILD`__, из-за последнего масса пакетов в AUR__.
 
 __ https://www.archlinux.org/
 __ https://wiki.archlinux.org/index.php/The_Arch_Way
 __ https://wiki.archlinux.org/index.php/pacman#Usage
 __ https://github.com/naspeh/tider/blob/master/PKGBUILD
 __ https://aur.archlinux.org/
-__ /post/archlinux-backup/
 
 
 .. _term-hike:
 
-Пешие походы, например
-    `Карпаты. Свидовецкйи хребет`__
+Пешие походы
+    Пример: `Карпаты. Свидовецкйи хребет`__
 
     .. raw:: html
 
@@ -50,8 +43,8 @@ __ /trip/2010-karpaty-svidovetskiy-khrebet/
 
 .. _term-bike:
 
-Велопоходы, например
-    `Крым. Симферополь-Феодосия`__
+Велопоходы
+    Пример: `Крым. Симферополь-Феодосия`__
 
     .. raw:: html
 
