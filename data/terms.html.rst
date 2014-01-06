@@ -3,25 +3,26 @@
 .. _term-python:
 
 Python__
-  Клёвый язык с хорошей `документацией`__, своим `Дзеном`__, `приятным стандартом`__.
+  Клёвый язык с `хорошей документацией`__, `своим Дзеном`__ и `массой отличных 
+  библиотек`__.
 
 __ http://www.python.org/
 __ http://docs.python.org/
 __ http://www.python.org/dev/peps/pep-0020/
-__ http://www.python.org/dev/peps/pep-0008/
-
+__ https://pypi.python.org/pypi?%3Aaction=browse
 
 .. _term-archlinux:
 
 `Arch Linux`__
-  Отличный дистрибутив, у которого `верный путь`__, крутой `пакетный менеджер`__,
-  простой формат `PKGBUILD`__, из-за последнего масса пакетов в AUR__.
+  Отличный дистрибутив, у которого `верный путь`__ и `крутой пакетный менеджер`__. 
+  `Огромный пользовательский репозиторий`__, ведь `PKGBUILD`__ - `это просто`__.
 
 __ https://www.archlinux.org/
 __ https://wiki.archlinux.org/index.php/The_Arch_Way
 __ https://wiki.archlinux.org/index.php/pacman#Usage
-__ https://github.com/naspeh/tider/blob/master/PKGBUILD
 __ https://aur.archlinux.org/
+__ https://wiki.archlinux.org/index.php/PKGBUILD
+__ https://wiki.archlinux.org/index.php/yaourt
 
 
 .. _term-hike:
