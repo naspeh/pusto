@@ -149,7 +149,6 @@ blockquote {
     margin: 0 -10px;
     margin-bottom: 1em;
     padding: 0 10px 0 10px;
-    border-bottom: 1px solid #ccc;
 }
 .intro h1 {
     font-size: 1.5em;
@@ -164,12 +163,8 @@ blockquote {
 .posts li.post {
     margin: 0 -10px;
     margin-bottom: 1em;
-    padding: 1em 10px 0 1em;
+    padding: 0.5em 10px 0 1em;
     border-top: 1px solid #ccc;
-}
-.posts li.post-first {
-    border-top: none;
-    padding-top: 0;
 }
 .document {
     text-align: justify;
