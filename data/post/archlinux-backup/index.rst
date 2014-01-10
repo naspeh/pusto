@@ -155,7 +155,7 @@ __ https://wiki.archlinux.org/index.php/UEFI
     $ mount -L P-BOOT /mnt/boot
 
     # ставлю базовою систему
-    $ pacstrap /mnt base base-devel
+    $ pacstrap -c /mnt base base-devel
     $ cp /etc/pacman.conf /mnt/etc/
 
     # переключаюсь на новый Arch и ставлю все нужные пакеты
