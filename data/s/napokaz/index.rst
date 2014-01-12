@@ -1,28 +1,30 @@
 napokaz.js
 ----------
-.. code:: html
+.. compound::
+    Example of usage
+        .. code:: html
 
-    <!-- Example of usage -->
-    <script src="http://code.jquery.com/jquery.js"></script>
+            <!-- Put to head -->
+            <link rel="stylesheet" href="napokaz.css" />
 
-    <link rel="stylesheet" href="napokaz.css" />
-    <script src="napokaz.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.napokaz').napokaz();
-        });
-    </script>
+            <!-- Put to body -->
+            <div class="napokaz"
+                data-box-thumbsize="120c"
+                data-front-thumbsize="60c"
+                data-picasa-user="naspeh"
+                data-picasa-album="20121016_Karpaty_Spravzhnya_Kazka">
+            </div>
+            <div class="napokaz"
+                data-picasa-user="naspeh"
+                data-picasa-albumid="5486642664135948337">
+            </div>
 
-    <div class="napokaz"
-        data-box-thumbsize="120c"
-        data-front-thumbsize="60c"
-        data-picasa-user="naspeh"
-        data-picasa-album="20121016_Karpaty_Spravzhnya_Kazka">
-    </div>
-    <div class="napokaz"
-        data-picasa-user="naspeh"
-        data-picasa-albumid="5486642664135948337">
-    </div>
+            <!-- Put to end of body -->
+            <script src="http://code.jquery.com/jquery.js"></script>
+            <script src="napokaz.js"></script>
+            <script>
+                $('.napokaz').napokaz();
+            </script>
 
 data-picasa-albumid
     .. raw:: html
