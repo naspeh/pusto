@@ -3,7 +3,7 @@
 <head>
 {% block head %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="/all.css" type="text/css" />
+    <link rel="stylesheet" href="/all.css?{{ p.pages['/all.css'].mtime }}" type="text/css" />
     <title>pusto.org: {% block title %}{{ p.title|striptags or p.url }}{% endblock %}</title>
 {% endblock %}
 </head>
@@ -45,6 +45,6 @@
 {% endblock %}
 
 {% block js %}
-<script src="/all.js"></script>
+<script src="/all.js?{{ p.pages['/all.js'].mtime }}"></script>
 {% endblock %}
 </body>

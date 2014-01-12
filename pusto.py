@@ -105,6 +105,11 @@ class Page:
         return len(ftype) == 2 and ftype[1]
 
     @property
+    def mtime(self):
+        stat = os.stat(self.src('index_file'))
+        return stat.st_mtime
+
+    @property
     def parent_url(self):
         return self.url.rstrip('/').rsplit('/', 1)[0] + '/'
 
