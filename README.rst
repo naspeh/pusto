@@ -14,6 +14,5 @@ Usage
 Use ``./pusto.py --help`` for information.
 
 .. TODO:
-  - sitemap.xml: don't use exclude, use include
   - set current url to `meta.json:aliases`
   - check valid urls on pages
