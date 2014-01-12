@@ -281,7 +281,7 @@
         }
         function selector(box, elementCls, currentCls, perPage) {
             perPage = !perPage ? 0 : perPage;
-            var prefix = perPage > 1 ? 'page:' : '';
+            var prefix = perPage > 0 ? 'page:' : '';
             var elementSel = '.' + elementCls;
             var currentSel = '.' + currentCls;
             var select = function(e) {
@@ -299,7 +299,7 @@
             box.on(prefix + 'select', function(e, element) {
                 element = $(element);
                 box.find(currentSel).removeClass(currentCls);
-                if (perPage <= 1) {
+                if (perPage <= 0) {
                     element.addClass(currentCls);
                     return;
                 }
