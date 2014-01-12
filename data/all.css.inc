@@ -20,3 +20,4 @@
     vertical-align: top;
 }
 /* @include _theme/styles.css */
+/* @include _theme/syntax.css */
