@@ -36,7 +36,7 @@ class Page:
         'terms_file'.split()
     )
     fields = meta_fields + (
-        'pages url src_dir index_file meta_file summary body text'.split()
+        'pages url src_dir index_file meta_file summary body text kind'.split()
     )
     Data = namedtuple('Data', fields)
 
@@ -93,15 +93,16 @@ class Page:
         return meta
 
     @property
-    def type(self):
-        return self.index_file and self.index_file.rsplit('.', 1)[1]
-
-    @property
     def path(self):
         path = self.src_dir + self.url
         if not self.url.endswith('/'):
             return path
         return path + ('index.html' if self.index_file else '')
+
+    @property
+    def ftype(self):
+        ftype = self.path.rsplit('.', 1)
+        return len(ftype) == 2 and ftype[1]
 
     @property
     def parent_url(self):
@@ -173,21 +174,29 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
             pages=pages,
             url=url,
             src_dir=src_dir,
+            meta_file=meta and url + meta,
             index_file=index and url + index,
-            meta_file=meta and url + meta
+            kind=index and index.rsplit('.', 1)[1]
         )
 
     ### Create pages for global "url-files"
     for index_file in get_globals(src_dir, 'url-files', []):
+        if isinstance(index_file, str):
+            url, kind = index_file.rsplit('.', 1)
+            index_file = index_file
+        else:
+            url, kind = index_file
+            index_file = url
+
         path = src_dir + index_file
         if not os.path.exists(path):
             print(' * WARN. File not exists - {}'.format(path))
             continue
-        url = index_file.rsplit('.', 1)[0]
         pages[url] = get(
             pages=pages,
             url=url,
             src_dir=src_dir,
+            kind=kind,
             index_file=index_file,
             archive=True
         )
@@ -204,14 +213,14 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
             tpl = env.get_template(page.template)
             page.update(text=tpl.render(p=page))
 
-        if page.type == 'inc':
+        if page.kind == 'include':
             text = do_includes(page.index_file, src_dir)
             page.update(text=text)
 
         with open(page.path, 'bw') as f:
             f.write(page.text.encode())
 
-        if check_xml and page.path.rsplit('.', 1)[1] in ('html', 'xml'):
+        if check_xml and page.ftype in ('html', 'xml'):
             parse_xml(page.text, page.template or page.index_file, quiet=True)
 
     return pages
@@ -303,7 +312,7 @@ def fill_page(page):
         with open(page.src('index_file'), 'br') as f:
             text = f.read().decode()
 
-        if page.type == 'py':
+        if page.kind == 'py':
             subprocess.call(
                 'cd {} && python index.py'
                 .format(page.src_dir + page.url),
@@ -313,26 +322,31 @@ def fill_page(page):
                 text = f.read().decode()
             page.update(text=text)
 
-        elif page.type == 'html':
-            page.update(text=text)
+        elif page.kind == 'html':
+            if page.template:
+                page.update(body=text)
+            else:
+                page.update(text=text)
 
-        elif page.type == 'tpl':
+        elif page.kind == 'tpl':
             page.update(template=page.index_file)
 
-        elif page.type == 'md':
+        elif page.kind == 'md':
             body = markdown(text)
-            page.update(body=body, summary=get_summary(body))
+            page.update(body=body)
 
-        elif page.type == 'rst':
+        elif page.kind == 'rst':
             title, body = rst(text, source_path=page.src('index_file'))
             if title:
                 page.update(title=title)
-            page.update(body=body, summary=get_summary(body))
+            page.update(body=body)
 
         # Need template render
-        if page.type in ['rst', 'md']:
+        if page.kind in ['rst', 'md']:
             page.update(template=page.get('template') or '_theme/base.tpl')
 
+        if page.body or page.text:
+            page.update(summary=get_summary(page.body or page.text))
     return page
 
 
