@@ -17,7 +17,16 @@
         picasaIgnore: ''
     };
     var picasa = {
+        cache: {},
         fetch: function(opts, success) {
+            var cache_key = null;
+            var success_ = function(data) {
+                if (cache_key) {
+                    picasa.cache[cache_key] = data;
+                }
+                success(picasa.parse(opts, data));
+            };
+
             var parts = ['user', opts.picasaUser];
             if (opts.picasaAlbumid) {
                 parts = parts.concat(['albumid', opts.picasaAlbumid]);
@@ -31,9 +40,15 @@
                     thumbsize: [opts.boxThumbsize, opts.frontThumbsize].join(',')
                 },
                 dataType: 'jsonp',
-                success: function(data) {
-                    success(picasa.parse(opts, data));
+                beforeSend: function(xhr, opts) {
+                    cache_key = opts.url.replace(/callback=jQuery[^&]+/, '').replace(/&_=[0-9]+/, '');
+                    if (cache_key in picasa.cache) {
+                        success_(picasa.cache[cache_key]);
+                        cache_key = null;
+                        return false;
+                    }
                 },
+                success: success_,
                 error: function(data, textStatus) {
                     console.error(
                         'Don\'t fetch data from picasaweb, status:', textStatus, data
@@ -266,7 +281,7 @@
         }
         function selector(box, elementCls, currentCls, perPage) {
             perPage = !perPage ? 0 : perPage;
-            var prefix = perPage > 1 ? 'page:' : '';
+            var prefix = perPage > 0 ? 'page:' : '';
             var elementSel = '.' + elementCls;
             var currentSel = '.' + currentCls;
             var select = function(e) {
@@ -284,7 +299,7 @@
             box.on(prefix + 'select', function(e, element) {
                 element = $(element);
                 box.find(currentSel).removeClass(currentCls);
-                if (perPage <= 1) {
+                if (perPage <= 0) {
                     element.addClass(currentCls);
                     return;
                 }
