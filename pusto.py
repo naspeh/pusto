@@ -190,12 +190,13 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
             url, kind = index_file.rsplit('.', 1)
             index_file = index_file
         else:
-            url, kind = index_file
-            index_file = url
+            if index_file[0] == index_file[1]:
+                raise SystemExit(' * ERROR. Wrong "url-file": %s' % index_file)
+            index_file, url, kind = index_file
 
         path = src_dir + index_file
         if not os.path.exists(path):
-            print(' * WARN. File not exists - {}'.format(path))
+            raise SystemExit(' * ERROR. File not exists: %s' % path)
             continue
         pages[url] = get(
             pages=pages,
