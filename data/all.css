@@ -17,5 +17,8 @@
     margin-bottom: 1em;
     vertical-align: top;
 }
+.napokaz a {
+    border: none;
+}
 /* @include _theme/styles.css */
 /* @include _theme/syntax.css */
