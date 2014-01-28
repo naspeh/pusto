@@ -5,8 +5,8 @@
 /* Init qTip2 */
 /* @include _theme/libs/jquery.qtip.min.css */
 .qtip {
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 0.8em;
+    line-height: 1.3;
 }
 
 /* Init napokaz */
