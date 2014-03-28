@@ -40,7 +40,7 @@ __ https://www.mailpile.is/
 
 __ http://mail.pusto.org
 
-Рабочее название проекта Mailr.
+Рабочее название проекта **Mailr**.
 
 .. image:: screenshot-s.png
 
