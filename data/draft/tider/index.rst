@@ -3,7 +3,7 @@ Tider - lightweight time tracker (GTK+)
 **Tider** gets answers to several questions:
  - which activity I am working on at the moment?
  - how long I have been working at the moment?
- - I need a break? (informs via notification)
+ - Is it time to take a break? (informs via notification)
  - which activities I have been working on today?
  - how long I have been working today?
  - monthly, weekly, daily reports.
@@ -81,7 +81,7 @@ Tider uses one simple sqlite table for saving activities named ``log`` and one p
 named ``log_pretty``, so it is easy to use SQL for getting specific report or fix 
 something that you can't do via GUI.
 
-Run default sqlite manager with database::
+Run default sqlite manager with related database::
 
     $ tider db
 
