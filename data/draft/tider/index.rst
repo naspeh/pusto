@@ -1,9 +1,9 @@
 Tider - lightweight time tracker (GTK+)
 =======================================
-**Tider** gets answers to several questions:
+**Tider** gives answers to several questions:
  - which activity I am working on at the moment?
  - how long I have been working at the moment?
- - Is it time to take a break? (informs via notification)
+ - is it time to take a break? (informs via notification)
  - which activities I have been working on today?
  - how long I have been working today?
  - monthly, weekly, daily reports.
@@ -25,7 +25,7 @@ Tider requires ``Python>=3.3`` and ``GTK3``, optional ``notify-send`` for notifi
 
 ::
 
-    $ pip install -e https://github.com/naspeh/tider.git
+    $ pip install -e git+git@github.com:naspeh/tider.git#egg=tider
 
 **Installation on Archlinux**::
 
