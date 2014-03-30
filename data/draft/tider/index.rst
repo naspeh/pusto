@@ -42,6 +42,49 @@ tab::
 
 __ http://i3wm.org/docs/userguide.html#keybindings
 
+Configuration
+-------------
+Default config available through command line::
+
+    $ tider conf
+
+There are some regular settings and some hooks. Hooks are needed for integration with 
+desktop environment. Config file is located ``"~/.config/tider/config.py"``.
+
+**i3wm and i3status:**
+  Modify ``text_hook``:
+
+  .. code:: py
+
+    def text_hook(ctx):
+        ...
+        import json
+
+        i3bar = json.dumps({'full_text': text, 'color': color})
+        with ctx.open('%s/i3bar.txt' % ctx.conf.conf_dir, mode='w') as f:
+            f.write(i3bar)
+        return markup
+
+  Then use ``"~/.config/tider/i3bar.txt"`` for i3status
+
+**Xfce4 and xfce4-genmon-plugin:**
+    Also modify ``text_hoot``:
+
+    .. code:: py
+
+        def text_hook(ctx):
+            ...
+            stats = re.sub(r'<[^>]+>', '', ctx.stats)
+            xfce = '<txt>%s</txt><tool>%s</tool>' % (markup, stats)
+            with ctx.open('%s/xfce.txt' % ctx.conf.conf_dir, mode='w') as f:
+                f.write(xfce)
+            return markup
+
+    Then use ``"~/.config/tider/xfce.txt"`` for `xfce4-genmon-plugin`__.
+
+__ http://goodies.xfce.org/projects/panel-plugins/xfce4-genmon-plugin
+
+
 Reports in terminal
 -------------------
 There is weekly report for two weeks period::
