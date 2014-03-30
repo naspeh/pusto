@@ -1,5 +1,5 @@
-Tider - lightweight time tracker (GTK+)
-=======================================
+Tider -- lightweight time tracker (GTK+)
+========================================
 **Tider** gives answers to several questions:
  - which activity I am working on at the moment?
  - how long I have been working at the moment?
