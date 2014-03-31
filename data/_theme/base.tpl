@@ -15,7 +15,7 @@
 <div class="header">
     <a class="logo" href="/en/">pusto.org</a>
     <ul class="nav">
-        <li><a href="/en/resume/">CV</a></li>
+        <li><a href="/en/resume/">Résumé</a></li>
         <li><a href="/">Articles (Ru)</a></li>
         <li><a href="/trip/">Trips (Ru)</a></li>
     </ul>
