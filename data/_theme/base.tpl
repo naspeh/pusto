@@ -1,5 +1,6 @@
 {% from '_theme/macros.tpl' import show_meta %}
 <!DOCTYPE HTML>
+{% set lang = p.params.lang %}
 <head>
 {% block head %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -10,6 +11,16 @@
 
 <body>
 {% block header %}
+{% if lang == 'en' %}
+<div class="header">
+    <a class="logo" href="/en/">pusto.org</a>
+    <ul class="nav">
+        <li><a href="/en/resume/">CV</a></li>
+        <li><a href="/">Articles (Ru)</a></li>
+        <li><a href="/trip/">Trips (Ru)</a></li>
+    </ul>
+</div>
+{% else %}
 <div class="header">
     <a class="logo" href="/">pusto.org</a>
     <ul class="nav">
@@ -17,14 +28,17 @@
         <li><a href="/naspeh/">Об авторе</a></li>
     </ul>
 </div>
+{% endif %}
 {% endblock %}
+
+
 {% block body %}
 <div itemscope="itemscope" itemtype="http://schema.org/Article">
     {% if p.title %}
     <div class="title">
         <h1 itemprop="name">{{ p.title }}</h1>
         <link itemprop="url" href="{{ url }}" />
-        {{ show_meta(p, back_url=True)}}
+        {{ show_meta(p, back_url=True, lang=lang)}}
     </div>
     {% endif %}
     <div class="document">

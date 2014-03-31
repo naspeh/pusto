@@ -2,5 +2,8 @@
     "aliases": [
         "/s/napokaz/"
     ],
+    "params": {
+        "lang": "en"
+    },
     "template": "_theme/napokaz.tpl"
 }
