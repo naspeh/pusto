@@ -27,7 +27,7 @@ h2 {
     font-size: 1.2em;
 }
 p, dl, hr, ol, ul, pre, blockquote,
-table, address, fieldset,
+table, address, fieldset, img,
 .line-block {
     margin-bottom: 1em;
 }
