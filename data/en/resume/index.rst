@@ -3,8 +3,8 @@ Grisha Kostyuk, python developer
 .. image:: /_img/ava200.jpg
   :align: right
 
-| email: **naspeh(at)gmail.com**
-| was born: in April 1983
+| My email is **naspeh(at)gmail.com**
+| I was born in April 1983.
 
 I'm a passionate python developer living in Dnepropetrovsk, Ukraine. I really like 
 simplicity and obvious my favorite principle is KISS__. I love python and its Zen__. I 

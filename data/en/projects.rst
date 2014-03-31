@@ -4,8 +4,8 @@ My projects
 beginning of development.
 
 `Tider </en/tider/>`_ -- lightweight time tracker (GTK+). I use it to understand how much 
-I have spent time on which activities while I am working on computer. And also remind me 
-to take a break.
+I have spent time on which activities while I am working on computer. And it also remind 
+me to take a break.
 
 `Pusto <https://github.com/naspeh/pusto>`_ -- the source code of this site.
 
