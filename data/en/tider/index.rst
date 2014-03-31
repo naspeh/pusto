@@ -1,11 +1,11 @@
 Tider -- lightweight time tracker (GTK+)
 ========================================
 **Tider** gives answers to several questions:
- - which activity I am working on at the moment?
- - how long I have been working at the moment?
+ - which activity am I working on at the moment?
+ - how long have I been working at the moment?
  - is it time to take a break? (informs via notification)
- - which activities I have been working on today?
- - how long I have been working today?
+ - which activities have I been working on today?
+ - how long have I been working today?
  - monthly, weekly, daily reports.
 
 .. raw:: html
@@ -33,10 +33,10 @@ Tider requires ``Python>=3.3`` and ``GTK3``, optional ``notify-send`` for notifi
 
 Command line interface
 ----------------------
-Almost all actions Tider can do through the command line: open menu, set activity and etc. 
-That give you ability to setup your custom hotkeys in desktop specific environment. For 
-example in i3wm__ I use ``"~/.i3/config"``, but in Xfce I use ``"Application Shortcuts"`` 
-tab::
+Tider can do almost all actions through the command line: open menu, set activity and etc. 
+That gives you the ability to setup your custom hotkeys in desktop specific environment. 
+For example in i3wm__ I use ``"~/.i3/config"``, but in Xfce I use ``"Application 
+Shortcuts"`` tab::
 
     Settings > Keyboard > Application Shortcuts
 
@@ -68,7 +68,7 @@ desktop environment. Config file is located ``"~/.config/tider/config.py"``.
   Then use ``"~/.config/tider/i3bar.txt"`` for i3status
 
 **Xfce4 and xfce4-genmon-plugin:**
-    Also modify ``text_hoot``:
+    Also modify ``text_hook``:
 
     .. code:: py
 
@@ -87,7 +87,7 @@ __ http://goodies.xfce.org/projects/panel-plugins/xfce4-genmon-plugin
 
 Reports in terminal
 -------------------
-There is weekly report for two weeks period::
+Here is a weekly report for two weeks period::
 
     $ tider re -i1703-2903 -w
     Statistics from 2014-03-17 to 2014-03-23

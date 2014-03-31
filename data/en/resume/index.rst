@@ -8,9 +8,9 @@ Grisha Kostyuk, python developer
 
 __ https://github.com/naspeh/
 
-I'm a passionate web developer based in Dnepropetrovsk, Ukraine. I like minimalism and 
-simplicity. My favorite principles KISS__ and DRY__. I love python and his Zen__. I work 
-on `Arch Linux`__ and like `The Arch Way`__ and also `Unix phillosophy.`__ 
+I'm a passionate web developer living in Dnepropetrovsk, Ukraine. I like minimalism and 
+simplicity. My favorite principles are KISS__ and DRY__. I love python and its Zen__. I 
+work on `Arch Linux`__ and like `The Arch Way`__ and also `Unix phillosophy.`__ 
 
 __ http://en.wikipedia.org/wiki/KISS_principle
 __ http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
@@ -61,4 +61,4 @@ Education
 2000 -- 2005 Dnipropetrovsk National University
   Master, Mechanical Mathematics
 
-**English:** good reading, normal writing and poor oral.
+**English:** intermediate level.
