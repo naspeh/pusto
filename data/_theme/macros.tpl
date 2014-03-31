@@ -1,10 +1,6 @@
 {% set github="https://github.com/naspeh/pusto/tree/master/data" %}
 
-{% macro phrase(lang, ru, en='') %}
-    {{ en if lang == 'en' else ru  }}
-{% endmacro %}
-
-{% macro show_meta(c, back_url=False, lang=None) %}
+{% macro show_meta(c, back_url=False, EN=None) %}
 <ul class="meta">
     {% if back_url %}
         {% if c.parent.url == '/post/' %}
@@ -16,22 +12,22 @@
     {% if c.author %}
     <li>
         {% if c.author|length == 1 %}
-        {{ phrase(lang, 'Автор:', 'Author:') }} <b>{{ c.author[0] }}</b>
+        {{ 'Author:' if EN else 'Автор:' }} <b>{{ c.author[0] }}</b>
         {% else %}
-        {{ phrase(lang, 'Авторы:', 'Authors:') }} <b>{{ ', '.join(c.author)}}</b>
+        {{ 'Authors:' if EN else 'Авторы:' }} <b>{{ ', '.join(c.author)}}</b>
         {% endif %}
     </li>
     {% endif %}
     {% if c.published %}
     <li itemprop="datePublished" datetime="{{ c.published.strftime('%Y-%m-%d')}}" >
-        {{ phrase(lang, 'Опубликовано:', 'Published on ') }}
+        {{ 'Published on ' if EN else 'Опубликовано:' }}
         <b>{{ c.published.strftime('%d.%m.%Y') }}</b>
     </li>
     {% endif %}
     {% if c.kind in ['md', 'rst'] %}
-    <li><a href="{{ c.index_file }}">{{ phrase(lang, 'Исходный текст', 'Show Source') }}</a></li>
+    <li><a href="{{ c.index_file }}">{{ 'Show Source' if EN else 'Исходный текст' }}</a></li>
     {% endif %}
-    <li><a href="{{ github }}{{ c.url }}">{{ phrase(lang, 'Смотреть на github', 'Look at github') }}</a></li>
+    <li><a href="{{ github }}{{ c.url }}">{{ 'Look at github' if EN else 'Смотреть на github' }}</a></li>
 </ul>
 {% endmacro %}
 

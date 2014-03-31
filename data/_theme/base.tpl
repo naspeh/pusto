@@ -1,6 +1,6 @@
 {% from '_theme/macros.tpl' import show_meta %}
 <!DOCTYPE HTML>
-{% set lang = p.params.lang %}
+{% set EN = p.params.lang == 'en' %}
 <head>
 {% block head %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,7 +11,7 @@
 
 <body>
 {% block header %}
-{% if lang == 'en' %}
+{% if EN %}
 <div class="header">
     <a class="logo" href="/en/">pusto.org</a>
     <ul class="nav">
@@ -38,7 +38,7 @@
     <div class="title">
         <h1 itemprop="name">{{ p.title }}</h1>
         <link itemprop="url" href="{{ url }}" />
-        {{ show_meta(p, back_url=True, lang=lang)}}
+        {{ show_meta(p, back_url=True, EN=EN)}}
     </div>
     {% endif %}
     <div class="document">
