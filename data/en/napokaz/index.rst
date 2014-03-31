@@ -1,5 +1,11 @@
 napokaz.js
-----------
+==========
+| Lightweight viewer for images from `picasaweb.`__
+| Source code available on `github.`__
+
+__ https://picasaweb.google.com/naspeh/
+__ https://github.com/naskoro/napokaz
+
 .. compound::
     Example of usage
         .. code:: html

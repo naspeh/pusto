@@ -3,8 +3,7 @@ body {
     font-weight: 400;
     margin: 0 auto;
     padding: 0 10px;
-    max-width: 880px;
-    min-width: 780px;
+    width: 780px;
 }
 a {
     color: #008000;
@@ -49,6 +48,9 @@ li, dd {
 }
 dt {
     font-weight: bold;
+}
+em, i {
+    font-style: italic;
 }
 strong, b {
     font-weight: bold;
