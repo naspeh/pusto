@@ -11,7 +11,17 @@
     "/draft/mailr/": null,
     "/draft/my-way/": null,
     "/draft/my-way/linux/": null,
-    "/draft/tider/": null,
+    "/en/": null,
+    "/en/mailr/": null,
+    "/en/napokaz/": [
+        "/s/napokaz/",
+        "/s/napokaz"
+    ],
+    "/en/resume/": [
+        "/resume/en/",
+        "/resume/en"
+    ],
+    "/en/tider/": null,
     "/naspeh/": [
         "/naspeh/detail/",
         "/naspeh/detail"
@@ -49,12 +59,10 @@
         "/blog/2008/09/25/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework"
     ],
     "/resume/": null,
-    "/resume/en/": null,
     "/s/2013-ru-pycon/": [
         "/s/writing/ru-pycon-2013/",
         "/s/writing/ru-pycon-2013"
     ],
-    "/s/napokaz/": null,
     "/sitemap.xml": null,
     "/terms.html": null,
     "/trip/": null,

@@ -1,6 +1,6 @@
 Гриша aka `naspeh </post/unique-nick/>`_
 ------------------------------------------
-.. image:: _img/ava200.jpg
+.. image:: /_img/ava200.jpg
   :align: right
 
 email: **naspeh(at)gmail.com**

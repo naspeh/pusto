@@ -1,0 +1,32 @@
+Grisha aka naspeh
+=================
+.. image:: /_img/ava200.jpg
+  :align: right
+
+I'm a pyhton developer living in Dnepropetrovsk, Ukraine.
+
+My projects
+-----------
+`Mailr </en/mailr/>`_ -- an webmail client with gmail like conversations. It is currently 
+at an early state of development.
+
+`Tider </en/tider/>`_ -- lightweight time tracker (GTK+). I use it to understand how much 
+I have spent time on which activities while I am working on computer.
+
+`Pusto <https://github.com/naspeh/pusto>`_ -- code of this site.
+
+Napokaz__ -- lightweight viewer of images from picasaweb__. It is jQuery plugin without 
+any other dependencies.
+
+__ /en/napokaz/
+__ https://picasaweb.google.com/
+
+Naya__ (outdated) -- experimental attempt to develop microframework based on Werkzeug__ 
+without any other required dependencies. It was started when Flask__ was a single file.
+
+__ https://github.com/naskoro/naya
+__ http://werkzeug.pocoo.org/
+__ http://flask.pocoo.org/
+
+
+All code and other projects you can find on `github. <https://github.com/naspeh>`_

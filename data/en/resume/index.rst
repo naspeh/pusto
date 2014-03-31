@@ -1,6 +1,6 @@
 Grisha Kostyuk, python developer
 --------------------------------
-.. image:: ../_img/ava200.jpg
+.. image:: /_img/ava200.jpg
   :align: right
 
 | email: **naspeh(at)gmail.com**
