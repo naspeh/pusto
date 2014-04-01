@@ -109,21 +109,21 @@ blockquote {
     color: #eee;
     text-decoration: underline;
 }
-.header a.logo {
-    position: absolute;
-    top: -2px;
-    margin-bottom: 1em;
-}
 .header ul.nav {
     position: absolute;
     top: -2px;
     right: 0;
+    margin-bottom: 1em;
     list-style: none;
 }
 .header ul.nav li {
     float: left;
     margin-left: 5px;
     text-transform: lowercase;
+}
+.header ul.logo {
+    position: absolute;
+    left: -5px;
 }
 .title {
     margin-bottom: 0.5em;

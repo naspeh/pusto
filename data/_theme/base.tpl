@@ -13,7 +13,10 @@
 {% block header %}
 {% if EN %}
 <div class="header">
-    <a class="logo" href="/en/">pusto.org</a>
+    <ul class="nav logo">
+        <li><a href="/en/">pusto.org</a></li>
+        <li><a href="/" title="Russian part">ru</a></li>
+    </ul>
     <ul class="nav">
         <li><a href="/en/resume/">Résumé</a></li>
         <li><a href="/">Articles (Ru)</a></li>
@@ -22,7 +25,10 @@
 </div>
 {% else %}
 <div class="header">
-    <a class="logo" href="/">pusto.org</a>
+    <ul class="nav logo">
+        <li><a href="/">pusto.org</a></li>
+        <li><a href="/en/" title="English part">en</a></li>
+    </ul>
     <ul class="nav">
         <li><a href="/trip/">Наши поездки</a></li>
         <li><a href="/naspeh/">Об авторе</a></li>
