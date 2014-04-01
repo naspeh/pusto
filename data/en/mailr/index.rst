@@ -1,9 +1,17 @@
-Welcome to Mailr
-================
+Intro to Mailr
+==============
 **Mailr** is an Open Source webmail client with gmail like conversations.
 
 **Note.** Mailr is at the beginning of development. There is a lot of work, that has to be 
 done.
+
+Technologies:
+ - **Python 3** with the help of werkzeug, jinja2, sqlalchemy, lxml;
+ - **PostgreSQL** with his awesome data types;
+ - lessjs, jquery(yet only) on the frontend.
+
+I want to use minimal scope of dependencies for building Mailr. And I always want to keep 
+in mind simplicity when developing it.
 
 Source code available on `github. <https://github.com/naspeh/mailr>`_
 
@@ -84,11 +92,8 @@ __ http://www.mailgun.com/
 Then there are many things to keep in mind such as multiple accounts, support other IMAP 
 servers, PGP encryption, mailinglists...
 
-Technologies
-------------
-I want to use minimal scope of dependencies for building Mailr. And I always want to keep 
-in mind simplicity when developing it.
-
-- **Python 3** with the help of werkzeug, jinja2, sqlalchemy, lxml;
-- **PostgreSQL** with his awesome data types;
-- lessjs, jquery(yet only) on the frontend.
+P.S.
+----
+I have been working intensively about last two months on Mailr, but my long vocation is 
+ending soon and I will probably spend a little time on Mailr later. Anyway I will try to 
+implement the first version one day.
