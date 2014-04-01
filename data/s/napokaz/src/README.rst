@@ -1,5 +1,4 @@
-Lightweight image viewer for picasaweb__
-----------------------------------------
+**napokaz.js** is lightweight image viewer for `picasaweb.`__
 
 __ https://picasaweb.google.com/naspeh/
 

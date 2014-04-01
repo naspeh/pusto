@@ -1,6 +1,6 @@
 Welcome to Mailr
 ================
-**Mailr** is an Open Sorce webmail client with gmail like conversations.
+**Mailr** is an Open Source webmail client with gmail like conversations.
 
 **Note.** Mailr is at the beginning of development. There is a lot of work, that has to be 
 done.
