@@ -94,6 +94,6 @@ servers, PGP encryption, mailinglists...
 
 P.S.
 ----
-I have been working intensively about last two months on Mailr, but my long vocation is 
-ending soon and I will probably spend a little time on Mailr later. Anyway I will try to 
-implement the first version one day.
+I have been working intensively for about last two months on Mailr, but my long vacation 
+is ending soon and I will probably spend a little time on Mailr later. Anyway I will try 
+to implement the first version one day.
