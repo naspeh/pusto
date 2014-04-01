@@ -18,9 +18,14 @@
         {% endif %}
     </li>
     {% endif %}
-    {% if c.published %}
+    {% if c.modified %}
+    <li itemprop="dateModified" datetime="{{ c.modified.strftime('%Y-%m-%d')}}" >
+        {{ 'Modified at ' if EN else 'Обновлено:' }}
+        <b>{{ c.modified.strftime('%d.%m.%Y') }}</b>
+    </li>
+    {% elif c.published %}
     <li itemprop="datePublished" datetime="{{ c.published.strftime('%Y-%m-%d')}}" >
-        {{ 'Published on ' if EN else 'Опубликовано:' }}
+        {{ 'Published at ' if EN else 'Опубликовано:' }}
         <b>{{ c.published.strftime('%d.%m.%Y') }}</b>
     </li>
     {% endif %}

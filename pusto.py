@@ -32,7 +32,7 @@ INDEX_FILES = ['index.' + t for t in 'py tpl rst md html'.split(' ')]
 class Page:
     __slots__ = ('_data',)
     meta_fields = (
-        'template params aliases published sort archive author title '
+        'template params aliases published modified sort archive author title '
         'terms_file'.split()
     )
     fields = meta_fields + (
@@ -77,6 +77,12 @@ class Page:
         for key in Page.meta_fields:
             if key in raw:
                 meta[key] = raw[key]
+
+        if 'modified' in meta:
+            at = dt.datetime.strptime(meta['modified'], '%Y-%m-%d %H:%M')
+            at = at.replace(hour=8)
+            at = get_globals(self.src_dir, 'tz').localize(at)
+            meta['modified'] = at
 
         pub = ''
         if 'published' in meta:
