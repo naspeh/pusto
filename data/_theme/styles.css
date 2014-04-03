@@ -26,7 +26,7 @@ h2 {
     font-size: 1.2em;
 }
 p, dl, hr, ol, ul, pre, blockquote,
-table, address, fieldset, img,
+table, address, fieldset, img, dd,
 .line-block {
     margin-bottom: 1em;
 }
@@ -62,7 +62,7 @@ sub {
     vertical-align: sub;
 }
 tt {
-    font-family: "Anonymous Pro", monospace;
+    font-family: "PT Mono", monospace;
 }
 pre {
     overflow: auto;
