@@ -7,15 +7,16 @@ Grisha Kostyuk, python developer
 | I was born in April 1983.
 
 I'm a passionate python developer living in Dnepropetrovsk, Ukraine. I really like 
-simplicity and obvious my favorite principle is KISS__. I love python and its Zen__. I 
+simplicity and obviously my favorite principle is KISS__. I love python and its Zen__. I 
 think `Unix phillosophy`__ is the best way to develop software. I want to work in 
-distributed team on really exciting piece of software (probably on some cool web service).
+distributed team on a really exciting piece of software (probably on some cool web 
+service).
 
 __ http://en.wikipedia.org/wiki/KISS_principle
 __ http://www.python.org/dev/peps/pep-0020/
 __ http://en.wikipedia.org/wiki/Unix_philosophy
 
-Technologies I have been actively using:
+Technologies I've been actively using:
  - Python since Oct 2009;
  - PostgreSQL and Redis since Mar 2012;
  - Linux since Jul 2008, ArchLinux since Jan 2012;
@@ -72,7 +73,7 @@ Education
 
 Additionally
 ------------
-I love my family. I really like walking and mountains. I have been thinking a lot about 
+I love my family. I really like walking and mountains. I've been thinking a lot about 
 meaning of life.
 
 I don't smoke and don't drink any alcohol.
