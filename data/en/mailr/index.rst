@@ -7,7 +7,7 @@ done.
 
 Technologies:
  - **Python 3** with the help of werkzeug, jinja2, sqlalchemy, lxml;
- - **PostgreSQL** with his awesome data types;
+ - **PostgreSQL** with his awesome power;
  - lessjs, jquery(yet only) on the frontend.
 
 I want to use minimal scope of dependencies for building Mailr. And I always want to keep 

@@ -1,5 +1,5 @@
-Grisha Kostyuk, python developer
-================================
+Grisha Kostyuk, experienced python developer
+============================================
 .. image:: /_img/ava200.jpg
   :align: right
 
@@ -28,7 +28,6 @@ I prefer Werkzeug__, PostgreSQL, Redis for web development.
 
 __ http://werkzeug.pocoo.org/
 
-.. Projects
 .. include:: ../projects.rst
 
 Python developer since October 2009
