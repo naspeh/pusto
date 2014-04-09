@@ -8,7 +8,6 @@
     "/all.css": null,
     "/all.js": null,
     "/draft/": null,
-    "/draft/mailr/": null,
     "/draft/my-way/": null,
     "/draft/my-way/linux/": null,
     "/en/": null,
@@ -37,6 +36,7 @@
         "/naspeh/gnome-optimizaciya-okon/",
         "/naspeh/gnome-optimizaciya-okon"
     ],
+    "/post/mailr-intro/": null,
     "/post/python-argparse-subcommands/": null,
     "/post/python-code-management/": [
         "/naspeh/python-code-management/",
