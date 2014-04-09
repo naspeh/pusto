@@ -4,6 +4,7 @@ Grisha Kostyuk, experienced python developer
   :align: right
 
 | My email is **naspeh(at)gmail.com**
+| Skype is **naspeh**
 | I was born in April 1983.
 
 I'm a passionate python developer living in Dnepropetrovsk, Ukraine. I really like 
