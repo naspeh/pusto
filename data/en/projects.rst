@@ -1,7 +1,7 @@
 My projects
 -----------
-`Mailr </en/mailr/>`_ -- a webmail client with gmail like conversations. It is at the 
-beginning of development.
+`Mailr </en/mailr/>`_ -- a webmail client with gmail like conversations. It is early in 
+development.
 
 `Tider </en/tider/>`_ -- lightweight time tracker (GTK+). I use it to understand how much 
 time I have spent on which activities while I am working on computer. And it also reminds 
