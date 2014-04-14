@@ -130,7 +130,7 @@ Who am I?
 My name is Grisha Kostyuk aka naspeh. My email is naspeh[at]gmail.com. I was born at 15 
 Apr 1983. I'm a passionate programmer from Ukraine with experience about seven years in 
 web development, more then four last years with Python. I usually work as full-stack web 
-developer on full-time position (often remote). Last work was just backend part.
+developer on full-time position (often remote). Last job was just backend part.
 
 Why fundraiser?
 ---------------
