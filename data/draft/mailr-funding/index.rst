@@ -1,6 +1,6 @@
 Mailr
 =====
-**Open Source webmail client with gmail like conversations.**
+**Open Source webmail client with Gmail like conversations.**
 
 I love emails.
 
@@ -11,8 +11,8 @@ for me as the best conversations making by Google.
 Now many who trying to invent new generation of emails. There are services made by 
 corporations like gmail.com, mail.yahoo.com, outlook,com, mailboxapp.com, mail.yandex.com 
 and smaller companies with fastmail.fm, hashmail.com, inboxapp.com and some small open 
-source teams like mailpile.is, Geary (desktop replacement for Gmail). And Mailr wants to 
-be a good alternative for them.
+source teams like mailpile.is, Geary (desktop email client with Gmail like conversations). 
+And Mailr wants to be a good alternative for them.
 
 The most similar to Mailr is Mailpile. They both Open Sourced, both web based and both 
 using Python.
@@ -75,9 +75,11 @@ Why I think I can do this?
     You can get big resultants
     Not far away
 
-So four months and two iterations (each in two months)
-------------------------------------------------------
-First iteration, named "I move away from Gmail but with Gmail behind my back":
+So goal is four months for $10.000
+----------------------------------
+I will work full-time on Mailr with two iterations (each in two months).
+
+First iteration, named "I have moved away from Gmail but with Gmail behind my back":
  - composing and sending email
  - improving conversation with all important actions
  - improving and optimizing synchronization through IMAP
@@ -89,7 +91,7 @@ First iteration, named "I move away from Gmail but with Gmail behind my back":
 
 After first iteration I suppose I will switch to Mailr in daily basis.
 
-Second iteration, named "Really? I move away from Gmail!"
+Second iteration, named "Really? I have moved away from Gmail!"
  - improving all optimization all existing features
  - improving themes and implementing new ones
  - filtering incoming messages

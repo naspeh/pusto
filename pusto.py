@@ -453,9 +453,9 @@ def build(src_dir, build_dir, nginx_file=None, use_cache=False):
     if not os.path.exists(build_dir):
         os.mkdir(build_dir)
 
+    all_files = list_files(src_dir)
+    cache_file = os.path.join(build_dir, CACHE_FILE)
     if use_cache:
-        all_files = list_files(src_dir)
-        cache_file = os.path.join(build_dir, CACHE_FILE)
         if os.path.exists(cache_file):
             with open(cache_file, 'br') as f:
                 last_files = pickle.loads(f.read())
@@ -472,11 +472,12 @@ def build(src_dir, build_dir, nginx_file=None, use_cache=False):
             else:
                 print(' * No changes')
 
-        with open(cache_file, 'bw') as f:
-            f.write(pickle.dumps(all_files))
     else:
         clean_dir(build_dir)
         copy_dir(src_dir, build_dir)
+
+    with open(cache_file, 'bw') as f:
+        f.write(pickle.dumps(all_files))
 
     pages = get_pages(build_dir, use_cache, check_xml=True)
     save_rules(pages, nginx_file or os.path.join(build_dir, '.nginx'))
@@ -531,7 +532,7 @@ def save_urls(pages, filename):
 
 def run(src_dir, build_dir, port=5000, no_build=False, no_cache=False):
     if not no_build:
-        build(src_dir, build_dir)
+        build(src_dir, build_dir, use_cache=not no_cache)
 
     watcher = Thread(target=watch_files, args=(src_dir, 1, not no_cache))
     watcher.daemon = True
@@ -587,7 +588,8 @@ def watch_files(src_dir, interval=1, use_cache=True):
         files = list_files(src_dir)
         old_files = files if old_files is None else old_files
 
-        changes = diff_files(files, old_files, use_cache)[-1]
+        quiet = use_cache  # if use_cache be quiet
+        changes = diff_files(files, old_files, quiet)[-1]
         if changes:
             cmd = '%s build%s' % (__file__, ' -c' if use_cache else '')
             subprocess.call(cmd, shell=True, cwd=ROOT_DIR)
