@@ -17,7 +17,7 @@ Now many who trying to invent new generation of emails. There are services made 
 corporations like gmail.com, mail.yahoo.com, outlook,com, mailboxapp.com, mail.yandex.com 
 and smaller companies like fastmail.fm, hashmail.com, inboxapp.com and some small open 
 source teams like mailpile.is, Geary (desktop email client with Gmail like conversations). 
-I think many webmails have to old interfaces, other too complicated ones and some don't 
+I think many webmails have too old interfaces, other too complicated ones and some don't 
 give me simple first trying with full functionality. I need something with simple and 
 powerful web interface with some good innovations. And Mailr wants to fit that and be a 
 good alternative for others with no ads and little privacy in the end.
