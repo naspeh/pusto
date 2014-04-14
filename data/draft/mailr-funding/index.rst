@@ -1,5 +1,14 @@
 Mailr
 =====
+.. epigraph::
+
+    | With right instruments
+    | Folowing right way
+    | You can get big resultants
+    | Not so far away
+    |
+    | -- Grisha aka naspeh
+
 **Open Source webmail client with Gmail like conversations.**
 
 I love Open Source. I love emails.
@@ -80,14 +89,6 @@ Why I think I can do this?
 
    **Other IMAP servers** after that (so Mailr can be used with full own setup).
 
-::
-
-  I even made up quatrain
-    With right instruments
-    Folowing right way
-    You can get big resultants
-    Not so far away
-
 So goal is five months for $15.000
 ----------------------------------
 I will work full-time on Mailr with two iterations (each in two and half months).
@@ -116,10 +117,10 @@ After second iteration I suppose Mailr will be perfect alternative for webmail.
 
 Why fundraiser?
 ---------------
-My name is Grisha Kostyuk . I'm a passionate programmer from Ukraine with experience about 
-seven years in web development, more then four last years with Python. I usually work as 
-Python developer on full-time position (often remote). I have been often work as 
-full-stack web developer. Last year I have spend my time mostly on my own projects 
+My name is Grisha Kostyuk aka naspeh. I'm a passionate programmer from Ukraine with 
+experience about seven years in web development, more then four last years with Python. I 
+usually work as Python developer on full-time position (often remote). I have been often 
+work as full-stack web developer. Last year I have spend my time mostly on my own projects 
 (includes my newborn the first son) and Mailr is last one which I have been working maybe 
 last four months, including researching and the first prototype which I left and start 
 developing Mailr from scratch (current version takes about two month and half).
@@ -131,8 +132,8 @@ get a job I will dive deep in new role and new project and Mailr can be late for
 year. So I really want to work on email stuff and I need some money.
 
 
-Just examples of campaigns
---------------------------
+Just examples of campaigns (will be removed before publishing)
+--------------------------------------------------------------
 - https://www.indiegogo.com/projects/mailpile-taking-e-mail-back
 
   Funding duration: August 03, 2013 - September 10, 2013 (11:59pm PT).

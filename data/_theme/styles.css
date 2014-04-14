@@ -87,6 +87,13 @@ blockquote {
     border-left: 3px solid #ccc;
     color: #555;
 }
+blockquote.epigraph {
+    padding-left: 0;
+    padding-right: 10px;
+    border-left: none;
+    border-right: 3px solid #ccc;
+    text-align: right;
+}
 
 /* Blocks */
 .header {
