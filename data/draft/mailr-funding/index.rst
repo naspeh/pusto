@@ -101,8 +101,8 @@ Second iteration, named "Really? I have moved away from Gmail!"
 
 After second iteration I suppose Mailr will be perfect alternative for webmail.
 
-Why crowdfunding?
------------------
+Why fundraiser?
+---------------
 I have experience about seven years in web development. I usually work as Python Developer 
 on full-time position (often remote). I have been sometimes as fully backend developer
 Last year I have spend my time mostly on my own projects (includes my newborn first son) 
@@ -120,7 +120,7 @@ Just examples of campaigns
 --------------------------
 - https://www.indiegogo.com/projects/mailpile-taking-e-mail-back
 
-  Funding duration: August 03, 2013 - September 10, 2013 (11:59pm PT).<F12>
+  Funding duration: August 03, 2013 - September 10, 2013 (11:59pm PT).
 
   | https://news.ycombinator.com/item?id=6152046
   | Mailpile: Lets take email back
