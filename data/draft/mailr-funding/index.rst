@@ -32,7 +32,7 @@ replacing gmail in my daily using.
 
 Why I think I can do this?
 --------------------------
-1. Right instruments
+1. **Right instruments**
 
    **Python** is really right language. I love Python. It has powerful standard library 
    and lots of useful third party libraries (sqlalchemy, werkzeug, jinja2, lxml). Mailpile 
@@ -42,30 +42,30 @@ Why I think I can do this?
    backups for saving my emails carefully. It has useful feature set for searching and 
    indexing, so I don't need invent wheel for these things.
 
-2. Right way (for getting the first usable version as soon as possible)
+2. **Right way** (for getting the first usable version as soon as possible)
 
-    **Gmail** as first backend through IMAP with bidirectional synchronization. Gmail has 
-    good storage for emails, filters for incoming messages, powerful spam filter, email 
-    clients for smartphones and tablets. So I can concentrate on useful interface and 
-    other thing can wait for later. And I always can return to Gmail again and use it as 
-    usual or just use it in parallel mode.
+   **Gmail** as first backend through IMAP with bidirectional synchronization. Gmail has 
+   good storage for emails, filters for incoming messages, powerful spam filter, email 
+   clients for smartphones and tablets. So I can concentrate on useful interface and other 
+   thing can wait for later. And I always can return to Gmail again and use it as usual or 
+   just use it in parallel mode.
 
-    So with Gmail I can do most important features first and some can wait for later. I 
-    can read emails through Mailr, next feature is writing emails. And I need to 
-    implement, to optimize, and to polish big set of features: conversations, email 
-    parsing, synchronizing, search, detecting and folding quotes, hotkeys, settings, 
-    themes, label handling, filtering of incoming messages, SSL support and etc.
+   So with Gmail I can do most important features first and some can wait for later. I 
+   can read emails through Mailr, next feature is writing emails. And I need to 
+   implement, to optimize, and to polish big set of features: conversations, email 
+   parsing, synchronizing, search, detecting and folding quotes, hotkeys, settings, 
+   themes, label handling, filtering of incoming messages, SSL support and etc.
 
-    Probably **Mailgun** as second backend. Setup and supporting my own email server with 
-    good spam filter and good reliability is horrible thing. So services like Mailgun can 
-    help me with this stuff.
+   Probably **Mailgun** as second backend. Setup and supporting my own email server with 
+   good spam filter and good reliability is horrible thing. So services like Mailgun can 
+   help me with this stuff.
 
-    If I'd implement Mailgun and make good replication for my PosgreSQL I can remove 
-    synchronization with Gmail (not from supporting, just from usage), that simplify and 
-    speed Mailr installation, because synchronization part is complicated and sometimes 
-    slow.
+   If I'd implement Mailgun and make good replication for my PosgreSQL I can remove 
+   synchronization with Gmail (not from supporting, just from usage), that simplify and 
+   speed Mailr installation, because synchronization part is complicated and sometimes 
+   slow.
 
-    And then other IMAP servers (so Mailr can be used with full own setup).
+   And then other IMAP servers (so Mailr can be used with full own setup).
 
 ::
 

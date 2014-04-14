@@ -171,7 +171,7 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
     paths = reversed(list(tree.keys()))
 
     pages = OrderedDict()
-    ### Create pages by directories
+    # Create pages by directories
     for path in paths:
         url = path.replace(src_dir, '') + '/'
         if not os.path.isdir(path) or url.rsplit('/', 2)[1].startswith('_'):
@@ -190,7 +190,7 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
             kind=index and index.rsplit('.', 1)[1]
         )
 
-    ### Create pages for global "url-files"
+    # Create pages for global "url-files"
     for index_file in get_globals(src_dir, 'url-files', []):
         if isinstance(index_file, str):
             url, kind = index_file.rsplit('.', 1)
@@ -213,7 +213,7 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
             archive=True
         )
 
-    ### Save HTML to index_file
+    # Save HTML to index_file
     env = get_jinja(src_dir)
     for page in pages.values():
         if page.url == '/naspeh/':
@@ -531,7 +531,7 @@ def save_urls(pages, filename):
 
 def run(src_dir, build_dir, port=5000, no_build=False, no_cache=False):
     if not no_build:
-        build(src_dir, build_dir, use_cache=not no_cache)
+        build(src_dir, build_dir)
 
     watcher = Thread(target=watch_files, args=(src_dir, 1, not no_cache))
     watcher.daemon = True
