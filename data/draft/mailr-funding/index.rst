@@ -8,19 +8,21 @@ Now many who trying to invent new generation of emails. There are services made 
 corporations like gmail.com, mail.yahoo.com, outlook,com, mailboxapp.com, mail.yandex.com 
 and smaller companies with fastmail.fm, hashmail.com, inboxapp.com and some small open 
 source teams like mailpile.is, Geary (desktop email client with Gmail like conversations). 
-And Mailr wants to be a good alternative for them.
+I think many webmails have to old interfaces and other too complicated ones and I need 
+something simpler with some good innovations. And Mailr wants to fit that and be a good 
+alternative for others.
 
 I have been using Gmail during last seven years. I had tried to move away many times, but 
 always returned back. I have tried probably all possible alternatives and no one can't fit 
-for me as the best conversations making by Google.
+for me such as the best conversations making by Google.
 
 I have several daily using devices: laptop with small screen for all my work, iPad Mini 
-for reading and surfing. I need just browser for webmail at all so I want one which will 
-be really suitable for small screens, but it will be useful and for big monitors too (I 
-have a big one for testing, but usually watching movies on it). .
+for reading and surfing. I need just browser for webmail at all and is is amazing. So I 
+want Mailr which will be really suitable for small screens, but it will be useful and for 
+big monitors too (I have a big one for testing, but usually watching movies on it).
 
 The most similar to Mailr is Mailpile. They both Open Sourced, both web based and both 
-using Python.
+using Python. But they have different ways.
 
 I think Mailpile has main principle **security**.
 
@@ -32,8 +34,8 @@ Mailr has main principle **simplicity**
 
 I started Mailr couple months ago and it has pretty well `public demo`__ with narrow 
 feature set. I can read all my emails through Mailr interface and I really like it (sure, 
-because I've been making it). I want to build the first powerful version in five months 
-for replacing gmail in my daily using.
+because I've been making it). I want to build the first powerful version in **five 
+months** for replacing Gmail in my daily using.
 
 __ http://mail.pusto.org
 
@@ -114,18 +116,19 @@ After second iteration I suppose Mailr will be perfect alternative for webmail.
 
 Why fundraiser?
 ---------------
-I'm Grisha Kostyuk from Ukraine. I have been programmer with experience about seven years 
-in web development and more then four years with Python. I usually work as Python 
-Developer on full-time position (often remote). I have been often work as full-stack web 
-developer. Last year I have spend my time mostly on my own projects (includes my newborn 
-first son) and Mailr is last one which I have been working maybe last four months, 
-including researching and the first prototype which I left and start developing Mailr from 
-scratch (it takes about two month and half). Now I have spent mostly all the money which I 
-have (I didn't earn anything during last year) and I need to get job for supporting my 
-family. But I want to develop Mailr. Now I'm diving deep with context, I have a lot of 
-enthusiasm and this is right time, because if I get a job I will dive deep in new role and 
-new project and Mailr can late for about year. So I really want to work on email stuff and 
-I need some money.
+My name is Grisha Kostyuk . I'm a passionate programmer from Ukraine with experience about 
+seven years in web development, more then four last years with Python. I usually work as 
+Python developer on full-time position (often remote). I have been often work as 
+full-stack web developer. Last year I have spend my time mostly on my own projects 
+(includes my newborn the first son) and Mailr is last one which I have been working maybe 
+last four months, including researching and the first prototype which I left and start 
+developing Mailr from scratch (current version takes about two month and half).
+
+Now I have spent mostly all the money which I have (I didn't earn anything during last 
+year) and I need to get job for supporting my family. But I want to develop Mailr. Now I'm 
+diving deep with context, I have a lot of enthusiasm and this is right time, because if I 
+get a job I will dive deep in new role and new project and Mailr can be late for about 
+year. So I really want to work on email stuff and I need some money.
 
 
 Just examples of campaigns
