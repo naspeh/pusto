@@ -2,6 +2,8 @@ Mailr
 =====
 **Open Source webmail client with gmail like conversations.**
 
+I love emails.
+
 I have been using Gmail during last seven years. I had tried to move away many times, but 
 always returned back. I have tried probably all possible alternatives and no one can't fit 
 for me as the best conversations making by Google.
@@ -50,9 +52,9 @@ Why I think I can do this?
 
     So with Gmail I can do most important features first and some can wait for later. I 
     can read emails through Mailr, next feature is writing emails. And I need to 
-    implement, to optimize and to polish big set of features: conversations, search, 
-    detecting and folding quotes, hotkeys, settings, themes, label handling, filtering of 
-    incoming messages, SSL support and etc.
+    implement, to optimize, and to polish big set of features: conversations, email 
+    parsing, synchronizing, search, detecting and folding quotes, hotkeys, settings, 
+    themes, label handling, filtering of incoming messages, SSL support and etc.
 
     Probably **Mailgun** as second backend. Setup and supporting my own email server with 
     good spam filter and good reliability is horrible thing. So services like Mailgun can 
@@ -77,11 +79,13 @@ So four months and two iterations (each in two months)
 ------------------------------------------------------
 First iteration, named "I move away from Gmail but with Gmail behind my back":
  - composing and sending email
- - improving conversation with all possible actions
- - improving detecting and folding quotes and signatures
+ - improving conversation with all important actions
  - improving and optimizing synchronization through IMAP
+ - improving email parsing
+ - improving detecting and folding quotes and signatures
  - preparing docker image and ansible playbook
  - preparing instructions for installation
+ - publishing
 
 After first iteration I suppose I will switch to Mailr in daily basis.
 
@@ -91,16 +95,20 @@ Second iteration, named "Really? I move away from Gmail!"
  - filtering incoming messages
  - multi-accounts support
  - Mailgun support
+ - publishing
 
 After second iteration I suppose Mailr will be perfect alternative for webmail.
 
 Why crowdfunding?
 -----------------
-I have family and I usually work as Python Developer on full-time position. Last year I 
-have spend my time mostly on my own projects and Mailr is last one which I have been 
-working maybe last four months, including researching and the first prototype which I left 
-and start developing Mailr from scratch. Now I have spent mostly all the money which I 
-have (I didn't earn anything during last year) and I need to get job. But I want to 
-develop Mailr. Now I dive in context, I have enthusiasm and this is right time, because if 
-I get job I will deep dive in new role and new project and Mailr can late for about year. 
-So I really want to work on email stuff and I need some money.
+I have experience about seven years in web development. I usually work as Python Developer 
+on full-time position (often remote). I have been sometimes as fully backend developer
+Last year I have spend my time mostly on my own projects (includes my newborn first son) 
+and Mailr is last one which I have been working maybe last four months, including 
+researching and the first prototype which I left and start developing Mailr from scratch 
+(it takes probably two month and a little). Now I have spent mostly all the money which I 
+have (I didn't earn anything during last year) and I need to get job for supporting my 
+family. But I want to develop Mailr. Now I dive deep in context, I have enthusiasm and 
+this is right time, because if I get a job I will dive deep in new role and new project 
+and Mailr can late for about year. So I really want to work on email stuff and I need some 
+money.
