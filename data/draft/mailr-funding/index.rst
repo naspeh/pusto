@@ -19,7 +19,7 @@ and smaller companies with fastmail.fm, hashmail.com, inboxapp.com and some smal
 source teams like mailpile.is, Geary (desktop email client with Gmail like conversations). 
 I think many webmails have to old interfaces and other too complicated ones and I need 
 something simpler with some good innovations. And Mailr wants to fit that and be a good 
-alternative for others.
+alternative for others with no ads and little privacy.
 
 I have been using Gmail during last seven years. I had tried to move away many times, but 
 always returned back. I have tried probably all possible alternatives and no one can't fit 
