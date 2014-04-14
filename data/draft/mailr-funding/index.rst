@@ -19,7 +19,7 @@ and smaller companies with fastmail.fm, hashmail.com, inboxapp.com and some smal
 source teams like mailpile.is, Geary (desktop email client with Gmail like conversations). 
 I think many webmails have to old interfaces and other too complicated ones and I need 
 something simpler with some good innovations. And Mailr wants to fit that and be a good 
-alternative for others with no ads and little privacy.
+alternative for others with no ads and little privacy in the end.
 
 I have been using Gmail during last seven years. I had tried to move away many times, but 
 always returned back. I have tried probably all possible alternatives and no one can't fit 
@@ -65,6 +65,8 @@ Why I think I can do this?
    backups for saving my emails carefully. It has useful feature set for searching and 
    indexing, so I don't need invent wheel for these things.
 
+   **Less** instead of CSS for better theming.
+
 2. **Right way** (for getting the first usable version as soon as possible)
 
    **Gmail** as first backend through IMAP with bidirectional synchronization. Gmail has 
@@ -89,8 +91,8 @@ Why I think I can do this?
 
    **Other IMAP servers** after that (so Mailr can be used with full own setup).
 
-So goal is five months for $15.000
-----------------------------------
+Goal is five months for $15.000
+-------------------------------
 I will work full-time on Mailr with two iterations (each in two and half months).
 
 First iteration, named "I have moved away from Gmail but with Gmail behind my back":
