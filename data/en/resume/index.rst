@@ -4,14 +4,13 @@ Grisha Kostyuk, experienced python developer
   :align: right
 
 | My email is **naspeh(at)gmail.com**
-| Skype is **naspeh**
 | I was born in April 1983.
 
 I'm a passionate python developer living in Dnepropetrovsk, Ukraine. I really like 
 simplicity and obviously my favorite principle is KISS__. I love python and its Zen__. I 
 think `Unix phillosophy`__ is the best way to develop software. I want to work in 
 distributed team on a really exciting piece of software (probably on some cool web 
-service).
+service, no games, no advertising).
 
 __ http://en.wikipedia.org/wiki/KISS_principle
 __ http://www.python.org/dev/peps/pep-0020/
