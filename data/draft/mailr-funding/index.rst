@@ -15,22 +15,23 @@ I love Open Source. I love emails.
 
 Now many who trying to invent new generation of emails. There are services made by 
 corporations like gmail.com, mail.yahoo.com, outlook,com, mailboxapp.com, mail.yandex.com 
-and smaller companies with fastmail.fm, hashmail.com, inboxapp.com and some small open 
+and smaller companies like fastmail.fm, hashmail.com, inboxapp.com and some small open 
 source teams like mailpile.is, Geary (desktop email client with Gmail like conversations). 
-I think many webmails have to old interfaces and other too complicated ones and I need 
-something simpler with some good innovations. And Mailr wants to fit that and be a good 
-alternative for others with no ads and little privacy in the end.
+I think many webmails have to old interfaces, other too complicated ones and some don't 
+give me simple first trying with full functionality. I need something with simple and 
+powerful web interface with some good innovations. And Mailr wants to fit that and be a 
+good alternative for others with no ads and little privacy in the end.
 
 I have been using Gmail during last seven years. I had tried to move away many times, but 
 always returned back. I have tried probably all possible alternatives and no one can't fit 
 for me such as the best conversations making by Google.
 
 I have several daily using devices: laptop with small screen for all my work, iPad Mini 
-for reading and surfing. I need just browser for webmail at all and is is amazing. So I 
+for reading and surfing. I need just browser for webmail at all and  that amazing. So I 
 want Mailr which will be really suitable for small screens, but it will be useful and for 
 big monitors too (I have a big one for testing, but usually watching movies on it).
 
-The most similar to Mailr is Mailpile. They both Open Sourced, both web based and both 
+The most similar to Mailr is Mailpile. They both open sourced, both web based and both 
 using Python. But they have different ways.
 
 I think Mailpile has main principle **security**.
@@ -38,17 +39,18 @@ I think Mailpile has main principle **security**.
 Mailr has main principle **simplicity**
  - simple, but flexible and useful interface
  - codebase with simplicity in mind (less dependencies, less code - means simpler for 
-   supporting in the future)
+   maintaining in the future)
  - simple way for installation and deployment
 
-I started Mailr couple months ago and it has pretty well `public demo`__ with narrow 
-feature set. I can read all my emails through Mailr interface and I really like it (sure, 
-because I've been making it). I want to build the first powerful version in **five 
-months** for replacing Gmail in my daily using.
+I started Mailr few months ago and it has pretty well `public demo`__ with narrow feature 
+set. I can read all my emails through Mailr interface and I really like it (sure, because 
+I've been making it). I want to build the first powerful version in **five months** for 
+replacing Gmail in my daily using.
 
 __ http://mail.pusto.org
 
-Code available on github__ and first introducing here__ (it still useful).
+Code available on github__ and first introducing here__ (it still useful for additional 
+information).
 
 __ https://github.com/naspeh/mailr
 __ http://pusto.org/en/mailr/
@@ -58,14 +60,18 @@ Why I think I can do this?
 1. **Right instruments**
 
    **Python** is really right language. I love Python. It has powerful standard library 
-   and lots of useful third party libraries, that give you power. Mailpile and InboxApp 
+   and lots of useful third party libraries, that give us the power. Mailpile and InboxApp 
    both have been making with Python.
 
    **PosgresSQL** is right storage. It can be use with transactions, replications and 
    backups for saving my emails carefully. It has useful feature set for searching and 
-   indexing, so I don't need invent wheel for these things.
+   indexing, so I don't need invent wheel for these things. All emails with attachments in 
+   database, so just simple backup and all my data with me.
 
    **Less** instead of CSS for better theming.
+
+   **Redis** now is optional dependency for caching. But probably it can be requirement 
+   for caching and queues (now async tasks are stored in PostgerSQL).
 
 2. **Right way** (for getting the first usable version as soon as possible)
 
@@ -101,6 +107,7 @@ First iteration, named "I have moved away from Gmail but with Gmail behind my ba
  - improving and optimizing synchronization through IMAP
  - improving email parsing
  - improving detecting and folding quotes and signatures
+ - improving database schema
  - preparing docker image and ansible playbook
  - preparing instructions for installation
  - publishing
@@ -111,21 +118,26 @@ Second iteration, named "Really, I have moved away from Gmail!"
  - improving and optimization of all existing features
  - improving themes and implementing new ones
  - filtering incoming messages
- - multi-accounts support
+ - multi-accounts support (one tab for all email accounts)
  - Mailgun support
+ - preparing some documentation
  - publishing
 
 After second iteration I suppose Mailr will be perfect alternative for webmail.
 
+Who am I?
+---------
+My name is Grisha Kostyuk aka naspeh. My email is naspeh[at]gmail.com. I was born at 15 
+Apr 1983. I'm a passionate programmer from Ukraine with experience about seven years in 
+web development, more then four last years with Python. I usually work as full-stack web 
+developer on full-time position (often remote). Last work was just backend part.
+
 Why fundraiser?
 ---------------
-My name is Grisha Kostyuk aka naspeh. I'm a passionate programmer from Ukraine with 
-experience about seven years in web development, more then four last years with Python. I 
-usually work as Python developer on full-time position (often remote). I have been often 
-work as full-stack web developer. Last year I have spend my time mostly on my own projects 
-(includes my newborn the first son) and Mailr is last one which I have been working maybe 
-last four months, including researching and the first prototype which I left and start 
-developing Mailr from scratch (current version takes about two month and half).
+Last year I have spend my time mostly on my own projects (includes my newborn the first 
+son) and Mailr is last one which I have been working maybe last four months, including 
+researching and the first prototype which I left and start developing Mailr from scratch 
+(current version takes about two month and half).
 
 Now I have spent mostly all the money which I have (I didn't earn anything during last 
 year) and I need to get job for supporting my family. But I want to develop Mailr. Now I'm 
