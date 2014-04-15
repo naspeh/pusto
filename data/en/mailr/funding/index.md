@@ -98,39 +98,3 @@ Why fundraiser?
 Since April 2013 I have spent my time mostly on my own projects (including my newborn first son). Mailr is the last thing I have been working on during the recent four months, including research, first prototype (which I gave up) and start of developing Mailr from scratch (current version took about two months and half).
 
 Now I have spent almost all the money I had (I haven't earnt anything since April 2013) and I need to get a job for supporting my family. But I want to develop Mailr. Now I'm deep in the context of Mailr, I have a lot of enthusiasm and this is the right time, because if I get a job I will dive deep in a new role and a new project and Mailr may be late for about year. So I really want to work on email stuff and I need some money.
-
-Some examples of campaigns (will be removed before publishing)
---------------------------------------------------------------
-Fundraising for Mailr: an open-source webmail client with Gmail-like conversations
-
-- https://www.indiegogo.com/projects/mailpile-taking-e-mail-back
-
-  Funding duration: August 03, 2013 - September 10, 2013 (11:59pm PT).
-
-  | https://news.ycombinator.com/item?id=6152046
-  | Mailpile: Lets take email back
-  | 507 points by threedaymonk 8 months ago 234 comments
-  | 2013-08-03T13:48:10.000Z
-
-  | https://news.ycombinator.com/item?id=6243936
-  | Mailpile taking e-mail back
-  | 316 points by tim_hutton 8 months ago 151 comments
-  | 2013-08-20T14:36:59.000Z
-
-  | https://news.ycombinator.com/item?id=6333203
-  | PayPal Freezes Mailpile Campaign Funds 507 points
-  | 507 points by capgre 7 months ago 351 comments
-  | 2013-09-05T10:20:21.000Z
-
-- https://www.bountysource.com/teams/neovim/fundraiser
-
-  | https://news.ycombinator.com/item?id=7449663
-  | Bram Moolenaar responds to Neovim
-  | 208 points by dviola 2 months ago 149 comments
-  | 2014-02-23T21:26:12.000Z
-
-  | https://news.ycombinator.com/item?id=7278214
-  | Neovim  838 points by tarruda 2 months ago 367 comments
-  | 2014-02-21T17:48:07.000Z
-
-- https://www.bountysource.com/teams/rvm/fundraiser

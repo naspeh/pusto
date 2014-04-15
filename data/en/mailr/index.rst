@@ -4,8 +4,11 @@ Introducing Mailr
 
 **Note.** Mailr is early in development. There is a lot of work, that has to be done.
 
-`Funding for Mailr`__ (and `copy on this site`__)
+`Funding for Mailr`__ (`copy`__).
+    .. raw:: html
+       :file: paypal.html
 
+    
 __ https://www.bountysource.com/fundraisers/563-mailr
 __ /en/mailr/funding/
 
