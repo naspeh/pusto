@@ -22,6 +22,8 @@ Code is available on [github][1] and is first introduced [here][2] (it is still 
 [1]: https://github.com/naspeh/mailr
 [2]: http://pusto.org/en/mailr/
 
+![Mailr Screenshot](http://pusto.org/en/mailr/screenshot-s.png)
+
 The most similar project to Mailr is Mailpile. They're both open-source, web-based and using Python. But they have different ways.
 
 I think the main principle of Mailpile is **security**.
