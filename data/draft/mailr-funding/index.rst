@@ -56,7 +56,7 @@ __ https://github.com/naspeh/mailr
 __ http://pusto.org/en/mailr/
 
 Why do I think I can do this?
---------------------------
+-----------------------------
 1. **Right instruments**
 
    **Python** is really the right language. I love Python. It has a powerful standard library 
