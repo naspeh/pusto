@@ -2,12 +2,12 @@ Mailr
 =====
 .. epigraph::
 
-    | With the right instruments
-    | Folowing the right way
-    | You can reach big results
-    | Not so far away
-    |
-    | -- Grisha aka naspeh
+    With the right instruments
+    Folowing the right way
+    You can reach big results
+    Not so far away
+    
+    -- Grisha aka naspeh
 
 **Open Source webmail client with Gmail like conversations.**
 
@@ -31,8 +31,8 @@ for reading and surfing. When I need only a browser for webmail that's amazing. 
 want Mailr to be really suitable for small screens and for big monitors as well
 (I have a big one for testing, but usually watch movies on it).
 
-The most similar project to Mailr is Mailpile. They're both open sourced, both web based and both 
-using Python. But they have different ways?????????.
+The most similar project to Mailr is Mailpile. They're both open-source, web-based and 
+using Python. But they have different ways.
 
 I think the main principle of Mailpile is **security**.
 
@@ -144,6 +144,8 @@ year. So I really want to work on email stuff and I need some money.
 
 Some examples of campaigns (will be removed before publishing)
 --------------------------------------------------------------
+Fundraising for Mailr: an open-source webmail client with Gmail-like conversations
+
 - https://www.indiegogo.com/projects/mailpile-taking-e-mail-back
 
   Funding duration: August 03, 2013 - September 10, 2013 (11:59pm PT).
