@@ -4,6 +4,11 @@ Introducing Mailr
 
 **Note.** Mailr is early in development. There is a lot of work, that has to be done.
 
+`Funding for Mailr`__ (and `copy on this site`__)
+
+__ https://www.bountysource.com/fundraisers/563-mailr
+__ /en/mailr/funding/
+
 Technologies:
  - **Python 3** with the help of werkzeug, jinja2, sqlalchemy, lxml;
  - **PostgreSQL** with his awesome power;

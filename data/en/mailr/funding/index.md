@@ -1,5 +1,3 @@
-Mailr
-=====
 **Open Source webmail client with Gmail-like conversations.**
 
     With the right instruments
@@ -22,6 +20,7 @@ Code is available on [github][1] and is first introduced [here][2] (it is still 
 [1]: https://github.com/naspeh/mailr
 [2]: http://pusto.org/en/mailr/
 
+![Mailr Screenshot](http://pusto.org/en/mailr/screenshot-xs.png)
 ![Mailr Screenshot](http://pusto.org/en/mailr/screenshot-s.png)
 
 The most similar project to Mailr is Mailpile. They're both open-source, web-based and using Python. But they have different ways.
@@ -96,7 +95,7 @@ My name is Grisha Kostyuk aka naspeh. My email is naspeh[at]gmail.com. I was bor
 
 Why fundraiser?
 ---------------
-Since April 2013 I have spent my time mostly on my own projects (including my newborn first son) and Mailr is the last thing I have been working on during the recent four months, including research, first prototype (which I gave up) and start of developing Mailr from scratch (current version took about two months and half).
+Since April 2013 I have spent my time mostly on my own projects (including my newborn first son). Mailr is the last thing I have been working on during the recent four months, including research, first prototype (which I gave up) and start of developing Mailr from scratch (current version took about two months and half).
 
 Now I have spent almost all the money I had (I haven't earnt anything since April 2013) and I need to get a job for supporting my family. But I want to develop Mailr. Now I'm deep in the context of Mailr, I have a lot of enthusiasm and this is the right time, because if I get a job I will dive deep in a new role and a new project and Mailr may be late for about year. So I really want to work on email stuff and I need some money.
 
