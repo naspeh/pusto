@@ -1,3 +1,7 @@
+Note: copy for history from [bountysource][0].
+
+[0]: https://www.bountysource.com/teams/naspeh/fundraiser
+
 **Open Source webmail client with Gmail-like conversations.**
 
     With the right instruments
