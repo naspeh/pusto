@@ -41,12 +41,12 @@ Why do I think I can do this?
 
    **Python** is really the right language. I love Python. It has a powerful standard    library and lots of useful third party libraries, that give us the power. [Mailpile][mp] and    [InboxApp][inboxapp] both have been made using Python.
 
-[mp]: https://www.mailpile.is/
-[inboxapp]: https://www.inboxapp.com/
-
    **PosgresSQL** is the right storage. It can be used with transactions, replications and    backups for saving my emails carefully. It has a useful feature set for searching and    indexing, so I don't need to reinvent the wheel for these things. All emails with    attachments are in the database, so just a simple backup and all my data is with me    again.
 
    **Less** is used instead of CSS for better theming.
+
+   [mp]: https://www.mailpile.is/
+   [inboxapp]: https://www.inboxapp.com/
 
 2. **Right way** (for getting the first usable version as soon as possible)
 

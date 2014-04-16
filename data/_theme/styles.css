@@ -39,11 +39,13 @@ hr {
 }
 ol {
     list-style: decimal;
+    margin-left: 2em;
 }
 ul {
     list-style: disc;
+    margin-left: 2em;
 }
-li, dd {
+dd {
     margin-left: 1em;
 }
 dt {
