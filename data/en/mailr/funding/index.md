@@ -1,6 +1,6 @@
-Note: copy for history from [bountysource][0].
+**Note:** copy for history from [bountysource][bounty].
 
-[0]: https://www.bountysource.com/teams/naspeh/fundraiser
+[bounty]: https://www.bountysource.com/teams/naspeh/fundraiser
 
 **Open Source webmail client with Gmail-like conversations.**
 
@@ -15,21 +15,17 @@ I love Open Source. I love emails.
 
 I've been using Gmail during the last seven years. I tried to abandon many times, but always returned. I tried probably all possible alternatives and nothing could fit me as the best conversations made by Google.
 
-I started Mailr few months ago and it already has a pretty good [public demo][__] with narrow feature set. I can read all my emails through Mailr interface and I really like it (sure, because I've been making it). I want to build the first powerful version in **five months** for replacing Gmail in my daily using.
+I started Mailr few months ago and it already has a pretty good **[public demo][demo]** with narrow feature set. I can read all my emails through Mailr interface and I really like it (sure, because I've been making it). I want to build the first powerful version in **five months** for replacing Gmail in my daily using.
 
-[__]: http://mail.pusto.org
+[demo]: http://mail.pusto.org
 
-Code is available on [github][1] and is first introduced [here][2] (it is still useful for additional information).
+Code is available on [github][gh] and is first introduced [here][intro] (it is still useful for additional information).
 
-[1]: https://github.com/naspeh/mailr
-[2]: http://pusto.org/en/mailr/
+[gh]: https://github.com/naspeh/mailr
+[intro]: http://pusto.org/en/mailr/
 
 ![Mailr Screenshot](http://pusto.org/en/mailr/screenshot-xs.png)
 ![Mailr Screenshot](http://pusto.org/en/mailr/screenshot-s.png)
-
-The most similar project to Mailr is Mailpile. They're both open-source, web-based and using Python. But they have different ways.
-
-I think the main principle of Mailpile is **privacy** (with PGP support in the first place).
 
 The main principle of Mailr is **simplicity**.
 
@@ -37,15 +33,16 @@ The main principle of Mailr is **simplicity**.
  - codebase created with simplicity in mind (less dependencies, less code - means simplier    for maintaining in the future)
  - simple installation and deployment
 
-I have several daily used devices: laptop with small screen for all my work, iPad Mini for reading and surfing. When I need only a browser for webmail that's amazing. So I want Mailr to be really suitable for small screens and for big monitors as well (I have a big one for testing, but usually watch movies on it).
-
-These days many people are trying to invent a new generation of emails. There is a number of services made by corporations like gmail.com, mail.yahoo.com, outlook,com, mailboxapp.com, mail.yandex.com and smaller companies like fastmail.fm, hashmail.com, inboxapp.com and some small open source teams like mailpile.is, Geary (desktop email client with Gmail-like conversations). I think many webmails have too old interfaces, others are too complicated and some don't give me simple first trying with full functionality. I need something with simple and powerful web interface with some good innovations. And Mailr is intended to fit that and be a good alternative for other services with no ads and little privacy in the end.
+When I need only a browser for webmail that's amazing. I have several daily used devices: laptop with small screen for all my work, iPad Mini for reading and surfing. So I want Mailr to be really suitable for small screens and for big monitors as well (I have a big one for testing, but usually watch movies on it).
 
 Why do I think I can do this?
 -----------------------------
 1. **Right instruments**
 
-   **Python** is really the right language. I love Python. It has a powerful standard    library and lots of useful third party libraries, that give us the power. Mailpile and    InboxApp both have been made using Python.
+   **Python** is really the right language. I love Python. It has a powerful standard    library and lots of useful third party libraries, that give us the power. [Mailpile][mp] and    [InboxApp][inboxapp] both have been made using Python.
+
+[mp]: https://www.mailpile.is/
+[inboxapp]: https://www.inboxapp.com/
 
    **PosgresSQL** is the right storage. It can be used with transactions, replications and    backups for saving my emails carefully. It has a useful feature set for searching and    indexing, so I don't need to reinvent the wheel for these things. All emails with    attachments are in the database, so just a simple backup and all my data is with me    again.
 
