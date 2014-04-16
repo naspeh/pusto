@@ -24,7 +24,7 @@ Code is available on [github][gh] and is first introduced [here][intro] (it is s
 [gh]: https://github.com/naspeh/mailr
 [intro]: http://pusto.org/en/mailr/
 
-![Mailr Screenshot](http://pusto.org/en/mailr/screenshot-xs.png)
+![Mailr Screenshot](http://pusto.org/en/mailr/screenshot-one.png)
 ![Mailr Screenshot](http://pusto.org/en/mailr/screenshot-s.png)
 
 The main principle of Mailr is **simplicity**.
