@@ -4,11 +4,10 @@ Introducing Mailr
 
 **Note.** Mailr is early in development. There is a lot of work, that has to be done.
 
-`Fundraising for Mailr`__ (`copy`__).
+`Fundraising for Mailr`__ `[copy].`__
 
-    
-__ https://www.bountysource.com/fundraisers/563-mailr
-__ /en/mailr/funding/
+__ https://www.bountysource.com/teams/naspeh/fundraiser
+__ /en/mailr/fundraising/
 
 Technologies:
  - **Python 3** with the help of werkzeug, jinja2, sqlalchemy, lxml;
