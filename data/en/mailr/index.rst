@@ -4,7 +4,7 @@ Introducing Mailr
 
 **Note.** Mailr is early in development. There is a lot of work, that has to be done.
 
-`Funding for Mailr`__ (`copy`__).
+`Fundraising for Mailr`__ (`copy`__).
 
     
 __ https://www.bountysource.com/fundraisers/563-mailr
