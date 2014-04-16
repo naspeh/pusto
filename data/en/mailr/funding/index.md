@@ -29,7 +29,7 @@ Code is available on [github][1] and is first introduced [here][2] (it is still 
 
 The most similar project to Mailr is Mailpile. They're both open-source, web-based and using Python. But they have different ways.
 
-I think the main principle of Mailpile is **security**.
+I think the main principle of Mailpile is **privacy** (with PGP support in the first place).
 
 The main principle of Mailr is **simplicity**.
 
