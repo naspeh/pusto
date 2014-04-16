@@ -39,14 +39,15 @@ hr {
 }
 ol {
     list-style: decimal;
-    margin-left: 2em;
 }
 ul {
     list-style: disc;
-    margin-left: 2em;
 }
-dd {
+dd, li, ol, ul {
     margin-left: 1em;
+}
+dd > ul {
+    margin-left: 0;
 }
 dt {
     font-weight: bold;
@@ -122,8 +123,9 @@ blockquote.epigraph {
     position: absolute;
     top: -2px;
     right: 0;
-    margin-bottom: 1em;
     list-style: none;
+    margin: 0;
+    margin-bottom: 1em;
 }
 .header ul.nav li {
     float: left;
@@ -143,11 +145,11 @@ blockquote.epigraph {
 }
 .title ul.meta {
     list-style: none;
+    margin: 0;
     font-size: 0.75em;
     color: #777;
     overflow: hidden;
     text-transform: lowercase;
-    margin-bottom: 0;
 }
 .title ul.meta li {
     float: left;
@@ -170,6 +172,7 @@ blockquote.epigraph {
 }
 .posts {
     list-style: none;
+    margin: 0;
 }
 .posts li.post {
     margin: 0 -10px;
