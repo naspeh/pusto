@@ -2,9 +2,9 @@ Introducing Mailr
 =================
 **Mailr** is an Open Source webmail client with gmail like conversations.
 
-**Note.** Mailr is early in development. There is a lot of work, that has to be done.
+*Mailr is early in development. There is a lot of work, that has to be done.*
 
-`Fundraising for Mailr`__ `[copy].`__
+`Fundraising on bountysource`__ `[copy].`__
 
 __ https://www.bountysource.com/teams/naspeh/fundraiser
 __ /en/mailr/fundraising/
