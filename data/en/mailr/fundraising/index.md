@@ -15,7 +15,7 @@ I love Open Source. I love emails.
 
 I've been using Gmail during the last seven years. I would want little privacy and no ads for my emails, so I tried to abandon many times, but always returned. I tried probably all possible alternatives and nothing could fit me as the best conversations made by Google.
 
-I started Namail few months ago and it already has a pretty good **[public demo][demo]** with narrow feature set (Gmail synchronization, conversations with some actions, search). I can read all my emails through Namail interface and I really like it (sure, because I've been making it). I want to build the first powerful version in **five months** for replacing Gmail in my daily using.
+I started Namail few months ago and it already has a pretty good **[public demo][demo]** with narrow feature set: Gmail synchronization, conversations with some actions, search, etc. I can read all my emails through Namail interface and I really like it (sure, because I've been making it). I want to build the first powerful version in **five months** for replacing Gmail in my daily using.
 
 [demo]: http://mail.pusto.org
 
