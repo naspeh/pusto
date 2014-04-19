@@ -13,7 +13,7 @@
 
 I love Open Source. I love emails.
 
-I've been using Gmail during the last seven years. I would want little privacy and no ads for my emails, so I tried to abandon many times, but always returned. I tried probably all possible alternatives and nothing could fit me as the best conversations made by Google.
+I've been using Gmail for the last seven years. I wanted little privacy and no ads for my emails, so I tried to abandon many times, but always returned. I tried probably all possible alternatives and nothing could fit me as the best conversations made by Google.
 
 I started Namail few months ago and it already has a pretty good **[public demo][demo]** with narrow feature set: Gmail synchronization, conversations with some actions, search, etc. I can read all my emails through Namail interface and I really like it (sure, because I've been making it). I want to build the first powerful version in **five months** for replacing Gmail in my daily using.
 
@@ -33,7 +33,7 @@ The main principle of Namail is **simplicity**.
  - codebase created with simplicity in mind
  - simple installation and deployment
 
-When I need only a browser for webmail that's amazing. I have several daily used devices: laptop with small screen for all my work, iPad Mini for reading and surfing. So I want Namail to be really suitable for small screens and for big monitors as well (I have a big one for testing, but usually watch movies on it).
+When I need only a browser for webmail that's amazing. I have several daily use devices: laptop with small screen for all my work, iPad Mini for reading and surfing. So I want Namail to be really suitable for small screens and for big monitors as well (I have a big one for testing, but usually watch movies on it).
 
 Why do I think I can do this?
 -----------------------------
@@ -50,11 +50,11 @@ Why do I think I can do this?
 
 2. **Right way** (for getting the first usable version as soon as possible)
 
-   **Gmail** is used as the first backend through IMAP with bidirectional synchronization. Gmail has a good storage for emails, filters for incoming messages, powerful spam filter, email clients for smartphones and tablets. And I always can return to Gmail again and use it as usual or just use it in parallel mode.
+   **Gmail** is used as the first backend through IMAP with bidirectional synchronization. Gmail has a good storage for emails, filters for incoming messages, powerful spam filter, email clients for smartphones and tablets. And I always can return to Gmail again and use it as usual or in parallel mode only.
 
-   So with Gmail I can do most important features first and some can wait. I can already read emails through Namail, the next feature is writing emails. And I need to implement, optimize, and polish a big set of features: conversations, email parsing, synchronizing, search, detecting and folding quotes, hotkeys, settings, themes, label    handling, filtering of incoming messages, SSL support, etc.
+   So with Gmail I can do most important features first and some can wait. I can already read emails through Namail, the next feature is composing emails. And I need to implement, optimize, and polish a big set of features: conversations, email parsing, synchronizing, search, detecting and folding quotes, hotkeys, settings, themes, label handling, filtering incoming messages, SSL support, etc.
 
-   **Mailgun** will be used as the second backend (they don't save my emails in their servers). Setting up and supporting my own email server with good spam filter and good reliability is a horrible thing. So services like Mailgun can help me with this stuff.
+   **Mailgun** will be used as the second backend (they don't save my emails in their servers). Setting up and supporting my own email server with a good spam filter and good reliability is a horrible thing. So services like Mailgun can help me with this stuff.
 
    If I implement Mailgun and make good replication for my PosgreSQL I will be able to remove synchronization with Gmail from my usage. That will simplify and speed up Namail installation, because synchronization part is always complicated and can be slow sometimes.
 
@@ -88,11 +88,11 @@ Second iteration, named "Really, I have moved away from Gmail!"
  - preparing some documentation
  - publishing
 
-After the second iteration I expect Namail to be a perfect alternative for webmail.
+After the second iteration I expect Namail to be a perfect alternative for webmail?????.
 
 Who am I?
 ---------
-My name is Grisha Kostyuk aka naspeh. My email is naspeh[at]gmail.com. I'm a passionate programmer from Ukraine with experience of about seven years in web development, more than four last years with Python. I usually work as Python developer on full-time position (often remote).
+My name is Grisha Kostyuk aka naspeh. My email is naspeh[at]gmail.com. I'm a passionate programmer from Ukraine with experience of about seven years in web development, more than four last years with Python. I usually work as a Python developer on full-time position (often remote).
 
 Why fundraiser?
 ---------------
