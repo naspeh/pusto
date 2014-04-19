@@ -50,15 +50,13 @@ Why do I think I can do this?
 
 2. **Right way** (for getting the first usable version as soon as possible)
 
-   **Gmail** is used as the first backend through IMAP with bidirectional synchronization. Gmail has a good storage for emails, filters for incoming messages, powerful spam filter, email clients for smartphones and tablets. And I always can return to Gmail again and use it as usual or in parallel mode only.
+   **Gmail** is used as the first backend through IMAP with bidirectional synchronization. Gmail has a good storage for emails, filters for incoming messages, powerful spam filter, email clients for smartphones and tablets. And I can always return to Gmail again and use it as usual.
 
    So with Gmail I can do most important features first and some can wait. I can already read emails through Namail, the next feature is composing emails. And I need to implement, optimize, and polish a big set of features: conversations, email parsing, synchronizing, search, detecting and folding quotes, hotkeys, settings, themes, label handling, filtering incoming messages, SSL support, etc.
 
    **Mailgun** will be used as the second backend (they don't save my emails in their servers). Setting up and supporting my own email server with a good spam filter and good reliability is a horrible thing. So services like Mailgun can help me with this stuff.
 
    If I implement Mailgun and make good replication for my PosgreSQL I will be able to remove synchronization with Gmail from my usage. That will simplify and speed up Namail installation, because synchronization part is always complicated and can be slow sometimes.
-
-   **Other IMAP servers** afterwards (so that Namail could be used with my own full setup).
 
 I need $15,000 for five months of my work
 -----------------------------------------
@@ -88,7 +86,7 @@ Second iteration, named "Really, I have moved away from Gmail!"
  - preparing some documentation
  - publishing
 
-After the second iteration I expect Namail to be a perfect alternative for webmail?????.
+After the second iteration I expect Namail to be a perfect alternative for others webmails.
 
 Who am I?
 ---------
