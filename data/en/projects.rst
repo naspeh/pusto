@@ -1,6 +1,6 @@
 My projects
 -----------
-`Namail </en/mailr/>`_ -- a webmail client with gmail like conversations. It is early in 
+`Namail </en/mailr/>`_ -- a webmail client with Gmail-like conversations. It is early in 
 development.
 
 `Tider </en/tider/>`_ -- lightweight time tracker (GTK+). I use it to understand how much 

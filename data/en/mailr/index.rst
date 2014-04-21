@@ -1,6 +1,6 @@
 Introducing Mailr
 =================
-**Mailr** is an Open Source webmail client with gmail like conversations.
+**Mailr** is an Open Source webmail client with Gmail-like conversations.
 
 *Mailr is early in development. There is a lot of work, that has to be done.*
 
@@ -38,19 +38,19 @@ Mailr will have web interface, which will be fast and useful on laptop with smal
 on big monitor and on iPad Mini (these devices I have and I want a one customizable web 
 interface for them).
 
-Mailr will have gmail compatible mode (through IMAP), so return to gmail will be easy. I 
+Mailr will have Gmail compatible mode (through IMAP), so return to Gmail will be easy. I 
 will also not plan to implement a phone version and this mode can be used in parallel with 
-any phone client which connects to gmail as usual. That is also easier to develop using 
-gmail as the first backend.
+any phone client which connects to Gmail as usual. That is also easier to develop using 
+Gmail as the first backend.
 
-Mailr will have many features from gmail, such as: useful conversations, labels, fast 
+Mailr will have many features from Gmail, such as: useful conversations, labels, fast 
 search, filters for sorting incoming messages, detecting and folding quotes, keyboard 
 shortcuts, SSL support...
 
 Also Mailr will have some additional features.
 
-**Merging conversations.** I really like gmail conversations, they have made the best 
-implementation (I have tried many others, when I wanted to move away from gmail). Google 
+**Merging conversations.** I really like Gmail conversations, they have made the best 
+implementation (I have tried many others, when I wanted to move away from Gmail). Google 
 are matching well which message belongs to which tread, but sometimes they can't match:
 
 .. image:: unmatched-thread.png
@@ -85,8 +85,8 @@ friend.
 
 Next versions
 -------------
-After I'm able to use Mailr with gmail as backend I want to get the possibility to move 
-away from gmail and to switch on my own email address, that mean I probably add support 
+After I'm able to use Mailr with Gmail as backend I want to get the possibility to move 
+away from Gmail and to switch on my own email address, that mean I probably add support 
 Mailgun__ (it is a hard way to support your own mail server with spam filter, so Mailgun 
 is easier way to get my own email and they don't save emails in their servers).
 
