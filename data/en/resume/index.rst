@@ -4,7 +4,9 @@ Grisha Kostyuk, experienced python developer
   :align: right
 
 | My email is **naspeh(at)gmail.com**
+| My English level is **intermediate.**
 | I was born in April 1983.
+
 
 I'm a passionate python developer living in Dnepropetrovsk, Ukraine. I really like 
 simplicity and obviously my favorite principle is KISS__. I love python and its Zen__. I 
@@ -67,8 +69,6 @@ Education
 ---------
 2000 -- 2005 Dnipropetrovsk National University
   Master, Mechanical Mathematics
-
-**English:** intermediate level.
 
 Additionally
 ------------
