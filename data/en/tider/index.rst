@@ -25,7 +25,7 @@ Tider requires ``Python>=3.3`` and ``GTK3``, optional ``notify-send`` for notifi
 
 ::
 
-    $ pip install -e git+git@github.com:naspeh/tider.git#egg=tider
+    $ pip install https://github.com/naspeh/tider/archive/master.zip
 
 **Installation on Archlinux**::
 
