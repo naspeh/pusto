@@ -9,14 +9,13 @@ Grisha Kostyuk, experienced python developer
 
 
 I'm a passionate python developer living in Yaremche__, Ukraine. I really like simplicity 
-and obviously my favorite principle is KISS__. I love python and its Zen__. I think `Unix 
-phillosophy`__ is the best way to develop software. I would want to work in distributed 
-team on exciting project (no games, no advertising, probably cool web service).
+and obviously my favorite principle is KISS__. I love python and its Zen__. I would want 
+to work in distributed team on exciting project (no games, no advertising, probably cool 
+web service).
 
 __ http://en.wikipedia.org/wiki/Yaremche
 __ http://en.wikipedia.org/wiki/KISS_principle
 __ http://www.python.org/dev/peps/pep-0020/
-__ http://en.wikipedia.org/wiki/Unix_philosophy
 
 Technologies I've been actively using:
  - Python since Oct 2009;
