@@ -1,9 +1,9 @@
 --use-wheel
 --find-links=wheels
-Jinja2==2.7.2
-MarkupSafe==0.18
+Jinja2==2.7.3
+MarkupSafe==0.23
 Pygments==1.6
-docutils==0.11
-lxml==3.3.0
-markdown2==2.2.0
-pytz==2013.9
+docutils==0.12
+lxml==3.3.6
+markdown2==2.2.3
+pytz==2014.7
