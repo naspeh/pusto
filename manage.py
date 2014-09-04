@@ -20,8 +20,11 @@ def process_args():
             'cd /home/pusto/src'
             '&& git fetch origin' +
             '&& git checkout {}'.format(a.target) +
+            (
+                '&& rm -rf $(cat .venv) && virtualenv $(cat .venv)'
+                if a.clear else ''
+            ) +
             '&& source $(cat .venv)/bin/activate' +
-            ('&& virtualenv --clear $(echo $VIRTUAL_ENV)' if a.clear else '') +
             '&& ./bootstrap'
             '&& ./pusto.py build -b build-tmp'
             '&& rm -rf build'
