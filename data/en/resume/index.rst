@@ -33,6 +33,14 @@ __ http://werkzeug.pocoo.org/
 
 Python developer since October 2009
 -----------------------------------
+08.2014 -- present `likealocalguide.com`__ (Estonian travel startup, remote work)
+  full stack web development; introduced orchestration system based on ansible & docker 
+  when moving from one server provider to another.
+
+  Technologies: Django, PostgreSQL, Redis, Ansible, Docker.
+
+__ https://www.likealocalguide.com
+
 01.2012 -- 04.2013 `ostrovok.ru`__ (hotel booking service)
   improved booking process, reworked database of orders and payments; implemented and then
   optimized environment for unit tests; preached TDD.
