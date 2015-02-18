@@ -1,6 +1,6 @@
 {
     "params": {
-        "feed": "feed.xml"
+        "feed": "/trip/feed.xml"
     },
     "template": "_theme/trips.tpl"
 }

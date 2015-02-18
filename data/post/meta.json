@@ -1,6 +1,6 @@
 {
     "params": {
-        "feed": "feed.xml"
+        "feed": "/post/feed.xml"
     },
     "template": "_theme/list.tpl"
 }
