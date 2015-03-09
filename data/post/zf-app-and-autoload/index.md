@@ -45,21 +45,22 @@
 
 В общем модули - это хорошо, распыляться на эту тему не стоит :).
 Выделим кусок структуры, что касается модуля:
-
-    core/
-        controllers/
-            IndexController.php
-            FooController.php
-        models/
-            SubBar
-                Foo.php
-            Bar.php
-        views/
-            scripts/
-                index/
-                foo/
-            helpers/
-            filters/
+```
+core/
+    controllers/
+        IndexController.php
+        FooController.php
+    models/
+        SubBar
+            Foo.php
+        Bar.php
+    views/
+        scripts/
+            index/
+            foo/
+        helpers/
+        filters/
+```
 
 Вот и подвох, а касается он того, что в модуле появилось много папок, где будут находиться наши классы:
 
@@ -68,66 +69,64 @@
 - `core/views/helpers`
 
 Насчет контроллеров позаботился ZF, следуем рекомендациям:
-
-    :::php
-    <?php
-    $front->setControllerDirectory(array(
-        'default' => '/path/to/application/controllers',
-        'blog'    => '/path/to/application/blog/controllers'
-    ));
+```php
+$front->setControllerDirectory(array(
+    'default' => '/path/to/application/controllers',
+    'blog'    => '/path/to/application/blog/controllers'
+));
+```
 
 или
 
-    :::php
-    <?php
-    /**
-    * Предполагается следующая структура директорий:
-    * application/
-    *     modules/
-    *         default/
-    *             controllers/
-    *         foo/
-    *             controllers/
-    *         bar/
-    *             controllers/
-    */
-    $front->addModuleDirectory('/path/to/application/modules');
+```php
+/**
+* Предполагается следующая структура директорий:
+* application/
+*     modules/
+*         default/
+*             controllers/
+*         foo/
+*             controllers/
+*         bar/
+*             controllers/
+*/
+$front->addModuleDirectory('/path/to/application/modules');
+```
 
 Насчет "вьюверных хелперов" ZF тоже позаботился, добавив плагин-загрузчик [26.2. Loading Plugins](http://framework.zend.com/manual/ru/zend.loader.pluginloader.html)
-
-    :::php
-    <?php
-    $loader = new Zend_Loader_PluginLoader(array(
-        'Zend_View_Helper' => 'Zend/View/Helper/',
-        'Foo_View_Helper'  => 'application/modules/foo/views/helpers',
-        'Bar_View_Helper'  => 'application/modules/bar/views/helpers'
-    ));
+```php
+$loader = new Zend_Loader_PluginLoader(array(
+    'Zend_View_Helper' => 'Zend/View/Helper/',
+    'Foo_View_Helper'  => 'application/modules/foo/views/helpers',
+    'Bar_View_Helper'  => 'application/modules/bar/views/helpers'
+));
+```
 
 То, что приходится работать с разными загрузчиками классов, это автору **не понравилось**.
 
 Модели остаются на нашей совести. Хочется, чтоб классы моделей `Core_Bar` и `Core_SubBar_Foo` находились в `core/models/Bar.php` и `core/models/SubBar/Foo.php` сответсвенно, но тут автолоадер из ZF ничего поделать не может. Вот тут и началось раздолье. Что же делать с моделями, как сделать так, чтобы автозагрузчик в приложении был одним единственным, а еще лучше чтоб загружал он все по одному принципу? Автор сделал много проб, например, был такой вариант:
-
-    ModuleName/
-        _configs/
-    	_controllers/
-    	_views/
-    	MainClass/
-            SubClassName.php
-    	ClassName.php
-    	...
+```
+ModuleName/
+    _configs/
+    _controllers/
+    _views/
+    MainClass/
+        SubClassName.php
+    ClassName.php
+    ...
+```
 
 Автолоадер остается из ZF, в `include_path` добавляется директория с модулями. Но эта структура не понравилась, может подчеркиванием, может заглавной буквой имени модуля(в этом случае приходилось переопределять лишние вещи в фронт-контроллере из ZF), а может еще чем...
 
 Из вышеупомянутого плагина-загрузчика понравилась идея: определенному префиксу соответствует определенная директория. А почему бы эту идею не использовать для приложения в целом?
 
 Итого:
-
-    :::php
-    <?php
-    Zend -> 'path/to/library/Zend'
-    Core -> 'path/to/module/core/models'
-    Core -> 'path/to/module/core/controllers'
-    ...
+```php
+Zend -> 'path/to/library/Zend'
+Core -> 'path/to/module/core/models'
+Core -> 'path/to/module/core/controllers'
+...
+```
 
 Тогда если класс `Zend_Controller_Front`, то наш автозагрузчик найдет префикс `Zend`, дальше от класса останется `Controller_Front`, который преобразуется  в `Controller/Front.php`(по принципу `Zend_Loader`), аналогично и для наших моделей: по `Core_SubBar_Foo` находит префикс `Core`, далее остается `SubBar_Foo`, который преобразуется `SubBar/Foo.php`. В результате получили отличный механизм для автозагрузки как классов из ZF, так и классов из модулей. Сам механизм очень простой, но достаточно гибкий, те же вьювер-хелперы и контроллеры хорошо вписываются в эту структуру и не только.
 
@@ -137,12 +136,11 @@
 Подумаем о модулях. Модули могут постоянно добавляться, но разница добавленных папок с классами будет в названии самого модуля, если предположить, что у модулей одинаковая файловая структура (а оно так и должно быть, по идее). Приходит на ум добавить папку с модулями, а при нахождении модуля добавлять необходимый суффикс.
 
 Например, из вышеприведенной структуры модуля:
-
-    :::php
-    <?php
-    Loader->addDir('path/to/modules', 'suffix/to/models');
-    Loader->addDir('path/to/modules', 'suffix/to/views/helpers');
-    ...
+```php
+Loader->addDir('path/to/modules', 'suffix/to/models');
+Loader->addDir('path/to/modules', 'suffix/to/views/helpers');
+...
+```
 
 После того как идея есть, дело остается за малым - реализовать :)
 

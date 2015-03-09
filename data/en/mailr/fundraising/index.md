@@ -45,9 +45,6 @@ Why do I think I can do this?
 
    **Less** is used instead of CSS for better theming.
 
-   [mp]: https://www.mailpile.is/
-   [inboxapp]: https://www.inboxapp.com/
-
 2. **Right way** (for getting the first usable version as soon as possible)
 
    **Gmail** is used as the first backend through IMAP with bidirectional synchronization. Gmail has a good storage for emails, filters for incoming messages, powerful spam filter, email clients for smartphones and tablets. And I can always return to Gmail again and use it as usual.
@@ -57,6 +54,9 @@ Why do I think I can do this?
    **Mailgun** will be used as the second backend (they don't save my emails in their servers). Setting up and supporting my own email server with a good spam filter and good reliability is a horrible thing. So services like Mailgun can help me with this stuff.
 
    If I implement Mailgun and make good replication for my PosgreSQL I will be able to remove synchronization with Gmail from my usage. That will simplify and speed up Namail installation, because synchronization part is always complicated and can be slow sometimes.
+
+   [mp]: https://www.mailpile.is/
+   [inboxapp]: https://www.inboxapp.com/
 
 I need $15,000 for five months of my work
 -----------------------------------------

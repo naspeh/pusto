@@ -401,10 +401,21 @@ def fix_urls(page):
 
 
 def markdown(text):
-    from markdown2 import Markdown
+    from mistune import Markdown, Renderer, escape
+    from pygments import highlight
+    from pygments.lexers import get_lexer_by_name
+    from pygments.formatters import HtmlFormatter
 
-    md = Markdown(extras=['footnotes', 'code-friendly', 'code-color'])
-    return md.convert(text)
+    class ExtRenderer(Renderer):
+        def block_code(self, code, lang):
+            if not lang:
+                return '\n<pre><code>%s</code></pre>\n' % escape(code)
+            lexer = get_lexer_by_name(lang, stripall=True, startinline=True)
+            formatter = HtmlFormatter()
+            return highlight(code, lexer, formatter)
+
+    md = Markdown(renderer=ExtRenderer(use_xhtml=True))
+    return md.render(text)
 
 
 def rst(source, source_path=None):
