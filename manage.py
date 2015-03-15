@@ -40,6 +40,13 @@ def process_args():
             'pip wheel -r requirements.txt -w wheels'
         ))
 
+    cmd('docker', help='run docker container with nginx')\
+        .exe(lambda a: sh(
+            'docker run'
+            '   -d -v $(pwd):/var/www -p 80 --name=ngnix'
+            '   pusto /bin/nginx'
+        ))
+
     cmd('napokaz', help='napokaz updater')\
         .arg('--push', action='store_true')\
         .arg('--init', action='store_true')\
