@@ -43,7 +43,7 @@ def process_args():
     cmd('docker', help='run docker container with nginx')\
         .exe(lambda a: sh(
             'docker run'
-            '   -d -v $(pwd):/var/www -p 80 --name=ngnix'
+            '   -d -v $(pwd):/var/www -p 80 --name=pusto'
             '   pusto /bin/nginx'
         ))
 
