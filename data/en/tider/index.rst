@@ -35,12 +35,15 @@ Command line interface
 ----------------------
 Tider can do almost all actions through the command line: open menu, set activity and etc. 
 That gives you the ability to setup your custom hotkeys in desktop specific environment. 
-For example in i3wm__ I use ``"~/.i3/config"``, but in Xfce I use ``"Application 
-Shortcuts"`` tab::
+For example in i3wm__ you can use ``"~/.i3/config"``, but in Xfce you can use 
+``"Application Shortcuts"`` tab::
 
     Settings > Keyboard > Application Shortcuts
 
+I use sxhkd__ (simple X hotkey daemon) to declare specific hotkeys for such programs.
+
 __ http://i3wm.org/docs/userguide.html#keybindings
+__ https://github.com/baskerville/sxhkd
 
 Configuration
 -------------
@@ -89,34 +92,42 @@ Reports in terminal
 -------------------
 Here is a weekly report for two weeks period::
 
-    $ tider re -i1703-2903 -w
-    Statistics from 2014-03-17 to 2014-03-23
-    |target  |       work|      break|
-    |--------+-----------+-----------|
-    |mail@dev| 32h 59m 7s|         0s|
-    |@surf   | 14h 4m 50s|         0s|
-    |--------+-----------+-----------|
-    |total   | 47h 3m 57s|         0s|
+    $ tider re -i2w -w
+    Statistics from 2015-03-09 to 2015-03-15
+    |target   |       work|  with rest|
+    |---------|-----------|-----------|
+    |@surf    | 30h 16m 6s|36h 19m 20s|
+    |pusto@dev| 3h 23m 42s|  4h 4m 27s|
+    |arch@tune|   2h 0m 4s|  2h 24m 5s|
+    |lal@mix  | 1h 56m 48s| 2h 20m 10s|
+    |tider@dev|     20m 7s|     24m 9s|
+    |@fop     |     6m 32s|     7m 51s|
+    |---------|-----------|-----------|
+    |total    | 38h 3m 19s|45h 39m 59s|
 
-    Statistics from 2014-03-24 to 2014-03-29
-    |target    |       work|      break|
-    |----------+-----------+-----------|
-    |@surf     |19h 56m 20s|         0s|
-    |pusto@text| 5h 41m 23s|         0s|
-    |mail@dev  |   5h 5m 9s|         0s|
-    |eng@text  |  4h 15m 4s|         0s|
-    |----------+-----------+-----------|
-    |total     |34h 57m 56s|         0s|
+    Statistics from 2015-03-16 to 2015-03-22
+    |target    |       work|  with rest|
+    |----------|-----------|-----------|
+    |@surf     |22h 14m 30s|26h 41m 24s|
+    |pusto@text|  2h 53m 3s| 3h 27m 40s|
+    |arch@tune |  1h 51m 0s| 2h 13m 12s|
+    |lal@mix   | 1h 48m 19s|  2h 9m 59s|
+    |pusto@dev |    34m 50s|    41m 48s|
+    |----------|-----------|-----------|
+    |total     |29h 21m 42s| 35h 14m 3s|
 
-    Statistics from 2014-03-17 to 2014-03-29
-    |target    |       work|      break|
-    |----------+-----------+-----------|
-    |mail@dev  | 38h 4m 16s|         0s|
-    |@surf     | 34h 1m 10s|         0s|
-    |pusto@text| 5h 41m 23s|         0s|
-    |eng@text  |  4h 15m 4s|         0s|
-    |----------+-----------+-----------|
-    |total     | 82h 1m 53s|         0s|
+    Statistics from 2015-03-09 to 2015-03-22
+    |target    |       work|  with rest|
+    |----------|-----------|-----------|
+    |@surf     |52h 30m 36s| 63h 0m 44s|
+    |pusto@dev | 3h 58m 32s| 4h 46m 15s|
+    |arch@tune |  3h 51m 4s| 4h 37m 17s|
+    |lal@mix   |  3h 45m 7s|  4h 30m 9s|
+    |pusto@text|  2h 53m 3s| 3h 27m 40s|
+    |tider@dev |     20m 7s|     24m 9s|
+    |@fop      |     6m 32s|     7m 51s|
+    |----------|-----------|-----------|
+    |total     | 67h 25m 1s| 80h 54m 2s|
 
 Database
 --------
