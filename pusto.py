@@ -359,6 +359,13 @@ def fill_page(page):
 
         if page.body or page.text:
             page.update(summary=get_summary(page.body or page.text))
+
+        if not page.title and page.body:
+            root = parse_xml(page.body, page.index_file)
+            title = root.find('.//h1')
+            if title is not None:
+                page.update(title=title.text)
+
     return page
 
 
