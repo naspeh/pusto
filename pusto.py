@@ -30,7 +30,7 @@ INDEX_FILES = ['index.' + t for t in 'py tpl rst md html'.split(' ')]
 
 
 class Page:
-    __slots__ = ('_data',)
+    __slots__ = ('_data', '_xml')
     meta_fields = (
         'template params aliases published modified sort archive author title '
         'terms_file'.split()
@@ -144,16 +144,14 @@ class Page:
             print(' * WARN. No terms file "%s"' % self.terms_file)
             return
 
-        root = parse_xml(self.body, self.index_file)
-        links = root.xpath('//a[starts-with(@href, "#term-")]')
+        links = self.xml.xpath('//a[starts-with(@href, "#term-")]')
         if not links:
             return
 
         result = []
-        terms_ = parse_xml(terms.body, terms.src('index_file'))
         for link in links:
             id = link.get('href')[1:]
-            term = terms_.xpath('//*[@id=\'%s\']' % id)
+            term = terms.xml.xpath('//*[@id=\'%s\']' % id)
             if not term:
                 print(' * WARN. No term "%s" for "%s"' % (id, self.index_file))
                 continue
@@ -162,6 +160,12 @@ class Page:
         result = [etree.tostring(t, encoding='utf8').decode() for t in result]
         Terms = namedtuple('Terms', 'title body')
         return Terms(terms.title, '\n'.join(result))
+
+    @property
+    def xml(self):
+        if self._xml is None:
+            self._xml = parse_xml(self.body, self.index_file)
+        return self._xml
 
 
 def get_pages(src_dir, use_cache=False, check_xml=False):
@@ -361,10 +365,11 @@ def fill_page(page):
             page.update(summary=get_summary(page.body or page.text))
 
         if not page.title and page.body:
-            root = parse_xml(page.body, page.index_file)
-            title = root.find('.//h1')
+            title = page.xml.find('.//h1')
             if title is not None:
                 page.update(title=title.text)
+                body = title.getparent().remove(title)
+                page.update(body=xml2str(body))
 
     return page
 
@@ -382,6 +387,14 @@ def parse_xml(text, base_file, quiet=False):
     return root
 
 
+def xml2str(xml):
+    if xml is None:
+        return ''
+    text = etree.tostring(xml, encoding='utf8').decode()
+    text = text[6: -7]  # strip root tag
+    return text
+
+
 def fix_urls(page):
     host = get_globals(page.src_dir, 'host')
 
@@ -396,9 +409,7 @@ def fix_urls(page):
             fix_url(img, 'src')
         for link in root.findall('.//a'):
             fix_url(link, 'href')
-        text = etree.tostring(root, encoding="UTF-8").decode()
-        text = text[6: -7]
-        return text
+        return xml2str(root)
 
     for part in ['title', 'summary', 'body']:
         text = getattr(page, part)
@@ -454,6 +465,10 @@ def clean_dir(dest_dir, skip_dir=False):
 
 
 def copy_dir(src_dir, dest_dir):
+    if not os.path.exists(src_dir):
+        shutil.rmtree(dest_dir)
+        return
+
     for path in os.listdir(src_dir):
         src_path = os.path.join(src_dir, path)
         dest_path = os.path.join(dest_dir, path)
@@ -461,6 +476,8 @@ def copy_dir(src_dir, dest_dir):
             if not os.path.exists(dest_path):
                 shutil.copytree(src_path, dest_path)
         else:
+            if not os.path.exists(dest_dir):
+                os.mkdir(dest_dir)
             shutil.copy2(src_path, dest_path)
 
 
