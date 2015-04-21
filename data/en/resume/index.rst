@@ -3,15 +3,16 @@ Grisha Kostyuk, experienced python developer
 .. image:: /_img/ava200.jpg
   :align: right
 
+| I'm only interested in **remote work**
 | My email is **naspeh(at)gmail.com**
 | My English level is **intermediate.**
 
 .. | I was born in April 1983.
 
 I'm a passionate python developer living in Yaremche__, Ukraine. I really like simplicity 
-and obviously my favorite principle is KISS__. I love python and its Zen__. I would want 
-to work in distributed team on exciting project (no games, no advertising, probably cool 
-web service).
+and obviously my favorite principle is KISS__. I love python and its Zen__. I want to work 
+in distributed team on exciting project (no games, no advertising, probably cool web 
+service).
 
 __ http://en.wikipedia.org/wiki/Yaremche
 __ http://en.wikipedia.org/wiki/KISS_principle
