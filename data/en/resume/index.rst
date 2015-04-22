@@ -34,7 +34,7 @@ __ http://werkzeug.pocoo.org/
 Python developer since October 2009
 -----------------------------------
 08.2014 -- present `likealocalguide.com`__ (Estonian travel startup, remote)
-  full stack web development; reworked and improved booking process; improved transaction 
+  full stack developer; reworked and improved booking process; improved transaction 
   emails; introduced new RESTfull API for mobile applications; introduced orchestration 
   system based on ansible & docker when moving from one server provider to another; 
   introduced failover server with PostgreSQL and Redis replication (via ansible 
@@ -45,7 +45,8 @@ Python developer since October 2009
 __ https://www.likealocalguide.com
 
 01.2012 -- 04.2013 `ostrovok.ru`__ (hotel booking service)
-  improved booking process, reworked database of orders and payments; implemented and then
+  backend developer; improved booking process, reworked database of orders and payments; 
+  implemented and then
   optimized environment for unit tests; preached TDD.
 
   Technologies: Django, PostgreSQL, Redis.
@@ -53,15 +54,15 @@ __ https://www.likealocalguide.com
 __ http://ostrovok.ru
 
 02.2011 -- 01.2012 `odesk.com`__ (remote)
-  developed few services in small separated teams; main javascript developer in one of 
-  project (Google Chrome plugin).
+  full stack developer; developed few services in small separated teams; main javascript 
+  developer in one of project (Google Chrome plugin).
 
   Technologies: Django, Flask, PostgreSQL, MongoDB, Redis, jQuery. 
 
 __ http://odesk.com
 
 12.2009 -- 01.2011 `42coffeecups.com`__ (remote)
-  developed several services in small teams with TDD practice.
+  full stack developer; developed several services in small teams with TDD practice.
 
   Technologies: Django, MySQL, jQuery
 
