@@ -3,7 +3,6 @@ Grisha Kostyuk, experienced python developer
 .. image:: /_img/ava200.jpg
   :align: right
 
-| I'm only interested in **remote work**
 | My email is **naspeh(at)gmail.com**
 | My English level is **intermediate.**
 
@@ -34,7 +33,7 @@ __ http://werkzeug.pocoo.org/
 
 Python developer since October 2009
 -----------------------------------
-08.2014 -- present `likealocalguide.com`__ (Estonian travel startup, remote work)
+08.2014 -- present `likealocalguide.com`__ (Estonian travel startup, remote)
   full stack web development; reworked and improved booking process; improved transaction 
   emails; introduced new RESTfull API for mobile applications; introduced orchestration 
   system based on ansible & docker when moving from one server provider to another; 
@@ -53,7 +52,7 @@ __ https://www.likealocalguide.com
 
 __ http://ostrovok.ru
 
-02.2011 -- 01.2012 `odesk.com`__ (remote work)
+02.2011 -- 01.2012 `odesk.com`__ (remote)
   developed few services in small separated teams; main javascript developer in one of 
   project (Google Chrome plugin).
 
@@ -61,7 +60,7 @@ __ http://ostrovok.ru
 
 __ http://odesk.com
 
-12.2009 -- 01.2011 `42coffeecups.com`__ (remote work)
+12.2009 -- 01.2011 `42coffeecups.com`__ (remote)
   developed several services in small teams with TDD practice.
 
   Technologies: Django, MySQL, jQuery
@@ -71,7 +70,7 @@ __ http://42coffeecups.com
 Other Employment History
 ------------------------
 | 02.2009 -- 09.2009 `Ardas Group`__; Java web developer.
-| 03.2007 -- 02.2009 ArtLab (remote work); PHP developer.
+| 03.2007 -- 02.2009 ArtLab (remote); PHP developer.
 | 11.2006 -- 03.2007 Zebra; PHP developer.
 
 __ http://www.ardas.dp.ua
