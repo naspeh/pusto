@@ -30,7 +30,7 @@
     </li>
     {% endif %}
     {% if c.kind in ['md', 'rst'] %}
-    <li><a href="{{ c.index_file }}">{{ 'Show Source' if EN else 'Исходный текст' }}</a></li>
+    <li><a href="{{ c.index_file }}" rel="nofollow">{{ 'Show Source' if EN else 'Исходный текст' }}</a></li>
     {% endif %}
     <li><a href="{{ github }}{{ c.url }}">{{ 'Look at github' if EN else 'Смотреть на github' }}</a></li>
 </ul>
