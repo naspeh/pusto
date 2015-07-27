@@ -22,6 +22,7 @@ Technologies I've been actively using:
  - PostgreSQL and Redis since Mar 2012;
  - Linux since Jul 2008, ArchLinux since Jan 2012;
  - Git since Dec 2009;
+ - Docker since Aug 2014;
  - JavaScript periodically since 2009;
  - CSS/HTML periodically since 2006.
 
