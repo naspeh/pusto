@@ -1,4 +1,4 @@
-Sitemap: http://pusto.org/sitemap.xml
+Sitemap: https://pusto.org/sitemap.xml
 
 User-agent: *
 Disallow: /*.rst

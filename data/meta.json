@@ -4,7 +4,7 @@
         "/s/"
     ],
     "globals": {
-        "host": "http://pusto.org",
+        "host": "https://pusto.org",
         "timezone": "Europe/Kiev",
         "url-files": [
             ["/all.i.js", "/all.js", "include"],
