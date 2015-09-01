@@ -34,7 +34,7 @@ __ http://werkzeug.pocoo.org/
 
 Python developer since October 2009
 -----------------------------------
-08.2014 -- present `likealocalguide.com`__ (Estonian travel startup, remote)
+08.2014 -- 08.2015 `likealocalguide.com`__ (Estonian travel startup, remote)
   full stack developer; reworked and improved booking process; improved transaction 
   emails; introduced new RESTfull API for mobile applications; introduced orchestration 
   system based on ansible & docker when moving from one server provider to another; 

@@ -1,13 +1,26 @@
 #!/usr/bin/env python
+import logging
 import subprocess
 
 import pusto
 
-sh = lambda cmd: print(cmd) or subprocess.call(cmd, shell=True)
-ssh = lambda cmd: sh(
-    'ssh yadro.org "%s"'
-    % cmd.replace('"', '\"').replace('$', '\$')
-)
+log = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+
+
+def sh(cmd):
+    log.info(cmd)
+    code = subprocess.call(cmd, shell=True)
+    if code:
+        raise SystemExit(code)
+    return 0
+
+
+def ssh(cmd):
+    return sh(
+        'ssh yadro.org -p2200 "%s"'
+        % cmd.replace('"', '\\"').replace('$', '\\$')
+    )
 
 
 def process_args():
@@ -15,7 +28,7 @@ def process_args():
 
     cmd('deploy', help='deploy to server')\
         .arg('-c', '--clear', action='store_true', help='clear virtualenv')\
-        .arg('-t', '--target', default='origin/master', help='checkout it')\
+        .arg('-t', '--target', default='master', help='checkout it')\
         .exe(lambda a: ssh(
             'cd /home/pusto/src'
             '&& git fetch origin' +
@@ -29,7 +42,7 @@ def process_args():
             '&& ./pusto.py build -b build-tmp'
             '&& rm -rf build'
             '&& mv build-tmp build'
-            '&& systemctl restart nginx.service'
+            '&& supervisorctl pid nginx | xargs kill -s HUP'
         ))
 
     cmd('wheels', help='prepare wheels')\
