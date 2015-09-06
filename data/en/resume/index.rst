@@ -3,19 +3,26 @@ Grisha Kostyuk, experienced python developer
 .. image:: /_img/ava200.jpg
   :align: right
 
-| My email is **naspeh(at)gmail.com**
-| My English level is **intermediate.**
+**naspeh(at)gmail.com** **/** Yaremche__, Ukraine **/** I'm available only for remote work
 
+.. | My English level is **intermediate.**
 .. | I was born in April 1983.
 
-I'm a passionate python developer living in Yaremche__, Ukraine. I really like simplicity 
-and obviously my favorite principle is KISS__. I love python and its Zen__. I want to work 
-in distributed team on exciting project (no games, no advertising, probably cool web 
-service).
+__ https://en.wikipedia.org/wiki/Yaremche
 
-__ http://en.wikipedia.org/wiki/Yaremche
-__ http://en.wikipedia.org/wiki/KISS_principle
-__ http://www.python.org/dev/peps/pep-0020/
+I'm passionate python developer, with over eight years experience in web development. I'm 
+especially strong in back-end development, though I also can help you with front-end part 
+and DevOps__ stuff. I'm perfectionist, but anyway I can work on huge legacy codebase, it 
+should have some beautiful parts at least.
+
+__ https://en.wikipedia.org/wiki/DevOps
+
+I love Open Source and like teams which aim contributing back to the community.
+
+I'm proud to work on Mailur__ -- an Open Source webmail client with Gmail-like 
+conversations, though there's a lot of work to be done.
+
+__ https://github.com/naspeh/mailur
 
 Technologies I've been actively using:
  - Python since Oct 2009;
@@ -29,8 +36,6 @@ Technologies I've been actively using:
 I prefer Werkzeug__, PostgreSQL, Redis for web development.
 
 __ http://werkzeug.pocoo.org/
-
-.. include:: ../projects.rst
 
 Python developer since October 2009
 -----------------------------------
@@ -47,8 +52,7 @@ __ https://www.likealocalguide.com
 
 01.2012 -- 04.2013 `ostrovok.ru`__ (hotel booking service)
   backend developer; improved booking process, reworked database of orders and payments; 
-  implemented and then
-  optimized environment for unit tests; preached TDD.
+  implemented and then optimized environment for unit tests; preached TDD.
 
   Technologies: Django, PostgreSQL, Redis.
 

@@ -28,7 +28,7 @@ def process_args():
 
     cmd('deploy', help='deploy to server')\
         .arg('-c', '--clear', action='store_true', help='clear virtualenv')\
-        .arg('-t', '--target', default='master', help='checkout it')\
+        .arg('-t', '--target', default='origin/master', help='checkout it')\
         .exe(lambda a: ssh(
             'cd /home/pusto/src'
             '&& git fetch origin' +
