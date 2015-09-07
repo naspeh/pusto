@@ -10,9 +10,9 @@ Grisha Kostyuk, experienced python developer
 
 __ https://en.wikipedia.org/wiki/Yaremche
 
-I'm passionate python developer, with over eight years experience in web development. I'm 
-especially strong in back-end development, though I also can help you with front-end part 
-and DevOps__ stuff. I'm perfectionist, but anyway I can work on huge legacy codebase, it 
+I'm a python fanboy, with over eight years experience in web development. I'm especially 
+strong in back-end development, though I also can help you with front-end part and 
+DevOps__ stuff. I'm perfectionist, but anyway I can work on huge legacy codebase, it 
 should have some beautiful parts at least.
 
 __ https://en.wikipedia.org/wiki/DevOps
