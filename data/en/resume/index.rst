@@ -3,24 +3,24 @@ Grisha Kostyuk, experienced python developer
 .. image:: /_img/ava200.jpg
   :align: right
 
-**naspeh(at)gmail.com** **/** Yaremche__, Ukraine **/** I'm available only for remote work
+**naspeh(at)gmail.com / Yaremche, Ukraine / only remote work**
 
 .. | My English level is **intermediate.**
 .. | I was born in April 1983.
 
-__ https://en.wikipedia.org/wiki/Yaremche
-
-I'm a python fanboy, with over eight years experience in web development. I'm especially 
+I'm a python developer with over eight years experience in web development. I'm especially 
 strong in back-end development, though I also can help you with front-end part and 
-DevOps__ stuff. I'm perfectionist, but anyway I can work on huge legacy codebase, it 
-should have some beautiful parts at least.
+DevOps__ stuff. I'm perfectionist, anyway I can work on huge legacy codebase, it should 
+have some beautiful parts at least.
 
 __ https://en.wikipedia.org/wiki/DevOps
 
-I love Open Source and like teams which aim contributing back to the community.
+I would want to work in distributed team on an exiting web service (no games, no 
+advertising). I love open source and like teams which aim contributing back to the 
+community.
 
-I'm proud to work on Mailur__ -- an Open Source webmail client with Gmail-like 
-conversations, though there's a lot of work to be done.
+I'm proud of Mailur__ -- an open source webmail client with gmail like conversations. Work 
+in process.
 
 __ https://github.com/naspeh/mailur
 
