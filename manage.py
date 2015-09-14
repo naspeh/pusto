@@ -23,6 +23,36 @@ def ssh(cmd):
     )
 
 
+def reqs(dev, clear, wheels):
+    requirements = (
+        'Jinja2 '
+        'Pygments '
+        'docutils '
+        'lxml '
+        'mistune '
+        'pytz '
+    )
+    requirements += (
+        'pytest '
+        'ptpdb '
+    ) if dev else ''
+
+    sh('[ -d "$VIRTUAL_ENV" ] || (echo "ERROR: no virtualenv" && exit 1)')
+    sh(
+        (
+            'rm -rf $VIRTUAL_ENV && virtualenv $VIRTUAL_ENV && '
+            if clear else ''
+        ) +
+        'wheels="../wheels" &&'
+        'pip install wheel && '
+        'pip wheel -w $wheels -f $wheels {requirements} &&'
+        'pip uninstall -y wheel &&'
+        'pip install --no-index -f $wheels {requirements}'
+        .format(requirements=requirements)
+    )
+    not dev and sh('pip freeze | sort > requirements.txt')
+
+
 def process_args():
     parser, cmd = pusto.get_parser()
 
@@ -45,13 +75,11 @@ def process_args():
             '&& supervisorctl pid nginx | xargs kill -s HUP'
         ))
 
-    cmd('wheels', help='prepare wheels')\
-        .arg('--init', action='store_true')\
-        .exe(lambda a: sh(
-            'pip install -U wheel'
-            if a.init else
-            'pip wheel -r requirements.txt -w wheels'
-        ))
+    cmd('reqs', help='update python requirements')\
+        .arg('-d', '--dev', action='store_true')\
+        .arg('-c', '--clear', action='store_true')\
+        .arg('-w', '--wheels', default='../wheels')\
+        .exe(lambda a: reqs(a.dev, a.clear, a.wheels))
 
     cmd('docker', help='run docker container with nginx')\
         .exe(lambda a: sh(
