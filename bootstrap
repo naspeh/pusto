@@ -1,2 +1,2 @@
 #!/bin/sh
-pip install -w ../wheels -r requirements.txt
+pip install -f ../wheels -r requirements.txt
