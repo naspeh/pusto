@@ -72,6 +72,7 @@ def process_args():
             '&& ./pusto.py build -b build-tmp'
             '&& rm -rf build'
             '&& mv build-tmp build'
+            '&& rsync -av ./deploy/nginx-site.conf /etc/nginx/site-pusto.conf'
             '&& supervisorctl pid nginx | xargs kill -s HUP'
         ))
 
