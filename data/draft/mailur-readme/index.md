@@ -13,7 +13,7 @@ It is already usable as an alternative Gmail interface with a set of unique feat
 
 [Markdown]: https://daringfireball.net/projects/markdown/syntax
 
-![Screenshots](https://pusto.org/mailur/screenshots.gif)
+![Screenshots](https://pusto.org/mailur/alpha/screenshots.gif)
 **Backend.** Python3. Main JSON-RPC server and WebSocket server for push notifications (with help of [Werkzeug][], [psycopg2][], [aiohttp][], [lxml][]).
 
 [Werkzeug]: http://werkzeug.pocoo.org/
@@ -28,8 +28,7 @@ It is already usable as an alternative Gmail interface with a set of unique feat
 [less]: http://lesscss.org/
 [browserify]: http://browserify.org/
 
-**Run locally.**
-The best way is running docker container.
+**Run locally.** The best way is running docker container.
 
 ```bash
 > docker run -d -p 80 --name=mailur naspeh/mailur

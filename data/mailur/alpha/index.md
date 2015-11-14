@@ -28,7 +28,7 @@ The next big step for me is preparing fault tolerance storage. This is why I cho
 
 [ACID]: https://en.wikipedia.org/wiki/ACID
 
-With such a storage I would be able to prepare a private beta for people who would want to try it, but don't want to deal with servers and installation process. Mailur uses one database per user, so moving to another instance is as simple as to make a backup and then restore it.
+With such a storage I would be able to prepare the private beta for people who would want to try it, but don't want to deal with servers and installation process. Mailur uses one database per user, so moving to another instance is as simple as to make a backup and then restore it.
 
 Then, I can remove my email messages from Gmail :), and use something like [Mailgun][] to receive and send messages from my own email address (I still don't want to set up and support a proper mail server with spam filters). This is a cool feature when one can change their email address but still have full access to all email messages from previous addresses and doesn't need to think about transferring these messages from one account to another.
 
@@ -36,7 +36,7 @@ Then, I can remove my email messages from Gmail :), and use something like [Mail
 
 Of course, I will wait a little to be confident in system's stability. Also, Mailur needs some further features, improvements and optimizations. For example, I'm going to make such things: polishing interface, filters for incoming messages, Mailgun support, some kind of mobile application with push notifications, more tests, etc.
 
-I had a long pause in the development of Mailur when I was working on a commercial project accumulating some money. I came back to a nearly full-time development of this project about half a year ago. Now, I have to find a new [full-time job][resume] again, because I've spent almost all the money I had accumulated before. If you are interested in further development or participating in private beta of Mailur, please [consider to donate][donate].
+I had a long pause in the development of Mailur when I was working on a commercial project accumulating some money. I came back to a nearly full-time development of this project about half a year ago. Now, I have to find a new [full-time job][resume] again, because I've spent almost all the money I had accumulated before. If you are interested in further development or participating in the private beta of Mailur, please [consider to donate][donate].
 
 [resume]: /en/resume/
 [donate]: https://www.patreon.com/naspeh
