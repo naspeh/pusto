@@ -1,9 +1,9 @@
 # Mailur [![RSS](../rss.png)](feed.xml)
 
-**[public demo][] :: [github][] :: [short video][] :: [donate][]**
+**[public demo][] :: [github page][] :: [short video][] :: [donate][]**
 
 [public demo]: http://mail.pusto.org
-[github]: https://github.com/naspeh/mailur/
+[github page]: https://github.com/naspeh/mailur/
 [short video]: https://vimeo.com/145416826
 [donate]: https://www.patreon.com/naspeh
 
