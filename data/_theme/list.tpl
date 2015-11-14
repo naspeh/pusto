@@ -18,5 +18,14 @@
     {{ p.body }}
 </div>
 
-{{ show_children(p.children) }}
+{{ show_children(p.children, EN=p.params.lang == 'en') }}
+{% endblock %}
+
+{% block js %}
+    {{ super() }}
+    <script>
+    $(document).ready(function() {
+        $('.napokaz').napokaz();
+    });
+    </script>
 {% endblock %}

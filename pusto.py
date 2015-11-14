@@ -367,10 +367,10 @@ def fill_page(page):
         if not page.title and page.body:
             title = page.xml.find('.//h1')
             if title is not None:
-                page.update(title=title.text)
-                body = title.getparent().remove(title)
-                page.update(body=xml2str(body))
-
+                page.update(title=xml2str(title))
+                title.getparent().remove(title)
+                body = xml2str(page.xml)
+                page.update(body=body)
     return page
 
 
@@ -387,11 +387,13 @@ def parse_xml(text, base_file, quiet=False):
     return root
 
 
-def xml2str(xml):
+def xml2str(xml, strip_root=False):
     if xml is None:
         return ''
     text = etree.tostring(xml, encoding='utf8').decode()
-    text = text[6: -7]  # strip root tag
+    if strip_root:
+        # Strip <root>...</root>
+        text = text[6: -7]
     return text
 
 
@@ -409,7 +411,7 @@ def fix_urls(page):
             fix_url(img, 'src')
         for link in root.findall('.//a'):
             fix_url(link, 'href')
-        return xml2str(root)
+        return xml2str(root, True)
 
     for part in ['title', 'summary', 'body']:
         text = getattr(page, part)
@@ -432,7 +434,10 @@ def markdown(text):
             formatter = HtmlFormatter()
             return highlight(code, lexer, formatter)
 
-    md = Markdown(renderer=ExtRenderer(use_xhtml=True))
+    md = Markdown(
+        renderer=ExtRenderer(use_xhtml=True),
+        escape=False, hard_wrap=True
+    )
     return md.render(text)
 
 

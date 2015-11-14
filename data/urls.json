@@ -9,12 +9,11 @@
     "/all.js": null,
     "/draft/": null,
     "/draft/console-every-day/": null,
+    "/draft/mailur-readme/": null,
     "/draft/my-way/": null,
     "/draft/my-way/linux/": null,
     "/draft/pkglist-new/": null,
     "/en/": null,
-    "/en/mailr/": null,
-    "/en/mailr/fundraising/": null,
     "/en/napokaz/": [
         "/s/napokaz/",
         "/s/napokaz"
@@ -26,6 +25,14 @@
         "/resume/en"
     ],
     "/en/tider/": null,
+    "/mailur/": null,
+    "/mailur/alpha/": null,
+    "/mailur/feed.xml": null,
+    "/mailur/fundraising/": null,
+    "/mailur/intro/": [
+        "/en/mailr/",
+        "/en/mailr"
+    ],
     "/naspeh/": [
         "/naspeh/detail/",
         "/naspeh/detail"

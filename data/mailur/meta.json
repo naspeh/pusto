@@ -1,6 +1,7 @@
 {
     "params": {
-        "feed": "/trip/feed.xml"
+        "lang": "en",
+        "feed": "/mailur/feed.xml"
     },
     "template": "_theme/list.tpl"
 }

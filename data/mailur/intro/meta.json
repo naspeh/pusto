@@ -1,4 +1,7 @@
 {
+    "aliases": [
+        "/en/mailr/"
+    ],
     "params": {
         "lang": "en"
     },

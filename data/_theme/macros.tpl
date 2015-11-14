@@ -32,11 +32,11 @@
     {% if c.kind in ['md', 'rst'] %}
     <li><a href="{{ c.index_file }}" rel="nofollow">{{ 'Show Source' if EN else 'Исходный текст' }}</a></li>
     {% endif %}
-    <li><a href="{{ github }}{{ c.url }}">{{ 'Look at github' if EN else 'Смотреть на github' }}</a></li>
+    <li><a href="{{ github }}{{ c.index_file }}">{{ 'Look at github' if EN else 'Смотреть на github' }}</a></li>
 </ul>
 {% endmacro %}
 
-{% macro show_children(children) %}
+{% macro show_children(children, EN=None) %}
 <ul class="posts">
 {% for url, child in children.items() %}
     <li class="post" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -46,7 +46,7 @@
                     {{ child.title|striptags or url }}
                 </a>
             </h1>
-            {{ show_meta(child) }}
+            {{ show_meta(child, EN=EN) }}
         </div>
         {% if child.summary %}
         <div itemprop="description">
