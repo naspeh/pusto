@@ -1,12 +1,13 @@
 # Mailur [![RSS](../rss.png)](feed.xml)
 
-
 **[public demo][demo] :: [github page][gh] :: [short video][video] :: [donate][]**
 
 [demo]: http://mail.pusto.org
 [gh]: https://github.com/naspeh/mailur/
 [video]: https://vimeo.com/145416826
 [donate]: https://www.patreon.com/naspeh
+
+Mailur aims to become the future open source replacement for Gmail.
 
 It is already usable as an alternative Gmail interface with a set of unique features:
 - internal lightweight tabs
