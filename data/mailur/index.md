@@ -1,11 +1,14 @@
 # Mailur [![RSS](../rss.png)](feed.xml)
 
-**[public demo][] :: [github page][] :: [short video][] :: [donate][]**
 
-[public demo]: http://mail.pusto.org
-[github page]: https://github.com/naspeh/mailur/
-[short video]: https://vimeo.com/145416826
-[donate]: https://www.patreon.com/naspeh
+**[public demo][demo] :: [github page][gh] :: [short video][video] :: [reddit discussion][reddit] :: [donate][]**
+
+[info]: https://pusto.org/mailur/
+[gh]: https://github.com/naspeh/mailur/
+[demo]: http://mail.pusto.org
+[video]: https://vimeo.com/145416826
+[reddit]: https://www.reddit.com/r/linux/comments/3t07mv/
+[donate]: https://www.patreon.com/naspeh?ty=h
 
 It is already usable as an alternative Gmail interface with a set of unique features:
 - internal lightweight tabs

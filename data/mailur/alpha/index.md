@@ -1,9 +1,13 @@
 # The alpha is here
-**[public demo][] :: [github page][] :: [short video][]**
 
-[public demo]: http://mail.pusto.org
-[github page]: https://github.com/naspeh/mailur/
-[short video]: https://vimeo.com/145416826
+**[public demo][demo] :: [github page][gh] :: [short video][video] :: [reddit discussion][reddit] :: [donate][]**
+
+[info]: https://pusto.org/mailur/
+[gh]: https://github.com/naspeh/mailur/
+[demo]: http://mail.pusto.org
+[video]: https://vimeo.com/145416826
+[reddit]: https://www.reddit.com/r/linux/comments/3t07mv/
+[donate]: https://www.patreon.com/naspeh?ty=h
 
 Mailur aims to become the future open source replacement for Gmail.
 
@@ -34,4 +38,6 @@ Then, I can remove my email messages from Gmail :), and use something like [Mail
 
 Of course, I will wait a little to be confident in system's stability. Also, Mailur needs some further features, improvements and optimizations. For example, I'm going to make such things: polishing interface, filters for incoming messages, Mailgun support, some kind of mobile application with push notifications, more tests, etc.
 
-I had a long pause in the development of Mailur when I was working on a commercial project accumulating some money. I came back to a nearly full-time development of this project about half a year ago. Now, I have to find a new full-time job again, because I've spent almost all the money I had accumulated before, so it means I will work on Mailur significantly less (or with pause again) in near future.
+I had a long pause in the development of Mailur when I was working on a commercial project accumulating some money. I came back to a nearly full-time development of this project about half a year ago. Now, I have to find a new full-time job again, because I've spent almost all the money I had accumulated before. If you are interested in further development or invitation to Private Beta of Mailur, please [consider to donate][donate].
+
+[donate]: https://www.patreon.com/naspeh
