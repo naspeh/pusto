@@ -1,13 +1,10 @@
 # The alpha is here
 
-**[public demo][demo] :: [github page][gh] :: [short video][video] :: [reddit discussion][reddit] :: [donate][]**
+**[public demo][demo] :: [github page][gh] :: [short video][video]**
 
-[info]: https://pusto.org/mailur/
-[gh]: https://github.com/naspeh/mailur/
 [demo]: http://mail.pusto.org
+[gh]: https://github.com/naspeh/mailur/
 [video]: https://vimeo.com/145416826
-[reddit]: https://www.reddit.com/r/linux/comments/3t07mv/
-[donate]: https://www.patreon.com/naspeh?ty=h
 
 Mailur aims to become the future open source replacement for Gmail.
 
