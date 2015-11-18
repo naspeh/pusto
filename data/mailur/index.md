@@ -1,6 +1,6 @@
 # Mailur [![RSS](../rss.png)](feed.xml)
 
-**[public demo][demo] :: [github page][gh] :: [short video][video] :: [donate][]**
+**alpha state :: [public demo][demo] :: [github page][gh] :: [short video][video] :: [donate][]**
 
 [demo]: http://mail.pusto.org
 [gh]: https://github.com/naspeh/mailur/
