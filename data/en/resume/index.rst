@@ -19,7 +19,12 @@ I would like to work in a distributed team on an existing web service (no games 
 
 I'm proud of Mailur__ -- the future open source replacement for Gmail :).
 
+More projects are here__ or on `github page`__.
+
 __ https://github.com/naspeh/mailur
+__ /en/
+__ https://github.com/naspeh
+
 
 Technologies I've been actively using:
  - Python since Oct 2009;
