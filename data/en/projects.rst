@@ -1,6 +1,6 @@
 My projects
 -----------
-`Mailur </mailur/>`_ -- aims to become the future open source replacement for Gmail.
+`Mailur </mailur/>`_ -- aims to become a powerful Gmail-inspired webmail.
 
 `Tider </en/tider/>`_ -- lightweight time tracker (GTK+). I use it to understand how much time I spend on which activities while I am working on computer. And it also reminds me to take a break.
 
