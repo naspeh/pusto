@@ -17,7 +17,7 @@ __ https://en.wikipedia.org/wiki/DevOps
 
 I would like to work in a distributed team on an existing web service (no games - they usually waste people's time, no advertising - I really don't like ads). I love open source and like teams which aim contributing back to the community.
 
-I'm proud of Mailur__ -- the future open source replacement for Gmail :).
+I'm proud of Mailur__ -- a Gmail-inspired webmail.
 
 More projects are here__ or on `github page`__.
 
