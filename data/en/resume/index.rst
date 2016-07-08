@@ -15,7 +15,7 @@ have some beautiful parts at least.
 
 __ https://en.wikipedia.org/wiki/DevOps
 
-I would like to work in a distributed team on an existing web service (no games - they usually waste people's time, no advertising - I really don't like ads). I love open source and like teams which aim contributing back to the community.
+I would like to work in a distributed team on an exciting web service (no games - they usually waste people's time, no advertising - I really don't like ads). I love open source and like teams which aim contributing back to the community.
 
 I'm proud of Mailur__ -- a Gmail-inspired webmail.
 
