@@ -21,7 +21,7 @@ I'm proud of Mailur__ -- a Gmail-inspired webmail.
 
 More projects are here__ or on `github page`__.
 
-__ https://github.com/naspeh/mailur
+__ /mailur/
 __ /en/
 __ https://github.com/naspeh
 
