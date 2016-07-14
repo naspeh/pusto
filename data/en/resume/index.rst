@@ -41,6 +41,17 @@ __ http://werkzeug.pocoo.org/
 
 Python developer since October 2009
 -----------------------------------
+11.2015 -- present `scribesense.com`__ (remote, via Upwork)
+  postgres and python developer; helped in development and migration of new database;
+  developed internal API for one of sub-project; developed initial version of synchronization
+  with one of external providers.
+
+  Technologies: PostgreSQL, psycopg2, jsonschema__, pytest
+
+  __ http://scribesense.com/
+  __ https://github.com/Julian/jsonschema
+
+
 08.2014 -- 08.2015 `likealocalguide.com`__ (Estonian travel startup, remote)
   full stack developer; reworked and improved booking process; improved transaction 
   emails; introduced new RESTfull API for mobile applications; introduced orchestration 
