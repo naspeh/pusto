@@ -41,7 +41,7 @@ __ http://werkzeug.pocoo.org/
 
 Python developer since October 2009
 -----------------------------------
-11.2015 -- present `scribesense.com`__ (remote, via Upwork)
+11.2015 -- 06.2016 `scribesense.com`__ (remote, via Upwork)
   postgres and python developer; helped in development and migration of new database;
   developed internal API for one of sub-project; developed initial version of synchronization
   with one of external providers.
