@@ -3,7 +3,7 @@ Grisha Kostyuk, experienced python developer
 .. image:: /_img/ava200.jpg
   :align: right
 
-**naspeh(at)gmail.com / Yaremche, Ukraine / only remote work**
+**naspeh[at]gmail.com / Yaremche, Ukraine / only remote work**
 
 .. | My English level is **intermediate.**
 .. | I was born in April 1983.
