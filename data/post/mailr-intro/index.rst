@@ -23,7 +23,7 @@ __ http://mail.pusto.org
 Рабочее название проекта **Mailr**. Код на `github. <https://github.com/naspeh/mailr>`_
 
 
-.. image:: /en/mailr/screenshot-s.png
+.. image:: /mailur/intro/screenshot-s.png
 
 Мое видение первой версии
 -------------------------
@@ -46,7 +46,7 @@ Mailr будет иметь gmail-совместимый режим через I
 **Объединение цепочек писем.** Google хорошо находит соответствие писем и цепочек, но 
 иногда его алгоритмы не работают:
 
-.. image:: /en/mailr/unmatched-thread.png
+.. image:: /mailur/intro/unmatched-thread.png
 
 Возможность вручную объединить цепочки -- это выход в таких ситуациях.
 
