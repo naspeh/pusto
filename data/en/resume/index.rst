@@ -41,6 +41,12 @@ __ http://werkzeug.pocoo.org/
 
 Python developer since October 2009
 -----------------------------------
+09.2016 -- present `sourcefabric.org`__ (open source tools for journalism, remote)
+  DevOps and python developer; I've been working on Superdesk__.
+
+  __ https://www.sourcefabric.org/
+  __ https://www.superdesk.org/
+
 11.2015 -- 06.2016 `scribesense.com`__ (remote, via Upwork)
   postgres and python developer; helped in development and migration of new database;
   developed internal API for one of sub-project; developed initial version of synchronization
@@ -48,7 +54,7 @@ Python developer since October 2009
 
   Technologies: PostgreSQL, psycopg2, jsonschema__, pytest
 
-  __ http://scribesense.com/
+  __ http://www.scribesense.com/
   __ https://github.com/Julian/jsonschema
 
 
@@ -56,8 +62,8 @@ Python developer since October 2009
   full stack developer; reworked and improved booking process; improved transaction 
   emails; introduced new RESTfull API for mobile applications; introduced orchestration 
   system based on ansible & docker when moving from one server provider to another; 
-  introduced failover server with PostgreSQL and Redis replication (via ansible 
-  playbooks); introduced real-time monitoring system based on grafana, influxdb, collectd.
+  introduced failover server with PostgreSQL and Redis replication; introduced real-time 
+  monitoring system based on grafana, influxdb, collectd.
 
   Technologies: Django, PostgreSQL, Redis, Ansible, Docker.
 
