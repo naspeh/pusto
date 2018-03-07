@@ -56,6 +56,14 @@ def reqs(dev, clear, wheels):
 def process_args():
     parser, cmd = pusto.get_parser()
 
+    cmd('rsync', help='rsync to server')\
+        .exe(lambda a: sh(
+            'rsync -av ./build/ {0}:/opt/pusto/'
+            '&& rsync -av ./deploy/nginx.conf {0}:/etc/nginx/conf.d/pusto.conf'
+            '&& ssh {0} "nginx -s reload"'
+            .format('root@pusto.org')
+        ))
+
     cmd('deploy', help='deploy to server')\
         .arg('-c', '--clear', action='store_true', help='clear virtualenv')\
         .arg('-t', '--target', default='origin/master', help='checkout it')\
@@ -72,7 +80,7 @@ def process_args():
             '&& ./pusto.py build -b build-tmp'
             '&& rm -rf build'
             '&& mv build-tmp build'
-            '&& rsync -av ./deploy/nginx-site.conf /etc/nginx/site-pusto.conf'
+            '&& rsync -av ./deploy/nginx.conf /etc/nginx/site-pusto.conf'
             '&& supervisorctl pid nginx | xargs kill -s HUP'
         ))
 
