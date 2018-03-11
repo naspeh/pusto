@@ -1,4 +1,4 @@
-# Mailur is a sleek webmail inspired by Gmail [![RSS](../rss.png)](feed.xml)
+# Mailur is a lightweight webmail inspired by Gmail [![RSS](../rss.png)](feed.xml)
 
 **Mission:** bring innovations into webmail.
 
