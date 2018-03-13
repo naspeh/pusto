@@ -61,7 +61,7 @@ def process_args():
             'rsync -av ./build/ {0}:/opt/pusto/'
             '&& rsync -av ./deploy/nginx.conf {0}:/etc/nginx/conf.d/pusto.conf'
             '&& ssh {0} "nginx -s reload"'
-            .format('root@pusto.org')
+            .format('root@h1.pusto.org')
         ))
 
     cmd('deploy', help='deploy to server')\

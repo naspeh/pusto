@@ -17,9 +17,9 @@ Source code available on `github. <https://github.com/naspeh/mailr>`_
 A big piece of work I did, but it's mostly invisible part and about IMAP communication, 
 async synchronization, email parsing. The visible part is some working interface. There is 
 `public demo`__, which works pretty fast (and yep, it is not available to compose email 
-yet). You can send email to **mailr[at]pusto.org** and it probably appears in Inbox.
+yet). You can send email to **demo[at]pusto.org** and it probably appears in Inbox.
 
-__ http://mail.pusto.org
+__ http://demo.pusto.org
 
 Screenshot
 ----------

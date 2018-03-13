@@ -23,7 +23,7 @@ This version is already in use. It has minimal feature set I need on daily basis
 
 ![Screenshots](screenshots.gif)
 
-[demo]: http://mail.pusto.org
+[demo]: http://demo.pusto.org
 [vimeo]: https://vimeo.com/259140545
 [gh]: https://github.com/naspeh/mailur/
 [gh09]: https://github.com/naspeh/mailur/issues/9

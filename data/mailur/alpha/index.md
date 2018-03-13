@@ -2,7 +2,7 @@
 
 **[public demo][demo] :: [github page][gh] :: [short video][video]**
 
-[demo]: http://mail.pusto.org
+[demo]: http://demo.pusto.org
 [gh]: https://github.com/naspeh/mailur/
 [video]: https://vimeo.com/145416826
 

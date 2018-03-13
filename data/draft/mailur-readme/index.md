@@ -1,7 +1,7 @@
 **alpha state :: [info][] :: [public demo][] :: [short video][]**
 
 [info]: https://pusto.org/mailur/
-[public demo]: http://mail.pusto.org
+[public demo]: http://demo.pusto.org
 [short video]: https://vimeo.com/145416826
 
 Mailur aims to become the future open source replacement for Gmail.

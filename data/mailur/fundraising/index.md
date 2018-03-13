@@ -17,7 +17,7 @@ I've been using Gmail for the last seven years. I wanted little privacy and no a
 
 I started Namail few months ago and it already has a pretty good **[public demo][demo]** with narrow feature set: Gmail synchronization, conversations with some actions, search, etc. I can read all my emails through Namail interface and I really like it (sure, because I've been making it). I want to build the first powerful version in **five months** for replacing Gmail in my daily using.
 
-[demo]: http://mail.pusto.org
+[demo]: http://demo.pusto.org
 
 Code is available on [github][gh] and is first introduced [here][intro] (it is still useful for additional information).
 
