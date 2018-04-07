@@ -1,10 +1,16 @@
 napokaz.js
 ==========
+.. note:: `Google closed Picasa Web Albums at May 1, 2016.`__
+
+    *So this viewer is outdated, though examples are still working.*
+
+__ http://googlephotos.blogspot.com/2016/02/moving-on-from-picasa.html
+
 | Lightweight viewer for images from `picasaweb.`__
 | Source code available on `github.`__
 
-__ https://picasaweb.google.com/naspeh/
-__ https://github.com/naskoro/napokaz
+__ https://picasa.google.com/
+__ https://github.com/naspeh/napokaz
 
 .. compound::
     Example of usage
