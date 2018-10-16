@@ -34,7 +34,7 @@
                 parts = parts.concat(['album', opts.picasaAlbum]);
             }
             $.ajax({
-                url: 'https://picasaweb.google.com/data/feed/api/' + parts.join('/'),
+                url: 'https://pusto.org/picasa/' + parts.join('/'),
                 data: {
                     kind: 'photo',
                     thumbsize: [opts.boxThumbsize, opts.frontThumbsize].join(',')
