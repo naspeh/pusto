@@ -6,7 +6,7 @@ My projects
 
 `Pusto <https://github.com/naspeh/pusto>`_ -- the source code of this site.
 
-Napokaz__ -- a lightweight viewer of images from picasaweb__. It is a jQuery plugin without any other dependencies. It's been used on this site (for example `on trips page`__).
+Napokaz__ (outdated) -- a lightweight viewer of images from picasaweb__. It is a jQuery plugin without any other dependencies. It's been used on this site (for example `on trips page`__).
 
 __ /en/napokaz/
 __ https://picasaweb.google.com/
