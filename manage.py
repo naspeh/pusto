@@ -16,12 +16,6 @@ def sh(cmd):
     return 0
 
 
-def ssh(cmd):
-    return sh(
-        'ssh yadro.org -p2200 "%s"'
-        % cmd.replace('"', '\\"').replace('$', '\\$')
-    )
-
 
 def reqs(dev, clear, wheels):
     requirements = (
@@ -62,26 +56,6 @@ def process_args():
             '&& rsync -av ./deploy/nginx.conf {0}:/etc/nginx/conf.d/pusto.conf'
             '&& ssh {0} "nginx -s reload"'
             .format('root@h1.pusto.org')
-        ))
-
-    cmd('deploy', help='deploy to server')\
-        .arg('-c', '--clear', action='store_true', help='clear virtualenv')\
-        .arg('-t', '--target', default='origin/master', help='checkout it')\
-        .exe(lambda a: ssh(
-            'cd /home/pusto/src'
-            '&& git fetch origin' +
-            '&& git checkout {}'.format(a.target) +
-            (
-                '&& rm -rf $(cat .venv) && virtualenv $(cat .venv)'
-                if a.clear else ''
-            ) +
-            '&& source $(cat .venv)/bin/activate' +
-            '&& ./bootstrap'
-            '&& ./pusto.py build -b build-tmp'
-            '&& rm -rf build'
-            '&& mv build-tmp build'
-            '&& rsync -av ./deploy/nginx.conf /etc/nginx/site-pusto.conf'
-            '&& supervisorctl pid nginx | xargs kill -s HUP'
         ))
 
     cmd('reqs', help='update python requirements')\
