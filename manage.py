@@ -52,7 +52,7 @@ def process_args():
 
     cmd('rsync', help='rsync to server')\
         .exe(lambda a: sh(
-            'rsync -av ./build/ {0}:/opt/pusto/'
+            'rsync -av --delete ./build/ {0}:/opt/pusto/'
             '&& rsync -av ./deploy/nginx.conf {0}:/etc/nginx/conf.d/pusto.conf'
             '&& ssh {0} "nginx -s reload"'
             .format('root@h1.pusto.org')
