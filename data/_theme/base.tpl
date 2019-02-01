@@ -66,14 +66,20 @@
 
 {% block js %}
 <script src="/all.js?{{ p.pages['/all.js'].mtime }}"></script>
+<!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-6254112-1', 'pusto.org');
-  ga('send', 'pageview');
+(function(f, a, t, h, o, m){
+    a[h]=a[h]||function(){
+        (a[h].q=a[h].q||[]).push(arguments)
+    };
+    o=f.createElement('script'),
+    m=f.getElementsByTagName('script')[0];
+    o.async=1; o.src=t; o.id='fathom-script';
+    m.parentNode.insertBefore(o,m)
+})(document, window, '//yadro.org/tracker.js', 'fathom');
+fathom('set', 'siteId', 'CWDIE');
+fathom('trackPageview');
 </script>
+<!-- / Fathom -->
 {% endblock %}
 </body>
