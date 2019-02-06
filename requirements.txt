@@ -1,7 +1,7 @@
-Jinja2==2.8
-MarkupSafe==0.23
-Pygments==2.0.2
-docutils==0.12
-lxml==4.2.5
-mistune==0.7.1
-pytz==2015.6
+docutils==0.14
+Jinja2==2.10
+lxml==4.3.0
+MarkupSafe==1.1.0
+mistune==0.8.4
+Pygments==2.3.1
+pytz==2018.9

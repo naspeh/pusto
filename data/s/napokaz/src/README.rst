@@ -1,6 +1,13 @@
-**napokaz.js** is lightweight image viewer for `picasaweb.`__
+| `Google closed Picasa Web Albums at May 1, 2016.`__
+| *So this viewer is outdated, though examples are still working.*
+|
 
-__ https://picasaweb.google.com/naspeh/
+__ http://googlephotos.blogspot.com/2016/02/moving-on-from-picasa.html
+
+
+**napokaz.js** is lightweight image viewer for `Picasa Web Albums.`__
+
+__ https://picasa.google.com/
 
 It is jQuery plugin without any other dependencies.
 

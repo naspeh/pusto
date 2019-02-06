@@ -36,6 +36,7 @@
             $.ajax({
                 url: 'https://pusto.org/picasa/' + parts.join('/'),
                 data: {
+                    'deprecation-extension': true,
                     kind: 'photo',
                     thumbsize: [opts.boxThumbsize, opts.frontThumbsize].join(',')
                 },
