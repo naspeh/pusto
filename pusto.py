@@ -638,13 +638,13 @@ def watch_files(src_dir, interval=1, use_cache=True):
         time.sleep(interval)
 
 
-def check_urls(host=None, verbose=False):
+def check_urls(base_url=None, verbose=False):
     log = lambda *a: verbose and print(*a)
 
-    if not host:
+    if not base_url:
         if not os.path.exists(BUILD_DIR):
             process('build')
-        host = 'localhost:9000'
+        base_url = 'localhost:9000'
         args = 'run --port=9000 --no-build'.split(' ')
         server = Thread(target=process, args=args)
         server.daemon = True
@@ -657,7 +657,12 @@ def check_urls(host=None, verbose=False):
     def get(url, expected_code=200, indent=''):
         comment = ''
         try:
-            conn = http.client.HTTPConnection(host)
+            if base_url.startswith('https://'):
+                connection = http.client.HTTPSConnection
+            else:
+                connection = http.client.HTTPConnection
+            host = re.sub('^https?://', '', base_url)
+            conn = connection(host)
             conn.request('HEAD', url)
             res = conn.getresponse()
             code = res.status
@@ -665,7 +670,7 @@ def check_urls(host=None, verbose=False):
                 res_url = url
             else:
                 res_url = res.info().get('Location', '')
-                res_url = res_url.replace('http://' + host, '')
+                res_url = res_url.replace(base_url, '')
         except HTTPError as e:
             code = e.code
             res_url = None
@@ -718,10 +723,10 @@ def get_parser():
         .arg('-c', '--use-cache', action='store_true')\
         .exe(lambda a: build(SRC_DIR, a.bdir, a.nginx_file, a.use_cache))
 
-    cmd('test_urls', help='test url responses')\
+    cmd('test-urls', help='test url responses')\
         .arg('-v', '--verbose', action='store_true')\
-        .arg('-H', '--host', help='use host for test')\
-        .exe(lambda a: check_urls(host=a.host, verbose=a.verbose))
+        .arg('-u', '--base-url', help='base url for test')\
+        .exe(lambda a: check_urls(a.base_url, verbose=a.verbose))
 
     return parser, cmd
 
