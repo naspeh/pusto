@@ -5,13 +5,13 @@ Grisha Kostyuk, experienced python developer
 
 **naspeh[at]gmail.com // Yaremche, Ukraine // only remote**
 
-I'm a python developer with over a decade of experience in web development. I'm especially strong in back-end development, pretty good in deployment and automation, occasionally I can do modern front-end.
+I'm a python developer with over a decade of experience in web development. I'm especially strong in back-end development, pretty good in automation, CI and deployment, occasionally I can do modern front-end.
 
-I usually choose fewer abstractions to be closer to the low layer. I'm perfectionist and I like to optimize, automate, improve maintainability of existing code bases.
+I love simplicity. I usually choose fewer abstractions to be closer to the low layer.
 
-| Between jobs I usually work on personal projects.
-| I'm proud of Mailur__ -- a lightweight webmail inspired by Gmail.
-| More projects are here__ or on `github page`__.
+In spare time (usually on long vacations or between jobs) I pursue perfection on my open source projects. The last one is Mailur__ -- a lightweight webmail inspired by Gmail.
+
+More projects are here__ or on `github page`__.
 
 __ /mailur/
 __ /en/
@@ -23,13 +23,18 @@ Technologies I've been actively using:
  - PostgreSQL and Redis since Mar 2012;
  - Git since Dec 2009;
  - Linux since Jul 2008;
- - Containers since Aug 2014; (docker a bit, lxc, systemd-nspawn)
+ - Containers since Aug 2014 (lxc, docker, systemd-nspawn);
  - Shell scripting periodically since 2011;
  - JavaScript periodically since 2009;
  - CSS/HTML periodically since 2006.
 
 Python developer since October 2009
 -----------------------------------
+04.2018 -- 11.2018 `datarobot.com`__ (automated machine learning platform, remote)
+  focused on developer experience tools; was working on Slack, Github and Jenkins integrations; optimized parallel execution of functional tests.
+
+  __ https://www.datarobot.com/
+
 09.2016 -- 10.2017 `sourcefabric.org`__ (open source tools for journalism, remote)
   python developer and DevOps; was working on Superdesk__; quickly became responsible for testing instances; developed from scratch Fireq__ a tool for CI, deployment and single-line installation of Superdesk and related projects, before creating Fireq I collected requirements over the team and did research of existing tools (LXC have been used in production, so it also uses LXC and has great integration with Github).
 
@@ -37,12 +42,12 @@ Python developer since October 2009
   __ https://www.superdesk.org/
   __ https://github.com/superdesk/fireq
 
-11.2015 -- 06.2016 `scribesense.com`__ (remote, via Upwork)
+11.2015 -- 06.2016 `scribesense.com`__ (via Upwork, remote)
   postgres and python developer; helped in development and migration of new database; developed internal API for one of sub-project; developed initial version of synchronization with one of external providers.
 
   Technologies: PostgreSQL, psycopg2, jsonschema__, pytest
 
-  __ http://www.scribesense.com/
+  __ https://angel.co/scribesense/
   __ https://github.com/Julian/jsonschema
 
 
