@@ -5,11 +5,13 @@ Grisha Kostyuk, experienced python developer
 
 **naspeh[at]gmail.com // Yaremche, Ukraine // only remote**
 
-I'm a python developer with over a decade of experience in web development. I'm especially strong in back-end development, pretty good in automation, CI and deployment, occasionally I can do modern front-end.
+I'm a passionate python developer with over a decade of experience in web development. I'm especially strong in back-end development, pretty good in automation, CI and deployment, occasionally I can do modern front-end.
 
 I love simplicity. I usually choose fewer abstractions to be closer to the low layer.
 
-In spare time (usually on long vacations or between jobs) I pursue perfection on my open source projects. The last one is Mailur__ -- a lightweight webmail inspired by Gmail.
+In spare time (usually on long vacations or between jobs) I pursue perfection on my open source projects, where I can do refactoring or rewrite a project as much as I wish, what I've successfully done many times. This gives me another kind of experience which extending my craft and thinking in different way than production systems with business needs.
+
+The latest is Mailur__ -- a lightweight webmail inspired by Gmail.
 
 More projects are here__ or on `github page`__.
 
@@ -31,12 +33,12 @@ Technologies I've been actively using:
 Python developer since October 2009
 -----------------------------------
 04.2018 -- 11.2018 `datarobot.com`__ (automated machine learning platform, remote)
-  focused on developer experience tools; was working on Slack, Github and Jenkins integrations; optimized parallel execution of functional tests.
+  focused on developer experience tools; was working on Slack, Github and Jenkins integrations; optimized parallel execution of functional tests over Jenkins slaves.
 
   __ https://www.datarobot.com/
 
 09.2016 -- 10.2017 `sourcefabric.org`__ (open source tools for journalism, remote)
-  python developer and DevOps; was working on Superdesk__; quickly became responsible for testing instances; developed from scratch Fireq__ a tool for CI, deployment and single-line installation of Superdesk and related projects, before creating Fireq I collected requirements over the team and did research of existing tools (LXC have been used in production, so it also uses LXC and has great integration with Github).
+  python developer and DevOps; was working on Superdesk__; quickly became responsible for testing instances; developed from scratch Fireq__ a tool for CI, deployment of test instances and single-line installation of Superdesk and related projects, before creating Fireq I collected requirements over the team and did research of existing tools (LXC have been used in production, so it also uses LXC and has great integration with Github).
 
   __ https://www.sourcefabric.org/
   __ https://www.superdesk.org/
@@ -95,5 +97,3 @@ Education
 Additionally
 ------------
 I love my family. I really like mountains and Chinese tea. I've been thinking a lot about meaning of life.
-
-I don't smoke and don't drink any alcohol.
