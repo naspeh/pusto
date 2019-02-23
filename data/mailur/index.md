@@ -1,7 +1,5 @@
 # Mailur is a lightweight webmail inspired by Gmail [![RSS](../rss.png)](feed.xml)
 
-**Mission:** bring innovations into webmail.
-
 ## Features
 - multiple tags for messages (no folders)
 - easy to switch from threads view to messages view

@@ -36,3 +36,7 @@ Then, I can remove my email messages from Gmail :), and use something like [Mail
 Of course, I will wait a little to be confident in system's stability. Also, Mailur needs some further features, improvements and optimizations. For example, I'm going to make such things: polishing interface, filters for incoming messages, Mailgun support, some kind of mobile application with push notifications, more tests, etc.
 
 I had a long pause in the development of Mailur when I was working on a commercial project accumulating some money. I came back to a nearly full-time development of this project about half a year ago. Now, I have to find a new full-time job again, because I've spent almost all the money I had accumulated before, so it means I will work on Mailur significantly less (or with pause again) in near future.
+
+---
+
+Discussion: [Reddit](http://redd.it/3t07mv)
