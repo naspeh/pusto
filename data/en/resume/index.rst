@@ -9,14 +9,11 @@ I'm a passionate python developer with over a decade of experience in web develo
 
 I love simplicity. I usually choose fewer abstractions to be closer to the low layer.
 
-In spare time (usually on long vacations or between jobs) I pursue perfection on my open source projects, where I can do refactoring or rewrite a project as much as I wish, what I've successfully done many times. This gives me another kind of experience which extending my craft and thinking in different way than production systems with business needs.
+In spare time I try to pursue perfection on my open source projects. The latest is Mailur__ -- a lightweight webmail inspired by Gmail.
 
-The latest is Mailur__ -- a lightweight webmail inspired by Gmail.
-
-More projects are here__ or on `github page`__.
+More projects on `github page`__.
 
 __ /mailur/
-__ /en/
 __ https://github.com/naspeh
 
 
@@ -33,7 +30,7 @@ Technologies I've been actively using:
 Python developer since October 2009
 -----------------------------------
 04.2018 -- 11.2018 `datarobot.com`__ (automated machine learning platform, remote)
-  focused on developer experience tools; was working on Slack, Github and Jenkins integrations; optimized parallel execution of functional tests over Jenkins slaves.
+  focused on tools that improve developer workflow; was working on different integrations for Slack, Github and Jenkins; optimized parallel execution of functional tests over Jenkins slaves.
 
   __ https://www.datarobot.com/
 
@@ -96,4 +93,4 @@ Education
 
 Additionally
 ------------
-I love my family. I really like mountains and Chinese tea. I've been thinking a lot about meaning of life.
+I love my family. I really like mountains, music and Chinese tea.
