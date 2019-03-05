@@ -14,7 +14,7 @@
 {% if EN %}
 <div class="header">
     <ul class="nav logo">
-        <li><a href="/" title="Russian part">pusto.org</a></li>
+        <li class="link-logo"><a href="/" title="Russian part">pust<b>o.o</b>rg</a></li>
         <li><a href="/en/">en</a></li>
     </ul>
     <ul class="nav">
@@ -26,7 +26,7 @@
 {% else %}
 <div class="header">
     <ul class="nav logo">
-        <li><a href="/">pusto.org</a></li>
+        <li class="link-logo"><a href="/" title="Russian part">pust<b>o.o</b>rg</a></li>
         <li><a href="/en/" title="English part">en</a></li>
     </ul>
     <ul class="nav">
