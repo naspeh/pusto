@@ -3,15 +3,15 @@ Grisha Kostyuk, experienced python developer
 .. image:: /_img/ava200.jpg
   :align: right
 
-**naspeh[at]gmail.com // Yaremche, Ukraine // only remote**
+**naspeh[at]gmail.com // Yaremche, Ukraine // remote only**
 
-I'm a passionate python developer with over a decade of experience in web development. I'm especially strong in back-end development, pretty good in automation, CI and deployment, occasionally I can do modern front-end.
+I'm a passionate python developer with over a decade of experience in web development. I'm especially strong in back-end development, pretty good in automation and deployment (including CI/CD), occasionally I can do modern front-end.
 
 I love simplicity. I usually choose fewer abstractions to be closer to the low layer.
 
-In spare time I try to pursue perfection on my open source projects. The latest is Mailur__ -- a lightweight webmail inspired by Gmail.
+I love open source. In spare time, I enjoy pursuing perfection on my open source projects. The latest one is Mailur__ -- a lightweight webmail inspired by Gmail.
 
-More projects on `github page`__.
+More projects on `github page.`__
 
 __ /mailur/
 __ https://github.com/naspeh
@@ -35,7 +35,8 @@ Python developer since October 2009
   __ https://www.datarobot.com/
 
 09.2016 -- 10.2017 `sourcefabric.org`__ (open source tools for journalism, remote)
-  python developer and DevOps; was working on Superdesk__; quickly became responsible for testing instances; developed from scratch Fireq__ a tool for CI, deployment of test instances and single-line installation of Superdesk and related projects, before creating Fireq I collected requirements over the team and did research of existing tools (LXC have been used in production, so it also uses LXC and has great integration with Github).
+  python developer and DevOps; was working on Superdesk__; quickly became responsible for testing instances; developed from scratch Fireq__ for CI/CD and other automation of Superdesk related projects, before creating Fireq I collected requirements over the team, evaluated existing time-consuming system and did research for a suitable CI/CD tool (LXC was one of hard requirement, because it was used in production and we wanted the same environment for testing instances, also Fireq has great integration with Github).
+
 
   __ https://www.sourcefabric.org/
   __ https://www.superdesk.org/
