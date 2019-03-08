@@ -79,6 +79,12 @@ pre {
     line-height: 1.25em;
     white-space: pre;
 }
+code {
+    font-family: "Anonymous Pro", monospace;
+    font-weight: 400;
+    font-size: 0.9em;
+    color: #555;
+}
 .code .ln {
     margin-left: -5px;
     margin-right: 10px;

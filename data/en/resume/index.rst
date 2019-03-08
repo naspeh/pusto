@@ -7,7 +7,7 @@ Grisha Kostyuk, experienced python developer
 
 I'm a passionate python developer with over a decade of experience in web development. I'm especially strong in back-end development, pretty good in automation and deployment (including CI/CD), occasionally I can do modern front-end.
 
-I love simplicity. I usually choose fewer abstractions to be closer to the low layer.
+I love simplicity. I usually choose fewer abstractions to be closer to the lower layer.
 
 I love open source. In spare time, I enjoy pursuing perfection on my open source projects. The latest one is Mailur__ -- a lightweight webmail inspired by Gmail.
 

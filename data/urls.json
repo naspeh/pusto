@@ -30,6 +30,7 @@
     "/mailur/dovecot/": null,
     "/mailur/feed.xml": null,
     "/mailur/fundraising/": null,
+    "/mailur/installation/": null,
     "/mailur/intro/": [
         "/en/mailr/",
         "/en/mailr"

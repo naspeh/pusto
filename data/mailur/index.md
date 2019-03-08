@@ -16,11 +16,13 @@ This version is already in use. It has minimal feature set I need on daily basis
 
 ## Related links
 - [public demo][demo] (credentials: demo/demo)
+- [installation][install]
 - [github page][gh]
 
 ![Screenshots](screenshots.gif)
 
 [demo]: http://demo.pusto.org
+[install]: /mailur/installation
 [vimeo]: https://vimeo.com/259140545
 [gh]: https://github.com/naspeh/mailur/
 [mlr-dovecot]: /mailur/dovecot/

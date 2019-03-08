@@ -1,6 +1,6 @@
 {% from '_theme/macros.tpl' import show_meta %}
 <!DOCTYPE HTML>
-{% set EN = p.params.lang == 'en' %}
+{% set EN = p.params.lang == 'en' or p.parent.params.lang == 'en' %}
 <head>
 {% block head %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,6 +16,7 @@
     <ul class="nav logo">
         <li class="link-logo"><a href="/" title="Russian part">pust<b>o.o</b>rg</a></li>
         <li><a href="/en/">en</a></li>
+        <li><a href="/mailur/" title="Lightweight webmail inspired by Gmail">Mailur</a></li>
     </ul>
     <ul class="nav">
         <li><a href="/en/resume/">Résumé</a></li>
@@ -28,6 +29,7 @@
     <ul class="nav logo">
         <li class="link-logo"><a href="/" title="Russian part">pust<b>o.o</b>rg</a></li>
         <li><a href="/en/" title="English part">en</a></li>
+        <li><a href="/mailur/" title="Lightweight webmail inspired by Gmail">Mailur</a></li>
     </ul>
     <ul class="nav">
         <li><a href="/trip/">Наши поездки</a></li>
