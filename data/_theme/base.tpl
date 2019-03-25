@@ -16,12 +16,11 @@
     <ul class="nav logo">
         <li class="link-logo"><a href="/" title="Russian part">pust<b>o.o</b>rg</a></li>
         <li><a href="/en/">en</a></li>
-        <li><a href="/mailur/" title="Lightweight webmail inspired by Gmail">Mailur</a></li>
     </ul>
     <ul class="nav">
+        <li><a href="/mailur/" title="Lightweight webmail inspired by Gmail">Mailur</a></li>
         <li><a href="/en/resume/">Résumé</a></li>
         <li><a href="/">Articles (Ru)</a></li>
-        <li><a href="/trip/">Trips (Ru)</a></li>
     </ul>
 </div>
 {% else %}
@@ -29,9 +28,9 @@
     <ul class="nav logo">
         <li class="link-logo"><a href="/" title="Russian part">pust<b>o.o</b>rg</a></li>
         <li><a href="/en/" title="English part">en</a></li>
-        <li><a href="/mailur/" title="Lightweight webmail inspired by Gmail">Mailur</a></li>
     </ul>
     <ul class="nav">
+        <li><a href="/mailur/" title="Lightweight webmail inspired by Gmail">Mailur</a></li>
         <li><a href="/trip/">Наши поездки</a></li>
         <li><a href="/naspeh/">Об авторе</a></li>
     </ul>

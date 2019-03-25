@@ -1,4 +1,4 @@
-**Note:** copy for history from [bountysource][bounty].
+**Note:** copy for history from [bountysource.][bounty] It was my fault with zero funding, but I got some experience :).
 
 [bounty]: https://www.bountysource.com/teams/naspeh/fundraiser
 
@@ -24,8 +24,8 @@ Code is available on [github][gh] and is first introduced [here][intro] (it is s
 [gh]: https://github.com/naspeh/namail
 [intro]: http://pusto.org/en/mailr/
 
-![Namail Screenshot](//pusto.org/en/mailr/screenshot-one.png)
-![Namail Screenshot](//pusto.org/en/mailr/screenshot-s.png)
+![Namail Screenshot](/mailur/intro/screenshot-one.png)
+![Namail Screenshot](/mailur/intro/screenshot-s.png)
 
 The main principle of Namail is **simplicity**.
 
