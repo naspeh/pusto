@@ -35,8 +35,12 @@ pass={plain}demo
 # used in "bin/deploy" for nginx and certbot
 domain=example.com
 
+# used as password for dovecot master users
+# used as "doveadm_password"
 secret=5969dd9f462f403b8a2866f6d79fa399
 
+# used by cli/web application
+export MLR_DOMAIN=$domain
 export MLR_SECRET=$secret
 export MLR_MASTER=root:$secret
 export MLR_SIEVE=sieve:$secret
@@ -53,20 +57,25 @@ Open `https://example.com` in the browser.
 
 `IMAPS` will be available on server too.
 
-## Import email from Gmail
-**Note:** If you want use it without Gmail, you should deliver emails to `/home/vmail/demo/mlr` mailbox. In the future, it would be possible to import from other IMAP servers as well.
-
-I use two-factor authentication for Gmail with [app password](https://support.google.com/accounts/answer/185833?hl=en) for Mailur.
+## Import & send emails
 ```bash
 . bin/activate
-mlr gmail demo set {gmail-username} {gmail-password}
-mlr gmail demo --parse
-# and install systemd service
+
+# using Gmail
+mlr remote demo set {username} {password} --imap=imap.gmail.com --smtp=smtp.gmail.com
+
+# or using general IMAP/SMTP server
+mlr remote demo set {username} {password} --imap=mail.example.com --smtp=mail.example.com
+
+# initial import
+mlr remote demo --parse
+
+# and install systemd service to import new messages
 user=demo bin/install-idle-sync
 ```
+**Note:** I use two-factor authentication for Gmail with [app password](https://support.google.com/accounts/answer/185833?hl=en) for Mailur.
 
 ## Master-master replication
-
 I use two servers with master-master replication enabled.
 
 For that for each user you should add `userdb_mail_replica` parameter with your second server in `/etc/dovecot/passwd.users` like:
