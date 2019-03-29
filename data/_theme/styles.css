@@ -264,3 +264,16 @@ img.align-left {
   display: table;
   clear: both;
 }
+.anchor {
+  float: left;
+  margin-right: 0.5em;
+}
+.anchor:hover, .anchor:focus, .anchor:active {
+  border-bottom: none;
+  outline: none;
+}
+.anchor:after {
+  content: "";
+  display: table;
+  clear: both;
+}

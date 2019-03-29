@@ -2,11 +2,11 @@
 
 ## Features
 - multiple tags for messages (no folders)
-- manually linking threads
-- Sieve scripts for email filtering
-- composing messages with [Markdown][]
+- [manually linking threads](/mailur/features/#link-threads)
+- [Sieve scripts for email filtering](/mailur/features/#sieve-scripts)
+- [composing messages with Markdown](/mailur/features/#markdown)
+- [independent split pane](/mailur/features/#the-split-pane)
 - easy to switch from threads view to messages view
-- independent split pane
 - slim and compact interface with few basic themes
 - ...
 
@@ -19,7 +19,7 @@ This version is already in use. It has minimal feature set I need on daily basis
 - [installation][install]
 - [github page][gh]
 
-![Screenshots](screenshots.gif)
+![Screenshots](/mailur/features/the-split-pane.gif)
 
 [demo]: http://demo.pusto.org
 [install]: /mailur/installation
