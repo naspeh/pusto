@@ -44,12 +44,13 @@ Python developer since October 2009
   __ https://www.datarobot.com/
 
 09.2016 -- 10.2017 `sourcefabric.org`__ (open source tools for journalism, remote)
-  python developer and DevOps; was working on Superdesk__; quickly became responsible for testing instances; developed from scratch Fireq__ for CI/CD and other automation of Superdesk related projects, before creating Fireq I collected requirements over the team, evaluated existing time-consuming system and did research for a suitable CI/CD tool (LXC was one of hard requirement, because it was used in production and we wanted the same environment for testing instances, also Fireq has great integration with Github).
+  python developer and DevOps; was working on Superdesk__; quickly became responsible for testing instances; developed from scratch Fireq__ for CI/CD and other automation of Superdesk related projects, before creating Fireq I collected requirements over the team, evaluated existing time-consuming system and did research for a suitable CI/CD tool (LXC__ was one of hard requirement, because it was used in production and we wanted the same environment for testing instances, also Fireq has great integration with Github).
 
 
   __ https://www.sourcefabric.org/
   __ https://www.superdesk.org/
   __ https://github.com/superdesk/fireq
+  __ https://linuxcontainers.org/lxc/introduction/
 
 11.2015 -- 06.2016 `scribesense.com`__ (via Upwork, remote)
   postgres and python developer; helped in development and migration of new database; developed internal API for one of sub-project; developed initial version of synchronization with one of external providers.
