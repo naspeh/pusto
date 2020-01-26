@@ -22,13 +22,22 @@ Technologies I've been actively using:
  - PostgreSQL and Redis since Mar 2012;
  - Git since Dec 2009;
  - Linux since Jul 2008;
- - Containers since Aug 2014 (lxc, docker, systemd-nspawn);
+ - Containers since Aug 2014 (podman__, docker, lxc__, systemd-nspawn__);
  - Shell scripting periodically since 2011;
  - JavaScript periodically since 2009;
  - CSS/HTML periodically since 2006.
 
+__ https://github.com/containers/libpod
+__ https://linuxcontainers.org/lxc/introduction/
+__ https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html
+
 Python developer since October 2009
 -----------------------------------
+05.2019 -- present `15five.com`__ (continuous performance management, remote)
+  django developer; working on integrations and internal tools.
+
+  __ https://www.15five.com/
+
 04.2018 -- 11.2018 `datarobot.com`__ (automated machine learning platform, remote)
   focused on tools that improve developer workflow; was working on different integrations for Slack, Github and Jenkins; optimized parallel execution of functional tests over Jenkins slaves.
 
