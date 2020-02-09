@@ -21,6 +21,7 @@
         <li><a href="/mailur/" title="Lightweight webmail inspired by Gmail">Mailur</a></li>
         <li><a href="/en/resume/">Résumé</a></li>
         <li><a href="/">Articles (Ru)</a></li>
+        <li><a href="/trip/" title="Our trips">Trips (Ru)</a></li>
     </ul>
 </div>
 {% else %}

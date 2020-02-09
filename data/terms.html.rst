@@ -32,12 +32,9 @@ __ https://wiki.archlinux.org/index.php/yaourt
 
     .. raw:: html
 
-        <div class="napokaz-term"
-            data-box-width="2"
-            data-picasa-user="naspeh"
-            data-picasa-album="20100818_Karpaty_Svidovetskiy_hrebet"
-            data-picasa-ignore="info">
-        </div>
+        <a href="/trip/2010-karpaty-svidovetskiy-khrebet/" class="gallery-cover">
+            <img src="/trip/2010-karpaty-svidovetskiy-khrebet/photos/thumbs/IMG_7014.jpg" />
+        </a>
 
 __ /trip/2010-karpaty-svidovetskiy-khrebet/
 
@@ -49,10 +46,8 @@ __ /trip/2010-karpaty-svidovetskiy-khrebet/
 
     .. raw:: html
 
-        <div class="napokaz-term"
-            data-box-width="2"
-            data-picasa-user="naspeh"
-            data-picasa-album="20110513_Krym_Yugo_vostochniy_Velo">
-        </div>
+        <a href="/trip/2011-krym-simferopol-feodosiya-velo/" class="gallery-cover">
+            <img src="/trip/2011-krym-simferopol-feodosiya-velo/photos/thumbs/IMG_7899.jpg" />
+        </a>
 
 __ /trip/2011-krym-simferopol-feodosiya-velo/

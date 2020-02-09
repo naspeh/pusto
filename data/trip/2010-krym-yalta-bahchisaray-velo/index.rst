@@ -7,12 +7,13 @@
     </a>
 
 | **Даты:** 2-3 октября 2010г
-| **Участники:** Гриша__, Катя__, Игорь
+| **Участники:** Гриша__, Катя__, Игорь__
 | **Тип отдыха:** активный, велопоход выходного дня
 | **Треки:**  `наш`__ и `оригинал`__
 
 __ #term-naspeh
 __ #term-nayavu
+__ #term-igor-g
 __ http://gpsies.com/map.do?fileId=ldnchxxlnydpsavo
 __ http://www.gpsies.com/map.do?fileId=ykdeztnhimjewqex
 
