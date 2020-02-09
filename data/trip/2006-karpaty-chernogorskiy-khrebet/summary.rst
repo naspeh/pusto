@@ -1,10 +1,8 @@
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="7"
-        data-picasa-user="naspeh"
-        data-picasa-album="20060716_Karpaty_Chernogorskiy_hrebet">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Свадебное путешествие. Часть первая**
 | **Даты:** 16-25 июля 2006г

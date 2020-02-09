@@ -2,11 +2,9 @@
 ==============================
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="7"
-        data-picasa-user="naspeh"
-        data-picasa-album="20121016_Karpaty_Spravzhnya_Kazka">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Даты:** 16-19 октября 2012г
 | **Участники:** Гриша, Катя, Андрей, Оля, Дима

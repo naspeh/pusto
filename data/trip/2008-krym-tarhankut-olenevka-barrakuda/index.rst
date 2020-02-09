@@ -2,11 +2,9 @@
 ===========================================
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="7"
-        data-picasa-user="naspeh"
-        data-picasa-album="20080814_Krym_Tarhankut_Barrakuda">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Даты:** 14-21 августа 2008г
 | **Участники:** Гриша, Катя

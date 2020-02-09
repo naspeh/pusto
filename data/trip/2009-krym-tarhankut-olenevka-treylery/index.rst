@@ -2,11 +2,9 @@
 ==========================================
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="7"
-        data-picasa-user="naspeh"
-        data-picasa-album="20090818_Krym_Tarhankut_Treyler">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Даты:** 18-28 августа 2009г
 | **Участники:** Гриша, Катя

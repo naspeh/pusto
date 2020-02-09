@@ -2,11 +2,9 @@
 ===============================
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="7"
-        data-picasa-user="naspeh"
-        data-picasa-album="20090426_Karpaty_Kosovskiy_rayon">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Даты:** 24 апреля - 1 мая 2009г
 | **Участники:** Гриша, Катя

@@ -3,3 +3,5 @@ Sitemap: https://pusto.org/sitemap.xml
 User-agent: *
 Disallow: /*.rst
 Disallow: /*.md
+Disallow: /trip/*/photos/
+Disallow: /trip/*/photos/*

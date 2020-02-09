@@ -2,11 +2,9 @@
 ==============================
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="7"
-        data-picasa-user="naspeh"
-        data-picasa-album="20111025_Karpaty_Spravzhnya_Kazka">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Даты:** 25-30 октября 2011г
 | **Участники:** Гриша, Катя, Дима, Аня

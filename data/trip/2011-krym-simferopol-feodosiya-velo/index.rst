@@ -2,11 +2,9 @@
 =================================
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="7"
-        data-picasa-user="naspeh"
-        data-picasa-album="20110513_Krym_Yugo_vostochniy_Velo">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Даты:** 13-20 мая 2011г
 | **Участники:** Гриша__, Катя__, Игорь, Лена

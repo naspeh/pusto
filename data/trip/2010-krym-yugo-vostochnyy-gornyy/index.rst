@@ -2,19 +2,9 @@
 ==================================
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="5"
-        data-picasa-user="naspeh"
-        data-picasa-album="20100424_Krym_Vostochniy"
-        data-picasa-ignore="info">
-    </div>
-
-    <div class="napokaz"
-        data-box-width="2"
-        data-picasa-user="naspeh"
-        data-picasa-album="20100424_Krym_Vostochniy"
-        data-picasa-filter="info">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Даты:** 24 апреля - 1 мая 2010г
 | **Участники:** Гриша, Катя, Андрей, Оля, Галя

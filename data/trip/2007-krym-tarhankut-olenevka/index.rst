@@ -2,11 +2,9 @@
 ================================
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="7"
-        data-picasa-user="naspeh"
-        data-picasa-album="20070824_Krym_Tarhankut">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Даты:** 24-28 августа 2007г
 | **Участники:** Гриша, Катя, Андрей, Юра

@@ -2,11 +2,9 @@
 =======================================================
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="7"
-        data-picasa-user="naspeh"
-        data-picasa-album="20090404_Arabatka">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Даты:** 4-6 апреля 2009г
 | **Участники:** Гриша, Антон, Алина, Алёна, Слава, Леша

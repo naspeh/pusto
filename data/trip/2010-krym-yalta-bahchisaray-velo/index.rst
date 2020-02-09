@@ -2,11 +2,9 @@
 ==============================
 .. raw:: html
 
-    <div class="napokaz"
-        data-box-width="7"
-        data-picasa-user="naspeh"
-        data-picasa-album="20101009_Krym_Yalta_Bahchisaray">
-    </div>
+    <a href="photos/" class="gallery-cover">
+        <img src="photos/thumbs/cover.jpg" />
+    </a>
 
 | **Даты:** 2-3 октября 2010г
 | **Участники:** Гриша__, Катя__, Игорь
