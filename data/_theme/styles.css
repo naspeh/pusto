@@ -1,9 +1,10 @@
-body {
+html, body {
     font: 1em/1.4 "PT Sans", sans-serif;
     font-weight: 400;
     margin: 0 auto;
     padding: 0 10px;
-    width: 780px;
+    width: 800px;
+    height: 100%;
 }
 a {
     color: #008000;
@@ -276,4 +277,21 @@ img.align-left {
   content: "";
   display: table;
   clear: both;
+}
+/* Gallery related */
+#gallery {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+#gallery a:hover, #gallery a:focus, #gallery a:active {
+  color: inherit;
+  border-bottom: none;
+}
+.gallery-cover img {
+  width: 100%;
+}
+.gallery-cover:hover, .gallery-cover:focus, .gallery-cover:active {
+  color: inherit;
+  border-bottom: none;
 }

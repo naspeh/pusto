@@ -5,6 +5,7 @@ import http.client
 import http.server
 import json
 import os
+import pathlib
 import pickle
 import re
 import shutil
@@ -15,7 +16,7 @@ from threading import Thread
 from urllib.error import HTTPError
 from urllib.parse import urljoin
 
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, ChoiceLoader, FileSystemLoader
 from lxml import etree
 from pytz import timezone, utc
 
@@ -33,7 +34,7 @@ class Page:
     __slots__ = ('_data', '_xml')
     meta_fields = (
         'template params aliases published modified sort archive author title '
-        'terms_file'.split()
+        'terms_file photos'.split()
     )
     fields = meta_fields + (
         'pages url src_dir index_file meta_file summary body text kind'.split()
@@ -104,6 +105,17 @@ class Page:
         if not self.url.endswith('/'):
             return path
         return path + ('index.html' if self.index_file else '')
+
+    @property
+    def dir(self):
+        if os.path.isdir(self.path):
+            return self.path
+        else:
+            return os.path.dirname(self.path)
+
+    @property
+    def fname(self):
+        return os.path.basename(self.index_file)
 
     @property
     def ftype(self):
@@ -291,7 +303,10 @@ def do_includes(filename, src_dir):
 
 def get_jinja(src_dir):
     env = Environment(
-        loader=FileSystemLoader(src_dir),
+        loader=ChoiceLoader([
+            FileSystemLoader('.'),
+            FileSystemLoader(src_dir),
+        ]),
         lstrip_blocks=True, trim_blocks=True
     )
     env.filters.update({
@@ -329,11 +344,7 @@ def fill_page(page):
             text = f.read().decode()
 
         if page.kind == 'py':
-            subprocess.call(
-                'cd {} && python index.py'
-                .format(page.src_dir + page.url),
-                shell=True
-            )
+            subprocess.call(f'python {page.fname}', cwd=page.dir, shell=True)
             with open(page.path, 'br') as f:
                 text = f.read().decode()
             page.update(text=text)
@@ -515,6 +526,7 @@ def build(src_dir, build_dir, nginx_file=None, use_cache=False):
     else:
         clean_dir(build_dir)
         copy_dir(src_dir, build_dir)
+        process_photos(build_dir)
 
     with open(cache_file, 'bw') as f:
         f.write(pickle.dumps(all_files))
@@ -568,6 +580,49 @@ def save_urls(pages, filename):
     if not urlmap_prev or urlmap_prev != urlmap:
         with open(filename, 'bw') as f:
             f.write(urlmap.encode())
+
+
+def process_photos(build_dir):
+    root = pathlib.Path(build_dir)
+    page_tpl = (root / '_theme/photos-index.tpl').read_text()
+
+    print('Processing photos:')
+    for path in root.glob('**/photos/'):
+        if not path.is_dir():
+            continue
+
+        images = sorted(f for f in path.glob('*.jpg'))
+        if not images:
+            continue
+
+        print(f' - {path}')
+        files_for_cover = images[:6]
+        thumbs = ' '.join(f'"thumbs/{f.name}"' for f in files_for_cover)
+
+        subprocess.call('''
+        mkdir -p thumbs
+        gm mogrify -output-directory . -auto-orient -strip *.jpg
+        gm mogrify -output-directory thumbs -thumbnail x300 *.jpg
+        gm convert %s -border 2x2 +append thumbs/cover.jpg
+        ''' % thumbs, cwd=path, shell=True)
+
+        items = []
+        for image_path in images:
+            url = image_path.as_posix()[len(root.as_posix()):]
+            url = pathlib.Path(url)
+            item = {
+                'thumb': f'{url.parent}/thumbs/{url.name}',
+                'src': f'{url}',
+            }
+            items.append(item)
+
+        meta = {
+            'title': 'Photos',
+            'photos': items,
+        }
+        meta_json = json.dumps(meta, indent=4, sort_keys=True)
+        (path / 'meta.json').write_text(meta_json)
+        (path / 'index.tpl').write_text(page_tpl)
 
 
 def run(src_dir, build_dir, port=5000, no_build=False, no_cache=False):
@@ -722,6 +777,9 @@ def get_parser():
         .arg('-p', '--port', type=int, default=8000)\
         .arg('-c', '--use-cache', action='store_true')\
         .exe(lambda a: build(SRC_DIR, a.bdir, a.nginx_file, a.use_cache))
+
+    cmd('photos', help='process photos')\
+        .exe(lambda a: process_photos(BUILD_DIR))
 
     cmd('test-urls', help='test url responses')\
         .arg('-v', '--verbose', action='store_true')\
