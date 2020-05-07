@@ -1,7 +1,7 @@
 .. raw:: html
 
-    <a href="photos/" class="gallery-cover">
-        <img src="photos/thumbs/cover.jpg" />
+    <a href="/trip/2006-karpaty-chernogorskiy-khrebet/photos/" class="gallery-cover">
+        <img src="/trip/2006-karpaty-chernogorskiy-khrebet/photos/thumbs/cover.jpg" />
     </a>
 
 | **Свадебное путешествие. Часть первая**
