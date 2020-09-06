@@ -61,14 +61,14 @@ Open `https://example.com` in the browser.
 ```bash
 . bin/activate
 
-# using Gmail
-mlr remote demo set {username} {password} --imap=imap.gmail.com --smtp=smtp.gmail.com
+# using Gmail (demo is our user)
+mlr demo remote-setup-gmail {username} {password}
 
 # or using general IMAP/SMTP server
-mlr remote demo set {username} {password} --imap=mail.example.com --smtp=mail.example.com
+mlr demo remote-setup-imap {username} {password} --imap=mail.example.com --smtp=mail.example.com
 
 # initial import
-mlr remote demo --parse
+mlr demo remote --parse
 
 # and install systemd service to import new messages
 user=demo bin/install-idle-sync
