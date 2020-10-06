@@ -9,10 +9,10 @@ I'm a passionate python developer with over a decade of experience in web develo
 
 I love simplicity. I usually choose fewer abstractions to be closer to the lower layer.
 
-In my spare time, I enjoy pursuing perfection on my open source projects:
- - Mailur__ -- a lightweight webmail inspired by Gmail
- - Timefor__ -- a command-line time tracker (my first dive into golang)
- - more projects on `github page.`__
+| In my spare time, I enjoy pursuing perfection on my open source projects:
+| - Mailur__ -- a lightweight webmail inspired by Gmail
+| - Timefor__ -- a command-line time tracker (my first dive into golang)
+| - more projects on `github page.`__
 
 __ /mailur/
 __ https://github.com/naspeh/timefor
@@ -36,7 +36,7 @@ Python developer since October 2009
  python developer and DevOps; was working on Superdesk__; quickly became responsible for testing instances;
 
  | developed from scratch Fireq__:
- | - uses LXC__ containers as we used them in production
+ | - using LXC__ containers as we were using them in production
  | - for continuous deployment of testing instances for branches and Pull Requests
  | - for continuous integration as well to get a better time for E2E tests
  | - and for other automation of Superdesk related projects.
