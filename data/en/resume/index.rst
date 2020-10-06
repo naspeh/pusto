@@ -5,96 +5,63 @@ Grisha Kostyuk, experienced python developer
 
 **naspeh[at]gmail.com // Yaremche, Ukraine // remote only**
 
-I'm a passionate python developer with over a decade of experience in web development. I'm especially strong in back-end development, pretty good in automation and deployment (including CI/CD), occasionally I can do modern front-end.
+I'm a passionate python developer with over a decade of experience in web development. I'm especially strong in back-end development, good in automation and deployment (including CI/CD), occasionally I can do modern front-end.
 
 I love simplicity. I usually choose fewer abstractions to be closer to the lower layer.
 
-I love open source. In spare time, I enjoy pursuing perfection on my open source projects. The latest one is Mailur__ -- a lightweight webmail inspired by Gmail.
-
-More projects on `github page.`__
+In my spare time, I enjoy pursuing perfection on my open source projects:
+ - Mailur__ -- a lightweight webmail inspired by Gmail
+ - Timefor__ -- a command-line time tracker (my first dive into golang)
+ - more projects on `github page.`__
 
 __ /mailur/
+__ https://github.com/naspeh/timefor
 __ https://github.com/naspeh
-
-
-Technologies I've been actively using:
- - Python since Oct 2009;
- - PostgreSQL and Redis since Mar 2012;
- - Git since Dec 2009;
- - Linux since Jul 2008;
- - Containers since Aug 2014 (podman__, docker, lxc__, systemd-nspawn__);
- - Shell scripting periodically since 2011;
- - JavaScript periodically since 2009;
- - CSS/HTML periodically since 2006.
-
-__ https://github.com/containers/libpod
-__ https://linuxcontainers.org/lxc/introduction/
-__ https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html
 
 Python developer since October 2009
 -----------------------------------
-05.2019 -- present `15five.com`__ (continuous performance management, remote)
-  django developer; working on integrations and internal tools.
+05.2019 -- 05.2020 `15five.com`__ (continuous performance management platform, remote)
+  django developer; participated in the development of few big features (third-party integrations); was responsible for demo accounts; helped to improve CI and development workflows; helped to introduce isort__ and black__.
 
   __ https://www.15five.com/
+  __ https://pycqa.github.io/isort/
+  __ https://github.com/psf/black
 
 04.2018 -- 11.2018 `datarobot.com`__ (automated machine learning platform, remote)
-  focused on tools that improve developer workflow; was working on different integrations for Slack, Github and Jenkins; optimized parallel execution of functional tests over Jenkins slaves.
+  python developer; focused on tools that improve developer workflow; was working on different integrations for Slack, Github, and Jenkins; optimized parallel execution of functional tests over Jenkins slaves.
 
   __ https://www.datarobot.com/
 
 09.2016 -- 10.2017 `sourcefabric.org`__ (open source tools for journalism, remote)
-  python developer and DevOps; was working on Superdesk__; quickly became responsible for testing instances; developed from scratch Fireq__ for CI/CD and other automation of Superdesk related projects, before creating Fireq I collected requirements over the team, evaluated existing time-consuming system and did research for a suitable CI/CD tool (LXC__ was one of hard requirement, because it was used in production and we wanted the same environment for testing instances, also Fireq has great integration with Github).
+ python developer and DevOps; was working on Superdesk__; quickly became responsible for testing instances;
 
+ | developed from scratch Fireq__:
+ | - uses LXC__ containers as we used them in production
+ | - for continuous deployment of testing instances for branches and Pull Requests
+ | - for continuous integration as well to get a better time for E2E tests
+ | - and for other automation of Superdesk related projects.
 
   __ https://www.sourcefabric.org/
   __ https://www.superdesk.org/
   __ https://github.com/superdesk/fireq
   __ https://linuxcontainers.org/lxc/introduction/
 
-11.2015 -- 06.2016 `scribesense.com`__ (via Upwork, remote)
-  postgres and python developer; helped in development and migration of new database; developed internal API for one of sub-project; developed initial version of synchronization with one of external providers.
-
-  Technologies: PostgreSQL, psycopg2, jsonschema__, pytest
-
-  __ https://angel.co/scribesense/
-  __ https://github.com/Julian/jsonschema
-
-
-08.2014 -- 08.2015 `likealocalguide.com`__ (Estonian travel startup, remote)
-  full stack developer; reworked and improved booking process; improved transaction emails; introduced new RESTfull API for mobile applications; introduced orchestration system based on ansible & docker when moving from one server provider to another; introduced failover server with PostgreSQL and Redis replication; introduced real-time monitoring system based on grafana, influxdb, collectd.
-
-  Technologies: Django, PostgreSQL, Redis, Ansible, Docker.
-
-__ https://www.likealocalguide.com
-
-01.2012 -- 04.2013 `ostrovok.ru`__ (hotel booking service)
-  python developer; improved booking process, reworked database of orders and payments; repaired and then optimized unit and integration testing; preached TDD.
-
-  Technologies: Django, PostgreSQL, Redis.
-
-__ http://ostrovok.ru
-
-02.2011 -- 01.2012 `odesk.com`__ (remote)
-  full stack developer; developed few services in small separated teams; main javascript developer in one of project (Google Chrome plugin).
-
-  Technologies: Django, Flask, PostgreSQL, MongoDB, Redis, jQuery.
-
-__ http://odesk.com
-
-12.2009 -- 01.2011 `42coffeecups.com`__ (remote)
-  full stack developer; developed several services in small teams with TDD practice.
-
-  Technologies: Django, MySQL, jQuery
-
-__ http://42coffeecups.com
-
 Other Employment History
 ------------------------
-| 02.2009 -- 09.2009 `Ardas Group`__; Java web developer.
-| 03.2007 -- 02.2009 ArtLab (remote); PHP developer.
-| 11.2006 -- 03.2007 Zebra; PHP developer.
+| 11.2015 -- 06.2016 `scribesense.com`__ (remote); postgres and python developer;
+| 08.2014 -- 08.2015 `likealocalguide.com`__ (remote); python developer.
+| 01.2012 -- 04.2013 `ostrovok.ru`__; python developer;
+| 02.2011 -- 01.2012 `odesk.com`__ (remote); python and javascript developer;
+| 12.2009 -- 01.2011 `42coffeecups.com`__ (remote); python developer;
+| 02.2009 -- 09.2009 `Ardas Group`__; java and javascript developer.
+| 03.2007 -- 02.2009 ArtLab (remote); php developer.
+| 11.2006 -- 03.2007 Zebra; php developer.
 
+__ https://angel.co/scribesense/
+__ https://www.likealocalguide.com
+__ http://ostrovok.ru
+__ http://odesk.com
+__ http://42coffeecups.com
 __ http://www.ardas.dp.ua
 
 Education
@@ -104,4 +71,4 @@ Education
 
 Additionally
 ------------
-I love my family. I really like mountains, music and Chinese tea.
+I love my family. I like the mountains, music, and Chinese tea.
