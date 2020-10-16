@@ -1,4 +1,4 @@
+# Moved info to github <https://github.com/naspeh/tider>
 <script>
-// moved info to github
 window.location.replace("https://github.com/naspeh/tider");
 </script>

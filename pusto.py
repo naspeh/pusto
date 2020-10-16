@@ -34,7 +34,7 @@ class Page:
     __slots__ = ('_data', '_xml')
     meta_fields = (
         'template params aliases published modified sort archive author title '
-        'terms_file photos'.split()
+        'terms_file photos no_sitemap'.split()
     )
     fields = meta_fields + (
         'pages url src_dir index_file meta_file summary body text kind'.split()
@@ -638,6 +638,7 @@ def process_photos(build_dir):
         meta = {
             'title': 'Photos',
             'photos': items,
+            'no_sitemap': True,
         }
         meta_json = json.dumps(meta, indent=4, sort_keys=True)
         (path / 'meta.json').write_text(meta_json)
