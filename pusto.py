@@ -359,7 +359,7 @@ def fill_page(page):
             page.update(template=page.index_file)
 
         elif page.kind == 'md':
-            body = markdown(text)
+            body = markdown(text, {'__file__': page.src('index_file')})
             page.update(body=body)
 
         elif page.kind == 'rst':
@@ -387,7 +387,7 @@ def fill_page(page):
 
 def parse_xml(text, base_file, quiet=False):
     try:
-        data = re.sub('(?i)<(!DOCTYPE|\?xml).*?[^>]>', '', text)
+        data = re.sub(r'(?i)<(!DOCTYPE|\?xml).*?[^>]>', '', text)
         root = etree.fromstring('<root>%s</root>' % data)
     except etree.ParseError as e:
         if quiet:
@@ -431,25 +431,43 @@ def fix_urls(page):
     return page
 
 
-def markdown(text):
-    from mistune import Markdown, Renderer, escape
+def markdown(text, state=None):
+    from mistune import HTMLRenderer, escape, escape_html, create_markdown
+    from mistune.directives import DirectiveInclude
     from pygments import highlight
     from pygments.lexers import get_lexer_by_name
-    from pygments.formatters import HtmlFormatter
+    from pygments.formatters import html
 
-    class ExtRenderer(Renderer):
-        def block_code(self, code, lang):
-            if not lang:
-                return '\n<pre><code>%s</code></pre>\n' % escape(code)
-            lexer = get_lexer_by_name(lang, stripall=True, startinline=True)
-            formatter = HtmlFormatter()
-            return highlight(code, lexer, formatter)
+    replacements = {
+        '\n': '<br />',
+        '--': '–',
+    }
+    replacements_re = '(%s)' % '|'.join(s for s in replacements)
 
-    md = Markdown(
-        renderer=ExtRenderer(use_xhtml=True),
-        escape=False, hard_wrap=True
+    class HighlightRenderer(HTMLRenderer):
+        def block_code(self, code, lang=None):
+            if lang:
+                lexer = get_lexer_by_name(lang, stripall=True)
+                formatter = html.HtmlFormatter()
+                return highlight(code, lexer, formatter)
+            return '<pre><code>' + escape(code) + '</code></pre>'
+
+        def text(self, text):
+            def replace(match):
+                return replacements[match.group(0)]
+
+            text = escape_html(text)
+            text = re.sub(replacements_re, replace, text)
+            return text
+
+        def newline(self):
+            return '<br />'
+
+    md = create_markdown(
+        renderer=HighlightRenderer(escape=False),
+        plugins=[DirectiveInclude()]
     )
-    return md.render(text)
+    return md.parse(text, state)
 
 
 def rst(source, source_path=None):
@@ -497,7 +515,7 @@ def copy_dir(src_dir, dest_dir):
             shutil.copy2(src_path, dest_path)
 
 
-def build(src_dir, build_dir, nginx_file=None, use_cache=False):
+def build(src_dir, build_dir, nginx_file=None, use_cache=False, photos=True):
     '''Build static site from `src_dir`'''
     start = time.time()
 
@@ -526,7 +544,8 @@ def build(src_dir, build_dir, nginx_file=None, use_cache=False):
     else:
         clean_dir(build_dir)
         copy_dir(src_dir, build_dir)
-        process_photos(build_dir)
+        if photos:
+            process_photos(build_dir)
 
     with open(cache_file, 'bw') as f:
         f.write(pickle.dumps(all_files))
@@ -776,7 +795,10 @@ def get_parser():
         .arg('-n', '--nginx-file', help='file nginx rules')\
         .arg('-p', '--port', type=int, default=8000)\
         .arg('-c', '--use-cache', action='store_true')\
-        .exe(lambda a: build(SRC_DIR, a.bdir, a.nginx_file, a.use_cache))
+        .arg('--skip-photos', action='store_true')\
+        .exe(lambda a: build(
+            SRC_DIR, a.bdir, a.nginx_file, a.use_cache, not a.skip_photos
+        ))
 
     cmd('photos', help='process photos')\
         .exe(lambda a: process_photos(BUILD_DIR))
