@@ -3,7 +3,7 @@ The easiest way to install Mailur is to run [bin/install][install] script.
 
 Replace `example.com` everywhere with name of your server.
 
-**Pre-requirements:** a server or [LXC container][run-lxc] with `CentOS 7.`
+**Pre-requirements:** a server or [podman container][install-on-ubuntu] with `CentOS 7.`
 **Default username and password:** demo / demo
 
 ```bash
@@ -19,7 +19,7 @@ bin/install
 Open `http://example.com:5000` in the browser.
 
 [install]: https://github.com/naspeh/mailur/blob/master/bin/install
-[run-lxc]: https://github.com/naspeh/mailur/blob/master/bin/run-lxc
+[install-on-ubuntu]: https://github.com/naspeh/mailur/blob/master/bin/install-on-ubuntu
 
 ## Customization
 Change config in `bin/env` that looks like:
