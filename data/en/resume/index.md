@@ -25,7 +25,7 @@ I love simplicity. I usually choose fewer abstractions to be closer to the lower
  - Bash, JavaScript, CSS/HTML periodically for many years;
  - Golang recently.
 
-[podman]: https://github.com/containers/libpod
+[podman]: https://github.com/containers/podman
 [lxc]: https://linuxcontainers.org/lxc/introduction/
 [systemd-nspawn]: https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html
 
