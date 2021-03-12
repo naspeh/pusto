@@ -30,7 +30,7 @@ I love simplicity. I usually choose fewer abstractions to be closer to the lower
 [systemd-nspawn]: https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html
 
 ## Work experience
-### 05.2019 -- 05.2020 [15five.com] (continuous performance management platform, remote)
+### 05.2019 -- present [15five.com] (continuous performance management platform, remote)
 django developer; drove the development of few big features (third-party integrations); was responsible for demo accounts; participated in improving CI and development workflows; drove the introduction of [isort] and [black].
 
 [15five.com]: https://www.15five.com/
