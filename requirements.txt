@@ -3,5 +3,5 @@ Jinja2==2.11.2
 lxml==4.5.2
 MarkupSafe==1.1.1
 mistune==2.0.0a4
-Pygments==2.7.1
+Pygments==2.7.4
 pytz==2020.1
