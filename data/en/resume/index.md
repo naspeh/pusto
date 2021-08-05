@@ -7,9 +7,9 @@ I'm a passionate python developer with over a decade of experience in web develo
 
 I love simplicity. I usually choose fewer abstractions to be closer to the lower layer.
 
-### I love open source. In my spare time, I enjoy pursuing perfection on my open source projects:
-- [Mailur][mailur] -- a lightweight webmail inspired by Gmail
-- [Timefor][gh-timefor] -- a command-line time tracker (my first recent dive into golang)
+### In my spare time, I enjoy working on my open source projects, pursuing perfection, learning, experimenting:
+- [Mailur][mailur] -- lightweight webmail inspired by Gmail
+- [Timefor][gh-timefor] -- a command-line time tracker (Golang)
 - more projects on [github page.][gh-naspeh]
 
 [mailur]: /mailur/
@@ -22,16 +22,16 @@ I love simplicity. I usually choose fewer abstractions to be closer to the lower
  - Git since Dec 2009;
  - Linux since Jul 2008;
  - Containers since Aug 2014 ([podman], docker, [lxc], [systemd-nspawn]);
- - Bash, JavaScript, CSS/HTML periodically for many years;
- - Golang recently.
+ - Bash, JavaScript, CSS/HTML periodically for many years.
 
 [podman]: https://github.com/containers/podman
 [lxc]: https://linuxcontainers.org/lxc/introduction/
 [systemd-nspawn]: https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html
 
-## Work experience
-### 05.2019 -- present [15five.com] (continuous performance management platform, remote)
-django developer; drove the development of few big features (third-party integrations); was responsible for demo accounts; participated in improving CI and development workflows; drove the introduction of [isort] and [black].
+## Recent work experience
+
+### 05.2019 -- 07.2021 [15five.com] (continuous performance management platform, remote)
+django developer; helped to deliver a bunch of new features; drove the development of few big features (third-party integrations); helped to improve application performance in a few areas; was responsible for demo accounts (used for sales and development), drove revamp of the new version; participated in improving CI and development workflows; drove the introduction of [isort] and [black].
 
 [15five.com]: https://www.15five.com/
 [isort]: https://pycqa.github.io/isort/
@@ -50,22 +50,9 @@ python developer and DevOps; was working on [Superdesk]; quickly became responsi
 [Fireq]: https://github.com/superdesk/fireq
 [LXC]: https://linuxcontainers.org/lxc/introduction/
 
-### Python developer since October 2009
-- 11.2015 -- 06.2016 [scribesense.com] (remote); postgres and python developer;
-- 08.2014 -- 08.2015 [likealocalguide.com] (remote); python developer.
-- 01.2012 -- 04.2013 [ostrovok.ru]; python developer;
-- 02.2011 -- 01.2012 [Odesk PS] (remote); python and javascript developer;
-- 12.2009 -- 01.2011 [42 Coffee Cups] (remote); python developer;
-- 02.2009 -- 09.2009 [Ardas Group]; java and javascript developer.
-- 03.2007 -- 02.2009 ArtLab (remote); php developer.
-- 11.2006 -- 03.2007 Zebra; php developer.
-
-[scribesense.com]: https://angel.co/scribesense/
-[likealocalguide.com]: https://www.likealocalguide.com
-[ostrovok.ru]: http://ostrovok.ru
-[Odesk PS]: https://odesk.com
-[42 Coffee Cups]: http://42coffeecups.com
-[Ardas Group]: http://www.ardas.dp.ua
+### Experience overall
+- Web developer since November 2006
+- Python developer since October 2009
 
 ## Education
 **2000 -- 2005 Dnipropetrovsk National University**

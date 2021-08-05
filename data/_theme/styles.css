@@ -193,6 +193,7 @@ blockquote.epigraph {
 }
 .document {
     text-align: justify;
+    padding-bottom: 1em;
 }
 .system-message {
     color: red;
