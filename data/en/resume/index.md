@@ -3,7 +3,7 @@
 
 [tz]: https://en.wikipedia.org/wiki/Time_in_Ukraine
 
-I'm a passionate python developer with over a decade of experience in web development. I'm especially strong in back-end development, good in automation and deployment (including CI/CD), occasionally I can do modern front-end.
+I'm a passionate python developer with over a decade of experience in web development. I'm especially strong in back-end development, good in automation and deployment (including CI/CD). Occasionally, I can do modern front-end.
 
 I love simplicity. I usually choose fewer abstractions to be closer to the lower layer.
 
@@ -31,14 +31,14 @@ I love simplicity. I usually choose fewer abstractions to be closer to the lower
 ## Recent work experience
 
 ### 05.2019 -- 07.2021 [15five.com] (continuous performance management platform, remote)
-django developer; helped to deliver a bunch of new features; drove the development of few big features (third-party integrations); helped to improve application performance in a few areas; was responsible for demo accounts (used for sales and development), drove revamp of the new version; participated in improving CI and development workflows; drove the introduction of [isort] and [black].
+django developer; helped to deliver a bunch of new features; drove the development of few big features (third-party integrations); helped in improving application performance in a few areas; was responsible for demo accounts, redesigned new version (used for sales, testing, and development); participated in improving CI, logging, and development workflows; helped in introducing [isort] and [black].
 
 [15five.com]: https://www.15five.com/
 [isort]: https://pycqa.github.io/isort/
 [black]: https://github.com/psf/black
 
 ### 04.2018 -- 11.2018 [datarobot.com] (automated machine learning platform, remote)
-python developer; focused on tools that improve developer workflow; was working on different integrations for Slack, Github, and Jenkins; optimized parallel execution of hours long functional tests over Jenkins slaves.
+python developer; focused on tools that improve developer workflow; worked on different integrations for Slack, Github, and Jenkins; optimized parallel execution of hours long functional tests over Jenkins slaves.
 
 [datarobot.com]: https://www.datarobot.com/
 
