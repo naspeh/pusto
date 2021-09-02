@@ -3,7 +3,7 @@ The easiest way to install Mailur is to run [bin/install][install] script.
 
 Replace `example.com` everywhere with name of your server.
 
-**Pre-requirements:** a server or [podman container][install-on-ubuntu] with `CentOS 7.`
+**Pre-requirements:** a server or [podman container][install-on-ubuntu] with `CentOS 8.`
 **Default username and password:** demo / demo
 
 ```bash
