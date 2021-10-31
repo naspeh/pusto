@@ -3,6 +3,6 @@
         "/resume/",
         "/resume/en/"
     ],
-    "modified": "2021-08-05 22:20",
-    "_template": "_theme/base-no-header.tpl"
+    "modified": "2021-10-31 12:00",
+    "template": "_theme/base-no-header.tpl"
 }

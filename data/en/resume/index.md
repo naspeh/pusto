@@ -5,7 +5,7 @@
 
 I'm a passionate python developer with over a decade of experience in web development. I'm especially strong in back-end development, good in automation and deployment (including CI/CD). Occasionally, I can do modern front-end.
 
-I love simplicity. I usually choose fewer abstractions to be closer to the lower layer.
+I love simplicity, so I usually try to simplify things.
 
 ### In my spare time, I enjoy working on my open source projects, pursuing perfection, learning, experimenting:
 - [Mailur][mailur] -- lightweight webmail inspired by Gmail
@@ -31,7 +31,7 @@ I love simplicity. I usually choose fewer abstractions to be closer to the lower
 ## Recent work experience
 
 ### 05.2019 -- 07.2021 [15five.com] (continuous performance management platform, remote)
-django developer; helped to deliver a bunch of new features; drove the development of few big features (third-party integrations); helped in improving application performance in a few areas; was responsible for demo accounts, redesigned new version (used for sales, testing, and development); participated in improving CI, logging, and development workflows; helped in introducing [isort] and [black].
+django developer; helped deliver a bunch of new features; drove the development of a few big features (third-party integrations); helped improve application performance in a few areas; was responsible for demo accounts, redesigned new version (used for sales, testing, and development); participated in improving CI, logging, and development workflows; helped introduce [isort] and [black].
 
 [15five.com]: https://www.15five.com/
 [isort]: https://pycqa.github.io/isort/
@@ -55,8 +55,10 @@ python developer and DevOps; was working on [Superdesk]; quickly became responsi
 - Python developer since October 2009
 
 ## Education
-**2000 -- 2005 Dnipropetrovsk National University**
-Master, Mechanical Mathematics
+**2000 -- 2005 [Oles Honchar Dnipro National University][DNU]**
+Master, Mechanics and Mathematics
+
+[DNU]: https://en.wikipedia.org/wiki/Oles_Honchar_Dnipro_National_University
 
 ## Additionally
 I love my family. I love the mountains, music, and Chinese tea.
