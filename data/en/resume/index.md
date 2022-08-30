@@ -1,3 +1,12 @@
+---
+aliases:
+    - /resume/
+    - /resume/en/
+
+modified: 2021-10-31 12:00
+template: _theme/base-no-header.tpl
+---
+
 # Grisha Kostyuk, experienced python developer
 **naspeh[at]gmail.com | [Yaremche, Ukraine][tz] | remote only**
 

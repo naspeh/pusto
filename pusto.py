@@ -70,9 +70,10 @@ class Page:
         assert file in ['meta_file', 'index_file']
         return self.src_dir + getattr(self, file)
 
-    def get_meta(self):
-        with open(self.src_dir + self.meta_file, 'br') as f:
-            raw = json.loads(f.read().decode())
+    def get_meta(self, raw=None):
+        if raw is None:
+            with open(self.src_dir + self.meta_file, 'br') as f:
+                raw = json.loads(f.read().decode())
 
         meta = {}
         for key in Page.meta_fields:
@@ -255,7 +256,7 @@ def get_pages(src_dir, use_cache=False, check_xml=False):
 
 
 def get_summary(data):
-    summary = re.search('(?s)^(.*?)<!--\s*MORE\s*-->', data)
+    summary = re.search(r'(?s)^(.*?)<!--\s*MORE\s*-->', data)
     if summary:
         summary = summary.group(1)
     return summary or None
@@ -311,7 +312,7 @@ def get_jinja(src_dir):
     )
     env.filters.update({
         'rst': lambda text: rst(text)[1],
-        'markdown': markdown,
+        'markdown': lambda text: markdown(text)[1],
         'match': lambda value, pattern: re.match(pattern, value)
     })
     env.globals.update(get_globals(src_dir))
@@ -359,8 +360,8 @@ def fill_page(page):
             page.update(template=page.index_file)
 
         elif page.kind == 'md':
-            body = markdown(text, {'__file__': page.src('index_file')})
-            page.update(body=body)
+            meta, body = markdown(text)
+            page.update(body=body, **page.get_meta(meta))
 
         elif page.kind == 'rst':
             title, body = rst(text, source_path=page.src('index_file'))
@@ -431,43 +432,37 @@ def fix_urls(page):
     return page
 
 
-def markdown(text, state=None):
-    from mistune import HTMLRenderer, escape, escape_html, create_markdown
-    from mistune.directives import DirectiveInclude
-    from pygments import highlight
-    from pygments.lexers import get_lexer_by_name
-    from pygments.formatters import html
+def markdown(text):
+    import frontmatter
+    import markdown
 
-    replacements = {
-        '\n': '<br />',
-        '--': '–',
+    post = frontmatter.loads(text)
+
+    extension_configs = {
+        'smarty': {
+            'substitutions': {
+                'left-single-quote': '\'',
+                'right-single-quote': '\'',
+                'left-double-quote': '"',
+                'right-double-quote': '"',
+                'ndash': '–',
+                'mdash': '—',
+                'ellipsis': '…',
+            }
+        }
     }
-    replacements_re = '(%s)' % '|'.join(s for s in replacements)
-
-    class HighlightRenderer(HTMLRenderer):
-        def block_code(self, code, lang=None):
-            if lang:
-                lexer = get_lexer_by_name(lang, stripall=True)
-                formatter = html.HtmlFormatter()
-                return highlight(code, lexer, formatter)
-            return '<pre><code>' + escape(code) + '</code></pre>'
-
-        def text(self, text):
-            def replace(match):
-                return replacements[match.group(0)]
-
-            text = escape_html(text)
-            text = re.sub(replacements_re, replace, text)
-            return text
-
-        def newline(self):
-            return '<br />'
-
-    md = create_markdown(
-        renderer=HighlightRenderer(escape=False),
-        plugins=[DirectiveInclude()]
+    extensions = [
+        'fenced_code',
+        'codehilite',
+        'nl2br',
+        'smarty'
+    ]
+    html = markdown.markdown(
+        post.content,
+        extensions=extensions,
+        extension_configs=extension_configs
     )
-    return md.parse(text, state)
+    return post.metadata, html
 
 
 def rst(source, source_path=None):
