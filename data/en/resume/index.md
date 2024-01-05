@@ -39,6 +39,11 @@ I love simplicity, so I usually try to simplify things.
 
 ## Recent work experience
 
+### 01.2022 -- present [hotjar.com] (product experience insights, remote-first)
+python developer.
+
+[hotjar.com]: https://hotjar.com
+
 ### 05.2019 -- 07.2021 [15five.com] (continuous performance management platform, remote)
 django developer; helped deliver a bunch of new features; drove the development of a few big features (third-party integrations); helped improve application performance in a few areas; was responsible for demo accounts, redesigned new version (used for sales, testing, and development); participated in improving CI, logging, and development workflows; helped introduce [isort] and [black].
 
