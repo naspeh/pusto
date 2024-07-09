@@ -1,13 +1,13 @@
 ---
 aliases:
-    - /resume/
+    - /en/resume/
     - /resume/en/
 
 modified: 2021-10-31 12:00
 template: _theme/base-no-header.tpl
 ---
 
-# Grisha Kostyuk, experienced python developer
+# Hrisha Kostiuk, experienced python developer
 **naspeh[at]gmail.com | [Yaremche, Ukraine][tz] | remote only**
 
 [tz]: https://en.wikipedia.org/wiki/Time_in_Ukraine

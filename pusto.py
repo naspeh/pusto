@@ -275,7 +275,7 @@ def get_globals(src_dir, key=None, default=None):
             else:
                 tz = utc
             meta['tz'] = tz
-            meta['now'] = utc.localize(dt.datetime.utcnow()).astimezone(tz)
+            meta['now'] = dt.datetime.now(tz)
 
         get_globals.cache = meta
     if key is not None:

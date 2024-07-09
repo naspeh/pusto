@@ -25,7 +25,7 @@ def process_args():
             'rsync -av --delete ./build/ {0}:/opt/pusto/'
             '&& rsync -av ./deploy/nginx.conf {0}:/etc/nginx/conf.d/pusto.conf'
             '&& ssh {0} "nginx -s reload"'
-            .format('root@h1.pusto.org')
+            .format('root@h5.pusto.org')
         ))
 
     cmd('napokaz', help='napokaz updater')\

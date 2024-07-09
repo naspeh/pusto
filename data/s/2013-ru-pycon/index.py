@@ -1,7 +1,7 @@
 import subprocess
 
 subprocess.call(
-    'rst2s5.py --current-slide --visible-controls index.rst index.html'
+    'python -m docutils --writer=s5 --current-slide --visible-controls --output=index.html index.rst'
     '&& cat extend.css >> ui/default/slides.css',
     shell=True
 )

@@ -1,9 +1,9 @@
 {
     "/": [
-        "/post/",
         "/s/",
-        "/post",
-        "/s"
+        "/en/",
+        "/s",
+        "/en"
     ],
     "/all.css": null,
     "/all.js": null,
@@ -13,16 +13,9 @@
     "/draft/my-way/": null,
     "/draft/my-way/linux/": null,
     "/draft/pkglist-new/": null,
-    "/en/": null,
     "/en/napokaz/": [
         "/s/napokaz/",
         "/s/napokaz"
-    ],
-    "/en/resume/": [
-        "/resume/",
-        "/resume/en/",
-        "/resume",
-        "/resume/en"
     ],
     "/en/tider/": null,
     "/mailur/": null,
@@ -72,6 +65,12 @@
         "/blog/2008/09/25/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework/",
         "/post/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework",
         "/blog/2008/09/25/avtozagruzka-klassov-v-prilozheniyah-na-zend-framework"
+    ],
+    "/resume/": [
+        "/en/resume/",
+        "/resume/en/",
+        "/en/resume",
+        "/resume/en"
     ],
     "/s/2013-ru-pycon/": [
         "/s/writing/ru-pycon-2013/",
