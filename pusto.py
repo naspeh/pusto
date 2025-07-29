@@ -361,7 +361,10 @@ def fill_page(page):
 
         elif page.kind == 'md':
             meta, body = markdown(text)
-            page.update(body=body, **page.get_meta(meta))
+            if len(meta) == 0:
+                page.update(body=body)
+            else:
+                page.update(body=body, **page.get_meta(meta))
 
         elif page.kind == 'rst':
             title, body = rst(text, source_path=page.src('index_file'))

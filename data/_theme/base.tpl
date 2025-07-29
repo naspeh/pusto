@@ -19,6 +19,7 @@
     <ul class="nav">
         <li><a href="/mailur/" title="Lightweight webmail inspired by Gmail">Mailur</a></li>
         <li><a href="/resume/">Résumé</a></li>
+        <li><a href="https://www.behance.net/naspeh">Photos</a></li>
     </ul>
 </div>
 {% else %}
